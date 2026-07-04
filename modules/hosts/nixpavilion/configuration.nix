@@ -8,8 +8,8 @@
     {
       imports = [
         # Import disko configuration
-        inputs.disko.nixosModules.disko
-        self.diskoConfigurations.hostMain
+        # inputs.disko.nixosModules.disko
+        # self.diskoConfigurations.hostMain
       ];
 
       # Bootloader.
