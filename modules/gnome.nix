@@ -8,11 +8,43 @@
       gnome = {
         gnome-keyring.enable = true;
         gnome-settings-daemon.enable = true;
-      };
-    };
+        gnome-browser-connector.enable = true;
+        localsearch.enable = true;
+        sushi.enable = true;
+        tinysparql.enable = true;
+        gnome-initial-setup.enable = true;
 
+        # core-apps.enable = false;
+        core-developer-tools.enable = false;
+        games.enable = false;
+      };
+
+    };
     programs.dconf.enable = true;
-    environment.systemPackages = [ pkgs.gnome-tweaks ];
+
+    environment = {
+      gnome.excludePackages = with pkgs; [
+        cheese # webcam booth, rarely needed on a laptop
+        decibels
+        epiphany # if you don't intend to use GNOME Web at all
+        evolution
+        geary # you use emacs (gnupg/notmuch/mu4e presumably) for mail
+        gedit # or gnome-text-editor, if you don't want it alongside Emacs
+        gnome-characters
+        gnome-contacts # mobile-convergence leftover, no use on a laptop
+        gnome-maps
+        gnome-music
+        gnome-text-editor
+        gnome-tour
+        gnome-user-docs
+        gnome-weather
+        showtime
+        totem # you use mpv/EMMS
+        epiphany
+        yelp
+      ];
+      systemPackages = [ pkgs.gnome-tweaks ];
+    };
   };
 
   flake.homeModules.gnome = { pkgs, ... }: {
