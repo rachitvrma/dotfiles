@@ -1,0 +1,1005 @@
+#+TITLE: Emacs configuration
+#+PROPERTY: header-args:emacs-lisp :tangle init.el :mkdirp yes
+#+auto_tangle: t
+
+* Eldoc Stuff
+
+The LSP used for emacs uses this to make it look like the ~init.el~ is a package.
+
+#+begin_src emacs-lisp
+
+  ;;; init.el --- My Emacs Configuration  -*- lexical-binding: t -*-
+
+  ;;; Commentary:
+  ;; This is my personal Emacs config
+
+  ;;; Code:
+  #+end_src
+
+* Package Installation Setup
+
+All packages are installed and made available on the ~load-path~ by Nix (via ~emacsWithPackagesFromUsePackage~ / ~programs.emacs.extraPackages~), so ~package.el~ is never used to fetch or install anything. We only need ~use-package~ itself, which Nix also provides on the load-path.
+
+#+begin_src emacs-lisp
+
+  (require 'use-package)
+
+  ;; Never let use-package try to install anything via package.el;
+  ;; every package on the load-path was put there by Nix.
+  (setq use-package-always-ensure nil)
+
+  #+end_src
+
+* Font Setup
+#+begin_src emacs-lisp
+
+  (add-to-list 'default-frame-alist
+  	     '(font . "JetBrainsMono Nerd Font-11"))
+
+  #+end_src
+
+* No-Littering
+
+We can use the =no-littering= package to keep auto-save and backup files in specified directory. It keeps from having those files that end in ~ and #.
+
+#+begin_src emacs-lisp
+
+  (use-package no-littering
+    :config
+    (setq backup-directory-alist
+          `(("." . ,(no-littering-expand-var-file-name "backup/"))))
+    (setq auto-save-file-name-transforms
+          `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+
+#+end_src
+
+* Emacs set up
+
+We can use =use-package= to bundle all the Emacs configuration in a single =use-package= instance. It's quite fast and the code ergonomics is better.
+
+#+begin_src emacs-lisp
+
+  (use-package emacs
+    :hook
+    (emacs-lisp-mode . flymake-mode)
+    :init
+    (setq custom-file (make-temp-file "emacs-custom-"))
+    :custom
+    (standard-indent 2) ;; Set standard indent to 2
+    ;; (tab-width 4) ;; Set tab-width to 4 for all buffers
+    (enable-recursive-minibuffers t) ;; open new minibuffers from existing minibuffers
+    (read-extended-command-predicate #'command-completion-default-include-p) ;; setting is useful beyond vertico
+    (minibuffer-prompt-properties
+     '(read-only t cursor-intangible t face minibuffer-prompt))
+    (display-line-numbers-type 'relative)
+    (display-line-numbers-current-absolute t)
+
+    ;; credit: Lukas Barth at https://www.lukas-barth.net/blog/emacs-wsl-copy-clipboard/
+    (select-active-regions nil)
+    (select-enable-clipboard 't)
+    (select-enable-primary nil)
+    (interprogram-cut-function #'gui-select-text)
+    (interprogram-paste-function #'gui-selection-value)
+
+    ;; Enable visible bell
+    (visible-bell t)
+
+    ;; Window divider settings
+    (window-divider-default-places 'right-only)        ; dividers on all sides
+    (window-divider-default-bottom-width 1)
+    (window-divider-default-right-width 1)
+
+    :config
+    (global-hl-line-mode 1)
+    (electric-pair-mode 1)
+    (context-menu-mode 1) ;; Used by vertico to enable context menu
+    (menu-bar-mode -1)
+    (tool-bar-mode -1)
+    (scroll-bar-mode -1)
+    (global-display-line-numbers-mode)
+
+    ;; Window divider mode for dividing windows
+    (window-divider-mode 1)
+
+    ;; Open emacs in fullscreen in Desktop Environments
+    (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+    ;; Enable windmove (Shift+<arrow_keys>)
+    (when (fboundp 'windmove-default-keybindings)
+      (windmove-default-keybindings))
+
+    ;; Disable line numbers in certain modes
+    (dolist (mode '(term-mode-hook
+                    eshell-mode-hook
+                    org-mode-hook))
+      (add-hook mode (lambda () (display-line-numbers-mode 0)))))
+
+#+end_src
+
+** Pulsar
+
+Highlight cursor when you move.
+
+#+begin_src emacs-lisp
+
+  (use-package pulsar
+    :hook
+    (next-error . pulsar-pulse-line)
+    (minibuffer-setup . pulsar-pulse-line-blue)
+
+    ;; integration with other packages
+    (consult-after-jump . pulsar-recenter-top)
+    (consult-after-jump . pulsar-reveal-entry)
+    (imenu-after-jump . pulsar-recenter-top)
+    (imenu-after-jump . pulsar-reveal-entry)
+    
+    :bind
+    (:map global-map
+  	("C-x l" . pulsar-pulse-line) ; overrides `count-lines-page'
+  	("C-x L" . pulsar-highlight-permanently-dwim)) ; or use `pulsar-highlight-temporarily-dwim'
+    :init
+    (pulsar-global-mode 1)
+    :custom
+    (pulsar-delay 0.055)
+    (pulsar-iterations 5)
+    (pulsar-face 'pulsar-green)
+    (pulsar-region-face 'pulsar-yellow)
+    (pulsar-highlight-face 'pulsar-magenta)
+    :config
+    ;; Let avy jumps call pulsar as well
+    (dolist (fn '(avy-goto-char
+  		avy-goto-char-timer
+  		avy-goto-word-1
+  		avy-goto-line))
+      (add-to-list 'pulsar-pulse-functions fn)))
+
+#+end_src
+
+* Dirvish
+
+This is a great usage of dired
+
+#+begin_src emacs-lisp
+
+  (use-package dired
+    :ensure nil
+    :hook (dired-mode . dired-omit-mode)
+    :bind (:map dired-mode-map
+  	      ("." . dired-omit-mode))
+    :custom
+    (dired-omit-files (rx (seq bol ".")))
+    (dired-dwim-target t)
+    :config
+    (setq dired-listing-switches
+          "-l --almost-all --human-readable --group-directories-first --no-group")
+    ;; this command is useful when you want to close the window of `dirvish-side'
+    ;; automatically when opening a file
+    (put 'dired-find-alternate-file 'disabled nil))
+
+  ;; Additional syntax highlighting for dired
+  (use-package diredfl
+    :hook
+    ((dired-mode . diredfl-mode)
+     ;; highlight parent and directory preview as well
+     (dirvish-directory-view-mode . diredfl-mode))
+    :config
+    (set-face-attribute 'diredfl-dir-name nil :bold t))
+
+
+
+  (use-package dirvish
+    :init (dirvish-override-dired-mode)
+    :hook
+    (dirvish-directory-view-mode . diredfl-mode)
+    (dirvish-special-preview-mode . (lambda () (display-line-numbers-mode 0))) ;; Disable line numbers in dirvish special preview
+    :bind
+    (("C-c f" . dirvish)
+     :map dirvish-mode-map
+     (";" . dired-up-directory)
+     ("^" . dirvish-history-last))
+    :custom
+    (dirvish-use-mode-line 'global)
+    (dirvish-use-header-line 'global)
+    (dirvish-attributes (append '(vc-state subtree-state nerd-icons collapse git-msg))))
+
+#+end_src
+
+* Buffer-list to ibuffer
+
+The default =C-x b= binding opens up a very minimal =buffer-menu=. =ibuffer= is a more interactive and feature-full program.
+
+#+begin_src emacs-lisp
+
+  (use-package ibuffer
+    :bind ("C-x C-b" . ibuffer))
+
+  (use-package nerd-icons-ibuffer
+    :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
+
+#+end_src
+
+* Theme
+
+The base16-theme repo has a lot of themes that are good.
+
+#+begin_src emacs-lisp
+
+  (use-package base16-theme
+    :custom
+    (base16-theme-highlight-mode-line 'contrast)
+    :config
+    (setq base16-gruvbox-material-dark-hard-theme-colors                   ;; It needs to be set here, not :custom block because custom
+  	'(:base00 "#141617" :base01 "#1d2021" :base02 "#282828" :base03  ;; loads after a 
+  		  "#5a524c" :base04 "#bdae93" :base05 "#ddc7a1" :base06
+  		  "#ebdbb2" :base07 "#fbf1c7" :base08 "#ea6962" :base09
+  		  "#e78a4e" :base0A "#d8a657" :base0B "#a9b665" :base0C
+  		  "#89b482" :base0D "#7daea3" :base0E "#d3869b" :base0F
+  		  "#bd6f3e"))
+
+    (with-eval-after-load 'base16-theme
+      (set-face-foreground 'window-divider "#5a524c")             ; base03
+      (set-face-foreground 'window-divider-first-pixel "#282828") ; base02
+      (set-face-foreground 'window-divider-last-pixel "#282828")) ; base02
+    
+    (load-theme 'base16-gruvbox-material-dark-hard t))
+
+#+end_src
+
+* Dashboard
+
+See a great dashboard on Emacs startup.
+
+#+begin_src emacs-lisp
+
+  ;; use-package with package.el:
+  (use-package dashboard
+    :custom
+    (dashboard-display-icons-p t)
+    (dashboard-icon-type 'nerd-icons)
+    (dashboard-set-heading-icons t)
+    (dashboard-set-file-icons t)
+    
+    (dashboard-banner-logo-title "Welcome to Emacs")
+    (dashboard-startup-banner 'logo)
+    (dashboard-center-content t)
+    (dashboard-items '((recents  . 5)
+                       (projects . 5)
+                       (bookmarks . 5)))
+    (initial-buffer-choice 'dashboard-open)
+    :hook
+    ((dashboard-mode . (lambda () (setq-local global-hl-line-mode nil)))
+     (after-init . dashboard-setup-startup-hook)
+     (server-after-make-frame . dashboard-open)))
+
+#+end_src
+
+* Which-Key
+
+It is one of the essentials, because it's now built into emacs
+
+#+begin_src emacs-lisp
+
+  (use-package which-key
+    :config
+    (which-key-mode))
+
+#+end_src
+
+* Git
+** Magit
+
+=magit= is one of the best (and in my opinion the best) git porcelain.
+
+#+begin_src emacs-lisp
+
+  (use-package magit
+    :hook
+    (git-commit-post-finish . magit)
+    :custom
+    (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+#+end_src
+
+** Git Modes
+
+Git-modes provide major modes for git configuration files.
+
+#+begin_src emacs-lisp
+
+  (use-package git-modes
+    :config
+    (add-to-list 'auto-mode-alist
+  	       (cons "/.stow-local-ignore\\'" 'gitignore-mode)))
+
+#+end_src
+
+** Diff-hl to see 
+#+begin_src emacs-lisp
+
+  (use-package diff-hl
+    :hook
+    (magit-pre-refresh . diff-hl-magit-pre-refresh)
+    (magit-post-refresh . diff-hl-magit-post-refresh)
+    (dired-mode . diff-hl-dired-mode)
+    :config
+    (global-diff-hl-mode)
+    (diff-hl-flydiff-mode))
+
+#+end_src
+
+* Vertico
+
+Another useful utility.
+
+#+begin_src emacs-lisp
+
+  (use-package vertico
+    :custom
+    (vertico-scroll-margin 0)
+    (vertico-cycle t)
+    :init
+    (vertico-mode))
+
+  ;; Load a vertico extension
+  (use-package vertico-directory
+    :after vertico
+    :ensure nil
+    :bind (:map vertico-map
+  	      ("RET" . vertico-directory-enter)
+  	      ("DEL" . vertico-directory-delete-char)
+  	      ("M-DEL" . vertico-directory-delete-word))
+    :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
+#+end_src
+
+There are many things that come with vertico.
+
+** Savehist 
+  
+#+begin_src emacs-lisp
+
+  (use-package savehist
+    :init
+    (savehist-mode))
+
+#+end_src
+
+** Orderless
+
+Orderless offers completions for minibuffers and other stuff. 
+
+#+begin_src emacs-lisp
+
+  ;; Optionally use the `orderless' completion style.
+  (use-package orderless
+    :custom
+    ;; Configure a custom style dispatcher (see the Consult wiki)
+    ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
+    ;; (orderless-component-separator #'orderless-escapable-split-on-space)
+    (completion-styles '(orderless basic))
+    (completion-category-overrides '((file (styles partial-completion))))
+    (completion-category-defaults nil) ;; Disable defaults, use our settings
+    (completion-pcm-leading-wildcard t)) ;; Emacs 31: partial-completion behaves like substring
+
+#+end_src
+
+** Marginalia
+
+Marginalia offers annotations and other descriptions in completion buffers in the minibuffer.
+
+#+begin_src emacs-lisp
+
+  ;; Enable rich annotations using the Marginalia package
+  (use-package marginalia
+    ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
+    ;; available in the *Completions* buffer, add it to the
+    ;; `completion-list-mode-map'.
+    :bind (:map minibuffer-local-map
+                ("M-A" . marginalia-cycle))
+
+    ;; The :init section is always executed.
+    :init
+
+    ;; Marginalia must be activated in the :init section of use-package such that
+    ;; the mode gets enabled right away. Note that this forces loading the
+    ;; package.
+    (marginalia-mode))
+
+#+end_src
+
+** Consult
+
+Consult offers a lot of utilities like live preview and stuff.
+
+#+begin_src emacs-lisp
+
+  (use-package consult
+    ;; Replace bindings. Lazily loaded by `use-package'.
+    :bind (;; C-c bindings in `mode-specific-map'
+           ("C-c M-x" . consult-mode-command)
+           ("C-c h" . consult-history)
+           ("C-c k" . consult-kmacro)
+           ("C-c m" . consult-man)
+           ("C-c i" . consult-info)
+           ([remap Info-search] . consult-info)
+           ;; C-x bindings in `ctl-x-map'
+           ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+           ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+           ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+           ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+           ("C-x t b" . consult-buffer-other-tab)    ;; orig. switch-to-buffer-other-tab
+           ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
+           ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+           ;; Custom M-# bindings for fast register access
+           ("M-#" . consult-register-load)
+           ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
+           ("C-M-#" . consult-register)
+           ;; Other custom bindings
+           ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+           ;; M-g bindings in `goto-map'
+           ("M-g e" . consult-compile-error)
+           ("M-g r" . consult-grep-match)
+           ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+           ("M-g g" . consult-goto-line)             ;; orig. goto-line
+           ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+           ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+           ("M-g m" . consult-mark)
+           ("M-g k" . consult-global-mark)
+           ("M-g i" . consult-imenu)
+           ("M-g I" . consult-imenu-multi)
+           ;; M-s bindings in `search-map'
+           ("M-s d" . consult-fd)                  ;; Alternative: consult-fd
+           ("M-s c" . consult-locate)
+           ("M-s g" . consult-grep)
+           ("M-s G" . consult-git-grep)
+           ("M-s r" . consult-ripgrep)
+           ("M-s l" . consult-line)
+           ("M-s L" . consult-line-multi)
+           ("M-s k" . consult-keep-lines)
+           ("M-s u" . consult-focus-lines)
+           ;; Isearch integration
+           ("M-s e" . consult-isearch-history)
+           :map isearch-mode-map
+           ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+           ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+           ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
+           ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+           ;; Minibuffer history
+           :map minibuffer-local-map
+           ("M-s" . consult-history)                 ;; orig. next-matching-history-element
+           ("M-r" . consult-history))                ;; orig. previous-matching-history-element
+
+    ;; The :init configuration is always executed (Not lazy)
+    :init
+
+    ;; Tweak the register preview for `consult-register-load',
+    ;; `consult-register-store' and the built-in commands.  This improves the
+    ;; register formatting, adds thin separator lines, register sorting and hides
+    ;; the window mode line.
+    (advice-add #'register-preview :override #'consult-register-window)
+    (setq register-preview-delay 0.5)
+
+    ;; Use Consult to select xref locations with preview
+    (setq xref-show-xrefs-function #'consult-xref
+          xref-show-definitions-function #'consult-xref)
+
+    ;; Configure other variables and modes in the :config section,
+    ;; after lazily loading the package.
+    :config
+
+    ;; Optionally configure preview. The default value
+    ;; is 'any, such that any key triggers the preview.
+    ;; (setq consult-preview-key 'any)
+    ;; (setq consult-preview-key "M-.")
+    ;; (setq consult-preview-key '("S-<down>" "S-<up>"))
+    ;; For some commands and buffer sources it is useful to configure the
+    ;; :preview-key on a per-command basis using the `consult-customize' macro.
+    (consult-customize
+     consult-theme :preview-key '(:debounce 0.2 any)
+     consult-ripgrep consult-git-grep consult-grep consult-man
+     consult-bookmark consult-recent-file consult-xref
+     consult-source-bookmark consult-source-file-register
+     consult-source-recent-file consult-source-project-recent-file
+     ;; :preview-key "M-."
+     :preview-key '(:debounce 0.4 any))
+
+    ;; Optionally configure the narrowing key.
+    ;; Both < and C-+ work reasonably well.
+    (setq consult-narrow-key "<") ;; "C-+"
+
+    ;; Optionally make narrowing help available in the minibuffer.
+    ;; You may want to use `embark-prefix-help-command' or which-key instead.
+    ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
+    )
+
+#+end_src
+
+*** Consult GH
+
+Integrate Github CLI with consult.
+
+#+begin_src emacs-lisp
+
+  (use-package consult-gh
+    :after consult)
+
+#+end_src
+
+** Embark
+
+Embark is used for minibuffer actions.
+
+#+begin_src emacs-lisp
+
+  (use-package embark
+    :bind
+    (("C-." . embark-act)         ;; pick some comfortable binding
+     ("C-;" . embark-dwim)        ;; good alternative: M-.
+     ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+    :init
+
+    ;; Optionally replace the key help with a completing-read interface
+    (setq prefix-help-command #'embark-prefix-help-command)
+
+    ;; Show the Embark target at point via Eldoc. You may adjust the
+    ;; Eldoc strategy, if you want to see the documentation from
+    ;; multiple providers. Beware that using this can be a little
+    ;; jarring since the message shown in the minibuffer can be more
+    ;; than one line, causing the modeline to move up and down:
+
+    ;; (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+    ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+
+    ;; Add Embark to the mouse context menu. Also enable `context-menu-mode'.
+    ;; (context-menu-mode 1)
+    ;; (add-hook 'context-menu-functions #'embark-context-menu 100)
+
+    :config
+
+    ;; Hide the mode line of the Embark live/completions buffers
+    (add-to-list 'display-buffer-alist
+                 '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                   nil
+                   (window-parameters (mode-line-format . none)))))
+
+  ;; Consult users will also want the embark-consult package.
+  (use-package embark-consult) ; only need to install it, embark loads it after consult if found
+
+#+end_src
+
+** Nerd Icons in completions
+
+Enhanced UI and icons for completion
+
+#+begin_src emacs-lisp
+
+  (use-package nerd-icons-completion
+    :after nerd-icons
+    :config
+    (nerd-icons-completion-mode)
+    (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+
+  (use-package nerd-icons)
+
+#+end_src
+
+* Org Mode
+
+Org mode is a very powerful markup language. It's so powerful, it's used by scientists, doctors, lawyers, writers, and by people of various professions.
+
+Note that there are many packages that conflict with org mode and can be found and configured as per written on [[https://orgmode.org/manual/Conflicts.html][this page]].
+
+#+begin_src emacs-lisp
+
+  (use-package org
+    :bind
+    (:map global-map
+  	("C-c a" . org-agenda)
+  	("C-c l" . org-store-link)
+  	("C-c c" . org-capture))
+    :hook
+    (org-mode . (lambda () (electric-pair-local-mode -1)))
+    :custom
+    (org-auto-align-tags nil)
+    (org-tags-column 0)
+    (org-special-ctrl-a/e t)
+    (org-insert-heading-respect-content t)
+
+    ;; Org Capture
+    (org-default-notes-file (concat org-directory "/notes.org")) ;; Set the default notes file for org-capture.
+    (org-capture-templates
+     '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
+        "* TODO %?\n  %i\n  %a")
+       ("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
+        "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
+        :clock-in :clock-resume
+        :empty-lines 1)))
+
+    ;; Styling
+    ;; (org-hide-emphasis-markers t)
+    (org-pretty-entities t)
+    (org-ellipsis "...")
+    
+    :config
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((python . t)
+       (shell . t)
+       (C . t)
+       (emacs-lisp . t))))
+
+#+end_src
+
+** Org Modern
+
+Enhance Org mode appearance.
+
+#+begin_src emacs-lisp
+
+  (use-package org-modern
+    :config
+    (global-org-modern-mode))
+
+#+end_src
+
+** Olivetti Mode
+
+Olivetti mode centers buffers. I have currently hooked it to org-mode only.
+
+#+begin_src emacs-lisp
+
+  (use-package olivetti
+    :hook
+    (org-mode . olivetti-mode)
+    :custom
+    (olivetti-body-width 140))
+
+#+end_src
+
+** Org Auto-Tangle
+
+Automatically tangle org files which are meant to be tangled. 
+
+#+begin_src emacs-lisp
+
+  (use-package org-auto-tangle
+    :defer t
+    :hook (org-mode . org-auto-tangle-mode))
+
+#+end_src
+
+** Org Tempo
+
+#+begin_src emacs-lisp
+
+  (use-package org-tempo
+    :after org
+    :config
+    (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+    (add-to-list 'org-structure-template-alist '("sh" . "src bash"))
+    (add-to-list 'org-structure-template-alist '("py" . "src python"))
+    (add-to-list 'org-structure-template-alist '("nix" . "src nix")))
+
+#+end_src
+
+* Spell Checking
+
+Enable =flycheck= and =ispell= for spell checking in org
+
+#+begin_src emacs-lisp
+
+  (use-package ispell
+    :config
+    (setq ispell-program-name "aspell"
+          ispell-dictionary "en_US"))
+
+  (use-package flyspell
+    :hook (org-mode . flyspell-mode)
+    :config
+    (setq flyspell-issue-message-flag nil)) ; suppress echo area noise
+
+#+end_src
+
+* Doom Modeline
+
+A better modeline
+
+#+begin_src emacs-lisp
+
+  (use-package doom-modeline
+    :custom
+    (doom-modeline-height 33)
+    (doom-modeline-hud nil)
+    (doom-modeline-spc-face-overrides (list :family (face-attribute 'fixed-pitch :family)))
+    :init
+    (display-time-mode) ;; Enables viewing time in the modeline
+    (doom-modeline-mode 1))
+
+#+end_src
+
+* Development
+
+All the tools that are needed for programming and development.
+
+** Apheleia
+
+This is a formatter that primarily uses Black, Prettier and a few other standard formatters.
+
+#+begin_src emacs-lisp
+
+  (use-package apheleia
+    :after (nix-ts-mode)
+    :hook (nix-ts-mode . apheleia-mode)
+    :config
+    (add-to-list 'apheleia-formatters '(nixfmt . ("nixfmt")))
+    (add-to-list 'apheleia-mode-alist '(nix-ts-mode . nixfmt)))
+
+#+end_src
+
+** Envrc
+
+Load direnv using this package:
+
+#+begin_src emacs-lisp
+
+  (use-package envrc
+    :hook (after-init . envrc-global-mode))
+
+#+end_src
+
+** Eglot
+
+LSP can be set up using the built-in LSP framework =eglot=.
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package eglot
+    :hook
+    (yaml-ts-mode . eglot-ensure)
+    (python-base-mode . eglot-ensure)
+    (sh-mode . eglot-ensure)
+    (bash-ts-mode . eglot-ensure)
+    (toml-ts-mode . eglot-ensure)
+    (c-ts-mode . eglot-ensure)
+    (nix-ts-mode . eglot-ensure))
+
+#+END_SRC
+
+** Languages
+
+Certain languages require their own set-up.
+
+*** KDL
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package kdl-mode
+    :mode "\\.kdl\\'"
+    :hook
+    (kdl-mode . (lambda ()
+  		(setq-local standard-indent 2)
+  		(setq-local tab-width 2))))
+
+#+END_SRC
+
+*** Nix
+
+#+begin_src emacs-lisp
+
+
+  (use-package nix-ts-mode
+    :mode "\\.nix\\'")
+
+#+end_src
+
+** Colorful Mode
+
+This highlights hex color codes and shows the color.
+
+#+begin_src emacs-lisp
+
+  (use-package colorful-mode
+    :custom
+    (colorful-use-prefix t)
+    (colorful-only-strings 'only-prog)
+    (css-fontify-colors nil)
+    :config
+    (global-colorful-mode t)
+    (add-to-list 'global-colorful-modes 'helpful-mode))
+
+#+end_src
+
+** Project.el
+
+Project.el is a built-in emacs features.
+
+#+begin_src emacs-lisp
+
+  (use-package project)
+
+#+end_src
+
+** Better Parentheses
+
+Rainbow delimiters highlights parentheses for better region marking.
+
+#+begin_src emacs-lisp
+
+  (use-package rainbow-delimiters
+    :hook
+    (prog-mode . rainbow-delimiters-mode))
+
+#+end_src
+
+** Tab-bar
+
+=tab-bar-mode= is now built into emacs.
+
+#+begin_src emacs-lisp
+
+  (use-package tab-bar
+    :ensure nil
+    :custom
+    (tab-bar-show 1)
+    (tab-bar-close-button-show nil)
+    (tab-bar-new-button-show nil)
+    (tab-bar-tab-hints t)
+    :config
+    (tab-bar-mode 1))
+
+#+end_src
+
+** Avy
+
+Avy is like vim-easymotion, it helps jump around easily.
+
+#+begin_src emacs-lisp
+
+  (use-package avy
+    :bind
+    (("C-:"   . avy-goto-char)
+     ("M-g j" . avy-goto-char-timer)
+     ("M-g w" . avy-goto-word-1)
+     ("M-g l" . avy-goto-line))
+    :config
+    (avy-setup-default))
+
+#+end_src
+
+** Exec path from shell
+
+#+begin_src emacs-lisp
+
+  (use-package exec-path-from-shell
+    :config
+    (when (daemonp)
+      (exec-path-from-shell-initialize)))
+
+#+end_src
+
+** Indentation Bars
+
+Indentation bars help in visualizing indentation easily and thus navigate code more easily.
+
+#+begin_src emacs-lisp
+
+  (use-package indent-bars
+    :hook ((kdl-mode prog-mode) . indent-bars-mode)
+    :custom
+    (indent-bars-treesit-support t))
+
+#+end_src
+
+* Ghostel
+
+Ghostel is a new terminal emulator that can be used inside Emacs. It uses the =libghostty= library, used by the Ghostty terminal emulator itself.
+
+#+begin_src emacs-lisp
+
+  (use-package ghostel
+    :hook (ghostel-mode . (lambda () (display-line-numbers-mode 0))))
+
+  (use-package ghostel-eshell
+    :ensure nil
+    :hook (eshell-load . ghostel-eshell-visual-command-mode))
+
+  (use-package ghostel-compile
+    :ensure nil
+    :hook (after-init . ghostel-compile-global-mode))
+
+  (use-package ghostel-comint
+    :ensure nil
+    :hook (after-init . ghostel-comint-global-mode))
+
+#+end_src
+
+* Page Break Lines
+
+Get a line in pagebreak instead of unreadable characters.
+
+#+begin_src emacs-lisp
+
+  (use-package page-break-lines
+    :config
+    (page-break-lines-mode))
+
+#+end_src
+
+* Ace Window
+
+Quickly jump around multiple windows.
+
+#+begin_src emacs-lisp
+
+  (use-package ace-window
+    :bind ("M-o" . ace-window)
+    :custom
+    (aw-keys '(?a ?r ?s ?t ?g ?m ?n ?e ?i ?o)))
+
+#+end_src
+
+* Aria2
+
+#+begin_src emacs-lisp
+
+  (use-package aria2
+    :functions widget-forward)
+
+#+end_src
+
+* Ligatures
+
+#+begin_src emacs-lisp
+
+  (use-package ligature
+    :config
+    (ligature-set-ligatures 'prog-mode '("--" "---" "==" "===" "!=" "!==" "=!="
+  				       "=:=" "=/=" "<=" ">=" "&&" "&&&" "&=" "++" "+++" "***" ";;" "!!"
+  				       "??" "???" "?:" "?." "?=" "<:" ":<" ":>" ">:" "<:<" "<>" "<<<" ">>>"
+  				       "<<" ">>" "||" "-|" "_|_" "|-" "||-" "|=" "||=" "##" "###" "####"
+  				       "#{" "#[" "]#" "#(" "#?" "#_" "#_(" "#:" "#!" "#=" "^=" "<$>" "<$"
+  				       "$>" "<+>" "<+" "+>" "<*>" "<*" "*>" "</" "</>" "/>" "<!--" "<#--"
+  				       "-->" "->" "->>" "<<-" "<-" "<=<" "=<<" "<<=" "<==" "<=>" "<==>"
+  				       "==>" "=>" "=>>" ">=>" ">>=" ">>-" ">-" "-<" "-<<" ">->" "<-<" "<-|"
+  				       "<=|" "|=>" "|->" "<->" "<~~" "<~" "<~>" "~~" "~~>" "~>" "~-" "-~"
+  				       "~@" "[||]" "|]" "[|" "|}" "{|" "[<" ">]" "|>" "<|" "||>" "<||"
+  				       "|||>" "<|||" "<|>" "..." ".." ".=" "..<" ".?" "::" ":::" ":=" "::="
+  				       ":?" ":?>" "//" "///" "/*" "*/" "/=" "//=" "/==" "@_" "__" "???"
+  				       "<:<" ";;;"))
+    (global-ligature-mode t))
+
+#+end_src
+
+* EMMS (Emacs Multimedia System)
+
+Emacs can be used as a multimedia system as well.
+
+#+begin_src emacs-lisp
+
+  (use-package emms
+    :custom
+    (emms-source-file-default-directory "~/Music/")
+    (emms-info-functions '(emms-info-native))   ;; pure-Elisp, no external deps
+    (emms-player-mpv-update-metadata t)         ;; sync stream/track info via mpv IPC
+    (emms-repeat-playlist nil)
+    :config
+    (require 'emms-setup)
+    (emms-all)
+    ;; Must come AFTER emms-all — it calls emms-default-players which resets this
+    (setq emms-player-list '(emms-player-mpv)))
+
+#+end_src
+
+* 
+
+* The Footer
+
+=eldoc= requires a footer for the ~init.el~ so that it conforms to basic standards.
+
+#+begin_src emacs-lisp
+
+  (provide 'init)
+  ;;; init.el ends here
+
+#+end_src
