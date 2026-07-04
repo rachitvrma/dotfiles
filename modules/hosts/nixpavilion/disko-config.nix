@@ -63,15 +63,6 @@
                           mountpoint = "/nix";
                           mountOptions = mountOpts;
                         };
-                        "/swap" = {
-                          mountpoint = "/swap";
-                          mountOptions = [
-                            "noatime"
-                            "nodatacow"
-                            "compress=zstd"
-                          ];
-                          swap.swapfile.size = "4G";
-                        };
                       };
                   };
                 };
