@@ -13,22 +13,28 @@
       ];
 
       # Bootloader.
-      boot.loader.systemd-boot.enable = true;
-      boot.loader.efi.canTouchEfiVariables = true;
-      boot.plymouth.enable = true;
+      boot = {
+        loader = {
+          systemd-boot.enable = true;
+          efi.canTouchEfiVariables = true;
+        };
 
-      boot.kernelParams = [
-        "quiet"
-        "splash"
-        "zswap.enabled=1" # enables zswap
-        "zswap.compressor=zstd" # compression algorithm
-        "zswap.max_pool_percent=20" # maximum percentage of RAM that zswap is allowed to use
-        "zswap.shrinker_enabled=1" # whether to shrink the pool proactively on high memory pressure
-        # "i915.enable_guc=3" # Enabling xe now creates some problems in gaming
-      ];
+        plymouth = {
+          enable = true;
+          theme = "breeze";
+        };
 
-      # Use latest kernel.
-      boot.kernelPackages = pkgs.linuxPackages_latest;
+        kernelParams = [
+          "quiet"
+          "splash"
+          "zswap.enabled=1" # enables zswap
+          "zswap.compressor=zstd" # compression algorithm
+          "zswap.max_pool_percent=20" # maximum percentage of RAM that zswap is allowed to use
+          "zswap.shrinker_enabled=1" # whether to shrink the pool proactively on high memory pressure
+          # "i915.enable_guc=3" # Enabling xe now creates some problems in gaming
+        ];
+        kernelPackages = pkgs.linuxPackages_latest;
+      };
 
       networking.hostName = "nixpavilion"; # Define your hostname.
       # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.

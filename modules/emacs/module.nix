@@ -40,6 +40,7 @@
           colorful-mode
           consult
           consult-gh
+          consult-todo
           dashboard
           diff-hl
           diredfl
@@ -53,11 +54,12 @@
           exec-path-from-shell
           ghostel
           git-modes
+          hl-todo
           indent-bars
-
           kdl-mode
           ligature
           magit
+          magit-todos
           marginalia
           nerd-icons
           nerd-icons-completion

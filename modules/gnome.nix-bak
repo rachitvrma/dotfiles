@@ -20,9 +20,26 @@
       };
 
     };
-    programs.dconf.enable = true;
+
+    xdg.portal = {
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gnome
+      ];
+      configPackages = [
+        pkgs.gnome-session
+      ];
+    };
+    programs = {
+      dconf.enable = true;
+      # This is the gnome-terminal, not yet legacy
+      # gnome-terminal.enable = true;
+    };
 
     environment = {
+      # Enable thumbnailing
+      pathsToLink = [
+        "share/thumbnailers" # For thumbnails
+      ];
       gnome.excludePackages = with pkgs; [
         cheese # webcam booth, rarely needed on a laptop
         decibels
@@ -43,13 +60,35 @@
         epiphany
         yelp
       ];
-      systemPackages = [ pkgs.gnome-tweaks ];
+      systemPackages = with pkgs; [
+        gnome-tweaks
+
+        # For thumbnails
+        ffmpeg-headless
+        ffmpegthumbnailer
+        gdk-pixbuf
+        # For general HEIF container support (this includes the AVIF file format)
+        libheif.bin # provides heif-thumbnailer (the program that generates HEIF thumbnails)
+        libheif.out # provides heif.thumbnailer (allows for the viewing of HEIF thumbnails)
+
+        # For more newer AVIF specific support usually not needed if libheif is installed
+        libavif
+
+        # For JXL(JPEG XL) support
+        libjxl
+
+        # For WebP support
+        webp-pixbuf-loader
+      ];
     };
   };
 
   flake.homeModules.gnome = { pkgs, ... }: {
     services.gnome-keyring.enable = true;
     programs = {
+      foliate = {
+        enable = true;
+      };
       gnome-shell = {
         enable = true;
         theme = {
@@ -79,10 +118,17 @@
           clock-show-weekday = true;
           clock-show-date = true;
           clock-format = "12h"; # or "24h"
-          # accent-color = "purple";
-          gtk-key-theme = "Emacs";
         };
       };
+    };
+
+    xdg.portal = {
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gnome
+      ];
+      configPackages = [
+        pkgs.gnome-session
+      ];
     };
   };
 }

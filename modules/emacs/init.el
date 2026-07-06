@@ -203,6 +203,14 @@
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
+(use-package magit-todos
+  :after magit
+  :hook (magit-status-mode . magit-todos-mode)
+  :custom
+  (magit-todos-exclude-globs '("*.min.js" "node_modules/*" ".git/*" "result/*" "result-*/*"))
+  (magit-todos-recursive t)
+  (magit-todos-keywords 'hl-todo-keyword-faces)) ;; reuse the keyword list you already defined for hl-todo
+
 (use-package git-modes
   :config
   (add-to-list 'auto-mode-alist
@@ -367,6 +375,13 @@
 (use-package consult-gh
   :after consult)
 
+(use-package consult-todo
+  :after (consult hl-todo)
+  :bind
+  (("C-c t t" . consult-todo)         ;; current buffer
+   ("C-c t p" . consult-todo-project) ;; whole project
+   ("C-c t a" . consult-todo-all)))   ;; all open buffers
+
 (use-package embark
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
@@ -527,7 +542,9 @@
   (global-colorful-mode t)
   (add-to-list 'global-colorful-modes 'helpful-mode))
 
-(use-package project)
+(use-package project
+  :custom
+  (project-vc-extra-root-markers '("flake.nix" ".project")))
 
 (use-package rainbow-delimiters
   :hook
@@ -561,6 +578,16 @@
   :hook ((kdl-mode prog-mode) . indent-bars-mode)
   :custom
   (indent-bars-treesit-support t))
+
+(use-package hl-todo
+  :hook (prog-mode . hl-todo-mode)
+  :custom
+  (hl-todo-keyword-faces
+   '(("TODO"   . "#dc752f")   ;; using your Gruvbox-style palette as an example
+     ("FIXME"  . "#fb4934")
+     ("HACK"   . "#b16286")
+     ("BUG"    . "#fb4934")
+     ("NOTE"   . "#83a598"))))
 
 (use-package ghostel
   :hook (ghostel-mode . (lambda () (display-line-numbers-mode 0))))

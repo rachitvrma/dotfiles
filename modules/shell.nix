@@ -1,6 +1,27 @@
 {
   flake.nixosModules.shell = {
     programs = {
+      starship = {
+        enable = true;
+        transientPrompt.enable = true;
+      };
+      zoxide = {
+        enable = true;
+        enableFishIntegration = true;
+      };
+      bat = {
+        enable = true;
+        settings = {
+          italic-text = "always";
+          map-syntax = [
+            "*.ino:C++"
+            ".ignore:Git Ignore"
+          ];
+          pager = "less --RAW-CONTROL-CHARS --quit-if-one-screen --mouse";
+          paging = "never";
+          theme = "gruvbox-dark";
+        };
+      };
       vivid.enable = true;
       direnv = {
         enable = true;
@@ -18,10 +39,30 @@
       };
     };
     programs = {
+      jq.enable = true;
+      bat = {
+        enable = true;
+        config = {
+          map-syntax = [
+            "*.ino:C++"
+            ".ignore:Git Ignore"
+            "*.jenkinsfile:Groovy"
+            "*.props:Java Properties"
+          ];
+          pager = "less -FR";
+          theme = "gruvbox-dark";
+        };
+      };
+
       nix-your-shell = {
         enable = true;
         enableFishIntegration = true;
         nix-output-monitor.enable = true;
+      };
+
+      carapace = {
+        enable = true;
+        enableFishIntegration = true;
       };
 
       direnv = {
@@ -33,6 +74,7 @@
       };
 
       fd.enable = true;
+
       eza = {
         enable = true;
         colors = "auto";
@@ -65,6 +107,11 @@
         enable = true;
         enableFishIntegration = true;
         presets = [ "nerd-font-symbols" ];
+      };
+
+      zoxide = {
+        enable = true;
+        enableFishIntegration = true;
       };
     };
   };

@@ -300,6 +300,22 @@ It is one of the essentials, because it's now built into emacs
 
 #+end_src
 
+*** Magit TODOs
+
+Highlight codetags in Magit buffers.
+
+#+begin_src emacs-lisp
+
+  (use-package magit-todos
+    :after magit
+    :hook (magit-status-mode . magit-todos-mode)
+    :custom
+    (magit-todos-exclude-globs '("*.min.js" "node_modules/*" ".git/*" "result/*" "result-*/*"))
+    (magit-todos-recursive t)
+    (magit-todos-keywords 'hl-todo-keyword-faces)) ;; reuse the keyword list you already defined for hl-todo
+
+#+end_src
+
 ** Git Modes
 
 Git-modes provide major modes for git configuration files.
@@ -522,6 +538,19 @@ Integrate Github CLI with consult.
 
   (use-package consult-gh
     :after consult)
+
+#+end_src
+
+*** Consult Todos
+
+#+begin_src emacs-lisp
+
+  (use-package consult-todo
+    :after (consult hl-todo)
+    :bind
+    (("C-c t t" . consult-todo)         ;; current buffer
+     ("C-c t p" . consult-todo-project) ;; whole project
+     ("C-c t a" . consult-todo-all)))   ;; all open buffers
 
 #+end_src
 
@@ -816,7 +845,9 @@ Project.el is a built-in emacs features.
 
 #+begin_src emacs-lisp
 
-  (use-package project)
+  (use-package project
+    :custom
+    (project-vc-extra-root-markers '("flake.nix" ".project")))
 
 #+end_src
 
@@ -888,6 +919,24 @@ Indentation bars help in visualizing indentation easily and thus navigate code m
     :hook ((kdl-mode prog-mode) . indent-bars-mode)
     :custom
     (indent-bars-treesit-support t))
+
+#+end_src
+
+** Hl-Todo
+
+Highlight code tags in programming buffers.
+
+#+begin_src emacs-lisp
+
+  (use-package hl-todo
+    :hook (prog-mode . hl-todo-mode)
+    :custom
+    (hl-todo-keyword-faces
+     '(("TODO"   . "#dc752f")   ;; using your Gruvbox-style palette as an example
+       ("FIXME"  . "#fb4934")
+       ("HACK"   . "#b16286")
+       ("BUG"    . "#fb4934")
+       ("NOTE"   . "#83a598"))))
 
 #+end_src
 

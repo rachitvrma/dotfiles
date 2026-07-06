@@ -1,5 +1,5 @@
 {
-  flake.homeModules.aria2 = {
+  flake.homeModules.aria2 = { lib, pkgs, ... }: {
     programs.aria2 = {
       enable = true;
       systemd.enable = true;
@@ -69,6 +69,18 @@
         on-download-pause = "notify-send 'aria2' 'Download paused'";
         on-download-start = "notify-send 'aria2' 'Download started'";
         on-bt-download-complete = "notify-send 'aria2' 'Torrent complete'";
+      };
+    };
+
+    systemd.user.services = {
+      aria2 = {
+        Service = {
+          # The order of the commands in this list matters
+          ExecStartPre = [
+            "${pkgs.coreutils-full}/bin/touch %h/.config/aria2/session.lock"
+            "${pkgs.coreutils-full}/bin/mkdir -p %h/.config/aria2"
+          ];
+        };
       };
     };
   };

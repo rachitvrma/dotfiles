@@ -1,16 +1,5 @@
 {
   flake.nixosModules.keymap = {
-    programs.dconf.profiles.user.databases = [
-      {
-        lockAll = true; # prevents overriding
-        settings = {
-          "org/gnome/desktop/input-sources" = {
-            xkb-options = [ "ctrl:swapcaps" ];
-          };
-        };
-      }
-    ];
-
     # Configure keymap in X11
     services.xserver.xkb = {
       layout = "us";
@@ -29,6 +18,18 @@
         "ctrl:swapcaps"
       ];
       variant = "colemak_dh";
+    };
+
+    dconf = {
+      enable = true;
+      settings = {
+        "org/gnome/desktop/input-sources" = {
+          xkb-options = [ "ctrl:swapcaps" ];
+        };
+        "org/gnome/desktop/interface" = {
+          gtk-key-theme = "Emacs";
+        };
+      };
     };
   };
 }
