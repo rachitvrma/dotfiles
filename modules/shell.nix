@@ -31,11 +31,15 @@
     };
   };
 
-  flake.homeModules.shell = {
+  flake.homeModules.shell = { pkgs, ... }: {
     home = {
       shell = {
         enableFishIntegration = true;
         enableShellIntegration = true;
+      };
+
+      shellAliases = {
+        ff = "${pkgs.fastfetch}/bin/fastfetch";
       };
     };
     programs = {

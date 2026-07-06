@@ -16,6 +16,11 @@
           git_protocol = "ssh";
         };
       };
+      jujutsu = {
+        enable = true;
+        # TODO: Fill it in.
+        settings = { };
+      };
       git = {
         enable = true;
         package = pkgs.gitFull;

@@ -99,7 +99,7 @@
           workspaceAutoBackAndForth = true;
 
           startup = [
-            { command = "sway-audio-idle-inhibit"; }
+            { command = "sleep 3s && sway-audio-idle-inhibit"; }
           ];
 
           focus = {
@@ -146,8 +146,8 @@
           output =
             let
               src = pkgs.fetchurl {
-                url = "https://gruvbox-wallpapers.pages.dev/wallpapers/mix/ronin-4k.png";
-                hash = "sha256-4Gyisoz+UbkIaJNhsBlg2VHl7BjDrQRyN7dvneCkyDM=";
+                url = "https://gruvbox-wallpapers.pages.dev/wallpapers/mix/platform.jpg";
+                hash = "sha256-ZQsr2w8vzwPrWvaU7sAE69d8ouetpwe8nkBKeIGx58U=";
               };
             in
             {
@@ -197,9 +197,12 @@
               bind =
                 moveType:
                 "exec swaymsg -pt get_workspaces | ${pkgs.gawk}/bin/gawk -f ${workspaceAwk} -v move_type=${moveType} -v num_of_workspaces=${toString num_of_workspaces}";
+
+              clipboard = "cliphist list | bemenu | cliphist decode | wl-copy | xargs -r swaymsg exec --";
             in
             lib.mkOptionDefault {
               "${mod}+q" = "kill";
+              "${mod}+c" = "exec ${clipboard}";
 
               "${mod}+u" = "workspace next";
               "${mod}+i" = "workspace prev";
@@ -367,7 +370,54 @@
           enable = true;
           package = pkgs.bemenu.override { x11Support = false; };
           settings = {
-            line-height = 28;
+            line-height = 32;
+            list = "10 down";
+            scrollbar = "autohide";
+            prompt = "open";
+            ignorecase = true;
+            width-factor = 0.35;
+            hp = 20;
+            fn = "monospace 11";
+
+            border = 2;
+            border-radius = 8;
+
+            bdr = "#d3869b";
+
+            tb = "#1d2021"; # base01
+            tf = "#d3869b"; # base0E — prompt text in primary accent
+
+            # --- filter / input line ---
+            fb = "#141617"; # base00
+            ff = "#ebdbb2"; # base06
+
+            # --- cursor ---
+            cb = "#d3869b"; # base0E
+            cf = "#141617"; # base00
+
+            # --- normal list items ---
+            nb = "#141617"; # base00
+            nf = "#ddc7a1"; # base05
+
+            # --- highlighted (focused) item ---
+            hb = "#282828"; # base02
+            hf = "#d3869b"; # base0E
+
+            # --- feedback (match count) ---
+            fbb = "#1d2021"; # base01
+            fbf = "#bdae93"; # base04
+
+            # --- selected (multi-select, e.g. bemenu -x) ---
+            sb = "#282828"; # base02
+            sf = "#7daea3"; # base0D
+
+            # --- alternating row banding ---
+            ab = "#1d2021"; # base01
+            af = "#ddc7a1"; # base05
+
+            # --- scrollbar ---
+            scb = "#1d2021"; # base01
+            scf = "#7daea3"; # base0D
           };
         };
         swayimg = {
@@ -523,6 +573,10 @@
               unlock = display "on";
             };
           };
+
+        cliphist = {
+          enable = true;
+        };
       };
     };
 }

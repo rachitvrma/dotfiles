@@ -107,9 +107,6 @@
 
             # Taken from
             # https://wiki.archlinux.org/title/Firefox/Privacy#Change_user_agent_and_platform
-            "general.useragent.override" =
-              "Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101 Firefox/102.0";
-            "general.platform.override" = "Win32";
             "media.peerconnection.ice.default_address_only" = true;
             "network.http.sendRefererHeader" = 1;
             "network.http.referer.XOriginPolicy" = 1;
@@ -137,6 +134,21 @@
             # ── UI Enhancements ──────────────────────────────────────────────────────
             "browser.aboutConfig.showWarning" = false; # Skip about:config warning prompt
             "browser.uidensity" = 1; # 1 = compact — tighter toolbar
+            "browser.uiCustomization.state" = builtins.toJSON {
+              placements = {
+                "widget-overflow-fixed-list" = [ ];
+                "unified-extensions-area" = [ ];
+                "nav-bar" = [
+                  "back-button"
+                  "forward-button"
+                  "stop-reload-button"
+                  "urlbar-container"
+                  "downloads-button"
+                  "unified-extensions-button"
+                ];
+              };
+              currentVersion = 20;
+            };
             "browser.urlbar.suggest.calculator" = false; # Inline calculator in address bar
             "browser.urlbar.suggest.units" = false; # Unit conversion in address bar
             "browser.urlbar.trimURLs" = false; # Show full URL without trimming
