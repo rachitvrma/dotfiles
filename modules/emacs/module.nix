@@ -13,7 +13,11 @@
       enable = true;
       client = {
         enable = true;
-        arguments = [ "-c" ];
+        arguments = [
+          "-c"
+          "-a"
+          "''"
+        ];
       };
 
       defaultEditor = true;

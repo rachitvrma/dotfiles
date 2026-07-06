@@ -19,7 +19,12 @@
       jujutsu = {
         enable = true;
         # TODO: Fill it in.
-        settings = { };
+        settings = {
+          user = {
+            name = "Rachit Kumar Verma";
+            email = "155641117+rachitvrma@users.noreply.github.com";
+          };
+        };
       };
       git = {
         enable = true;
