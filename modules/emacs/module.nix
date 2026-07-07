@@ -80,6 +80,7 @@
           pulsar
           rainbow-delimiters
           use-package
+          vc-jj
           vertico
           which-key
 

@@ -86,6 +86,7 @@
         git = true;
         icons = "auto";
         extraOptions = [
+          "--git-repos"
           "--group-directories-first"
           "--header"
         ];

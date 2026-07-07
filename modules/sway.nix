@@ -194,6 +194,25 @@
 
             keybindings =
               let
+                powermenu = pkgs.writeShellScriptBin "powermenu" ''
+                  set -euo pipefail
+
+                  chosen=$(printf '%s\n' "Lock" "Logout" "Suspend" "Hibernate" "Reboot" "Shutdown" \
+                    | wmenu -i -p "power" \
+                        -N '#141617' -n '#ddc7a1' \
+                        -S '#d3869b' -s '#141617' \
+                        -f "JetBrainsMono Nerd Font 11")
+
+                  case "$chosen" in
+                    Lock)      exec swaylock ;;
+                    Logout)    exec swaymsg exit ;;
+                    Suspend)   exec systemctl suspend ;;
+                    Hibernate) exec systemctl hibernate ;;
+                    Reboot)    exec systemctl reboot ;;
+                    Shutdown)  exec systemctl poweroff ;;
+                    *) exit 0 ;; # empty selection / Escape
+                  esac
+                '';
                 mod = config.wayland.windowManager.sway.config.modifier;
                 num_of_workspaces = 10;
                 workspaceAwk = pkgs.writeText "workspace.gawk" /* bash */ ''
@@ -241,6 +260,8 @@
                 "${mod}+shift+u" = "move container to workspace next, workspace next";
                 "${mod}+shift+i" = "move container to workspace prev, workspace prev";
 
+                "${mod}+escape" = "exec ${lib.getExe powermenu}";
+
                 "${mod}+ctrl+u" = bind "right";
                 "${mod}+ctrl+i" = bind "left";
                 "${mod}+ctrl+shift+u" = bind "container_right";
@@ -265,14 +286,6 @@
                 "--locked XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
                 "--locked XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
               };
-            /*
-              (:base00 "#141617" :base01 "#1d2021" :base02 "#282828" :base03  ;; loads after a
-              "#5a524c" :base04 "#bdae93" :base05 "#ddc7a1" :base06
-              "#ebdbb2" :base07 "#fbf1c7" :base08 "#ea6962" :base09
-              "#e78a4e" :base0A "#d8a657" :base0B "#a9b665" :base0C
-              "#89b482" :base0D "#7daea3" :base0E "#d3869b" :base0F
-              "#bd6f3e")
-            */
 
             colors = {
               background = "#141617"; # base00
@@ -367,6 +380,24 @@
                 };
               }
             ];
+
+            bindswitches =
+              let
+                laptop = "eDP-1";
+              in
+              {
+                "lid:on" = {
+                  reload = true;
+                  locked = true;
+                  action = "output ${laptop} disable";
+                };
+                "lid:off" = {
+                  reload = true;
+                  locked = true;
+                  action = "output ${laptop} enable";
+                };
+              };
+
           };
 
         extraConfig = ''
