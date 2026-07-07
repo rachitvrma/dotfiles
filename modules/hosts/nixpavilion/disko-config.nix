@@ -42,7 +42,7 @@
                     ];
                     subvolumes =
                       let
-                        mountOpts = [
+                        mountOptions = [
                           "compress=zstd"
                           "ssd"
                           "space_cache=v2"
@@ -53,15 +53,19 @@
                       {
                         "/root" = {
                           mountpoint = "/";
-                          mountOptions = mountOpts;
+                          inherit mountOptions;
                         };
                         "/home" = {
                           mountpoint = "/home";
-                          mountOptions = mountOpts;
+                          inherit mountOptions;
                         };
                         "/nix" = {
                           mountpoint = "/nix";
-                          mountOptions = mountOpts;
+                          inherit mountOptions;
+                        };
+                        "/nix/store" = {
+                          mountpoint = "/nix/store";
+                          inherit mountOptions;
                         };
                       };
                   };

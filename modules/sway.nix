@@ -9,7 +9,7 @@
           brightnessctl
           kitty
           grim
-          swayidle
+          # swayidle
           swaylock
           swaybg
           wmenu
@@ -74,7 +74,7 @@
       home = {
         packages = with pkgs; [
           (j4-dmenu-desktop.override {
-            dmenu = config.programs.bemenu.package;
+            dmenu = pkgs.wmenu;
           })
           sway-audio-idle-inhibit
           libnotify
@@ -93,249 +93,281 @@
 
         checkConfig = true;
 
-        config = {
-          terminal = "xdg-terminal-exec || ${pkgs.kitty}/bin/kitty";
-          defaultWorkspace = "workspace number 1";
-          workspaceAutoBackAndForth = true;
+        config =
+          let
+            wmenuArgs = [
+              # behavior
+              "-i" # case-insensitive matching
+              "-b" # anchor to bottom of screen
+              "-l"
+              "10" # show 10 lines vertically
 
-          startup = [
-            { command = "sleep 3s && sway-audio-idle-inhibit"; }
-          ];
+              # font
+              "-f"
+              "monospace 11"
 
-          focus = {
-            followMouse = "yes";
-            wrapping = "yes"; # Default value in sway(5)
-          };
-
-          fonts = {
-            names = [
-              "JetBrainsMono Nerd Fonts"
+              # colors — Gruvbox Material Dark Hard
+              "-N"
+              "141617" # normal background   (base00)
+              "-n"
+              "ddc7a1" # normal foreground   (base05)
+              "-M"
+              "1d2021" # prompt background   (base01)
+              "-m"
+              "d3869b" # prompt foreground   (base0E)
+              "-S"
+              "282828" # selected background (base02)
+              "-s"
+              "d3869b" # selected foreground (base0E)
             ];
-            style = "Mono";
-            size = 9.5;
-          };
+            wmenuThemed = pkgs.writeShellScript "wmenu-themed" ''
+              exec ${pkgs.wmenu}/bin/wmenu ${lib.escapeShellArgs wmenuArgs} "$@"
+            '';
+          in
+          {
+            terminal = "xdg-terminal-exec || ${pkgs.kitty}/bin/kitty";
+            defaultWorkspace = "workspace number 1";
+            workspaceAutoBackAndForth = true;
 
-          gaps = {
-            inner = 12;
-            outer = 5;
-            smartBorders = "on";
-          };
+            startup = [
+              { command = "sleep 3s && sway-audio-idle-inhibit"; }
+            ];
 
-          # BUG: There's actually no way to set it csd or none, which are options in sway(5)
-          # Just look at the home-manager module.
-          window.titlebar = false;
-
-          modifier = "Mod4";
-
-          menu = "j4-dmenu-desktop --dmenu=bemenu --no-exec | xargs -r swaymsg exec --";
-
-          input = {
-            "*" = {
-              xkb_layout = "us";
-              xkb_variant = "colemak_dh";
-              xkb_options = "ctrl:swapcaps";
+            focus = {
+              followMouse = "yes";
+              wrapping = "yes"; # Default value in sway(5)
             };
 
-            "type:touchpad" = {
-              tap = "enabled";
-              natural_scroll = "enabled";
-              dwt = "enabled";
+            fonts = {
+              names = [
+                "JetBrainsMono Nerd Fonts"
+              ];
+              style = "Mono";
+              size = 9.5;
             };
-          };
 
-          output =
-            let
-              src = pkgs.fetchurl {
-                url = "https://gruvbox-wallpapers.pages.dev/wallpapers/mix/platform.jpg";
-                hash = "sha256-ZQsr2w8vzwPrWvaU7sAE69d8ouetpwe8nkBKeIGx58U=";
+            gaps = {
+              inner = 12;
+              outer = 5;
+              smartBorders = "on";
+            };
+
+            # BUG: There's actually no way to set it csd or none, which are options in sway(5)
+            # Just look at the home-manager module.
+            window.titlebar = false;
+
+            modifier = "Mod4";
+
+            menu = "j4-dmenu-desktop --dmenu=${wmenuThemed} --no-exec | xargs -r swaymsg exec --";
+
+            input = {
+              "*" = {
+                xkb_layout = "us";
+                xkb_variant = "colemak_dh";
+                xkb_options = "ctrl:swapcaps";
               };
-            in
-            {
-              eDP-1 = {
-                bg = "${src} fill";
+
+              "type:touchpad" = {
+                tap = "enabled";
+                natural_scroll = "enabled";
+                dwt = "enabled";
               };
             };
-          seat = {
-            "*" = {
-              hide_cursor = "when-typing enable";
+
+            output =
+              let
+                src = pkgs.fetchurl {
+                  url = "https://gruvbox-wallpapers.pages.dev/wallpapers/mix/platform.jpg";
+                  hash = "sha256-ZQsr2w8vzwPrWvaU7sAE69d8ouetpwe8nkBKeIGx58U=";
+                };
+              in
+              {
+                eDP-1 = {
+                  bg = "${src} fill";
+                };
+              };
+            seat = {
+              "*" = {
+                hide_cursor = "when-typing enable";
+              };
             };
-          };
 
-          keybindings =
-            let
-              mod = config.wayland.windowManager.sway.config.modifier;
-              num_of_workspaces = 10;
-              workspaceAwk = pkgs.writeText "workspace.gawk" /* bash */ ''
-                $3 == "(focused)" {
-                	switch(move_type) {
-                	case "left":
-                		if ($2 == 1)
-                			$2=num_of_workspaces+1
-                		system("sway workspace "$2-1)
-                		exit
-                	
-                	case "right":
-                		if ($2 == num_of_workspaces)
-                			$2=0
-                		system("sway workspace "$2+1)
-                		exit
-                	
-                	case "container_left":
-                		if ($2 == 1)
-                			$2=num_of_workspaces+1
-                		system("sway move container to workspace "$2-1", workspace "$2-1)
-                		exit
-                	
-                	case "container_right":
-                		if ($2 == num_of_workspaces)
-                			$2=0
-                		system("sway move container to workspace "$2+1", workspace "$2+1)
-                		exit
-                	}
-                }
-              '';
-              bind =
-                moveType:
-                "exec swaymsg -pt get_workspaces | ${pkgs.gawk}/bin/gawk -f ${workspaceAwk} -v move_type=${moveType} -v num_of_workspaces=${toString num_of_workspaces}";
+            keybindings =
+              let
+                mod = config.wayland.windowManager.sway.config.modifier;
+                num_of_workspaces = 10;
+                workspaceAwk = pkgs.writeText "workspace.gawk" /* bash */ ''
+                  $3 == "(focused)" {
+                  	switch(move_type) {
+                  	case "left":
+                  		if ($2 == 1)
+                  			$2=num_of_workspaces+1
+                  		system("sway workspace "$2-1)
+                  		exit
+                  	
+                  	case "right":
+                  		if ($2 == num_of_workspaces)
+                  			$2=0
+                  		system("sway workspace "$2+1)
+                  		exit
+                  	
+                  	case "container_left":
+                  		if ($2 == 1)
+                  			$2=num_of_workspaces+1
+                  		system("sway move container to workspace "$2-1", workspace "$2-1)
+                  		exit
+                  	
+                  	case "container_right":
+                  		if ($2 == num_of_workspaces)
+                  			$2=0
+                  		system("sway move container to workspace "$2+1", workspace "$2+1)
+                  		exit
+                  	}
+                  }
+                '';
+                bind =
+                  moveType:
+                  "exec swaymsg -pt get_workspaces | ${pkgs.gawk}/bin/gawk -f ${workspaceAwk} -v move_type=${moveType} -v num_of_workspaces=${toString num_of_workspaces}";
 
-              clipboard = "cliphist list | bemenu | cliphist decode | wl-copy | xargs -r swaymsg exec --";
-            in
-            lib.mkOptionDefault {
-              "${mod}+q" = "kill";
-              "${mod}+c" = "exec ${clipboard}";
+              in
+              lib.mkOptionDefault {
+                "${mod}+q" = "kill";
+                "${mod}+c" = "exec cliphist list | ${wmenuThemed} | cliphist decode | wl-copy";
 
-              "${mod}+u" = "workspace next";
-              "${mod}+i" = "workspace prev";
-              "${mod}+shift+u" = "move container to workspace next, workspace next";
-              "${mod}+shift+i" = "move container to workspace prev, workspace prev";
+                "${mod}+n" = "split none";
 
-              "${mod}+ctrl+u" = bind "right";
-              "${mod}+ctrl+i" = bind "left";
-              "${mod}+ctrl+shift+u" = bind "container_right";
-              "${mod}+ctrl+shift+i" = bind "container_left";
+                "${mod}+u" = "workspace next";
+                "${mod}+i" = "workspace prev";
+                "${mod}+shift+u" = "move container to workspace next, workspace next";
+                "${mod}+shift+i" = "move container to workspace prev, workspace prev";
 
-              "${mod}+shift+Return" = "exec emacsclient -ca \"emacs\"";
+                "${mod}+ctrl+u" = bind "right";
+                "${mod}+ctrl+i" = bind "left";
+                "${mod}+ctrl+shift+u" = bind "container_right";
+                "${mod}+ctrl+shift+i" = bind "container_left";
 
-              # Special keys to adjust volume via PulseAudio
-              "--locked XF86AudioRaiseVolume" = "exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+";
-              "--locked XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
-              "--locked XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-              "--locked XF86AudioMicMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+                "${mod}+shift+Return" = "exec emacsclient -ca \"emacs\"";
 
-              # Special keys to control media via playerctl
-              "--locked XF86AudioPlay" = "exec playerctl play-pause";
-              "--locked XF86AudioPause" = "exec playerctl play-pause";
-              "--locked XF86AudioPrev" = "exec playerctl previous";
-              "--locked XF86AudioNext" = "exec playerctl next";
-              "--locked XF86AudioStop" = "exec playerctl stop";
+                # Special keys to adjust volume via PulseAudio
+                "--locked XF86AudioRaiseVolume" = "exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+";
+                "--locked XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+                "--locked XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+                "--locked XF86AudioMicMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
 
-              # Special keys to adjust brightness via brightnessctl
-              "--locked XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
-              "--locked XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
-            };
-          /*
-            (:base00 "#141617" :base01 "#1d2021" :base02 "#282828" :base03  ;; loads after a
-            "#5a524c" :base04 "#bdae93" :base05 "#ddc7a1" :base06
-            "#ebdbb2" :base07 "#fbf1c7" :base08 "#ea6962" :base09
-            "#e78a4e" :base0A "#d8a657" :base0B "#a9b665" :base0C
-            "#89b482" :base0D "#7daea3" :base0E "#d3869b" :base0F
-            "#bd6f3e")
-          */
+                # Special keys to control media via playerctl
+                "--locked XF86AudioPlay" = "exec playerctl play-pause";
+                "--locked XF86AudioPause" = "exec playerctl play-pause";
+                "--locked XF86AudioPrev" = "exec playerctl previous";
+                "--locked XF86AudioNext" = "exec playerctl next";
+                "--locked XF86AudioStop" = "exec playerctl stop";
 
-          colors = {
-            background = "#141617"; # base00
-            focused = {
-              background = "#282828"; # base02
-              border = "#d3869b"; # base0E — primary accent (magenta), consistent with your mpv mPrimary swap
-              childBorder = "#d3869b";
-              indicator = "#7daea3"; # base0D — secondary accent (blue), consistent with mpv mSecondary
-              text = "#fbf1c7"; # base07 — light text, fine here since it's on a dark bar, not the wallpaper
-            };
-            focusedInactive = {
-              background = "#1d2021"; # base01
-              border = "#5a524c"; # base03 — muted, but still saturated-neutral enough to read against light bg
-              childBorder = "#1d2021"; # base01
-              indicator = "#5a524c"; # base03
-              text = "#bdae93"; # base04
-            };
-            placeholder = {
+                # Special keys to adjust brightness via brightnessctl
+                "--locked XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
+                "--locked XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
+              };
+            /*
+              (:base00 "#141617" :base01 "#1d2021" :base02 "#282828" :base03  ;; loads after a
+              "#5a524c" :base04 "#bdae93" :base05 "#ddc7a1" :base06
+              "#ebdbb2" :base07 "#fbf1c7" :base08 "#ea6962" :base09
+              "#e78a4e" :base0A "#d8a657" :base0B "#a9b665" :base0C
+              "#89b482" :base0D "#7daea3" :base0E "#d3869b" :base0F
+              "#bd6f3e")
+            */
+
+            colors = {
               background = "#141617"; # base00
-              border = "#141617"; # base00
-              childBorder = "#141617"; # base00
-              indicator = "#141617"; # base00
-              text = "#ddc7a1"; # base05
+              focused = {
+                background = "#282828"; # base02
+                border = "#d3869b"; # base0E — primary accent (magenta), consistent with your mpv mPrimary swap
+                childBorder = "#d3869b";
+                indicator = "#7daea3"; # base0D — secondary accent (blue), consistent with mpv mSecondary
+                text = "#fbf1c7"; # base07 — light text, fine here since it's on a dark bar, not the wallpaper
+              };
+              focusedInactive = {
+                background = "#1d2021"; # base01
+                border = "#5a524c"; # base03 — muted, but still saturated-neutral enough to read against light bg
+                childBorder = "#1d2021"; # base01
+                indicator = "#5a524c"; # base03
+                text = "#bdae93"; # base04
+              };
+              placeholder = {
+                background = "#141617"; # base00
+                border = "#141617"; # base00
+                childBorder = "#141617"; # base00
+                indicator = "#141617"; # base00
+                text = "#ddc7a1"; # base05
+              };
+              unfocused = {
+                background = "#1d2021"; # base01
+                border = "#1d2021"; # base01 — deliberately dark/low-contrast so unfocused windows recede
+                childBorder = "#1d2021"; # base01
+                indicator = "#282828"; # base02
+                text = "#5a524c"; # base03 — muted, unfocused windows shouldn't compete for attention
+              };
+              urgent = {
+                background = "#ea6962"; # base08 — red, unambiguous against any background including light wallpapers
+                border = "#ea6962"; # base08
+                childBorder = "#ea6962"; # base08
+                indicator = "#ea6962"; # base08
+                text = "#141617"; # base00 — dark text on red reads better than white-on-red at a glance
+              };
             };
-            unfocused = {
-              background = "#1d2021"; # base01
-              border = "#1d2021"; # base01 — deliberately dark/low-contrast so unfocused windows recede
-              childBorder = "#1d2021"; # base01
-              indicator = "#282828"; # base02
-              text = "#5a524c"; # base03 — muted, unfocused windows shouldn't compete for attention
-            };
-            urgent = {
-              background = "#ea6962"; # base08 — red, unambiguous against any background including light wallpapers
-              border = "#ea6962"; # base08
-              childBorder = "#ea6962"; # base08
-              indicator = "#ea6962"; # base08
-              text = "#141617"; # base00 — dark text on red reads better than white-on-red at a glance
-            };
+
+            bars = [
+              {
+                fonts = {
+                  names = [ "JetBrainsMono Nerd Font" ];
+                  style = "Mono";
+                  size = 9.5;
+                };
+                mode = "dock";
+                hiddenState = "hide";
+                position = "bottom";
+                statusCommand = "${lib.getExe pkgs.i3status-rust} ${config.xdg.configHome}/i3status-rust/config-default.toml";
+                workspaceButtons = true;
+                workspaceNumbers = true;
+                trayOutput = "primary";
+
+                colors = {
+                  background = "#141617";
+                  statusline = "#ddc7a1";
+                  separator = "#282828";
+
+                  focusedWorkspace = {
+                    border = "#d3869b";
+                    background = "#d3869b";
+                    text = "#141617";
+                  };
+
+                  activeWorkspace = {
+                    # "active but not focused" — visible on another output in multi-monitor setups
+                    border = "#5a524c";
+                    background = "#282828";
+                    text = "#ddc7a1";
+                  };
+
+                  inactiveWorkspace = {
+                    border = "#1d2021";
+                    background = "#1d2021";
+                    text = "#5a524c";
+                  };
+
+                  urgentWorkspace = {
+                    border = "#ea6962";
+                    background = "#ea6962";
+                    text = "#141617";
+                  };
+
+                  bindingMode = {
+                    # shown when in a Sway binding mode (e.g. resize mode)
+                    border = "#7daea3";
+                    background = "#7daea3";
+                    text = "#141617";
+                  };
+                };
+              }
+            ];
           };
-
-          bars = [
-            {
-              fonts = {
-                names = [ "JetBrainsMono Nerd Font" ];
-                style = "Mono";
-                size = 9.5;
-              };
-              mode = "dock";
-              hiddenState = "hide";
-              position = "bottom";
-              statusCommand = "${lib.getExe pkgs.i3status-rust} ${config.xdg.configHome}/i3status-rust/config-default.toml";
-              workspaceButtons = true;
-              workspaceNumbers = true;
-              trayOutput = "primary";
-
-              colors = {
-                background = "#141617";
-                statusline = "#ddc7a1";
-                separator = "#282828";
-
-                focusedWorkspace = {
-                  border = "#d3869b";
-                  background = "#d3869b";
-                  text = "#141617";
-                };
-
-                activeWorkspace = {
-                  # "active but not focused" — visible on another output in multi-monitor setups
-                  border = "#5a524c";
-                  background = "#282828";
-                  text = "#ddc7a1";
-                };
-
-                inactiveWorkspace = {
-                  border = "#1d2021";
-                  background = "#1d2021";
-                  text = "#5a524c";
-                };
-
-                urgentWorkspace = {
-                  border = "#ea6962";
-                  background = "#ea6962";
-                  text = "#141617";
-                };
-
-                bindingMode = {
-                  # shown when in a Sway binding mode (e.g. resize mode)
-                  border = "#7daea3";
-                  background = "#7daea3";
-                  text = "#141617";
-                };
-              };
-            }
-          ];
-        };
 
         extraConfig = ''
           bindgesture swipe:left workspace next
@@ -366,60 +398,6 @@
             };
           };
 
-        bemenu = {
-          enable = true;
-          package = pkgs.bemenu.override { x11Support = false; };
-          settings = {
-            line-height = 32;
-            list = "10 down";
-            scrollbar = "autohide";
-            prompt = "open";
-            ignorecase = true;
-            width-factor = 0.35;
-            hp = 20;
-            fn = "monospace 11";
-
-            border = 2;
-            border-radius = 8;
-
-            bdr = "#d3869b";
-
-            tb = "#1d2021"; # base01
-            tf = "#d3869b"; # base0E — prompt text in primary accent
-
-            # --- filter / input line ---
-            fb = "#141617"; # base00
-            ff = "#ebdbb2"; # base06
-
-            # --- cursor ---
-            cb = "#d3869b"; # base0E
-            cf = "#141617"; # base00
-
-            # --- normal list items ---
-            nb = "#141617"; # base00
-            nf = "#ddc7a1"; # base05
-
-            # --- highlighted (focused) item ---
-            hb = "#282828"; # base02
-            hf = "#d3869b"; # base0E
-
-            # --- feedback (match count) ---
-            fbb = "#1d2021"; # base01
-            fbf = "#bdae93"; # base04
-
-            # --- selected (multi-select, e.g. bemenu -x) ---
-            sb = "#282828"; # base02
-            sf = "#7daea3"; # base0D
-
-            # --- alternating row banding ---
-            ab = "#1d2021"; # base01
-            af = "#ddc7a1"; # base05
-
-            # --- scrollbar ---
-            scb = "#1d2021"; # base01
-            scf = "#7daea3"; # base0D
-          };
-        };
         swayimg = {
           enable = true;
         };
@@ -537,42 +515,42 @@
           };
         };
 
-        swayidle =
-          let
-            # Lock command
-            lock = "${pkgs.swaylock}/bin/swaylock --daemonize";
-            # Sway
-            display = status: "${pkgs.sway}/bin/swaymsg 'output * power ${status}'";
-          in
-          {
-            enable = true;
-            timeouts = [
-              {
-                timeout = 30; # in seconds
-                command = "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds' -t 5000";
-              }
-              {
-                timeout = 40;
-                command = lock;
-              }
-              {
-                timeout = 50;
-                command = display "off";
-                resumeCommand = display "on";
-              }
-              {
-                timeout = 120;
-                command = "${pkgs.systemd}/bin/systemctl suspend";
-              }
-            ];
-            events = {
-              # adding duplicated entries for the same event may not work
-              before-sleep = (display "off") + "; " + lock;
-              after-resume = display "on";
-              lock = (display "off") + "; " + lock;
-              unlock = display "on";
-            };
-          };
+        # swayidle =
+        #   let
+        #     # Lock command
+        #     lock = "${pkgs.swaylock}/bin/swaylock --daemonize";
+        #     # Sway
+        #     display = status: "${pkgs.sway}/bin/swaymsg 'output * power ${status}'";
+        #   in
+        #   {
+        #     enable = true;
+        #     timeouts = [
+        #       {
+        #         timeout = 30; # in seconds
+        #         command = "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds' -t 5000";
+        #       }
+        #       {
+        #         timeout = 40;
+        #         command = lock;
+        #       }
+        #       {
+        #         timeout = 50;
+        #         command = display "off";
+        #         resumeCommand = display "on";
+        #       }
+        #       {
+        #         timeout = 120;
+        #         command = "${pkgs.systemd}/bin/systemctl suspend";
+        #       }
+        #     ];
+        #     events = {
+        #       # adding duplicated entries for the same event may not work
+        #       before-sleep = (display "off") + "; " + lock;
+        #       after-resume = display "on";
+        #       lock = (display "off") + "; " + lock;
+        #       unlock = display "on";
+        #     };
+        #   };
 
         cliphist = {
           enable = true;
