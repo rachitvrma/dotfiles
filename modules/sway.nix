@@ -326,60 +326,9 @@
               };
             };
 
-            bars = [
-              {
-                fonts = {
-                  names = [ "JetBrainsMono Nerd Font" ];
-                  style = "Mono";
-                  size = 9.5;
-                };
-                mode = "dock";
-                hiddenState = "hide";
-                position = "bottom";
-                statusCommand = "${lib.getExe pkgs.i3status-rust} ${config.xdg.configHome}/i3status-rust/config-default.toml";
-                workspaceButtons = true;
-                workspaceNumbers = true;
-                trayOutput = "primary";
-
-                colors = {
-                  background = "#141617";
-                  statusline = "#ddc7a1";
-                  separator = "#282828";
-
-                  focusedWorkspace = {
-                    border = "#d3869b";
-                    background = "#d3869b";
-                    text = "#141617";
-                  };
-
-                  activeWorkspace = {
-                    # "active but not focused" — visible on another output in multi-monitor setups
-                    border = "#5a524c";
-                    background = "#282828";
-                    text = "#ddc7a1";
-                  };
-
-                  inactiveWorkspace = {
-                    border = "#1d2021";
-                    background = "#1d2021";
-                    text = "#5a524c";
-                  };
-
-                  urgentWorkspace = {
-                    border = "#ea6962";
-                    background = "#ea6962";
-                    text = "#141617";
-                  };
-
-                  bindingMode = {
-                    # shown when in a Sway binding mode (e.g. resize mode)
-                    border = "#7daea3";
-                    background = "#7daea3";
-                    text = "#141617";
-                  };
-                };
-              }
-            ];
+            # Empty bars list stops the default bar list from working
+            # Which pulls in i3status command
+            bars = [ ];
 
             bindswitches =
               let
@@ -431,55 +380,6 @@
 
         swayimg = {
           enable = true;
-        };
-        i3status-rust = {
-          enable = true;
-          bars = {
-            default = {
-              theme = "gruvbox-dark";
-              icons = "material-nf";
-              blocks = [
-                {
-                  block = "bluetooth";
-                  mac = "CC:47:40:6C:AC:05";
-                }
-                {
-                  block = "net";
-                  format = " $icon {$signal_strength ^icon_net_wireless $ssid $frequency|Wired connection} via $device ";
-                  format_alt = " $icon ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K) ";
-                }
-                {
-                  alert = 10.0;
-                  block = "disk_space";
-                  info_type = "available";
-                  interval = 60;
-                  path = "/";
-                  warning = 20.0;
-                }
-                {
-                  block = "memory";
-                  format = " $icon $mem_used_percents ";
-                  format_alt = " $icon $swap_used_percents ";
-                }
-                {
-                  block = "cpu";
-                  interval = 1;
-                }
-                {
-                  block = "battery";
-                  interval = 1;
-                }
-                {
-                  block = "sound";
-                }
-                {
-                  block = "time";
-                  format = " $timestamp.datetime(f:'%a %d/%m %R') ";
-                  interval = 60;
-                }
-              ];
-            };
-          };
         };
       };
 
@@ -546,42 +446,42 @@
           };
         };
 
-        # swayidle =
-        #   let
-        #     # Lock command
-        #     lock = "${pkgs.swaylock}/bin/swaylock --daemonize";
-        #     # Sway
-        #     display = status: "${pkgs.sway}/bin/swaymsg 'output * power ${status}'";
-        #   in
-        #   {
-        #     enable = true;
-        #     timeouts = [
-        #       {
-        #         timeout = 30; # in seconds
-        #         command = "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds' -t 5000";
-        #       }
-        #       {
-        #         timeout = 40;
-        #         command = lock;
-        #       }
-        #       {
-        #         timeout = 50;
-        #         command = display "off";
-        #         resumeCommand = display "on";
-        #       }
-        #       {
-        #         timeout = 120;
-        #         command = "${pkgs.systemd}/bin/systemctl suspend";
-        #       }
-        #     ];
-        #     events = {
-        #       # adding duplicated entries for the same event may not work
-        #       before-sleep = (display "off") + "; " + lock;
-        #       after-resume = display "on";
-        #       lock = (display "off") + "; " + lock;
-        #       unlock = display "on";
-        #     };
-        #   };
+        swayidle =
+          let
+            # Lock command
+            lock = "${pkgs.swaylock}/bin/swaylock --daemonize";
+            # Sway
+            display = status: "${pkgs.sway}/bin/swaymsg 'output * power ${status}'";
+          in
+          {
+            enable = true;
+            timeouts = [
+              {
+                timeout = 30; # in seconds
+                command = "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds' -t 5000";
+              }
+              {
+                timeout = 40;
+                command = lock;
+              }
+              {
+                timeout = 50;
+                command = display "off";
+                resumeCommand = display "on";
+              }
+              {
+                timeout = 120;
+                command = "${pkgs.systemd}/bin/systemctl suspend";
+              }
+            ];
+            events = {
+              # adding duplicated entries for the same event may not work
+              before-sleep = (display "off") + "; " + lock;
+              after-resume = display "on";
+              lock = (display "off") + "; " + lock;
+              unlock = display "on";
+            };
+          };
 
         cliphist = {
           enable = true;
