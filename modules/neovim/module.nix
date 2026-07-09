@@ -28,6 +28,7 @@
         plugins =
           let
             startPlugins = with pkgs.vimPlugins; [
+              alpha-nvim # Better starter screen
               # mini plugins
               conform-nvim # Auto format code
               grug-far-nvim # find and replace
@@ -39,6 +40,8 @@
               mini-ai
               mini-align
               mini-animate
+              mini-base16
+              mini-basics
               mini-bracketed
               mini-bufremove
               mini-clue
@@ -52,6 +55,7 @@
               mini-files
               mini-fuzzy
               mini-git
+              mini-hipatterns
               mini-icons
               mini-indentscope
               mini-jump
@@ -66,17 +70,17 @@
               mini-sessions
               mini-snippets
               mini-splitjoin
-              mini-starter
+              # mini-starter # replaced by alpha.nvim
               mini-statusline
               mini-surround
               mini-tabline
               mini-trailspace
               mini-visits
 
+              project-nvim
+
               rainbow-delimiters-nvim
               trouble-nvim
-
-              gruvbox-material-nvim # For a gruvbox material theme
             ];
 
             treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (

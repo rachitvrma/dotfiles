@@ -1,1 +1,0 @@
-xplr.config.general.show_hidden = false

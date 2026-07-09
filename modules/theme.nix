@@ -43,17 +43,17 @@
           };
           name = "Gruvbox-Pink-Dark-Medium";
         };
-	colorScheme = "dark";
+        colorScheme = "dark";
         gtk4 = {
           enable = true;
           theme = config.gtk.theme;
           inherit extraConfig;
-	};
-	gtk3 = {
-	  enable = true;
-	  theme = config.gtk.theme;
-	  inherit extraConfig;
-	};
+        };
+        gtk3 = {
+          enable = true;
+          theme = config.gtk.theme;
+          inherit extraConfig;
+        };
 
         font = {
           name = "JetBrainsMono Nerd Font Mono";

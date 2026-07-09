@@ -53,28 +53,32 @@
         selection-clipboard = "clipboard";
       };
 
-      mappings = {
-        # Scrolling — mirrors Emacs' C-v / M-v / C-n / C-p for vertical movement
-        "<C-v>" = "scroll full-down"; # Emacs C-v: scroll-down (page forward)
-        "<A-v>" = "scroll full-up"; # Emacs M-v: scroll-up (page backward). Zathura uses <A-> for Alt/Meta, not <M->
-        "<C-n>" = "scroll down"; # Emacs C-n: next line -> here, small downward scroll
-        "<C-p>" = "scroll up"; # Emacs C-p: previous line -> small upward scroll
+      # These are emacs keybindings
+      # TODO: make a module to enable/disable emacs keybindings
+      /*
+        mappings = {
+          # Scrolling — mirrors Emacs' C-v / M-v / C-n / C-p for vertical movement
+          "<C-v>" = "scroll full-down"; # Emacs C-v: scroll-down (page forward)
+          "<A-v>" = "scroll full-up"; # Emacs M-v: scroll-up (page backward). Zathura uses <A-> for Alt/Meta, not <M->
+          "<C-n>" = "scroll down"; # Emacs C-n: next line -> here, small downward scroll
+          "<C-p>" = "scroll up"; # Emacs C-p: previous line -> small upward scroll
 
-        # Page navigation — closer to doc-view-mode's actual bindings than raw Emacs
-        "<C-f>" = "navigate next"; # next page (doc-view-mode: n / C-n)
-        "<C-b>" = "navigate previous"; # previous page (doc-view-mode: p / C-p)
+          # Page navigation — closer to doc-view-mode's actual bindings than raw Emacs
+          "<C-f>" = "navigate next"; # next page (doc-view-mode: n / C-n)
+          "<C-b>" = "navigate previous"; # previous page (doc-view-mode: p / C-p)
 
-        # Search — Emacs isearch equivalents
-        "<C-s>" = "search forward"; # Emacs C-s: isearch-forward
-        "<C-r>" = "search backward"; # Emacs C-r: isearch-backward
+          # Search — Emacs isearch equivalents
+          "<C-s>" = "search forward"; # Emacs C-s: isearch-forward
+          "<C-r>" = "search backward"; # Emacs C-r: isearch-backward
 
-        # Buffer boundaries — Emacs M-< / M-> (beginning/end of buffer)
-        "<A-less>" = "goto top"; # M-< : jump to first page. Zathura has no literal '<' keysym name; "less" is the key name for the < character
-        "<A-greater>" = "goto bottom"; # M-> : jump to last page; "greater" = the > character
+          # Buffer boundaries — Emacs M-< / M-> (beginning/end of buffer)
+          "<A-less>" = "goto top"; # M-< : jump to first page. Zathura has no literal '<' keysym name; "less" is the key name for the < character
+          "<A-greater>" = "goto bottom"; # M-> : jump to last page; "greater" = the > character
 
-        # Abort — Emacs' universal C-g cancels any pending command/prompt
-        "<C-g>" = "abort";
-      };
+          # Abort — Emacs' universal C-g cancels any pending command/prompt
+          "<C-g>" = "abort";
+        };
+      */
     };
   };
 }

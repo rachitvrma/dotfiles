@@ -8,6 +8,7 @@
   };
 
   flake.homeModules.vcs = { pkgs, ... }: {
+    home.packages = with pkgs; [ lazyjj ];
     programs = {
       gh = {
         enable = true;

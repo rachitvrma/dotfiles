@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, self, ... }: {
+{
   flake.nixosModules.hostMain =
     { pkgs, ... }:
     {
@@ -12,6 +12,10 @@
         # self.diskoConfigurations.hostMain
       ];
 
+      programs = {
+        vim.enable = true;
+        nano.enable = false;
+      };
       # Bootloader.
       boot = {
         loader = {

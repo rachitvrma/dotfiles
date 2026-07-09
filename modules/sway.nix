@@ -164,7 +164,8 @@
               "*" = {
                 xkb_layout = "us";
                 xkb_variant = "colemak_dh";
-                xkb_options = "ctrl:swapcaps";
+                # xkb_options = "ctrl:swapcaps";
+                xkb_options = "caps:swapescape";
               };
 
               "type:touchpad" = {
@@ -374,7 +375,7 @@
               indicator-radius = 100;
               line-color = "ddc7a1";
               show-failed-attempts = true;
-              image = src;
+              image = lib.mkForce src;
             };
           };
 
@@ -430,10 +431,10 @@
             background-color = "#1d2021";
             text-color = "#d4be98";
             border-color = "#7daea3";
+            font = "monospace 10";
             border-size = 2;
             border-radius = 8;
             default-timeout = 0;
-            font = "monospace 10";
             height = 100;
             icons = true;
             max-icon-size = 48;

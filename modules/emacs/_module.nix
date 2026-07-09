@@ -66,6 +66,8 @@
           magit
           magit-todos
           marginalia
+          meow
+          meow-tree-sitter
           nerd-icons
           nerd-icons-completion
           nerd-icons-ibuffer

@@ -50,7 +50,7 @@
             "*.props:Java Properties"
           ];
           pager = "less -FR";
-          theme = "gruvbox-dark";
+          # theme = "gruvbox-dark";
         };
       };
 
