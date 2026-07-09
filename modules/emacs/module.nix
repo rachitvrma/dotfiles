@@ -86,13 +86,14 @@
 
           (treesit-grammars.with-grammars (
             grammars: with grammars; [
+              tree-sitter-bash
               tree-sitter-c
               tree-sitter-css
               tree-sitter-html
               tree-sitter-javascript
               tree-sitter-json
+              tree-sitter-lua
               tree-sitter-markdown
-              tree-sitter-bash
               tree-sitter-nix
               tree-sitter-python
               tree-sitter-toml
