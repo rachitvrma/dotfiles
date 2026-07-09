@@ -504,11 +504,16 @@
   (doom-modeline-mode 1))
 
 (use-package apheleia
-  :after (nix-ts-mode)
-  :hook (nix-ts-mode . apheleia-mode)
+  :after
+  (nix-ts-mode lua-mode)
+  :hook ((nix-ts-mode lua-mode) . apheleia-mode)
   :config
+  ;; Nix stack
   (add-to-list 'apheleia-formatters '(nixfmt . ("nixfmt")))
-  (add-to-list 'apheleia-mode-alist '(nix-ts-mode . nixfmt)))
+  (add-to-list 'apheleia-mode-alist '(nix-ts-mode . nixfmt))
+  ;; Lua Configuration
+  (add-to-list 'apheleia-formatters '(stylua . ("stylua")))
+  (add-to-list 'apheleia-mode-alist '(lua-mode . stylua)))
 
 (use-package envrc
   :hook (after-init . envrc-global-mode))
@@ -529,6 +534,13 @@
   (kdl-mode . (lambda ()
 		(setq-local standard-indent 2)
 		(setq-local tab-width 2))))
+
+(use-package lua-mode
+  :mode "\\.lua\\'"
+  :interpreter "lua"
+  :hook (lua-mode . eglot-ensure)
+  :custom
+  (lua-indent-level 2))
 
 (use-package nix-ts-mode
   :mode "\\.nix\\'")

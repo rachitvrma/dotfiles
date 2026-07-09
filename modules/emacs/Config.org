@@ -758,11 +758,16 @@ This is a formatter that primarily uses Black, Prettier and a few other standard
 #+begin_src emacs-lisp
 
   (use-package apheleia
-    :after (nix-ts-mode)
-    :hook (nix-ts-mode . apheleia-mode)
+    :after
+    (nix-ts-mode lua-mode)
+    :hook ((nix-ts-mode lua-mode) . apheleia-mode)
     :config
+    ;; Nix stack
     (add-to-list 'apheleia-formatters '(nixfmt . ("nixfmt")))
-    (add-to-list 'apheleia-mode-alist '(nix-ts-mode . nixfmt)))
+    (add-to-list 'apheleia-mode-alist '(nix-ts-mode . nixfmt))
+    ;; Lua Configuration
+    (add-to-list 'apheleia-formatters '(stylua . ("stylua")))
+    (add-to-list 'apheleia-mode-alist '(lua-mode . stylua)))
 
 #+end_src
 
@@ -811,6 +816,19 @@ Certain languages require their own set-up.
   		(setq-local tab-width 2))))
 
 #+END_SRC
+
+*** Lua
+
+#+begin_src emacs-lisp
+
+  (use-package lua-mode
+    :mode "\\.lua\\'"
+    :interpreter "lua"
+    :hook (lua-mode . eglot-ensure)
+    :custom
+    (lua-indent-level 2))
+
+#+end_src
 
 *** Nix
 

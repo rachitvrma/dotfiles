@@ -16,11 +16,11 @@
         arguments = [
           "-c"
           "-a"
-          "''"
+          ""
         ];
       };
 
-      defaultEditor = true;
+      # defaultEditor = lib.mkDefault true;
 
       startWithUserSession = "graphical";
     };
@@ -62,6 +62,7 @@
           indent-bars
           kdl-mode
           ligature
+          lua-mode
           magit
           magit-todos
           marginalia
@@ -100,6 +101,20 @@
               tree-sitter-yaml
             ]
           ))
+
+          (callPackage (
+            { melpaBuild, fetchFromGitHub }:
+            melpaBuild {
+              pname = "majutsu";
+              version = "0-unstable-2026-07-09";
+              src = fetchFromGitHub {
+                owner = "0WD0";
+                repo = "majutsu";
+                rev = "59aff9b93eac575fbccc1f4ab2d48d048e0ead9b";
+                hash = "sha256-GJ62hsHgLEFIY0ghij0VPFt1jMUGRKhI2eCroBjkxtc=";
+              };
+            }
+          ) { })
         ];
     };
 
@@ -108,6 +123,10 @@
       bash-language-server
       shfmt
       shellcheck
+
+      # Lua Stack
+      lua-language-server
+      stylua
 
       # Python stack
       basedpyright
