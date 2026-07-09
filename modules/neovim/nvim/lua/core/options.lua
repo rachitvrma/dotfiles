@@ -35,7 +35,7 @@ opt.clipboard = "unnamedplus"
 
 -- Enable spell checking
 opt.spell = true
-opt.spellang = "en"
+opt.spelllang = "en"
 
 -- Clear the ~ signs in the gutter for newlines
 opt.fillchars = {

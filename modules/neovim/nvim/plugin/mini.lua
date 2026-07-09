@@ -70,6 +70,9 @@ miniclue.setup({
 
 		-- `z` key
 		{ mode = { "n", "x" }, keys = "z" },
+
+		-- Dropbar related
+		{ mode = "n", keys = "<Leader>;", desc = "Breadcrumb pick" },
 	},
 
 	clues = {
@@ -113,8 +116,18 @@ require("mini.indentscope").setup()
 require("mini.notify").setup()
 require("mini.pairs").setup()
 require("mini.pick").setup()
+require("mini.sessions").setup()
 require("mini.snippets").setup()
--- require("mini.starter").setup()
+
+require("mini.starter").setup({
+	evaluate_single = true,
+	items = {
+		-- project.nvim integration
+		{ name = "Projects", action = "Project", section = "Projects" }, -- Runs `:Project`
+		{ name = "Recent Projects", action = "Project recents", section = "Projects" }, -- `:Project recents`
+	},
+})
+
 require("mini.statusline").setup()
 require("mini.surround").setup()
 require("mini.tabline").setup()

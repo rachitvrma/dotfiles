@@ -1,3 +1,4 @@
+# NOTE: For per compositor settings edit that compositor's configuration
 {
   flake.nixosModules.keymap = {
     # Configure keymap in X11

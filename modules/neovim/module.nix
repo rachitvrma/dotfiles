@@ -23,16 +23,25 @@
 
         waylandSupport = true;
 
+        # For lazydev setup
+        initLua = ''
+          vim.g.luvit_meta_path = "${pkgs.vimPlugins.luvit-meta}"
+        '';
+
         withPython3 = true;
 
         plugins =
           let
             startPlugins = with pkgs.vimPlugins; [
-              alpha-nvim # Better starter screen
-              # mini plugins
               conform-nvim # Auto format code
+              dropbar-nvim # IDE-Like Breadcrumbs
               grug-far-nvim # find and replace
               nvim-lspconfig # Lspconfig contains prebuilt configurations
+
+              # Neovim Configuration
+              lazydev-nvim
+              luvit-meta
+
               lz-n # for lazy-loading plugins
               lzn-auto-require # auto-require lazy-loaded specs
 
@@ -70,7 +79,7 @@
               mini-sessions
               mini-snippets
               mini-splitjoin
-              # mini-starter # replaced by alpha.nvim
+              mini-starter # replaced by alpha.nvim
               mini-statusline
               mini-surround
               mini-tabline
@@ -111,6 +120,25 @@
             inherit plugin;
             optional = true;
           }) optPlugins;
+
+        extraPackages = with pkgs; [
+          # Nix stack
+          nixd
+          nixfmt
+
+          # Lua stack
+          lua-language-server
+          stylua
+
+          # Bash/Shell scripts stack
+          bash-language-server
+          shfmt
+          shellcheck
+
+          # Shell tools
+          ripgrep
+          fd
+        ];
       };
     };
 

@@ -36,6 +36,8 @@
 
       shellAliases = {
         ff = "${pkgs.fastfetch}/bin/fastfetch";
+        nos = "nh os switch";
+        nca = "nh clean all";
       };
     };
     programs = {
@@ -98,6 +100,10 @@
       fzf = {
         enable = true;
         enableFishIntegration = true;
+        defaultOptions = [
+          "--height 40%"
+          "--prompt ⟫"
+        ];
       };
 
       ripgrep = {

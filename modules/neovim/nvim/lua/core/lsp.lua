@@ -1,3 +1,10 @@
+-- Lazydev setup
+require("lazydev").setup({
+  library = {
+    { path = vim.g.luvit_meta_path .. "/library", words = { "vim%.uv" } },
+  },
+})
+
 -- Global config applied to ALL servers before they start
 vim.lsp.config("*", {
 	capabilities = vim.lsp.protocol.make_client_capabilities(),

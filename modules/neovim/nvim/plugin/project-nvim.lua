@@ -1,1 +1,6 @@
-require("project").setup()
+require("project").setup({
+	patterns = {
+		"flake.nix",
+		"flake.lock",
+	},
+})

@@ -21,37 +21,71 @@
             "sway/mode"
           ];
           modules-right = [
-            "battery"
+            "network"
+            "upower"
             "brightness"
             "clock"
-            "wireplumber"
+            "wireplumber#sink"
+            "wireplumber#source"
           ];
           modules-left = [
-            "idle_inhibit"
+            "idle_inhibitor"
           ];
-          wireplumber = {
-            format = "{volume}%";
 
+          network = {
+            format = "{ifname}";
+            format-disconnected = " ";
+            format-ethernet = " {ifname}";
+            format-wifi = " {essid} ({signalStrength}%)";
+            interface = "wlan0";
+            max-length = 50;
+            tooltip-format = "{ifname}";
+            tooltip-format-disconnected = "Disconnected";
+            tooltip-format-ethernet = " {ifname}";
+            tooltip-format-wifi = " {essid} ({signalStrength}%)";
           };
 
-          "wireplumber#sink" = {
+          upower = {
+            icon-size = 20;
+            hide-if-empty = true;
+            tooltip = true;
+            tooltip-spacing = 20;
+          };
+
+          wireplumber = {
             format = "{volume}% {icon}";
+          };
+          "wireplumber#sink" = {
+            format = "{icon} {volume}%";
             format-icons = [
               ""
               ""
               ""
             ];
             format-muted = "󰅶";
-            # on-click = "helvum";
             on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
             scroll-step = 5;
           };
           "wireplumber#source" = {
-            format = "{volume}% ";
-            format-muted = "";
+            format = " {volume}%";
+            format-muted = " ";
             node-type = "Audio/Source";
             on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
             scroll-step = 5;
+          };
+
+          idle_inhibitor = {
+            format = "{icon}";
+            format-icons = {
+              activated = "";
+              deactivated = "";
+            };
+          };
+
+          clock = {
+            # TODO: Get a full calendar over here.
+            format = "󰥔 {:%I:%M %p}";
+            format-alt = "󰃰 {:%A, %B %d, %Y (%R)}";
           };
         };
       };
