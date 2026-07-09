@@ -4,7 +4,8 @@
     services.xserver.xkb = {
       layout = "us";
       variant = "colemak_dh";
-      options = "ctrl:swapcaps";
+      # options = "ctrl:swapcaps";
+      options = "caps:swapescape";
     };
 
     # also configure the console keymap
@@ -15,7 +16,8 @@
     home.keyboard = {
       layout = "us";
       options = [
-        "ctrl:swapcaps"
+        # "ctrl:swapcaps"
+        "caps:swapescape"
       ];
       variant = "colemak_dh";
     };
@@ -24,10 +26,13 @@
       enable = true;
       settings = {
         "org/gnome/desktop/input-sources" = {
-          xkb-options = [ "ctrl:swapcaps" ];
+          xkb-options = [
+            # "ctrl:swapcaps"
+            "caps:swapescape"
+          ];
         };
         "org/gnome/desktop/interface" = {
-          gtk-key-theme = "Emacs";
+          # gtk-key-theme = "Emacs";
         };
       };
     };

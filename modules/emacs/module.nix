@@ -103,7 +103,13 @@
           ))
 
           (callPackage (
-            { melpaBuild, fetchFromGitHub }:
+            {
+              melpaBuild,
+              fetchFromGitHub,
+              magit,
+              transient,
+              ...
+            }:
             melpaBuild {
               pname = "majutsu";
               version = "0-unstable-2026-07-09";
@@ -113,6 +119,10 @@
                 rev = "59aff9b93eac575fbccc1f4ab2d48d048e0ead9b";
                 hash = "sha256-GJ62hsHgLEFIY0ghij0VPFt1jMUGRKhI2eCroBjkxtc=";
               };
+              packageRequires = [
+                magit
+                transient
+              ];
             }
           ) { })
         ];

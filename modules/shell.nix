@@ -13,11 +13,7 @@
         enable = true;
         settings = {
           italic-text = "always";
-          map-syntax = [
-            "*.ino:C++"
-            ".ignore:Git Ignore"
-          ];
-          pager = "less --RAW-CONTROL-CHARS --quit-if-one-screen --mouse";
+          pager = "less";
           paging = "never";
           theme = "gruvbox-dark";
         };

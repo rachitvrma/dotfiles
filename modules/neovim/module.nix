@@ -5,7 +5,6 @@
         enable = true;
         viAlias = true;
         vimAlias = true;
-
         defaultEditor = true;
       };
     };
@@ -32,6 +31,7 @@
               # mini plugins
               conform-nvim # Auto format code
               grug-far-nvim # find and replace
+              nvim-lspconfig # Lspconfig contains prebuilt configurations
               lz-n # for lazy-loading plugins
               lzn-auto-require # auto-require lazy-loaded specs
 
@@ -75,6 +75,8 @@
 
               rainbow-delimiters-nvim
               trouble-nvim
+
+              gruvbox-material-nvim # For a gruvbox material theme
             ];
 
             treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (

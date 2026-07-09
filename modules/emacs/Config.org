@@ -759,15 +759,12 @@ This is a formatter that primarily uses Black, Prettier and a few other standard
 
   (use-package apheleia
     :after
-    (nix-ts-mode lua-mode)
-    :hook ((nix-ts-mode lua-mode) . apheleia-mode)
+    (nix-ts-mode)
+    :hook ((nix-ts-mode) . apheleia-mode)
     :config
     ;; Nix stack
     (add-to-list 'apheleia-formatters '(nixfmt . ("nixfmt")))
-    (add-to-list 'apheleia-mode-alist '(nix-ts-mode . nixfmt))
-    ;; Lua Configuration
-    (add-to-list 'apheleia-formatters '(stylua . ("stylua")))
-    (add-to-list 'apheleia-mode-alist '(lua-mode . stylua)))
+    (add-to-list 'apheleia-mode-alist '(nix-ts-mode . nixfmt)))
 
 #+end_src
 
