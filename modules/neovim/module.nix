@@ -36,6 +36,7 @@
               conform-nvim # Auto format code
               dropbar-nvim # IDE-Like Breadcrumbs
               grug-far-nvim # find and replace
+              image-nvim # image in neovim
               nvim-lspconfig # Lspconfig contains prebuilt configurations
 
               # Neovim Configuration
@@ -121,6 +122,7 @@
             optional = true;
           }) optPlugins;
 
+        extraLuaPackages = ps: with ps; [ magick ];
         extraPackages = with pkgs; [
           # Nix stack
           nixd
@@ -138,6 +140,8 @@
           # Shell tools
           ripgrep
           fd
+
+          imagemagick # image.nvim stack
         ];
       };
     };
