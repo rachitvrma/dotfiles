@@ -102,12 +102,16 @@ require("mini.fuzzy").setup()
 require("mini.git").setup()
 
 local hi_words = require("mini.extra").gen_highlighter.words
+local hipatterns = require("mini.hipatterns")
 require("mini.hipatterns").setup({
 	highlighters = {
 		todo = hi_words({ "TODO", "Todo", "todo" }, "MiniHipatternsTodo"),
 		note = hi_words({ "NOTE", "Note", "note" }, "MiniHipatternsNote"),
 		fixme = hi_words({ "FIXME", "Fixme", "fixme" }, "MiniHipatternsFixme"),
 		hack = hi_words({ "HACK", "Hack", "hack" }, "MiniHipatternsFixme"),
+
+		-- Highlight hex color strings (`#rrggbb`) using that color
+		hex_color = hipatterns.gen_highlighter.hex_color(),
 	},
 })
 
