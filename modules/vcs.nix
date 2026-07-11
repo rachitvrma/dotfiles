@@ -17,6 +17,7 @@
           git_protocol = "ssh";
         };
       };
+      gh-dash.enable = true;
       gitui = {
         enable = true;
         keyConfig = ''

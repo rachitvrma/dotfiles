@@ -45,11 +45,11 @@
         ];
         downloader = "aria2c";
         downloader-args = "aria2c:'-c -j 3 -x8 -s8 -k1M --async-dns=false'";
-        embed-subs = true;
+        # embed-subs = true;
         embed-thumbnail = true;
         embed-metadata = true;
         format = "bestvideo+bestaudio/best";
-        sub-langs = "all,-live_chat";
+        # sub-langs = "all,-live_chat";
       };
     };
   };

@@ -95,6 +95,7 @@
 
             treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (
               p: with p; [
+                bash
                 c
                 cpp
                 fish
@@ -104,6 +105,7 @@
                 markdown
                 markdown_inline
                 nix
+                ron
                 toml
                 yaml
               ]

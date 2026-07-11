@@ -4,6 +4,11 @@
       starship = {
         enable = true;
         transientPrompt.enable = true;
+        settings = {
+          scan_timeout = 10;
+          add_newline = true;
+          command_timeout = 200;
+        };
       };
       zoxide = {
         enable = true;
@@ -38,6 +43,7 @@
         ff = "${pkgs.fastfetch}/bin/fastfetch";
         nos = "nh os switch";
         nca = "nh clean all";
+        cat = "bat --paging=never";
       };
     };
     programs = {
@@ -52,7 +58,7 @@
             "*.props:Java Properties"
           ];
           pager = "less -FR";
-          # theme = "gruvbox-dark";
+          theme = "gruvbox-dark";
         };
       };
 
@@ -81,10 +87,10 @@
         enable = true;
         colors = "auto";
         enableFishIntegration = true;
-        git = true;
+        git = false; # Takes really long to load big git repos
         icons = "auto";
         extraOptions = [
-          "--git-repos"
+          # "--git-repos" # Takes too long to load on big repos
           "--group-directories-first"
           "--header"
         ];
@@ -114,6 +120,11 @@
         enable = true;
         enableFishIntegration = true;
         presets = [ "nerd-font-symbols" ];
+        settings = {
+          scan_timeout = 10;
+          add_newline = true;
+          command_timeout = 200;
+        };
       };
 
       zoxide = {
