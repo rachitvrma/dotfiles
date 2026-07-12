@@ -17,8 +17,8 @@
           height = 25;
 
           modules-center = [
-            "sway/workspaces"
-            "sway/mode"
+            "hyprland/workspaces"
+            "hyprland/mode"
           ];
           modules-right = [
             "network"
@@ -26,7 +26,6 @@
             "brightness"
             "clock"
             "wireplumber#sink"
-            "wireplumber#source"
           ];
           modules-left = [
             "idle_inhibitor"
@@ -35,8 +34,8 @@
           network = {
             format = "{ifname}";
             format-disconnected = " ";
-            format-ethernet = " {ifname}";
-            format-wifi = " {essid} ({signalStrength}%)";
+            format-ethernet = " ";
+            format-wifi = " ";
             interface = "wlan0";
             max-length = 50;
             tooltip-format = "{ifname}";

@@ -10,6 +10,10 @@
           command_timeout = 200;
         };
       };
+      television = {
+        enable = true;
+        enableFishIntegration = true;
+      };
       zoxide = {
         enable = true;
         enableFishIntegration = true;
@@ -32,7 +36,7 @@
     };
   };
 
-  flake.homeModules.shell = { pkgs, ... }: {
+  flake.homeModules.shell = { pkgs, config, ... }: {
     home = {
       shell = {
         enableFishIntegration = true;
@@ -60,6 +64,11 @@
           pager = "less -FR";
           theme = "gruvbox-dark";
         };
+      };
+
+      tealdeer = {
+        enable = true;
+        settings.updates.auto_update = true;
       };
 
       nix-your-shell = {
@@ -125,6 +134,46 @@
           add_newline = true;
           command_timeout = 200;
         };
+      };
+
+      television = {
+        enable = true;
+        enableFishIntegration = true;
+        channels = {
+          nixdots = {
+            actions = {
+              edit = {
+                command = "if set -q EDITOR; and test -n \"$EDITOR\"; $EDITOR {}; else; vim {}; end";
+                description = "Edit the selected nix config file";
+                mode = "execute";
+                shell = "fish";
+              };
+            };
+            keybindings = {
+              enter = "actions:edit";
+            };
+            metadata = {
+              description = "A channel to select from your user's nixos config";
+              name = "nixdots";
+              requirements = [
+                "fd"
+                "bat"
+              ];
+            };
+            preview = {
+              command = "bat -n --color=always '{}'";
+            };
+            source = {
+              command = "fd -t f . $HOME/etc/nixos";
+            };
+          };
+
+        };
+      };
+
+      nix-search-tv = {
+        enable = true;
+        enableTelevisionIntegration = true;
       };
 
       zoxide = {

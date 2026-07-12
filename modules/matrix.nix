@@ -1,9 +1,7 @@
 {
   flake.homeModules.matrix = {
     programs = {
-      element-desktop = {
-        enable = true;
-      };
+      # element-desktop.enable = true;
       iamb = {
         enable = true;
         settings = {

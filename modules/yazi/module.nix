@@ -238,6 +238,7 @@ in
       enable = true;
       enableFishIntegration = true;
       inherit theme;
+      extraPackages = with pkgs; [ mediainfo ];
       plugins = {
         git = {
           package = pkgs.yaziPlugins.git;
@@ -246,8 +247,45 @@ in
             order = 1500;
           };
         };
+        mediainfo = {
+          package = pkgs.yaziPlugins.mediainfo;
+        };
       };
       settings = {
+        plugin = {
+          prepend_preloaders = [
+            {
+              mime = "{audio,video,image}/*";
+              run = "mediainfo";
+            }
+            {
+              mime = "application/{subrip,postscript,illustrator,dvb.ait,vnd.adobe.illustrator,eps}";
+              run = "mediainfo";
+            }
+            {
+              run = "mediainfo";
+              url = "*.{ai,eps,ait}";
+            }
+          ];
+          prepend_previewers = [
+            {
+              mime = "{audio,video,image}/*";
+              run = "mediainfo";
+            }
+            {
+              mime = "application/{subrip,postscript,illustrator,dvb.ait,vnd.adobe.illustrator,eps}";
+              run = "mediainfo";
+            }
+            {
+              run = "mediainfo";
+              url = "*.{ai,eps,ait}";
+            }
+          ];
+        };
+
+        tasks = {
+          image_alloc = 1073741824;
+        };
         log = {
           enabled = false;
         };

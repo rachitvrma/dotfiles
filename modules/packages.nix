@@ -95,6 +95,7 @@
       gitingest
       wl-clipboard
       unzip
+      gophertube
     ];
   };
 }

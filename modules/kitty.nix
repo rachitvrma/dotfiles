@@ -9,6 +9,7 @@
     programs = {
       kitty = {
         enable = true;
+        enableGitIntegration = true;
         shellIntegration.enableFishIntegration = true;
         font = {
           package = pkgs.nerd-fonts.jetbrains-mono;
@@ -26,11 +27,15 @@
           window_padding_width = 15;
           notify_on_cmd_finish = "unfocused";
 
+          background_opacity = 0.8;
+
           background = "#141617";
           cursor_text_color = "#141617";
           active_tab_foreground = "#141617";
 
           allow_remote_control = true;
+          listen_on = "unix:/tmp/kitty";
+          enabled_layouts = "splits";
 
           tab_bar_style = "powerline";
           tab_powerline_style = "round";

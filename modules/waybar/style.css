@@ -4,7 +4,7 @@ window#waybar, tooltip {
 
 * {
     font-family: "JetBrainsMono Nerd Font";
-    font-size: 10pt;
+    font-size: 11pt;
 }
 
 @define-color base00 #141617; @define-color base01 #2a2827;

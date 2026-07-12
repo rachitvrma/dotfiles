@@ -20,7 +20,7 @@
       gh-dash.enable = true;
       gitui = {
         enable = true;
-        keyConfig = ''
+        keyConfig = /* ron */ ''
           // Note:
           // If the default key layout is lower case,
           // and you want to use `Shift + q` to trigger the exit event,
@@ -60,6 +60,32 @@
               stash_open: Some(( code: Char('l'), modifiers: "")),
 
               abort_merge: Some(( code: Char('M'), modifiers: "SHIFT")),
+          )
+        '';
+
+        theme = /* ron */ ''
+          (
+              selected_tab: Some("Reset"),
+              command_fg: Some("#ddc7a1"),
+              selection_bg: Some("#bdae93"),
+              selection_fg: Some("#ddc7a1"),
+              cmdbar_bg: Some("#1d2021"),
+              cmdbar_extra_lines_bg: Some("#1d2021"),
+              disabled_fg: Some("#bdae93"),
+              diff_line_add: Some("#a9b665"),
+              diff_line_delete: Some("#ea6962"),
+              diff_file_added: Some("#d8a657"),
+              diff_file_removed: Some("#ea6962"),
+              diff_file_moved: Some("#d3869b"),
+              diff_file_modified: Some("#e78a4e"),
+              commit_hash: Some("#fbf1c7"),
+              commit_time: Some("#ddc7a1"),
+              commit_author: Some("#7daea3"),
+              danger_fg: Some("#ea6962"),
+              push_gauge_bg: Some("#7daea3"),
+              push_gauge_fg: Some("#141617"),
+              tag_fg: Some("#ebdbb2"),
+              branch_fg: Some("#89b482"),
           )
         '';
       };

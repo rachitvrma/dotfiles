@@ -15,7 +15,7 @@
     };
   };
 
-  flake.homeModules.xdg = { config, pkgs, ... }: {
+  flake.homeModules.xdg = { config, ... }: {
     home.preferXdgDirectories = true;
     xdg = {
       enable = true;

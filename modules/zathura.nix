@@ -31,7 +31,7 @@
         completion-fg = "#bdae93"; # base04
         completion-group-bg = "#282828"; # base02
         completion-group-fg = "#a9b665"; # base0B — subtle differentiator, not the main accent
-        completion-highlight-bg = "#d3869b"; # base0E — magenta, matches your Sway/bar accent
+        completion-highlight-bg = "#d3869b"; # base0E
         completion-highlight-fg = "#141617"; # base00
 
         # Table of contents / index sidebar
