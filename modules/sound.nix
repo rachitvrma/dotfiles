@@ -15,11 +15,10 @@
     ];
   };
 
-  flake.homeModules.sound = { pkgs, ... }: {
+  flake.homeModules.sound = { ... }: {
     services.pipewire = {
       enable = true;
       wireplumber.enable = true;
     };
-    home.packages = [ pkgs.pavucontrol ];
   };
 }

@@ -7,8 +7,16 @@ local xmap_leader = function(suffix, rhs, desc)
 	vim.keymap.set("x", "<Leader>" .. suffix, rhs, { desc = desc })
 end
 
+-- Buffer related keymaps
 nmap_leader("bd", "<Cmd>lua MiniBufremove.delete()<CR>", "Delete")
 nmap_leader("bw", "<Cmd>lua MiniBufremove.wipeout()<CR>", "Wipeout")
+-- Pick open buffers, <Tab> for preview (mini.pick's default toggle_preview mapping)
+nmap_leader("bb", function()
+	local wipeout_cur = function()
+		MiniBufremove.wipeout(MiniPick.get_picker_matches().current.bufnr)
+	end
+	MiniPick.builtin.buffers({}, { mappings = { wipeout = { char = "<C-d>", func = wipeout_cur } } })
+end, "Buffers")
 
 nmap_leader("lf", "<Cmd>lua vim.lsp.buf.format()<CR>", "Format")
 xmap_leader("lf", "<Cmd>lua vim.lsp.buf.format()<CR>", "Format")

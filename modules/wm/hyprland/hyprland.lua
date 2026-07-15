@@ -255,9 +255,10 @@ hl.config({
 	},
 })
 
+-- These are set using uwsm's env-hyprland or env
 -- settings.env
-hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_SIZE", "24")
+-- hl.env("XCURSOR_SIZE", "24")
+-- hl.env("HYPRCURSOR_SIZE", "24")
 
 -- settings.gesture
 hl.gesture({ ["action"] = "workspace", ["direction"] = "horizontal", ["fingers"] = 4 })

@@ -65,18 +65,12 @@
       };
       mpdris2-rs = {
         enable = true;
-        notifications = {
-          enable = true;
-          # summary = "%artist% - %album%";
-          # body = "%title% %elapsed% - %duration%";
-          # summaryPaused = "%artist% - %album%";
-          # bodyPaused = "%title% %elapsed% - %duration%";
-          # timeout = 5000.0;
-        };
+        notifications.enable = true;
       };
     };
     programs = {
       # For TUI music
+      # Put this to download lyrics
       rmpc = {
         enable = true;
         config = /* ron */ ''
@@ -99,18 +93,27 @@
           directory = config.xdg.userDirs.music;
           library = "${config.xdg.dataHome}/beets/library.db";
           plugins = [
-            "fetchart"
-            "embedart"
-            "replaygain"
             "duplicates"
-            "scrub"
+            "embedart"
+            "fetchart"
             "ftintitle"
+            "info"
+            "lastgenre"
+            "missing"
+            "musicbrainz"
+            "replaygain"
+            "scrub"
           ];
           import = {
             move = true;
             write = true;
             resume = "ask";
             incremental = true;
+          };
+          paths = {
+            default = "$albumartist/$album ($year)/$track - $title";
+            singleton = "Singles/$artist/$title";
+            comp = "Compilations/$album/$track - $title";
           };
           replaygain.backend = "ffmpeg";
         };

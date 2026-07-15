@@ -7,23 +7,14 @@
         enable = true;
         wifi = {
           powersave = true;
+          /*
+            This option automatically configures
+            and enables iwd. So, iwd doesn't need to
+            enabled separately.
+          */
           backend = "iwd";
         };
       };
-      wireless = {
-        iwd = {
-          enable = true;
-          settings = {
-            Network = {
-              EnableIPv6 = true;
-            };
-            Settings = {
-              AutoConnect = true;
-            };
-          };
-        };
-      };
-
       nftables.enable = true;
       firewall = {
         enable = true;
