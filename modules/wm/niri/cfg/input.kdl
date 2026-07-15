@@ -1,0 +1,23 @@
+input  {
+  mouse {
+    accel-profile "flat"
+  }
+  focus-follows-mouse max-scroll-amount="0%"
+  keyboard  {
+    repeat-delay 250
+    repeat-rate 35
+    track-layout "global"
+    numlock
+  }
+  touchpad  {
+    dwt
+    dwtp
+    natural-scroll
+    tap
+
+    click-method "clickfinger"
+    scroll-factor 0.7
+  }
+  warp-mouse-to-focus
+  workspace-auto-back-and-forth
+}

@@ -16,6 +16,7 @@
   };
 
   flake.homeModules.commonDesktop = {
+    xdg.portal.enable = true;
     programs = {
       swayimg = {
         enable = true;
@@ -74,47 +75,6 @@
           "-m"
           "60" # min seconds between checks
         ];
-      };
-
-      mako = {
-        enable = true;
-        settings = {
-          "actionable=true" = {
-            anchor = "top-left";
-          };
-          "urgency=low" = {
-            border-color = "#89b482"; # base0C aqua - quiet/informational
-          };
-          "urgency=normal" = {
-            border-color = "#d3869b"; # base0E magenta - your primary
-          };
-          "urgency=critical" = {
-            border-color = "#ea6962"; # base08 red - stands out regardless of theme
-          };
-
-          actions = true;
-          anchor = "top-right";
-          background-color = "#1d2021";
-          text-color = "#d4be98";
-          border-color = "#7daea3";
-          font = "monospace 10";
-          border-size = 2;
-          border-radius = 8;
-          default-timeout = 0;
-          height = 100;
-          icons = true;
-          max-icon-size = 48;
-          ignore-timeout = false;
-          layer = "overlay";
-          margin = 10;
-          padding = "10,15";
-          markup = true;
-          width = 320;
-        };
-      };
-
-      cliphist = {
-        enable = true;
       };
     };
   };

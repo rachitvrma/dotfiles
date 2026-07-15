@@ -1,0 +1,10 @@
+// The blur is enabled using a window rule in window-rules.kdl
+// And some are also enabled using layer rules
+
+blur {
+  // off
+  passes 3
+  offset 6
+  noise 0.05
+  saturation 1.5
+}

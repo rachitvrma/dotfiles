@@ -1,0 +1,49 @@
+window-rule {
+  clip-to-geometry true
+  draw-border-with-background false
+  geometry-corner-radius 20
+  open-maximized true
+  background-effect {
+    blur true
+  }
+}
+
+window-rule {
+  match app-id="kitty"
+  open-maximized false
+}
+
+window-rule {
+  match is-floating=true
+  geometry-corner-radius 30.0 30.0 30.0 30.0
+}
+
+window-rule {
+  match is-floating=false
+  shadow {
+    off
+  }
+}
+
+// TOOD: add pcmanfm configuration
+
+// TODO: When making kitty a floating-window, use this
+
+window-rule {
+  match app-id="dev.noctalia.Noctalia"
+  open-floating true
+  default-column-width { fixed 1080; }
+  default-window-height { fixed 920; }
+}
+
+window-rule {
+  match app-id="org.gnome.Nautilus"
+  open-floating true
+  open-focused true
+  default-column-width { fixed 900; }
+  default-window-height { fixed 550; }
+}
+
+/-window-rule {
+  opacity
+}

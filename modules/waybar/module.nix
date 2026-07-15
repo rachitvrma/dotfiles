@@ -1,14 +1,14 @@
 {
   flake.nixosModules.waybar = {
     programs.waybar = {
-      enable = true;
+      enable = false;
     };
   };
 
   flake.homeModules.waybar = {
     programs.waybar = {
       style = builtins.readFile ./style.css;
-      enable = true;
+      enable = false;
       systemd.enable = true;
       settings = {
         mainBar = {

@@ -1,0 +1,194 @@
+binds  {
+  Alt+Print  {
+    screenshot-window
+  }
+  Ctrl+Print  {
+    screenshot-screen
+  }
+  Mod+0  {
+    focus-workspace 10
+
+  }
+  Mod+1  {
+    focus-workspace 1
+
+  }
+  Mod+2  {
+    focus-workspace 2
+
+  }
+  Mod+3  {
+    focus-workspace 3
+
+  }
+  Mod+4  {
+    focus-workspace 4
+  }
+  Mod+5  {
+    focus-workspace 5
+  }
+  Mod+6  {
+    focus-workspace 6
+  }
+  Mod+7  {
+    focus-workspace 7
+  }
+  Mod+8  {
+    focus-workspace 8
+  }
+  Mod+9  {
+    focus-workspace 9
+  }
+  Mod+BracketLeft  {
+    consume-or-expel-window-left
+  }
+  Mod+BracketRight  {
+    consume-or-expel-window-right
+  }
+  Mod+C  {
+    center-column
+  }
+  /-Mod+Comma  {
+    consume-window-into-column
+  }
+  Mod+Ctrl+M  {
+    expand-column-to-available-width
+  }
+  Mod+Ctrl+R  {
+    reset-window-height
+  }
+
+  Mod+Equal  {
+    set-column-width "+10%"
+  }
+
+  Mod+Return { spawn "xdg-terminal-exec"; }
+
+  Mod+H  {
+    focus-column-left-or-last
+  }
+  Mod+J  {
+    focus-window-down
+  }
+  Mod+K  {
+    focus-window-up
+
+  }
+  Mod+L  {
+    focus-column-right-or-first
+  }
+
+  // Workspace down or up
+  Mod+U {
+    focus-workspace-down
+  }
+  Mod+I {
+    focus-workspace-up
+  }
+  Mod+Shift+U {
+    move-window-to-workspace-down
+  }
+  Mod+Shift+I {
+    move-window-to-workspace-up
+  }
+
+  Mod+M  {
+    maximize-column
+  }
+  Mod+Minus  {
+    set-column-width "-10%"
+  }
+  Mod+O  repeat=false {
+    toggle-overview
+  }
+  Mod+Period  {
+    expel-window-from-column
+  }
+  Mod+Q  {
+    close-window
+  }
+  Mod+Shift+Ctrl+E  {
+    quit
+  }
+  Mod+Shift+Equal  {
+    set-window-height "+10%"
+  }
+  Mod+Shift+H  {
+    move-column-left
+  }
+  Mod+Shift+J  {
+    move-window-down
+  }
+  Mod+Shift+K  {
+    move-window-up
+  }
+  Mod+Shift+L  {
+    move-column-right
+  }
+  Mod+Shift+M  {
+    maximize-window-to-edges
+  }
+  Mod+Shift+Minus  {
+    set-window-height "-10%"
+  }
+
+  // Cycle through preset heights and widths
+  // See window-rules.kdl
+  Mod+R { switch-preset-column-width; }
+  Mod+Shift+R  { switch-preset-window-height; }
+
+  Mod+Shift+V  {
+    switch-focus-between-floating-and-tiling
+  }
+  Mod+V  {
+    toggle-window-floating
+  }
+  Mod+W  {
+    toggle-column-tabbed-display
+  }
+
+  // Toggle wallpaper selector
+  Print  {
+    screenshot
+  }
+
+  // Noctalia v5 settings:
+  // Core Noctalia binds
+  Mod+D { spawn-sh "noctalia msg panel-toggle launcher"; }
+  Mod+S { spawn-sh "noctalia msg panel-toggle control-center"; }
+  Mod+Comma { spawn-sh "noctalia msg settings-toggle"; }
+
+  // Audio & Brightness
+  XF86AudioRaiseVolume { spawn-sh "noctalia msg volume-up"; }
+  XF86AudioLowerVolume { spawn-sh "noctalia msg volume-down"; }
+  XF86AudioMute { spawn-sh "noctalia msg volume-mute"; }
+  XF86MonBrightnessUp { spawn-sh "noctalia msg brightness-up"; }
+  XF86MonBrightnessDown { spawn-sh "noctalia msg brightness-down"; }
+
+  XF86AudioPlay { spawn-sh "noctalia msg media toggle"; }
+  XF86AudioPause { spawn-sh "noctalia msg media toggle"; }
+  XF86AudioNext { spawn-sh "noctalia msg media next"; }
+  XF86AudioPrev { spawn-sh "noctalia msg media previous"; }
+
+  // ─── Workspace Switching ───
+  MOD+WHEELSCROLLDOWN                 cooldown-ms=150 { focus-workspace-down; }
+  MOD+WHEELSCROLLUP                   cooldown-ms=150 { focus-workspace-up; }
+  MOD+CTRL+WHEELSCROLLDOWN            cooldown-ms=150 { move-column-to-workspace-down; }
+  MOD+CTRL+WHEELSCROLLUP              cooldown-ms=150 { move-column-to-workspace-up; }
+
+  MOD+WHEELSCROLLRIGHT                { focus-column-right; }
+  MOD+WHEELSCROLLLEFT                 { focus-column-left; }
+  MOD+CTRL+WHEELSCROLLRIGHT           { move-column-right; }
+  MOD+CTRL+WHEELSCROLLLEFT            { move-column-left; }
+
+  MOD+SHIFT+WHEELSCROLLDOWN           { focus-column-right; }
+  MOD+SHIFT+WHEELSCROLLUP             { focus-column-left; }
+  MOD+CTRL+SHIFT+WHEELSCROLLDOWN      { move-column-right; }
+  MOD+CTRL+SHIFT+WHEELSCROLLUP        { move-column-left; }
+
+  Mod+F { focus-monitor-next; }
+  Mod+Shift+F { move-window-to-monitor-next; }
+
+  Mod+B { focus-monitor-previous; }
+  Mod+Shift+B { move-window-to-monitor-previous; }
+}

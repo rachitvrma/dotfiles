@@ -28,6 +28,7 @@
           notify_on_cmd_finish = "unfocused";
 
           background_opacity = 0.8;
+          background_blur = 64;
 
           background = "#141617";
           cursor_text_color = "#141617";

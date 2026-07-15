@@ -2,9 +2,11 @@
   flake.nixosModules.networking = { pkgs, ... }: {
     # Enable networking
     networking = {
-      # useNetworkd = true;
+      useNetworkd = true;
       networkmanager = {
+        enable = true;
         wifi = {
+          powersave = true;
           backend = "iwd";
         };
       };

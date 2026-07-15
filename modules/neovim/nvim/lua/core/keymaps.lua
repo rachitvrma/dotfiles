@@ -1,3 +1,4 @@
+-- TODO: Add a keybind to open a picker for buffers
 -- Leader keybindings utilising the mini keybindings
 local nmap_leader = function(suffix, rhs, desc)
 	vim.keymap.set("n", "<Leader>" .. suffix, rhs, { desc = desc })

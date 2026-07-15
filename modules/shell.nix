@@ -36,7 +36,7 @@
     };
   };
 
-  flake.homeModules.shell = { pkgs, config, ... }: {
+  flake.homeModules.shell = { pkgs, ... }: {
     home = {
       shell = {
         enableFishIntegration = true;
@@ -49,6 +49,10 @@
         nca = "nh clean all";
         cat = "bat --paging=never";
       };
+      packages = with pkgs; [
+        figlet
+        speedtest-cli
+      ];
     };
     programs = {
       jq.enable = true;

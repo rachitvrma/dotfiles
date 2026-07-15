@@ -1,0 +1,16 @@
+clipboard {
+  disable-primary
+}
+debug {
+  honor-xdg-activation-with-invalid-serial
+}
+hotkey-overlay {
+  skip-at-startup
+}
+overview {
+  backdrop-color "#141617"
+  workspace-shadow {
+    // off
+  }
+}
+prefer-no-csd
