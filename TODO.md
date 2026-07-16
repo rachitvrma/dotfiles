@@ -1,6 +1,6 @@
 # Tasks
 
-- [ ] File a PR on Firefox's derivation. See [Firefox's module.nix](./modules/firefox/module.nix).
+- [ ] File a PR on Firefox's derivation. See [Firefox's module.nix](./modules/firefox.nix).
 - [ ] Create a Cava themes module. See [cava's module](./modules/packages.nix).
 - [ ] Create a home-manager module for [hyprtoolkit.conf](https://wiki.hypr.land/Hypr-Ecosystem/hyprtoolkit/).
 - [ ] Version bump Gophertube in nixpkgs.

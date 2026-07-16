@@ -13,12 +13,15 @@
         xdgOpenUsePortal = true;
       };
     };
+
+    environment.localBinInPath = true;
   };
 
   flake.homeModules.xdg = { config, ... }: {
     home.preferXdgDirectories = true;
     xdg = {
       enable = true;
+      localBinInPath = true;
       mime.enable = true;
       mimeApps = {
         enable = true;

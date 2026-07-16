@@ -43,7 +43,3 @@ window-rule {
   default-column-width { fixed 900; }
   default-window-height { fixed 550; }
 }
-
-/-window-rule {
-  opacity
-}

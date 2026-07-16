@@ -27,7 +27,7 @@
           window_padding_width = 15;
           notify_on_cmd_finish = "unfocused";
 
-          background_opacity = 0.8;
+          background_opacity = 0.85;
           background_blur = 64;
 
           background = "#141617";
@@ -38,9 +38,25 @@
           listen_on = "unix:/tmp/kitty";
           enabled_layouts = "splits";
 
+          tab_bar_edge = "top";
           tab_bar_style = "powerline";
-          tab_powerline_style = "round";
+          tab_powerline_style = "slanted";
+          tab_bar_align = "left";
           tab_bar_min_tabs = 2;
+          tab_bar_margin_width = 0.0;
+          tab_bar_margin_hieght = "2.5 1.5";
+          tab_bar_margin_color = "#1d2021";
+          tab_bar_background = "#1d2021";
+
+          active_tab_background = "#d3869b";
+          active_tab_font_style = "bold";
+
+          inactive_font_style = "normal";
+
+          tab_activity_symbol = " ● ";
+
+          tab_title_template = "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title[:30]}{title[30:] and '…'} [{index}]";
+          active_tab_title_template = "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title[:30]}{title[30:] and '…'} [{index}]";
         };
 
         keybindings = {
