@@ -21,7 +21,7 @@ layout  {
     offset "x"=0 "y"=2
     on
     softness 20
-    spread 3
+    spread 4
     color "#00000020"
   }
   tab-indicator  {

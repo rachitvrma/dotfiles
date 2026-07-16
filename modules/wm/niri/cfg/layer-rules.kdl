@@ -6,9 +6,11 @@ layer-rule {
 
 /* Noctalia: blur everywhere without xray for a better look */
 layer-rule {
+  // If you want to blur the bar layer, we can do that with the following
   match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$"
   background-effect {
     xray false
     // blur false
   }
 }
+

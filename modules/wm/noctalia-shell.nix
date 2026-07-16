@@ -28,9 +28,10 @@
         bar = {
           default = {
             capsule = true;
+            capsule_border = "outline";
             font_family = config.gtk.font.name;
             position = "bottom";
-            background_opacity = 0.97;
+            background_opacity = 0.8;
           };
         };
         lockscreen = {
@@ -129,6 +130,7 @@
             "firefox"
             "kitty"
           ];
+          background_opacity = 0.7;
         };
         keybinds = {
           validate = [

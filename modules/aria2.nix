@@ -1,5 +1,6 @@
 {
   flake.homeModules.aria2 = { pkgs, config, ... }: {
+    home.packages = with pkgs; [ libnotify ];
     programs = {
       aria2p = {
         enable = true;
