@@ -16,16 +16,21 @@
       ];
     };
   };
-  flake.homeModules.noctalia-shell = {
+  flake.homeModules.noctalia-shell = { config, ... }: {
     imports = [ inputs.noctalia.homeModules.default ];
 
     programs.noctalia = {
       enable = true;
       systemd.enable = true;
       settings = {
+        audio.enable_sounds = true;
+        nightlight.enabled = true;
         bar = {
           default = {
+            capsule = true;
+            font_family = config.gtk.font.name;
             position = "bottom";
+            background_opacity = 0.97;
           };
         };
         lockscreen_widgets = {
@@ -61,10 +66,30 @@
           };
           widget_order = [ "lockscreen-login-box@eDP-1" ];
         };
+        widget.clock = {
+          format = "{:%-I:%M %p}";
+        };
         shell = {
           avatar_path = "/home/krish/.face";
           launch_apps_as_systemd_services = true;
+          font_family = "monospace";
+          corner_radius_scale = 2;
+          password_style = "random";
+          niri_overview_type_to_launch_enabled = true;
+          offline_mode = true;
+          telemetry_enabled = false;
+          polkit_agent = true;
+          screen_time_enabled = true;
+          clipboard_enabled = true;
+          animation.enabled = true;
+          time_format = "{:%-I:%M %p}";
+
+          panel = {
+            launcher_session_search = true;
+            transparency_mode = "glass";
+          };
         };
+        hot_corners.enabled = true;
         theme = {
           builtin = "Gruvbox";
         };
@@ -81,6 +106,45 @@
               path = "/home/krish/Pictures/Wallpapers/Gruvbox/castle.jpg";
             };
           };
+        };
+
+        osd = {
+          position = "bottom_center";
+          background_opacity = 0.97;
+        };
+
+        dock = {
+          enabled = true;
+          position = "top";
+          auto_hide = true;
+          reserve_space = false;
+          pinned = [
+            "firefox"
+            "kitty"
+          ];
+        };
+        keybinds = {
+          validate = [
+            "return"
+            "kp_return"
+          ];
+          cancel = [ "escape" ];
+          left = [
+            "left"
+            "ctrl+h"
+          ];
+          right = [
+            "right"
+            "ctrl+l"
+          ];
+          up = [
+            "up"
+            "ctrl+k"
+          ];
+          down = [
+            "down"
+            "ctrl+j"
+          ];
         };
       };
     };

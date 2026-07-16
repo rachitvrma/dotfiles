@@ -1,5 +1,5 @@
 {
-  flake.homeModules.aria2 = { pkgs, ... }: {
+  flake.homeModules.aria2 = { pkgs, config, ... }: {
     programs = {
       aria2p = {
         enable = true;
@@ -9,10 +9,10 @@
         systemd.enable = true;
         settings = {
           ## ── Core ─────────────────────────────────────────────────────
-          dir = "/home/krish/Downloads";
+          dir = "${config.xdg.userDirs.download}";
           continue = true;
-          input-file = "/home/krish/.config/aria2/session.lock";
-          save-session = "/home/krish/.config/aria2/session.lock";
+          input-file = "${config.xdg.configHome}/aria2/session.lock";
+          save-session = "${config.xdg.configHome}/aria2/session.lock";
           save-session-interval = 30;
           force-save = false;
 

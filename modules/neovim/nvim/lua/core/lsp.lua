@@ -1,8 +1,8 @@
 -- Lazydev setup
 require("lazydev").setup({
-  library = {
-    { path = vim.g.luvit_meta_path .. "/library", words = { "vim%.uv" } },
-  },
+	library = {
+		{ path = vim.g.luvit_meta_path .. "/library", words = { "vim%.uv" } },
+	},
 })
 
 -- Global config applied to ALL servers before they start
@@ -22,10 +22,16 @@ vim.lsp.config("markdown_oxide", {
 	}),
 })
 
+-- Override nixd's default cmd to enable semantic tokens (better tree-sitter-esque highlighting)
+vim.lsp.config("nixd", {
+	cmd = { "nixd", "--semantic-tokens" },
+})
+
 -- Enable each server — Neovim matches filetype → starts server → done
 vim.lsp.enable({
 	"fish_lsp",
 	"lua_ls",
+	-- TODO: Add the `--semantic-token` flag to nixd's default command
 	"nixd",
 	"markdown_oxide",
 	"mpls",

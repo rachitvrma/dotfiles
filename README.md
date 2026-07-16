@@ -1,5 +1,8 @@
 # My NixOS configuration
 
+---
+## Instructions for Installation:
+
 
 ---
 
