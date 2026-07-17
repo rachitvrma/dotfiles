@@ -20,3 +20,10 @@ switch-events {
 }
 
 prefer-no-csd
+
+// Disable hot-corners in niri, because a mis-drag enables it
+gestures {
+  hot-corners {
+    off
+  }
+}

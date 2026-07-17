@@ -3,6 +3,8 @@
 ---
 ## Instructions for Installation:
 
+>[!note] I am assuming that an ISO is already created.
+>for more details see
 
 ---
 

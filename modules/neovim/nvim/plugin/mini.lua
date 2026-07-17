@@ -36,7 +36,21 @@ require("mini.base16").setup({
 	plugins = { default = true },
 })
 
-require("mini.basics").setup()
+require("mini.basics").setup({
+	options = {
+		basic = true,
+		extra_ui = true,
+	},
+	mappings = {
+		basic = true,
+		windows = true,
+		move_with_alt = true,
+	},
+	autocommands = {
+		basic = true,
+		relnum_in_visual_mode = true,
+	},
+})
 require("mini.bracketed").setup()
 require("mini.bufremove").setup()
 
@@ -117,6 +131,7 @@ require("mini.hipatterns").setup({
 
 require("mini.icons").setup()
 require("mini.indentscope").setup()
+require("mini.map").setup()
 require("mini.notify").setup()
 require("mini.pairs").setup()
 require("mini.pick").setup()

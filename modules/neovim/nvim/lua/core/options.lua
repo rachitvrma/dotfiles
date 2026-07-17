@@ -41,3 +41,4 @@ opt.spelllang = "en"
 opt.fillchars = {
 	eob = " ",
 }
+opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }

@@ -30,7 +30,7 @@
             capsule = true;
             capsule_border = "outline";
             font_family = config.gtk.font.name;
-            position = "bottom";
+            position = "top";
             background_opacity = 0.8;
           };
         };
@@ -117,20 +117,24 @@
         };
 
         osd = {
-          position = "bottom_center";
+          # position = "bottom_center";
           background_opacity = 0.97;
         };
 
         dock = {
           enabled = true;
-          position = "top";
+          position = "bottom";
           auto_hide = true;
           reserve_space = false;
+          launcher_position = "start";
           pinned = [
             "firefox"
             "kitty"
+            "equibop"
+            "pcmanfm"
           ];
           background_opacity = 0.7;
+          margin_edge = 0;
         };
         keybinds = {
           validate = [

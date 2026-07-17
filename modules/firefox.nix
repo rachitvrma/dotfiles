@@ -1,6 +1,7 @@
 {
   flake.homeModules.firefox =
     {
+      pkgs,
       config,
       ...
     }:
@@ -11,30 +12,39 @@
         # See todo.org
         # pkcs11Modules = [ pkgs.p11-kit ];
 
+        globalExtensions = with pkgs.nur.repos.rycee.firefox-addons; [
+          {
+            package = ublock-origin;
+            settings = {
+              private_browsing = true;
+            };
+          }
+        ];
+
         policies =
           let
-            extension = shortId: guid: {
-              name = guid;
-              value = {
-                install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${shortId}/latest.xpi";
-                installation_mode = "force_installed";
-                private_browsing = true;
-              };
-            };
-            extensions = [
-              # To add additional extensions, find it on addons.mozilla.org, find
-              # the short ID in the url (like https://addons.mozilla.org/en-US/firefox/addon/!SHORT_ID!/)
-              # Then go to https://addons.mozilla.org/api/v5/addons/addon/!SHORT_ID!/ to get the guid
-              (extension "ublock-origin" "uBlock0@raymondhill.net")
-              # ...
-            ];
+            # extension = shortId: guid: {
+            #   name = guid;
+            #   value = {
+            #     install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${shortId}/latest.xpi";
+            #     installation_mode = "force_installed";
+            #     private_browsing = true;
+            #   };
+            # };
+            # extensions = [
+            #   # To add additional extensions, find it on addons.mozilla.org, find
+            #   # the short ID in the url (like https://addons.mozilla.org/en-US/firefox/addon/!SHORT_ID!/)
+            #   # Then go to https://addons.mozilla.org/api/v5/addons/addon/!SHORT_ID!/ to get the guid
+            #   (extension "ublock-origin" "uBlock0@raymondhill.net")
+            #   # ...
+            # ];
           in
           {
             DisableTelemetry = true;
-            ExtensionSettings = {
-              "*".installation_mode = "blocked";
-            }
-            // (builtins.listToAttrs extensions);
+            # ExtensionSettings = {
+            #   "*".installation_mode = "blocked";
+            # }
+            # // (builtins.listToAttrs extensions);
             DefaultDownloadDirectory = "${config.home.homeDirectory}/Downloads";
             SearchEngines = {
               Default = "DuckDuckGo";
@@ -85,10 +95,6 @@
             "devtools.debugger.remote-enabled" = true;
 
             # ── Dark Mode ────────────────────────────────────────────────────────────
-            "ui.systemUsesDarkTheme" = 1; # Signal dark preference to websites & UI
-            "browser.theme.content-theme" = 2; # Force internal pages (about:config, etc.) to dark
-            "layout.css.prefers-color-scheme.content-override" = 2; # Web content respects dark preference
-            "browser.tabs.allow_transparent_browser" = true; # Transparency for Zen blur/glass themes
             "devtools.theme" = "dark"; # DevTools dark theme
 
             # ── Reader Mode ──────────────────────────────────────────────────────────
@@ -98,7 +104,7 @@
 
             # ── Privacy ──────────────────────────────────────────────────────────────
             "privacy.resistFingerprinting" = false; # Disabled: dark mode breaks with this on
-            "media.peerconnection.enabled" = false; # Disable WebRTC IP leak
+            "media.peerconnection.enabled" = false; # Disable WebRTC IP leak, may perhaps stop WhatsApp from working
             "privacy.globalprivacycontrol.enabled" = true; # Send GPC signal to sites
             "dom.battery.enabled" = false; # Block Battery Status API (fingerprinting vector)
             "geo.enabled" = false; # Disable Geolocation API
@@ -210,12 +216,13 @@
             "network.trr.uri" = "https://dns.quad9.net/dns-query";
 
             # Disable wasm, which is known to pass pre-compiled code with malware
+            # Also, WhatsApp web stops working.
             "javascript.options.wasm" = false;
             "javascript.options.wasm_baselinejit" = false;
             "javascript.options.wasm_ionjit" = false;
 
             # Disable webgl
-            "webgl.disabled" = true;
+            "webgl.disabled" = true; # comment to allow WhatsApp to work.
 
             # Disable all suggestions:
             "browser.urlbar.suggest.history" = false;

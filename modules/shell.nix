@@ -52,6 +52,7 @@
       packages = with pkgs; [
         figlet
         speedtest-cli
+        trash-cli
       ];
     };
     programs = {

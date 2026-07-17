@@ -26,5 +26,10 @@
     system.stateVersion = "26.05"; # Did you read the comment?
 
     home-manager.backupCommand = "${pkgs.trash-cli}/bin/trash";
+
+    nixpkgs.overlays = [
+      # Add in the NUR overlays.
+      inputs.nur.overlays.default
+    ];
   };
 }

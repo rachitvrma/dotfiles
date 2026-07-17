@@ -20,7 +20,7 @@ layout  {
     draw-behind-window false
     offset "x"=0 "y"=2
     on
-    softness 20
+    softness 12
     spread 4
     color "#00000020"
   }

@@ -6,3 +6,4 @@
 - [ ] Version bump Gophertube in nixpkgs.
 - [ ] Write a module to export NNN environment variables along with the nnn homeManager module.
 - [ ] Contribute [yamb.yazi](https://github.com/h-hg/yamb.yazi) to nixpkgs.
+- [ ] Configure markdown_oxide for PKM-style notes.

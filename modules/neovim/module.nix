@@ -6,6 +6,8 @@
         viAlias = true;
         vimAlias = true;
         defaultEditor = true;
+
+        withNodeJs = true;
       };
     };
   };
@@ -16,6 +18,8 @@
         enable = true;
         sideloadInitLua = true;
         defaultEditor = true;
+
+        withNodeJs = true;
 
         viAlias = true;
         vimAlias = true;
@@ -45,6 +49,9 @@
 
               lz-n # for lazy-loading plugins
               lzn-auto-require # auto-require lazy-loaded specs
+
+              # Preview markdown in browser
+              markdown-preview-nvim
 
               # Mini ecosystem
               mini-ai
