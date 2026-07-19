@@ -51,7 +51,7 @@
         # Enable touchpad support (enabled default in most desktopManager).
         libinput.enable = true;
         # Enable CUPS to print documents.
-        printing.enable = true;
+        # printing.enable = true;
         # Enable btrfs autoscrub service for btrfs managed machines
         btrfs.autoScrub = {
           enable = true;

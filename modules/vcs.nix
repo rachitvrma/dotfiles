@@ -96,6 +96,7 @@
             name = "Rachit Kumar Verma";
             email = "155641117+rachitvrma@users.noreply.github.com";
           };
+          ui.default-command = "log";
           merge-tools.vimdiff.program = "nvim";
         };
       };

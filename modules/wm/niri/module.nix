@@ -1,8 +1,18 @@
 {
-  flake.nixosModules.niri = {
+  flake.nixosModules.niri = { ... }: {
     programs.niri = {
       enable = true;
       useNautilus = false;
+    };
+    services.greetd = {
+      enable = true;
+      settings = rec {
+        initial_session = {
+          command = "niri-session";
+          user = "krish";
+        };
+        default_session = initial_session;
+      };
     };
   };
 

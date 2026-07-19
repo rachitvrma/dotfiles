@@ -1,3 +1,4 @@
+# NOTE: Weechat can be used as a matrix client as well.
 {
   flake.homeModules.matrix = {
     programs = {

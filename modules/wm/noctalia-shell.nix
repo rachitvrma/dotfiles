@@ -158,6 +158,12 @@
             "ctrl+j"
           ];
         };
+        location = {
+          auto_locate = true;
+          custom_schedule = true;
+          sunrise = "06:30";
+          sunset = "17:30";
+        };
       };
     };
 

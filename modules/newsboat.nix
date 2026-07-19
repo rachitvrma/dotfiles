@@ -46,6 +46,12 @@
           title = "Neovim News";
         }
         {
+          url = "https://nvim-mini.org/blog/index.xml";
+          tags = [ "editor" ];
+          title = "Mini.Nvim Blog";
+        }
+
+        {
           url = "https://drewdevault.com/blog/index.xml";
           tags = [
             "wayland"

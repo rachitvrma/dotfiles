@@ -85,3 +85,12 @@ local dropbar_api = require("dropbar.api")
 vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick breadcrumb symbol" })
 vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to context start" })
 vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
+
+nmap_leader("z", function()
+	require("mini.misc").zoom()
+end, "Zoom window")
+
+-- Mini.Map for a sideview
+nmap_leader("m", function()
+	require("mini.map").toggle()
+end, "Toggle map")

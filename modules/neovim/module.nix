@@ -106,6 +106,7 @@
                 c
                 cpp
                 fish
+                html
                 json
                 kdl
                 lua

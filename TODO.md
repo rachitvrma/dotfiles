@@ -7,3 +7,5 @@
 - [ ] Write a module to export NNN environment variables along with the nnn homeManager module.
 - [ ] Contribute [yamb.yazi](https://github.com/h-hg/yamb.yazi) to nixpkgs.
 - [ ] Configure markdown_oxide for PKM-style notes.
+- [ ] Fix mpd's home-manager module, see [multimedia](./modules/multimedia.nix)
+- [ ] Configure printing in nixpavilion

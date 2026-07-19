@@ -131,12 +131,40 @@ require("mini.hipatterns").setup({
 
 require("mini.icons").setup()
 require("mini.indentscope").setup()
-require("mini.map").setup()
+
+require("mini.jump").setup() -- smarter f/F/t/T with repeat + highlight, no config needed
+require("mini.jump2d").setup({
+	labels = "arstgmneio" .. "bcdfhjklpquvwxyz",
+})
+
+-- Mini.keymap setup
+local map_multistep = require("mini.keymap").map_multistep
+
+map_multistep("i", "<Tab>", { "minisnippets_next", "minisnippets_expand", "pmenu_next" })
+map_multistep("i", "<S-Tab>", { "minisnippets_prev", "pmenu_prev" })
+map_multistep("i", "<CR>", { "pmenu_accept", "minipairs_cr" })
+map_multistep("i", "<BS>", { "minipairs_bs" })
+
+local map = require("mini.map")
+map.setup({
+	integrations = {
+		map.gen_integration.builtin_search(),
+		map.gen_integration.diagnostic(),
+		map.gen_integration.gitsigns(), -- works off 'mini.diff' hunks too, since it reads the same sign-based API
+	},
+})
+
+require("mini.misc").setup()
+require("mini.misc").setup_restore_cursor() -- reopen a file at last cursor pos
+
+require("mini.move").setup()
+
 require("mini.notify").setup()
 require("mini.pairs").setup()
 require("mini.pick").setup()
 require("mini.sessions").setup()
 require("mini.snippets").setup()
+require("mini.splitjoin").setup()
 
 require("mini.starter").setup({
 	evaluate_single = true,

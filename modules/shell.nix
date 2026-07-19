@@ -56,6 +56,9 @@
       ];
     };
     programs = {
+      zk = {
+        enable = true;
+      };
       jq.enable = true;
       bat = {
         enable = true;
