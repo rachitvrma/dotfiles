@@ -11,7 +11,7 @@
             <a href="https://neovim.io/">
                 <img src="https://img.shields.io/badge/v0.12.4-green?style=for-the-badge&logo=neovim&logoColor=a9b665&label=neovim&labelColor=141617&color=a9b665">
             </a>
-            <a href="https://neovim.io/">
+            <a href="https://niri-wm.github.io/niri/index.html">
                 <img src="https://img.shields.io/badge/26.04%20(Nixpkgs)-orange?style=for-the-badge&logo=niri&logoColor=e78a4e&label=niri&labelColor=141617&color=e78a4e">
             </a>
             <a href="https://nixos.org">
