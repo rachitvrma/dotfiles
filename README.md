@@ -47,8 +47,9 @@
 ---
 ## Instructions for Installation:
 
->[!note] I am assuming that an ISO is already created.
->for more details see
+>[!note]
+>I am assuming that an ISO is already created.
+>for more details see the [NixOS Manual](https://nixos.org/manual/nixos/stable/)
 
 
 ### 🧪 Enable Experimental Features
