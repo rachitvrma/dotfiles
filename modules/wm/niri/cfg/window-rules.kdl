@@ -53,11 +53,8 @@ window-rule {
 
 window-rule {
     match app-id="^firefox$" title="^Picture-in-Picture$"
-
     open-floating true
-
     default-window-height { fixed 220; }
-
     default-floating-position x=1476 y=806 relative-to="top-left"
 }
 

@@ -25,30 +25,57 @@
           tags = [ "nix" ];
           title = "NixOS Announcements";
         }
+
+        # Editor/Neovim
         {
           url = "https://github.com/neovim/neovim/releases.atom";
-          tags = [ "editor" ];
+          tags = [
+            "editor"
+            "nvim"
+          ];
           title = "Neovim Releases";
         }
         {
           url = "https://dotfyle.com/neovim/plugins/rss.xml";
-          tags = [ "editor" ];
+          tags = [
+            "editor"
+            "nvim"
+          ];
           title = "Neovim Plugins";
         }
         {
           url = "https://dotfyle.com/this-week-in-neovim/rss.xml";
-          tags = [ "editor" ];
+          tags = [
+            "editor"
+            "nvim"
+          ];
           title = "This Week in Neovim";
         }
         {
           url = "https://neovim.io/news.xml";
-          tags = [ "editor" ];
+          tags = [
+            "editor"
+            "nvim"
+          ];
           title = "Neovim News";
         }
         {
           url = "https://nvim-mini.org/blog/index.xml";
-          tags = [ "editor" ];
+          tags = [
+            "editor"
+            "nvim"
+          ];
           title = "Mini.Nvim Blog";
+        }
+
+        # Editor/Emacs
+        {
+          url = "https://nullprogram.com/feed/";
+          tags = [
+            "editor"
+            "emacs"
+          ];
+          title = "Null Program";
         }
 
         {
@@ -88,11 +115,19 @@
           tags = [ "ai" ];
           title = "Simon Willison";
         }
+
+        # Podcasts
+        {
+          url = "https://api.substack.com/feed/podcast/4064027.rss";
+          tags = [ "podcasts" ];
+          title = "Amen Podcasts";
+        }
       ];
 
       queries = {
         "security" = ''tags # "security"'';
         "today" = "age between 0:1";
+        "podcasts" = ''tags # "podcasts"'';
       };
 
       extraConfig = ''
@@ -113,6 +148,11 @@
         confirm-exit yes
         show-read-feeds yes
         cleanup-on-quit yes
+
+        download-path "~/Music/podcasts/%n/"
+        download-filename-format "%F-%t.%e"
+        max-downloads 3
+        player "mpv --no-video"
       '';
     };
   };

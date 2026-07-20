@@ -9,3 +9,7 @@
 - [ ] Configure markdown_oxide for PKM-style notes.
 - [ ] Fix mpd's home-manager module, see [multimedia](./modules/multimedia.nix)
 - [ ] Configure printing in nixpavilion
+- [ ] Write a module for timewarrior (maybe)
+- [ ] Write rmpc's theme module
+- [ ] Configure zk-cli for zettelkasten notes.
+- [ ] Learn lazyjj

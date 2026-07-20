@@ -71,8 +71,15 @@
           };
           widget_order = [ "lockscreen-login-box@eDP-1" ];
         };
-        widget.clock = {
-          format = "{:%-I:%M %p}";
+        widget = {
+          clock = {
+            # format = "{:%-I:%M %p}";
+            format = "{:%d-%m-%Y %-I:%M %p}";
+          };
+          media = {
+            album_art_only = true;
+            hide_when_no_media = true;
+          };
         };
         shell = {
           avatar_path = "/home/krish/.face";

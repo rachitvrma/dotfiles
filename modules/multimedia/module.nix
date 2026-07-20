@@ -30,6 +30,7 @@
       home = {
         packages = with pkgs; [
           ffmpeg-full
+          mpc
           (python3.withPackages (ps: with ps; [ mutagen ])) # used for album art embedding
         ];
       };
@@ -76,6 +77,9 @@
               "$rmpc" remote --pid "$PID" status "Downloaded lyrics for $ARTIST - $TITLE" --level info
             fi
           '';
+
+          # TODO: Write a rmpc theme module
+          "rmpc/theme.ron".source = ./rmpc_config/theme.ron;
         };
       };
 
@@ -93,6 +97,13 @@
               type "pipewire"
               name "PipeWire"
             }
+
+            audio_output {
+              type "fifo"
+              name "my_fifo"
+              path "/tmp/mpd.fifo"
+              format "44100:16:2"
+            }
           '';
         };
         mpdris2-rs = {
@@ -106,19 +117,7 @@
       programs = {
         rmpc = {
           enable = true;
-          config = /* ron */ ''
-            #![enable(implicit_some)]
-            #![enable(unwrap_newtypes)]
-            #![enable(unwrap_variant_newtypes)]
-
-            (
-              address: "/run/user/1000/mpd/socket",
-              cache_dir: Some("${config.xdg.cacheHome}/rmpc"),
-              lyrics_dir: Some("${config.xdg.dataHome}/rmpc/lyrics"),
-              enable_lyrics_hot_reload: true,
-              on_song_change: ["${config.xdg.configHome}/rmpc/fetch-lyrics"],
-            )
-          '';
+          config = builtins.readFile ./rmpc_config/config.ron;
         };
         beets = {
           enable = true;
