@@ -1,5 +1,5 @@
 {
-  flake.homeModules.newsboat = { pkgs, ... }: {
+  flake.homeModules.newsboat = { ... }: {
     programs.newsboat = {
       enable = true;
       autoVacuum.enable = true;
@@ -12,7 +12,7 @@
       };
 
       maxItems = 100;
-      browser = "${pkgs.xdg-utils}/bin/xdg-open";
+      browser = "\"w3m %u\"";
 
       urls = [
         {
