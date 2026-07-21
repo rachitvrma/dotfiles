@@ -79,6 +79,7 @@
           media = {
             album_art_only = false;
             hide_when_no_media = true;
+            max_length = 150;
           };
         };
         shell = {

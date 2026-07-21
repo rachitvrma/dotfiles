@@ -54,6 +54,223 @@
   };
 
   flake.homeModules.vcs = { pkgs, ... }: {
+    xdg.configFile."jjui/themes/base24-gruvbox-dark.toml".source =
+      (pkgs.formats.toml { }).generate "jjui_theme_base24-gruvbox-dark"
+        {
+          bookmark = {
+            fg = "#d3869b";
+          };
+          border = {
+            fg = "#665c54";
+          };
+          branch = {
+            fg = "#8ec07c";
+          };
+          change = {
+            fg = "#fb4934";
+          };
+          commit = {
+            fg = "#b8bb26";
+          };
+          completion = {
+            fg = "#ebdbb2";
+          };
+          "completion selected" = {
+            bold = true;
+          };
+          confirmation = {
+            bg = "#282828";
+          };
+          "confirmation border" = {
+            bold = true;
+            fg = "#fb4934";
+          };
+          "confirmation dimmed" = {
+            fg = "#665c54";
+          };
+          "confirmation selected" = {
+            bg = "#504945";
+            fg = "#ebdbb2";
+          };
+          "confirmation text" = {
+            bold = true;
+            fg = "#458588";
+          };
+          details = {
+            fg = "#ebdbb2";
+          };
+          "details selected" = {
+            bold = true;
+          };
+          dimmed = {
+            bg = "#282828";
+            fg = "#665c54";
+          };
+          error = {
+            bold = true;
+            fg = "#fb4934";
+          };
+          evolog = {
+            fg = "#ebdbb2";
+          };
+          "evolog selected" = {
+            bg = "#504945";
+            bold = true;
+            fg = "#ebdbb2";
+          };
+          file = {
+            fg = "#fabd2f";
+          };
+          help = {
+            bg = "#282828";
+          };
+          "help border" = {
+            fg = "#3c3836";
+          };
+          "help title" = {
+            bold = true;
+            fg = "#b8bb26";
+            underline = true;
+          };
+          matched = {
+            fg = "#fabd2f";
+          };
+          menu = {
+            bg = "#282828";
+          };
+          "menu border" = {
+            fg = "#3c3836";
+          };
+          "menu dimmed" = {
+            fg = "#665c54";
+          };
+          "menu matched" = {
+            bold = true;
+            fg = "#fabd2f";
+          };
+          "menu selected" = {
+            bg = "#504945";
+            fg = "#ebdbb2";
+          };
+          "menu shortcut" = {
+            fg = "#d3869b";
+          };
+          "menu title" = {
+            bg = "#d3869b";
+            bold = true;
+            fg = "#282828";
+          };
+          "oplog selected" = {
+            bold = true;
+          };
+          preview = {
+            fg = "#ebdbb2";
+          };
+          "preview border" = {
+            fg = "#3c3836";
+          };
+          rebase = {
+            bold = true;
+          };
+          revisions = {
+            fg = "#ebdbb2";
+          };
+          "revisions details selected" = {
+            bg = "#504945";
+          };
+          "revisions dimmed" = {
+            fg = "#665c54";
+          };
+          "revisions rebase source_marker" = {
+            bold = true;
+          };
+          "revisions rebase target_marker" = {
+            bold = true;
+          };
+          "revisions selected" = {
+            bg = "#3c3836";
+          };
+          "revset completion dimmed" = {
+            fg = "#665c54";
+          };
+          "revset completion matched" = {
+            bold = true;
+            fg = "#fabd2f";
+          };
+          "revset completion selected" = {
+            bg = "#504945";
+            fg = "#ebdbb2";
+          };
+          "revset completion text" = {
+            fg = "#ebdbb2";
+          };
+          "revset text" = {
+            bold = true;
+            fg = "#ebdbb2";
+          };
+          "revset title" = {
+            bold = true;
+            fg = "#458588";
+          };
+          selected = {
+            bg = "#3c3836";
+            bold = true;
+            fg = "#ebdbb2";
+          };
+          shortcut = {
+            fg = "#b16286";
+          };
+          source_marker = {
+            bg = "#8ec07c";
+            bold = true;
+            fg = "#282828";
+          };
+          status = {
+            bg = "#3c3836";
+          };
+          "status dimmed" = {
+            fg = "#665c54";
+          };
+          "status shortcut" = {
+            fg = "#d3869b";
+          };
+          "status title" = {
+            bg = "#83a598";
+            bold = true;
+            fg = "#282828";
+          };
+          success = {
+            bold = true;
+            fg = "#b8bb26";
+          };
+          target_marker = {
+            bg = "#b8bb26";
+            bold = true;
+            fg = "#282828";
+          };
+          text = {
+            bg = "#282828";
+            fg = "#ebdbb2";
+          };
+          title = {
+            bold = true;
+            fg = "#458588";
+          };
+          undo = {
+            bg = "#282828";
+          };
+          "undo confirmation dimmed" = {
+            fg = "#665c54";
+          };
+          "undo confirmation selected" = {
+            bg = "#504945";
+            fg = "#ebdbb2";
+          };
+          workspace = {
+            fg = "#83a598";
+          };
+        };
+
     programs = {
       gh = {
         enable = true;
@@ -76,8 +293,15 @@
           merge-tools.vimdiff.program = "nvim";
         };
       };
+
       # TODO: Configure this beast
-      jjui.enable = true;
+      # TODO: Make a themes module for it.
+      jjui = {
+        enable = true;
+        settings = {
+          ui.theme = "base24-gruvbox-dark";
+        };
+      };
 
       git = {
         enable = true;
@@ -236,135 +460,4 @@
       };
     };
   };
-
-  flake.homeModule.lazyworktree-fix =
-    {
-      lib,
-      pkgs,
-      config,
-      ...
-    }:
-    let
-      inherit (lib)
-        mkIf
-        mkEnableOption
-        mkPackageOption
-        mkOption
-        ;
-      cfg = config.programs.lazyworktree;
-      yamlFormat = pkgs.formats.yaml { };
-    in
-    {
-      options.programs.lazyworktree = {
-        enable = mkEnableOption "lazyworktree";
-
-        package = mkPackageOption pkgs "lazyworktree" { nullable = true; };
-
-        settings = mkOption {
-          inherit (yamlFormat) type;
-          default = { };
-          example = {
-            worktree_dir = "~/.local/share/worktrees";
-            sort_mode = "switched";
-            layout = "default";
-            auto_refresh = true;
-            ci_auto_refresh = false;
-            refresh_interval = 10;
-            disable_pr = false;
-            icon_set = "nerd-font-v3";
-            search_auto_select = false;
-            fuzzy_finder_input = false;
-            palette_mru = true;
-            palette_mru_limit = 5;
-          };
-          description = ''
-            Configuration written to
-            {file}`$XDG_CONFIG_HOME/lazyworktree/config.yaml`.
-            See
-            <https://github.com/chmouel/lazyworktree?tab=readme-ov-file#global-configuration-yaml>
-            for supported values.
-          '';
-        };
-
-        enableBashIntegration = lib.hm.shell.mkBashIntegrationOption { inherit config; };
-
-        enableFishIntegration = lib.hm.shell.mkFishIntegrationOption { inherit config; };
-
-        enableZshIntegration = lib.hm.shell.mkZshIntegrationOption { inherit config; };
-
-        shellWrapperName = mkOption {
-          type = lib.types.str;
-          default = "lwt";
-          example = "wt";
-          description = ''
-            Name of the shell wrapper that launches lazyworktree and changes to the
-            selected worktree directory on exit.
-            This option only has an effect when at least one shell integration
-            option is enabled.
-          '';
-        };
-      };
-
-      config = mkIf cfg.enable {
-        home.packages = mkIf (cfg.package != null) [ cfg.package ];
-
-        xdg.configFile."lazyworktree/config.yaml" = mkIf (cfg.settings != { }) {
-          source = yamlFormat.generate "lazyworktree.yaml" cfg.settings;
-        };
-
-        programs = {
-          fish.functions.${cfg.shellWrapperName} = mkIf cfg.enableFishIntegration ''
-            set -l tmp (mktemp -t lazyworktree.selection.XXXXXX)
-            or return 1
-            command lazyworktree --output-selection="$tmp" $argv
-            set -l rc $status
-            if test $rc -ne 0
-                rm -f "$tmp"
-                return $rc
-            end
-            if test -s "$tmp"
-                set -l selected (cat "$tmp")
-                if test -n "$selected" -a -d "$selected"
-                    cd "$selected"
-                end
-            end
-            rm -f "$tmp"
-          '';
-          bash.initExtra = mkIf cfg.enableBashIntegration ''
-            function ${cfg.shellWrapperName}() {
-              local tmp rc selected
-              tmp="$(mktemp -t lazyworktree.selection.XXXXXX)" || return 1
-              command lazyworktree --output-selection="$tmp" "$@"
-              rc=$?
-              if [ $rc -ne 0 ]; then
-                rm -f "$tmp"
-                return $rc
-              fi
-              if [ -s "$tmp" ]; then
-                selected="$(cat "$tmp")"
-                [ -n "$selected" ] && [ -d "$selected" ] && cd "$selected"
-              fi
-              rm -f "$tmp"
-            }
-          '';
-          zsh.initContent = mkIf cfg.enableZshIntegration ''
-            function ${cfg.shellWrapperName}() {
-              local tmp rc selected
-              tmp="$(mktemp -t lazyworktree.selection.XXXXXX)" || return 1
-              command lazyworktree --output-selection="$tmp" "$@"
-              rc=$?
-              if [ $rc -ne 0 ]; then
-                rm -f "$tmp"
-                return $rc
-              fi
-              if [ -s "$tmp" ]; then
-                selected="$(cat "$tmp")"
-                [ -n "$selected" ] && [ -d "$selected" ] && cd "$selected"
-              fi
-              rm -f "$tmp"
-            }
-          '';
-        };
-      };
-    };
 }
