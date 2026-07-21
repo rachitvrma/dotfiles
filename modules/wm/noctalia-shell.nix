@@ -77,7 +77,7 @@
             format = "{:%d-%m-%Y %-I:%M %p}";
           };
           media = {
-            album_art_only = true;
+            album_art_only = false;
             hide_when_no_media = true;
           };
         };

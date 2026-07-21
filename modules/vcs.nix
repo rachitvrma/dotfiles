@@ -1,14 +1,59 @@
-{
+# TODO: need to fix lazyworktree's shell integration.
+{ self, ... }: {
+  # This provides the temporary fix for now.
+  flake.overlays.default = final: prev: {
+    lazyworktree = prev.lazyworktree.overrideAttrs (old: {
+      postInstall =
+        builtins.replaceStrings
+          [ "completion bash --code" "completion zsh --code" "completion fish --code" ]
+          [ "completion bash" "completion zsh" "completion fish" ]
+          old.postInstall;
+    });
+  };
+
   flake.nixosModules.vcs = { pkgs, ... }: {
+    # import the temporary lazyworktree fix
+    nixpkgs.overlays = [ self.overlays.default ];
     # Git
-    programs.git = {
-      enable = true;
-      package = pkgs.gitFull;
+    programs = {
+      git = {
+        enable = true;
+        package = pkgs.gitFull;
+      };
+      lazygit = {
+        enable = true;
+        settings = {
+          gui = {
+            theme = {
+              activeBorderColor = [
+                "#d3869b"
+                "bold"
+              ];
+              inactiveBorderColor = [ "#5a524c" ];
+              searchingActiveBorderColor = [
+                "#d8a657"
+                "bold"
+              ];
+              optionsTextColor = [ "#7daea3" ];
+              selectedLineBgColor = [ "#282828" ];
+              inactiveViewSelectedLineBgColor = [ "bold" ];
+              cherryPickedCommitFgColor = [ "#7daea3" ];
+              cherryPickedCommitBgColor = [ "#282828" ];
+              markedBaseCommitFgColor = [ "#d3869b" ];
+              markedBaseCommitBgColor = [ "#282828" ];
+              unstagedChangesColor = [ "#ea6962" ];
+              defaultFgColor = [ "#ebdbb2" ];
+            };
+            authorColors = {
+              "*" = "#89b482";
+            };
+          };
+        };
+      };
     };
   };
 
   flake.homeModules.vcs = { pkgs, ... }: {
-    home.packages = with pkgs; [ lazyjj ];
     programs = {
       gh = {
         enable = true;
@@ -18,77 +63,8 @@
         };
       };
       gh-dash.enable = true;
-      gitui = {
-        enable = true;
-        keyConfig = /* ron */ ''
-          // Note:
-          // If the default key layout is lower case,
-          // and you want to use `Shift + q` to trigger the exit event,
-          // the setting should like this `exit: Some(( code: Char('Q'), modifiers: "SHIFT")),`
-          // The Char should be upper case, and the modifier should be set to "SHIFT".
-          //
-          // Note:
-          // find `KeysList` type in src/keys/key_list.rs for all possible keys.
-          // every key not overwritten via the config file will use the default specified there
-          (
-              open_help: Some(( code: F(1), modifiers: "")),
 
-              move_left: Some(( code: Char('h'), modifiers: "")),
-              move_right: Some(( code: Char('l'), modifiers: "")),
-              move_up: Some(( code: Char('k'), modifiers: "")),
-              move_down: Some(( code: Char('j'), modifiers: "")),
-
-              popup_up: Some(( code: Char('p'), modifiers: "CONTROL")),
-              popup_down: Some(( code: Char('n'), modifiers: "CONTROL")),
-              page_up: Some(( code: Char('b'), modifiers: "CONTROL")),
-              page_down: Some(( code: Char('f'), modifiers: "CONTROL")),
-              home: Some(( code: Char('g'), modifiers: "")),
-              end: Some(( code: Char('G'), modifiers: "SHIFT")),
-              shift_up: Some(( code: Char('K'), modifiers: "SHIFT")),
-              shift_down: Some(( code: Char('J'), modifiers: "SHIFT")),
-
-              edit_file: Some(( code: Char('I'), modifiers: "SHIFT")),
-
-              status_reset_item: Some(( code: Char('U'), modifiers: "SHIFT")),
-
-              diff_reset_lines: Some(( code: Char('u'), modifiers: "")),
-              diff_stage_lines: Some(( code: Char('s'), modifiers: "")),
-
-              stashing_save: Some(( code: Char('w'), modifiers: "")),
-              stashing_toggle_index: Some(( code: Char('m'), modifiers: "")),
-
-              stash_open: Some(( code: Char('l'), modifiers: "")),
-
-              abort_merge: Some(( code: Char('M'), modifiers: "SHIFT")),
-          )
-        '';
-
-        theme = /* ron */ ''
-          (
-              selected_tab: Some("Reset"),
-              command_fg: Some("#ddc7a1"),
-              selection_bg: Some("#bdae93"),
-              selection_fg: Some("#ddc7a1"),
-              cmdbar_bg: Some("#1d2021"),
-              cmdbar_extra_lines_bg: Some("#1d2021"),
-              disabled_fg: Some("#bdae93"),
-              diff_line_add: Some("#a9b665"),
-              diff_line_delete: Some("#ea6962"),
-              diff_file_added: Some("#d8a657"),
-              diff_file_removed: Some("#ea6962"),
-              diff_file_moved: Some("#d3869b"),
-              diff_file_modified: Some("#e78a4e"),
-              commit_hash: Some("#fbf1c7"),
-              commit_time: Some("#ddc7a1"),
-              commit_author: Some("#7daea3"),
-              danger_fg: Some("#ea6962"),
-              push_gauge_bg: Some("#7daea3"),
-              push_gauge_fg: Some("#141617"),
-              tag_fg: Some("#ebdbb2"),
-              branch_fg: Some("#89b482"),
-          )
-        '';
-      };
+      # Jujutsu Stack
       jujutsu = {
         enable = true;
         settings = {
@@ -100,6 +76,9 @@
           merge-tools.vimdiff.program = "nvim";
         };
       };
+      # TODO: Configure this beast
+      jjui.enable = true;
+
       git = {
         enable = true;
         package = pkgs.gitFull;
@@ -200,6 +179,192 @@
           "*.egg-info/"
         ];
       };
+      lazygit = {
+        enable = true;
+        enableFishIntegration = true; # Use 'lg' to start lazygit
+        settings = {
+          gui = {
+            theme = {
+              activeBorderColor = [
+                "#d3869b"
+                "bold"
+              ];
+              inactiveBorderColor = [ "#5a524c" ];
+              searchingActiveBorderColor = [
+                "#d8a657"
+                "bold"
+              ];
+              optionsTextColor = [ "#7daea3" ];
+              selectedLineBgColor = [ "#282828" ];
+              inactiveViewSelectedLineBgColor = [ "bold" ];
+              cherryPickedCommitFgColor = [ "#7daea3" ];
+              cherryPickedCommitBgColor = [ "#282828" ];
+              markedBaseCommitFgColor = [ "#d3869b" ];
+              markedBaseCommitBgColor = [ "#282828" ];
+              unstagedChangesColor = [ "#ea6962" ];
+              defaultFgColor = [ "#ebdbb2" ];
+            };
+            authorColors = {
+              "*" = "#89b482";
+            };
+          };
+        };
+      };
+      lazyworktree = {
+        enable = true;
+        # BUG: This doesn't work in home-manager's module
+        # I am using a fix. See the lazyworktree-fix module below.
+        enableFishIntegration = true;
+        settings = {
+          theme = "gruvbox-material-dark-hard";
+          custom_themes = {
+            gruvbox-material-dark-hard = {
+              accent = "#d3869b";
+              accent_fg = "#141617";
+              accent_dim = "#282828";
+              border = "#7daea3";
+              border_dim = "#5a524c";
+              muted_fg = "#bdae93";
+              text_fg = "#ebdbb2";
+              success_fg = "#a9b665";
+              warn_fg = "#d8a657";
+              error_fg = "#ea6962";
+              cyan = "#89b482";
+            };
+          };
+        };
+      };
     };
   };
+
+  flake.homeModule.lazyworktree-fix =
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
+    let
+      inherit (lib)
+        mkIf
+        mkEnableOption
+        mkPackageOption
+        mkOption
+        ;
+      cfg = config.programs.lazyworktree;
+      yamlFormat = pkgs.formats.yaml { };
+    in
+    {
+      options.programs.lazyworktree = {
+        enable = mkEnableOption "lazyworktree";
+
+        package = mkPackageOption pkgs "lazyworktree" { nullable = true; };
+
+        settings = mkOption {
+          inherit (yamlFormat) type;
+          default = { };
+          example = {
+            worktree_dir = "~/.local/share/worktrees";
+            sort_mode = "switched";
+            layout = "default";
+            auto_refresh = true;
+            ci_auto_refresh = false;
+            refresh_interval = 10;
+            disable_pr = false;
+            icon_set = "nerd-font-v3";
+            search_auto_select = false;
+            fuzzy_finder_input = false;
+            palette_mru = true;
+            palette_mru_limit = 5;
+          };
+          description = ''
+            Configuration written to
+            {file}`$XDG_CONFIG_HOME/lazyworktree/config.yaml`.
+            See
+            <https://github.com/chmouel/lazyworktree?tab=readme-ov-file#global-configuration-yaml>
+            for supported values.
+          '';
+        };
+
+        enableBashIntegration = lib.hm.shell.mkBashIntegrationOption { inherit config; };
+
+        enableFishIntegration = lib.hm.shell.mkFishIntegrationOption { inherit config; };
+
+        enableZshIntegration = lib.hm.shell.mkZshIntegrationOption { inherit config; };
+
+        shellWrapperName = mkOption {
+          type = lib.types.str;
+          default = "lwt";
+          example = "wt";
+          description = ''
+            Name of the shell wrapper that launches lazyworktree and changes to the
+            selected worktree directory on exit.
+            This option only has an effect when at least one shell integration
+            option is enabled.
+          '';
+        };
+      };
+
+      config = mkIf cfg.enable {
+        home.packages = mkIf (cfg.package != null) [ cfg.package ];
+
+        xdg.configFile."lazyworktree/config.yaml" = mkIf (cfg.settings != { }) {
+          source = yamlFormat.generate "lazyworktree.yaml" cfg.settings;
+        };
+
+        programs = {
+          fish.functions.${cfg.shellWrapperName} = mkIf cfg.enableFishIntegration ''
+            set -l tmp (mktemp -t lazyworktree.selection.XXXXXX)
+            or return 1
+            command lazyworktree --output-selection="$tmp" $argv
+            set -l rc $status
+            if test $rc -ne 0
+                rm -f "$tmp"
+                return $rc
+            end
+            if test -s "$tmp"
+                set -l selected (cat "$tmp")
+                if test -n "$selected" -a -d "$selected"
+                    cd "$selected"
+                end
+            end
+            rm -f "$tmp"
+          '';
+          bash.initExtra = mkIf cfg.enableBashIntegration ''
+            function ${cfg.shellWrapperName}() {
+              local tmp rc selected
+              tmp="$(mktemp -t lazyworktree.selection.XXXXXX)" || return 1
+              command lazyworktree --output-selection="$tmp" "$@"
+              rc=$?
+              if [ $rc -ne 0 ]; then
+                rm -f "$tmp"
+                return $rc
+              fi
+              if [ -s "$tmp" ]; then
+                selected="$(cat "$tmp")"
+                [ -n "$selected" ] && [ -d "$selected" ] && cd "$selected"
+              fi
+              rm -f "$tmp"
+            }
+          '';
+          zsh.initContent = mkIf cfg.enableZshIntegration ''
+            function ${cfg.shellWrapperName}() {
+              local tmp rc selected
+              tmp="$(mktemp -t lazyworktree.selection.XXXXXX)" || return 1
+              command lazyworktree --output-selection="$tmp" "$@"
+              rc=$?
+              if [ $rc -ne 0 ]; then
+                rm -f "$tmp"
+                return $rc
+              fi
+              if [ -s "$tmp" ]; then
+                selected="$(cat "$tmp")"
+                [ -n "$selected" ] && [ -d "$selected" ] && cd "$selected"
+              fi
+              rm -f "$tmp"
+            }
+          '';
+        };
+      };
+    };
 }

@@ -214,6 +214,7 @@
       unzip
       gophertube
       weechat
+      kotatogram-desktop
     ];
   };
 }

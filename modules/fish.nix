@@ -18,7 +18,7 @@
       '';
 
       shellAbbrs = {
-        lg = "ls -al --git";
+        lsg = "ls -al --git";
       };
     };
   };

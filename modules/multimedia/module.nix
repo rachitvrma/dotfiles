@@ -80,7 +80,6 @@
 
           # TODO: Write a rmpc theme module
           "rmpc/theme.ron".source = ./rmpc_config/theme.ron;
-          "rmpc/themes/gruvbox-material-dark-hard.ron".source = ./rmpc_config/gruvbox-material-dark-hard.ron;
         };
       };
 
