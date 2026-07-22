@@ -4,14 +4,21 @@
       enable = true;
       useNautilus = false;
     };
-    services.greetd = {
-      enable = true;
-      settings = rec {
-        initial_session = {
-          command = "niri-session";
-          user = "krish";
+    services = {
+      # The lid-switch events are handled by Niri and Noctalia
+      logind.settings.Login = {
+        HandleLidSwitch = "ignore";
+        HandleLidSwitchExternalPower = "ignore";
+      };
+      greetd = {
+        enable = true;
+        settings = rec {
+          initial_session = {
+            command = "niri-session";
+            user = "krish";
+          };
+          default_session = initial_session;
         };
-        default_session = initial_session;
       };
     };
   };
