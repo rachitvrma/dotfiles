@@ -7,7 +7,6 @@
       ...
     }:
     {
-      # These are fixes that help make rmpc, mpd, mpdris2-rs work.
       systemd.user.services = {
         # Without this the socket file is not created correctly.
         # Since I am using a systemd-service instead of a systemd-socket
@@ -18,13 +17,6 @@
           "${pkgs.coreutils}/bin/mkdir -p ${config.services.mpd.playlistDirectory}"
           "${pkgs.coreutils}/bin/mkdir -p %t/mpd"
         ];
-        mpdris2-rs = {
-          Service.TimeoutStartSec = "10s";
-          Unit = {
-            After = [ "graphical-session.target" ]; # mpdris2-rs starts before grahphical-session
-            PartOf = [ "graphical-session.target" ]; # which makes it receive SIGTERM by dbus tools like noctalia
-          };
-        };
       };
 
       home = {
@@ -84,6 +76,16 @@
       };
 
       services = {
+        /*
+          mpd-mpris = {
+            enable = true;
+          };
+        */
+        mpdris2 = {
+          enable = true;
+          notifications = true;
+          multimediaKeys = true;
+        };
         mpd = {
           enable = true;
           musicDirectory = "${config.xdg.userDirs.music}";
@@ -105,12 +107,6 @@
               format "44100:16:2"
             }
           '';
-        };
-        mpdris2-rs = {
-          enable = true;
-          # The default for host is MPD_HOST, which in my config is $XDG_RUNTIME_DIR/mpd/socket
-          host = "%t/mpd/socket";
-          notifications.enable = true;
         };
       };
 
