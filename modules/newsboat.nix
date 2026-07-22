@@ -77,7 +77,16 @@
           ];
           title = "Null Program";
         }
+        {
+          url = "https://andreyor.st/feed.xml";
+          tags = [
+            "editor"
+            "emacs"
+          ];
+          title = "Andrey Listopadov";
+        }
 
+        # Linux
         {
           url = "https://drewdevault.com/blog/index.xml";
           tags = [
