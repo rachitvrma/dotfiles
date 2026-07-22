@@ -15,6 +15,7 @@
 - [ ] Learn lazyjj
 - [ ] Learn why lazyworktree's `lwt` shell-wrapper name isn't working.
 - [ ] Make jjui's themes module.
+- [ ] Configure the [base24-gruvbox-material-dark-hard](./modules/vcs.nix) theme for a real gruvbox-material-dark-hard theme.
 
 ## Fix lazyworktree's shell integration.
 
