@@ -61,96 +61,96 @@
             fg = "#d3869b";
           };
           border = {
-            fg = "#665c54";
+            fg = "#5a524c";
           };
           branch = {
-            fg = "#8ec07c";
+            fg = "#e78a4e";
           };
           change = {
-            fg = "#fb4934";
+            fg = "#ea6962";
           };
           commit = {
-            fg = "#b8bb26";
+            fg = "#a9b665";
           };
           completion = {
-            fg = "#ebdbb2";
+            fg = "#ddc7a1";
           };
           "completion selected" = {
             bold = true;
           };
           confirmation = {
-            bg = "#282828";
+            bg = "#141617";
           };
           "confirmation border" = {
             bold = true;
-            fg = "#fb4934";
+            fg = "#ea6962";
           };
           "confirmation dimmed" = {
-            fg = "#665c54";
+            fg = "#5a524c";
           };
           "confirmation selected" = {
             bg = "#504945";
-            fg = "#ebdbb2";
+            fg = "#ddc7a1";
           };
           "confirmation text" = {
             bold = true;
-            fg = "#458588";
+            fg = "#7daea3";
           };
           details = {
-            fg = "#ebdbb2";
+            fg = "#ddc7a1";
           };
           "details selected" = {
             bold = true;
           };
           dimmed = {
-            bg = "#282828";
-            fg = "#665c54";
+            bg = "#141617";
+            fg = "#5a524c";
           };
           error = {
             bold = true;
-            fg = "#fb4934";
+            fg = "#ea6962";
           };
           evolog = {
-            fg = "#ebdbb2";
+            fg = "#ddc7a1";
           };
           "evolog selected" = {
             bg = "#504945";
             bold = true;
-            fg = "#ebdbb2";
+            fg = "#ddc7a1";
           };
           file = {
-            fg = "#fabd2f";
+            fg = "#d8a657";
           };
           help = {
-            bg = "#282828";
+            bg = "#141617";
           };
           "help border" = {
-            fg = "#3c3836";
+            fg = "#2a2827";
           };
           "help title" = {
             bold = true;
-            fg = "#b8bb26";
+            fg = "#a9b665";
             underline = true;
           };
           matched = {
-            fg = "#fabd2f";
+            fg = "#d8a657";
           };
           menu = {
-            bg = "#282828";
+            bg = "#141617";
           };
           "menu border" = {
-            fg = "#3c3836";
+            fg = "#2a2827";
           };
           "menu dimmed" = {
-            fg = "#665c54";
+            fg = "#5a524c";
           };
           "menu matched" = {
             bold = true;
-            fg = "#fabd2f";
+            fg = "#d8a657";
           };
           "menu selected" = {
             bg = "#504945";
-            fg = "#ebdbb2";
+            fg = "#ddc7a1";
           };
           "menu shortcut" = {
             fg = "#d3869b";
@@ -158,28 +158,28 @@
           "menu title" = {
             bg = "#d3869b";
             bold = true;
-            fg = "#282828";
+            fg = "#141617";
           };
           "oplog selected" = {
             bold = true;
           };
           preview = {
-            fg = "#ebdbb2";
+            fg = "#ddc7a1";
           };
           "preview border" = {
-            fg = "#3c3836";
+            fg = "#2a2827";
           };
           rebase = {
             bold = true;
           };
           revisions = {
-            fg = "#ebdbb2";
+            fg = "#ddc7a1";
           };
           "revisions details selected" = {
             bg = "#504945";
           };
           "revisions dimmed" = {
-            fg = "#665c54";
+            fg = "#5a524c";
           };
           "revisions rebase source_marker" = {
             bold = true;
@@ -188,86 +188,86 @@
             bold = true;
           };
           "revisions selected" = {
-            bg = "#3c3836";
+            bg = "#2a2827";
           };
           "revset completion dimmed" = {
-            fg = "#665c54";
+            fg = "#5a524c";
           };
           "revset completion matched" = {
             bold = true;
-            fg = "#fabd2f";
+            fg = "#d8a657";
           };
           "revset completion selected" = {
             bg = "#504945";
-            fg = "#ebdbb2";
+            fg = "#ddc7a1";
           };
           "revset completion text" = {
-            fg = "#ebdbb2";
+            fg = "#ddc7a1";
           };
           "revset text" = {
             bold = true;
-            fg = "#ebdbb2";
+            fg = "#ddc7a1";
           };
           "revset title" = {
             bold = true;
-            fg = "#458588";
+            fg = "#7daea3";
           };
           selected = {
-            bg = "#3c3836";
+            bg = "#2a2827";
             bold = true;
-            fg = "#ebdbb2";
+            fg = "#ddc7a1";
           };
           shortcut = {
-            fg = "#b16286";
+            fg = "#d3869b";
           };
           source_marker = {
-            bg = "#8ec07c";
+            bg = "#89b482";
             bold = true;
-            fg = "#282828";
+            fg = "#141617";
           };
           status = {
-            bg = "#3c3836";
+            bg = "#2a2827";
           };
           "status dimmed" = {
-            fg = "#665c54";
+            fg = "#5a524c";
           };
           "status shortcut" = {
             fg = "#d3869b";
           };
           "status title" = {
-            bg = "#83a598";
+            bg = "#7daea3";
             bold = true;
-            fg = "#282828";
+            fg = "#141617";
           };
           success = {
             bold = true;
-            fg = "#b8bb26";
+            fg = "#a9b665";
           };
           target_marker = {
-            bg = "#b8bb26";
+            bg = "#a9b665";
             bold = true;
-            fg = "#282828";
+            fg = "#141617";
           };
           text = {
-            bg = "#282828";
-            fg = "#ebdbb2";
+            bg = "#141617";
+            fg = "#ddc7a1";
           };
           title = {
             bold = true;
-            fg = "#458588";
+            fg = "#7daea3";
           };
           undo = {
-            bg = "#282828";
+            bg = "#141617";
           };
           "undo confirmation dimmed" = {
-            fg = "#665c54";
+            fg = "#5a524c";
           };
           "undo confirmation selected" = {
             bg = "#504945";
-            fg = "#ebdbb2";
+            fg = "#ddc7a1";
           };
           workspace = {
-            fg = "#83a598";
+            fg = "#7daea3";
           };
         };
 
