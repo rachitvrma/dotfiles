@@ -2,14 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{
+{self, inputs, ...}: {
   flake.nixosModules.hostMain =
     { pkgs, ... }:
     {
       imports = [
         # Import disko configuration
-        # inputs.disko.nixosModules.disko
-        # self.diskoConfigurations.hostMain
+        inputs.disko.nixosModules.disko
+        self.diskoConfigurations.hostMain
       ];
 
       programs = {
