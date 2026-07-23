@@ -36,7 +36,7 @@
     };
   };
 
-  flake.homeModules.shell = { pkgs, ... }: {
+  flake.homeModules.shell = { pkgs, config, ... }: {
     home = {
       shell = {
         enableFishIntegration = true;
@@ -54,10 +54,26 @@
         speedtest-cli
         trash-cli
       ];
+      sessionVariables = {
+        # Use the $XDG_NOTES_DIR as the ZK_NOTEBOOK_DIR
+        ZK_NOTEBOOK_DIR = config.xdg.userDirs.extraConfig.NOTES;
+      };
     };
     programs = {
       zk = {
         enable = true;
+        settings = {
+          notebook.dir = "${config.home.homeDirectory}/Notes"; # match XDG_NOTES_DIR
+          note = {
+            language = "en";
+            default-title = "Untitled";
+            filename = "{{id}}-{{slug title}}";
+            extension = "md";
+            id-charset = "alphanum";
+            id-length = 4;
+            id-case = "lower";
+          };
+        };
       };
       jq.enable = true;
       bat = {

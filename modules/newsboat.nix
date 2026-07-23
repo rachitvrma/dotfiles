@@ -1,3 +1,4 @@
+# use https://podcastindex.org/ to search for podcasts and their RSS feeds.
 {
   flake.homeModules.newsboat = { ... }: {
     programs.newsboat = {
@@ -130,6 +131,17 @@
           url = "https://api.substack.com/feed/podcast/4064027.rss";
           tags = [ "podcasts" ];
           title = "Amen Podcasts";
+        }
+        {
+          url = "https://feeds.castos.com/41z28";
+          tags = [ "podcasts" ];
+          title = "BibleThinker";
+        }
+
+        {
+          url = "https://anchor.fm/s/f5347ab0/podcast/rss";
+          tags = [ "podcasts" ];
+          title = "Raj Shamani";
         }
       ];
 
