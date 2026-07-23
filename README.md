@@ -30,19 +30,21 @@
 > [!NOTE]
 > Looks matter. It is a good thing to have utility with a good rice.
 
-| Util               | Program used                 |
-| ------------------ | ---------------------------- |
-| Shell              | Fish                         |
-| WM/DE              | Niri                         |
-| Editor             | Neovim                       |
-| Terminal           | Kitty                        |
-| Audio              | RMPC + MPD                   |
-| System Monitor     | Bottom                       |
-| Mail               | _still wip_                  |
-| File Manager (GUI) | PCManFM                      |
-| File Manager (TUI) | Yazi                         |
-| RSS Reader         | Newsboat                     |
-| Theme              | Gruvbox Material (Dark Hard) |
+| Util                    | Program used                     |
+| ----------------------- | -------------------------------- |
+| Shell                   | Fish                             |
+| WM/DE                   | Niri                             |
+| Editor                  | Neovim                           |
+| Terminal                | Kitty                            |
+| Audio                   | RMPC + MPD                       |
+| System Monitor          | Bottom                           |
+| Mail                    | _still wip_                      |
+| File Manager (GUI)      | PCManFM                          |
+| File Manager (TUI)      | Yazi                             |
+| RSS Reader              | Newsboat                         |
+| Theme                   | Gruvbox Material (Dark Hard)     |
+| Browser (GUI)           | Firefox/QuteBrowser (I use both) |
+| Text Browser (Terminal) | w3m                              |
 
 ---
 ## Instructions for Installation:

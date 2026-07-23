@@ -26,6 +26,11 @@
           tags = [ "nix" ];
           title = "NixOS Announcements";
         }
+        {
+          url = "https://ianthehenry.com/feed.xml";
+          tags = [ "nix" ];
+          title = "Ian Henry";
+        }
 
         # Editor/Neovim
         {

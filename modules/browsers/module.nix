@@ -31,61 +31,10 @@
             }
           ];
 
-          policies =
-            let
-              # extension = shortId: guid: {
-              #   name = guid;
-              #   value = {
-              #     install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${shortId}/latest.xpi";
-              #     installation_mode = "force_installed";
-              #     private_browsing = true;
-              #   };
-              # };
-              # extensions = [
-              #   # To add additional extensions, find it on addons.mozilla.org, find
-              #   # the short ID in the url (like https://addons.mozilla.org/en-US/firefox/addon/!SHORT_ID!/)
-              #   # Then go to https://addons.mozilla.org/api/v5/addons/addon/!SHORT_ID!/ to get the guid
-              #   (extension "ublock-origin" "uBlock0@raymondhill.net")
-              #   # ...
-              # ];
-            in
-            {
-              DisableTelemetry = true;
-              # ExtensionSettings = {
-              #   "*".installation_mode = "blocked";
-              # }
-              # // (builtins.listToAttrs extensions);
-              DefaultDownloadDirectory = "${config.home.homeDirectory}/Downloads";
-              SearchEngines = {
-                Default = "DuckDuckGo";
-                Add = [
-                  {
-                    Name = "nixpkgs packages";
-                    URLTemplate = "https://search.nixos.org/packages?channel=unstable&query={searchTerms}";
-                    IconURL = "https://wiki.nixos.org/favicon.ico";
-                    Alias = "@np";
-                  }
-                  {
-                    Name = "NixOS options";
-                    URLTemplate = "https://search.nixos.org/options?channel=unstable&query={searchTerms}";
-                    IconURL = "https://wiki.nixos.org/favicon.ico";
-                    Alias = "@no";
-                  }
-                  {
-                    Name = "NixOS Wiki";
-                    URLTemplate = "https://wiki.nixos.org/w/index.php?search={searchTerms}";
-                    IconURL = "https://wiki.nixos.org/favicon.ico";
-                    Alias = "@nw";
-                  }
-                  {
-                    Name = "noogle";
-                    URLTemplate = "https://noogle.dev/q?term={searchTerms}";
-                    IconURL = "https://noogle.dev/favicon.ico";
-                    Alias = "@ng";
-                  }
-                ];
-              };
-            };
+          policies = {
+            DisableTelemetry = true;
+            DefaultDownloadDirectory = "${config.home.homeDirectory}/Downloads";
+          };
           profiles.krish = {
             isDefault = true;
             id = 0;
@@ -269,6 +218,16 @@
                 }
               ];
             };
+            bookmarks = {
+              force = true;
+              settings = [
+                {
+                  name = "WhatsApp";
+                  keyword = "whatsapp";
+                  url = "https://web.whatsapp.com/";
+                }
+              ];
+            };
             containers = {
               Work = {
                 id = 1;
@@ -285,6 +244,91 @@
             search = {
               force = true;
               default = "ddg";
+              order = [
+                "ddg"
+                "google"
+              ];
+              engines = {
+                # Nix Stack
+                nix-packages = {
+                  name = "Nix Packages";
+                  urls = [
+                    {
+                      template = "https://search.nixos.org/packages";
+                      params = [
+                        {
+                          name = "type";
+                          value = "packages";
+                        }
+                        {
+                          name = "query";
+                          value = "{searchTerms}";
+                        }
+                        {
+                          name = "channel";
+                          value = "unstable";
+                        }
+                      ];
+                    }
+                  ];
+
+                  icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                  definedAliases = [ "@np" ];
+                };
+                nixos-options = {
+                  name = "NixOS Options";
+                  urls = [
+                    {
+                      template = "https://search.nixos.org/options";
+                      params = [
+                        {
+                          name = "channel";
+                          value = "unstable";
+                        }
+                        {
+                          name = "query";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                  definedAliases = [ "@no" ];
+                };
+                nixos-wiki = {
+                  name = "NixOS Wiki";
+                  urls = [ { template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; } ];
+                  iconMapObj."16" = "https://wiki.nixos.org/favicon.ico";
+                  definedAliases = [ "@nw" ];
+                };
+                noogle = {
+                  name = "Noogle";
+                  urls = [ { template = "https://noogle.dev/q?term={searchTerms}"; } ];
+                  iconMapObj."16" = "https://noogle.dev/favicon.ico";
+                  definedAliases = [ "@ng" ];
+                };
+
+                # YouTube Stack
+                yt-music = {
+                  name = "YouTube Music";
+                  urls = [
+                    {
+                      template = "https://music.youtube.com/search";
+                      params = [
+                        {
+                          name = "q";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  iconMapObj."16" = "https://music.youtube.com/favicon.ico";
+                  definedAliases = [ "@ytm" ];
+                };
+
+                bing.metaData.hidden = true;
+                google.metaData.alias = "@g"; # builtin engines only support specifying one additional alias
+              };
             };
           };
         };

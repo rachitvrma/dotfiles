@@ -7,7 +7,7 @@
 
         # Base UI
         # default-bg = "#141617"; # base00
-        default-bg = "#1d2021";
+        default-bg = "rgba(29,32,33,0.9)";
         default-fg = "#ddc7a1"; # base05
 
         # Statusbar (bottom bar showing page number, filename, etc.)

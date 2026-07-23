@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{self, inputs, ...}: {
+{ self, inputs, ... }: {
   flake.nixosModules.hostMain =
     { pkgs, ... }:
     {
@@ -21,21 +21,30 @@
         loader = {
           systemd-boot.enable = true;
           efi.canTouchEfiVariables = true;
+          timeout = 0; # For plymouth. See https://wiki.nixos.org/wiki/Plymouth
         };
 
         plymouth = {
           enable = true;
-          theme = "breeze";
+          theme = "bgrt";
         };
 
+        # For plymouth
+        consoleLogLevel = 3;
+        initrd.verbose = false;
+
         kernelParams = [
-          "quiet"
-          "splash"
           "zswap.enabled=1" # enables zswap
           "zswap.compressor=zstd" # compression algorithm
           "zswap.max_pool_percent=20" # maximum percentage of RAM that zswap is allowed to use
           "zswap.shrinker_enabled=1" # whether to shrink the pool proactively on high memory pressure
           # "i915.enable_guc=3" # Enabling xe now creates some problems in gaming
+
+          # Plymouth specific
+          "quiet"
+          "splash"
+          "rd.udev.log_level=3"
+          "rd.systemd.show_status=auto"
         ];
         kernelPackages = pkgs.linuxPackages_latest;
       };
