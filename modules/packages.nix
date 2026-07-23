@@ -182,6 +182,10 @@
         settings = {
           general = {
             live-config = 1;
+            framerate = 60;
+            sensitivity = 100;
+            lower_cutoff_freq = 50;
+            higher_cutoff_freq = 1000;
           };
           input = {
             method = "pipewire";
