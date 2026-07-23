@@ -9,6 +9,7 @@
         "wheel"
       ];
       shell = pkgs.fish;
+      initialPassword = "1234";
     };
 
     programs.fish.enable = true;
