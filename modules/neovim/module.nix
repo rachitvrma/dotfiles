@@ -5,7 +5,7 @@
         enable = true;
         viAlias = true;
         vimAlias = true;
-        defaultEditor = true;
+        # defaultEditor = true;
 
         withNodeJs = true;
       };
@@ -17,7 +17,7 @@
       neovim = {
         enable = true;
         sideloadInitLua = true;
-        defaultEditor = true;
+        # defaultEditor = true;
 
         withNodeJs = true;
 

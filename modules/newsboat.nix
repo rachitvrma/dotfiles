@@ -91,6 +91,14 @@
           ];
           title = "Andrey Listopadov";
         }
+        {
+          url = "https://www.reddit.com/r/emacs/.rss";
+          tags = [
+            "editor"
+            "emacs"
+          ];
+          title = "Emacs Subreddit";
+        }
 
         # Linux
         {

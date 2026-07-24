@@ -13,14 +13,10 @@
       enable = true;
       client = {
         enable = true;
-        arguments = [
-          "-c"
-          "-a"
-          ""
-        ];
+        arguments = [ "-c" ];
       };
 
-      # defaultEditor = lib.mkDefault true;
+      defaultEditor = true;
 
       startWithUserSession = "graphical";
     };
@@ -65,6 +61,7 @@
           lua-mode
           magit
           magit-todos
+          majutsu
           marginalia
           meow
           meow-tree-sitter
@@ -104,29 +101,29 @@
             ]
           ))
 
-          (callPackage (
-            {
-              melpaBuild,
-              fetchFromGitHub,
-              magit,
-              transient,
-              ...
-            }:
-            melpaBuild {
-              pname = "majutsu";
-              version = "0-unstable-2026-07-09";
-              src = fetchFromGitHub {
-                owner = "0WD0";
-                repo = "majutsu";
-                rev = "59aff9b93eac575fbccc1f4ab2d48d048e0ead9b";
-                hash = "sha256-GJ62hsHgLEFIY0ghij0VPFt1jMUGRKhI2eCroBjkxtc=";
-              };
-              packageRequires = [
-                magit
-                transient
-              ];
-            }
-          ) { })
+          # (callPackage (
+          #   {
+          #     melpaBuild,
+          #     fetchFromGitHub,
+          #     magit,
+          #     transient,
+          #     ...
+          #   }:
+          #   melpaBuild {
+          #     pname = "majutsu";
+          #     version = "0-unstable-2026-07-09";
+          #     src = fetchFromGitHub {
+          #       owner = "0WD0";
+          #       repo = "majutsu";
+          #       rev = "59aff9b93eac575fbccc1f4ab2d48d048e0ead9b";
+          #       hash = "sha256-GJ62hsHgLEFIY0ghij0VPFt1jMUGRKhI2eCroBjkxtc=";
+          #     };
+          #     packageRequires = [
+          #       magit
+          #       transient
+          #     ];
+          #   }
+          # ) { })
         ];
     };
 
