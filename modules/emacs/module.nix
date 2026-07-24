@@ -13,7 +13,7 @@
       enable = true;
       client = {
         enable = true;
-        arguments = [ "-c" ];
+        arguments = [ "-ca 'emacs'" ];
       };
 
       defaultEditor = true;
