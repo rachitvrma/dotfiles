@@ -76,11 +76,6 @@
       };
 
       services = {
-        /*
-          mpd-mpris = {
-            enable = true;
-          };
-        */
         mpdris2 = {
           enable = true;
           notifications = true;
@@ -92,7 +87,7 @@
           enableSessionVariables = true;
           network = {
             startWhenNeeded = false; # Don't use the systemd-socket, but the service only
-            listenAddress = "$XDG_RUNTIME_DIR/mpd/socket";
+            listenAddress = "$XDG_RUNTIME_DIR/mpd/socket:6600";
           };
           extraConfig = ''
             audio_output {
@@ -144,11 +139,13 @@
               comp = "Compilations/$album/$track - $title";
             };
             replaygain.backend = "ffmpeg";
-            mpdIntegration = {
-              enableUpdate = true;
-              enableStats = true;
-              host = config.services.mpd.network.listenAddress;
-            };
+            embedart.remove_art_file = true;
+          };
+          mpdIntegration = {
+            enableUpdate = true;
+            enableStats = true;
+            # FIXME: fix this
+            host = "$XDG_RUNTIME_DIR/mpd/socket";
           };
         };
         # For videos/music

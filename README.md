@@ -45,6 +45,7 @@
 | Theme                   | Gruvbox Material (Dark Hard)     |
 | Browser (GUI)           | Firefox/QuteBrowser (I use both) |
 | Text Browser (Terminal) | w3m                              |
+| Agenda/Task Maintainer  | taskwarrior                      |
 
 ---
 ## Instructions for Installation:

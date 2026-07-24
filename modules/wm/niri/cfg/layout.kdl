@@ -39,7 +39,7 @@ layout  {
     width 2
     urgent-color "#ea6962"
 
-    active-gradient from="#d3869b" to="#e78a4e" angle=45 relative-to="workspace-view"
+    active-gradient from="#d3869b" to="#7daea3" angle=45 relative-to="workspace-view"
 
     inactive-gradient from="#504945" to="#7c6f64" angle=45 relative-to="workspace-view" in="srgb-linear"
   }
