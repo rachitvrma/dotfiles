@@ -5,8 +5,7 @@
         enable = true;
         viAlias = true;
         vimAlias = true;
-        # defaultEditor = true;
-
+        defaultEditor = true;
         withNodeJs = true;
       };
     };
@@ -17,23 +16,17 @@
       neovim = {
         enable = true;
         sideloadInitLua = true;
-        # defaultEditor = true;
-
+        defaultEditor = true;
         withNodeJs = true;
-
         viAlias = true;
         vimAlias = true;
         vimdiffAlias = true;
-
         waylandSupport = true;
-
         # For lazydev setup
         initLua = ''
           vim.g.luvit_meta_path = "${pkgs.vimPlugins.luvit-meta}"
         '';
-
         withPython3 = true;
-
         plugins =
           let
             startPlugins = with pkgs.vimPlugins; [

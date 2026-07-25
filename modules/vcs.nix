@@ -316,6 +316,7 @@
           core = {
             untrackedCache = true;
             fsmonitor = true;
+            editor = "nvim";
           };
           diff.algorithm = "histogram";
           user = {
