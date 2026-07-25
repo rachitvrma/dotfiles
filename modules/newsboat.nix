@@ -32,7 +32,7 @@
           title = "Ian Henry";
         }
 
-        # Editor/Neovim
+        # Editor
         {
           url = "https://github.com/neovim/neovim/releases.atom";
           tags = [
@@ -74,32 +74,6 @@
           title = "Mini.Nvim Blog";
         }
 
-        # Editor/Emacs
-        {
-          url = "https://nullprogram.com/feed/";
-          tags = [
-            "editor"
-            "emacs"
-          ];
-          title = "Null Program";
-        }
-        {
-          url = "https://andreyor.st/feed.xml";
-          tags = [
-            "editor"
-            "emacs"
-          ];
-          title = "Andrey Listopadov";
-        }
-        {
-          url = "https://www.reddit.com/r/emacs/.rss";
-          tags = [
-            "editor"
-            "emacs"
-          ];
-          title = "Emacs Subreddit";
-        }
-
         # Linux
         {
           url = "https://drewdevault.com/blog/index.xml";
@@ -122,6 +96,14 @@
         {
           url = "https://www.freecodecamp.org/news/rss";
           title = "FreeCodeCamp News";
+        }
+        {
+          url = "https://www.freecodecamp.org/news/tag/blog/rss/";
+          title = "FreeCodeCamp Blog";
+        }
+        {
+          url = "https://www.freecodecamp.org/news/tag/programming-blogs/rss/";
+          title = "FreeCodeCamp Programming Blogs";
         }
         {
           url = "https://krebsonsecurity.com/feed/";
