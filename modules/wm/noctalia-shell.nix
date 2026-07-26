@@ -270,6 +270,10 @@
             max_length = 150;
           };
         };
+        notification = {
+          enable_daemon = true;
+          layer = "overlay";
+        };
       };
     };
 

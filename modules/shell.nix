@@ -53,6 +53,7 @@
         figlet
         speedtest-cli
         trash-cli
+        pomo # pomodoro timer
       ];
       sessionVariables = {
         # Use the $XDG_NOTES_DIR as the ZK_NOTEBOOK_DIR

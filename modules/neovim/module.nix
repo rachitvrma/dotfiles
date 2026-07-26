@@ -127,6 +127,9 @@
 
         extraLuaPackages = ps: with ps; [ magick ];
         extraPackages = with pkgs; [
+          # grug-far needs this
+          ast-grep
+
           # Nix stack
           nixd
           nixfmt
@@ -139,6 +142,9 @@
           bash-language-server
           shfmt
           shellcheck
+
+          # C/C++ stack
+          clang-tools
 
           # Shell tools
           ripgrep

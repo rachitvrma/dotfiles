@@ -165,7 +165,7 @@
         show-read-feeds yes
         cleanup-on-quit yes
 
-        download-path "~/Music/podcasts/%n/"
+        download-path "~/Downloads/podcasts/%n/"
         download-filename-format "%F-%t.%e"
         max-downloads 3
         player "mpv --no-video"

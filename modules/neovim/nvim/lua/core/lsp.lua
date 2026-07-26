@@ -31,7 +31,6 @@ vim.lsp.config("nixd", {
 vim.lsp.enable({
 	"fish_lsp",
 	"lua_ls",
-	-- TODO: Add the `--semantic-token` flag to nixd's default command
 	"nixd",
 	"markdown_oxide",
 	"mpls",
