@@ -182,6 +182,7 @@
             osd-bar = "no";
             border = "no";
             save-position-on-quit = "yes";
+            input-ipc-server = "/tmp/mpv.sock";
           };
         };
       };

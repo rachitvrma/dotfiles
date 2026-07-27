@@ -41,9 +41,9 @@
         index-active-bg = "#d3869b"; # base0E — magenta, current selection
 
         # In-document search highlighting
-        highlight-color = "#d3869b"; # base0E — magenta, matches the accent theme
-        highlight-active-color = "#7daea3"; # base0D — secondary accent, distinguishes "current match" from "all matches"
-
+        highlight-color = "rgba(211,134,155,0.5)"; # base0E — magenta, matches the accent theme
+        highlight-active-color = "rgba(125,174,163,0.5)"; # base0D — secondary accent, distinguishes "current match" from "all matches"
+        highlight-fg = "rgba(20,22,23,0.9)";
         # Recoloring mode (the `:recolor` toggle that re-tints the whole PDF, useful for dark-mode reading)
         recolor = true;
         recolor-lightcolor = "#141617"; # base00 — becomes the "page background" when recolor is on

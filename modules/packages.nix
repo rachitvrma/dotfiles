@@ -217,7 +217,6 @@
       wl-clipboard
       unzip
       gophertube
-      weechat
       kotatogram-desktop
     ];
   };

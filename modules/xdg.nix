@@ -21,6 +21,7 @@
     home.preferXdgDirectories = true;
     xdg = {
       enable = true;
+      autostart.readOnly = true;
       localBinInPath = true;
       mime.enable = true;
       mimeApps = {

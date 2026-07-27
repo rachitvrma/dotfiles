@@ -36,7 +36,7 @@
 
           allow_remote_control = true;
           listen_on = "unix:/tmp/kitty";
-          enabled_layouts = "splits";
+          # enabled_layouts = "splits";
 
           tab_bar_edge = "top";
           tab_bar_style = "powerline";
@@ -44,14 +44,15 @@
           tab_bar_align = "left";
           tab_bar_min_tabs = 2;
           tab_bar_margin_width = 0.0;
-          tab_bar_margin_hieght = "2.5 1.5";
+          tab_bar_margin_height = "2.5 1.5";
           tab_bar_margin_color = "#1d2021";
           tab_bar_background = "#1d2021";
 
           active_tab_background = "#d3869b";
           active_tab_font_style = "bold";
 
-          inactive_font_style = "normal";
+          # FIXME: inactive_font_style is an invalid key
+          # inactive_font_style = "normal";
 
           tab_activity_symbol = " ● ";
 

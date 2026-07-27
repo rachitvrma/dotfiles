@@ -12,7 +12,7 @@
       jsonFormat = pkgs.formats.json { };
     in
     {
-      # meta.maintainers = [ lib.maintainers.rachitvrma ];
+      meta.maintainers = [ lib.maintainers.rachitvrma ];
       options.programs.dprint = {
         enable = lib.mkEnableOption ''
           dprint: a code formatter for common filetypes like markdown, toml, yaml,
@@ -57,10 +57,10 @@
       config = mkIf cfg.enable {
         home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
         xdg.configFile."dprint/dprint.json" = mkIf (cfg.plugins != [ ] || cfg.settings != { }) {
-          text = builtins.toJSON (
+          source = jsonFormat.generate "hm_dprintdprint.json" (
             cfg.settings
             // {
-              plugins = map (p: "${p}/plugin.wasm") cfg.plugins;
+              plugins = (cfg.settings.plugins or [ ]) ++ map (p: "${p}/plugin.wasm") cfg.plugins;
             }
           );
         };
@@ -70,9 +70,15 @@
   flake.homeModules.dprint = { pkgs, ... }: {
     programs.dprint = {
       enable = true;
+      settings = {
+        plugins = [
+          "https://plugins.dprint.dev/typescript-0.96.1.wasm"
+        ];
+      };
       plugins = with pkgs.dprint-plugins; [
         dprint-plugin-markdown
         dprint-plugin-toml
+        dprint-plugin-json
         g-plane-malva
         g-plane-markup_fmt
         g-plane-pretty_yaml

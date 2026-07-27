@@ -1,19 +1,5 @@
-# TODO: need to fix lazyworktree's shell integration.
-{ self, ... }: {
-  # This provides the temporary fix for now.
-  flake.overlays.default = final: prev: {
-    lazyworktree = prev.lazyworktree.overrideAttrs (old: {
-      postInstall =
-        builtins.replaceStrings
-          [ "completion bash --code" "completion zsh --code" "completion fish --code" ]
-          [ "completion bash" "completion zsh" "completion fish" ]
-          old.postInstall;
-    });
-  };
-
+{
   flake.nixosModules.vcs = { pkgs, ... }: {
-    # import the temporary lazyworktree fix
-    nixpkgs.overlays = [ self.overlays.default ];
     # Git
     programs = {
       git = {
@@ -431,30 +417,6 @@
             };
             authorColors = {
               "*" = "#89b482";
-            };
-          };
-        };
-      };
-      lazyworktree = {
-        enable = true;
-        # BUG: This doesn't work in home-manager's module
-        # I am using a fix. See the lazyworktree-fix module below.
-        enableFishIntegration = true;
-        settings = {
-          theme = "gruvbox-material-dark-hard";
-          custom_themes = {
-            gruvbox-material-dark-hard = {
-              accent = "#d3869b";
-              accent_fg = "#141617";
-              accent_dim = "#282828";
-              border = "#7daea3";
-              border_dim = "#5a524c";
-              muted_fg = "#bdae93";
-              text_fg = "#ebdbb2";
-              success_fg = "#a9b665";
-              warn_fg = "#d8a657";
-              error_fg = "#ea6962";
-              cyan = "#89b482";
             };
           };
         };

@@ -164,6 +164,10 @@
       television = {
         enable = true;
         enableFishIntegration = true;
+        extraPackages = with pkgs; [
+          poppler-utils # for pdftotext command
+          figlet # for figlet-fonts
+        ];
         channels = {
           nixdots = {
             actions = {

@@ -224,9 +224,10 @@ let
   };
 in
 {
-  flake.nixosModules.yazi = {
+  flake.nixosModules.yazi = { pkgs, ... }: {
     programs.yazi = {
       enable = true;
+      package = pkgs.yazi.override { _7zz = pkgs._7zz-rar; };
       settings = {
         inherit theme;
       };
@@ -236,9 +237,13 @@ in
   flake.homeModules.yazi = { pkgs, ... }: {
     programs.yazi = {
       enable = true;
+      package = pkgs.yazi.override { _7zz = pkgs._7zz-rar; };
       enableFishIntegration = true;
       inherit theme;
-      extraPackages = with pkgs; [ mediainfo ];
+      extraPackages = with pkgs; [
+        mediainfo
+        socat
+      ];
       plugins = {
         git = {
           package = pkgs.yaziPlugins.git;
@@ -348,7 +353,36 @@ in
               desc = "Open";
             }
           ];
+          add-sub = [
+            {
+              desc = "Add sub to MPV";
+              run = " printf \"sub-add '%%s'\\n\" %s1 | socat - /tmp/mpv.sock ";
+            }
+          ];
         };
+        open = {
+          prepend_rules = [
+            {
+              url = "*.{ass,srt,ssa,sty,sup,vtt}";
+              use = [
+                "add-sub"
+                "edit"
+              ];
+            }
+          ];
+        };
+      };
+      keymap = {
+        mgr.prepend_keymap = [
+          {
+            # cd back to the root of the current Git repository
+            on = [
+              "g"
+              "r"
+            ];
+            run = ''shell -- ya emit cd "$(git rev-parse --show-toplevel)"'';
+          }
+        ];
       };
       initLua = ./init.lua;
     };

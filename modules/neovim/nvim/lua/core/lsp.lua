@@ -27,9 +27,19 @@ vim.lsp.config("nixd", {
 	cmd = { "nixd", "--semantic-tokens" },
 })
 
+vim.lsp.config("jsonls", {
+	settings = {
+		json = {
+			schemas = require("schemastore").json.schemas(),
+			validate = { enable = true },
+		},
+	},
+})
+
 -- Enable each server — Neovim matches filetype → starts server → done
 vim.lsp.enable({
 	"fish_lsp",
+	"jsonls",
 	"lua_ls",
 	"nixd",
 	"markdown_oxide",

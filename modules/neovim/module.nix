@@ -89,6 +89,8 @@
 
               project-nvim
 
+              SchemaStore-nvim
+
               rainbow-delimiters-nvim
               trouble-nvim
             ];
@@ -127,6 +129,8 @@
 
         extraLuaPackages = ps: with ps; [ magick ];
         extraPackages = with pkgs; [
+          vscode-json-languageserver
+
           # grug-far needs this
           ast-grep
 
@@ -151,6 +155,9 @@
           fd
 
           imagemagick # image.nvim stack
+
+          # For fish scripts
+          fish-lsp
         ];
       };
     };
