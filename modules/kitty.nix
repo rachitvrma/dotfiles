@@ -51,7 +51,6 @@
           active_tab_background = "#d3869b";
           active_tab_font_style = "bold";
 
-          # FIXME: inactive_font_style is an invalid key
           inactive_tab_font_style = "normal";
 
           tab_activity_symbol = " ● ";
