@@ -24,6 +24,7 @@
           scrollback_lines = 10000;
           scrollback_pager = "nvim --cmd 'set eventignore=FileType' +'nnoremap q ZQ' +'call nvim_open_term(0, {})' +'set nomodified nolist' +'$' -";
           enable_audio_bell = false;
+          bell_on_tab = "🔔 ";
           visual_bell_duration = 0.1;
           window_padding_width = 15;
           notify_on_cmd_finish = "unfocused";
