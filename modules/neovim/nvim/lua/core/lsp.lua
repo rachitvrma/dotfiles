@@ -38,7 +38,6 @@ vim.lsp.config("jsonls", {
 
 -- Enable each server — Neovim matches filetype → starts server → done
 vim.lsp.enable({
-	"fish_lsp",
 	"jsonls",
 	"lua_ls",
 	"nixd",

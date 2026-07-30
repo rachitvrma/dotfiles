@@ -20,10 +20,7 @@ require("conform").setup({
 		json = { "dprint" },
 		toml = { "dprint" },
 
-		-- Fish scripts formatting
-		formatters_by_ft = {
-			fish = { "fish_indent" },
-		},
+		formatters_by_ft = {},
 	},
 
 	format_on_save = {

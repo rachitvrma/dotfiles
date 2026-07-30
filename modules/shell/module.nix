@@ -12,11 +12,11 @@
       };
       television = {
         enable = true;
-        enableFishIntegration = true;
+        enableZshIntegration = true;
       };
       zoxide = {
         enable = true;
-        enableFishIntegration = true;
+        enableZshIntegration = true;
       };
       bat = {
         enable = true;
@@ -31,7 +31,7 @@
       direnv = {
         enable = true;
         nix-direnv.enable = true;
-        enableFishIntegration = true;
+        enableZshIntegration = true;
       };
     };
   };
@@ -39,7 +39,7 @@
   flake.homeModules.shell = { pkgs, config, ... }: {
     home = {
       shell = {
-        enableFishIntegration = true;
+        enableZshIntegration = true;
         enableShellIntegration = true;
       };
 
@@ -98,18 +98,18 @@
 
       nix-your-shell = {
         enable = true;
-        enableFishIntegration = true;
+        enableZshIntegration = true;
         nix-output-monitor.enable = true;
       };
 
       carapace = {
         enable = true;
-        enableFishIntegration = true;
+        enableZshIntegration = true;
       };
 
       direnv = {
         enable = true;
-        enableFishIntegration = true;
+        enableZshIntegration = true;
         nix-direnv = {
           enable = true;
         };
@@ -120,7 +120,7 @@
       eza = {
         enable = true;
         colors = "auto";
-        enableFishIntegration = true;
+        enableZshIntegration = true;
         git = false; # Takes really long to load big git repos
         icons = "auto";
         extraOptions = [
@@ -134,12 +134,12 @@
         enable = true;
         activeTheme = "gruvbox-dark-hard";
         colorMode = "24-bit";
-        enableFishIntegration = true;
+        enableZshIntegration = true;
       };
 
       fzf = {
         enable = true;
-        enableFishIntegration = true;
+        enableZshIntegration = true;
         defaultOptions = [
           "--height 40%"
           "--prompt ⟫"
@@ -152,7 +152,7 @@
 
       starship = {
         enable = true;
-        enableFishIntegration = true;
+        enableZshIntegration = true;
         presets = [ "nerd-font-symbols" ];
         settings = {
           scan_timeout = 10;
@@ -163,7 +163,7 @@
 
       television = {
         enable = true;
-        enableFishIntegration = true;
+        enableZshIntegration = true;
         extraPackages = with pkgs; [
           poppler-utils # for pdftotext command
           figlet # for figlet-fonts
@@ -172,10 +172,10 @@
           nixdots = {
             actions = {
               edit = {
-                command = "if set -q EDITOR; and test -n \"$EDITOR\"; $EDITOR {}; else; vim {}; end";
+                # FIXME: This is designed for fish shell, fix it to use zsh shell
+                # command = "if set -q EDITOR; and test -n \"$EDITOR\"; $EDITOR {}; else; vim {}; end";
                 description = "Edit the selected nix config file";
                 mode = "execute";
-                shell = "fish";
               };
             };
             keybindings = {
@@ -207,7 +207,7 @@
 
       zoxide = {
         enable = true;
-        enableFishIntegration = true;
+        enableZshIntegration = true;
       };
     };
   };

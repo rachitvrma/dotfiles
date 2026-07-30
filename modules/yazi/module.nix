@@ -238,7 +238,7 @@ in
     programs.yazi = {
       enable = true;
       package = pkgs.yazi.override { _7zz = pkgs._7zz-rar; };
-      enableFishIntegration = true;
+      enableZshIntegration = true;
       inherit theme;
       extraPackages = with pkgs; [
         mediainfo

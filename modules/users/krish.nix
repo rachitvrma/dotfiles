@@ -8,11 +8,9 @@
         "networkmanager"
         "wheel"
       ];
-      shell = pkgs.fish;
+      shell = pkgs.zsh;
       initialPassword = "1234";
     };
-
-    programs.fish.enable = true;
   };
 
   flake.homeModules.krish = {

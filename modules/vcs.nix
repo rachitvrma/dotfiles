@@ -392,7 +392,7 @@
       };
       lazygit = {
         enable = true;
-        enableFishIntegration = true; # Use 'lg' to start lazygit
+        enableZshIntegration = true; # Use 'lg' to start lazygit
         settings = {
           gui = {
             theme = {

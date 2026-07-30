@@ -10,7 +10,7 @@
       kitty = {
         enable = true;
         enableGitIntegration = true;
-        shellIntegration.enableFishIntegration = true;
+        shellIntegration.enableZshIntegration = true;
         font = {
           package = pkgs.nerd-fonts.jetbrains-mono;
           name = "JetBrainsMono Nerd Font";
@@ -23,11 +23,12 @@
           cursor_trail_start_threshold = 2;
           scrollback_lines = 10000;
           scrollback_pager = "nvim --cmd 'set eventignore=FileType' +'nnoremap q ZQ' +'call nvim_open_term(0, {})' +'set nomodified nolist' +'$' -";
+          enable_audio_bell = false;
           visual_bell_duration = 0.1;
           window_padding_width = 15;
           notify_on_cmd_finish = "unfocused";
 
-          background_opacity = 0.85;
+          background_opacity = 0.9;
           background_blur = 64;
 
           background = "#141617";

@@ -100,7 +100,6 @@
                 bash
                 c
                 cpp
-                fish
                 html
                 json
                 kdl
@@ -155,9 +154,6 @@
           fd
 
           imagemagick # image.nvim stack
-
-          # For fish scripts
-          fish-lsp
         ];
       };
     };
