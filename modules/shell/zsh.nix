@@ -25,7 +25,7 @@
       enable = true;
       enableCompletion = true;
       autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
+      fastSyntaxHighlighting.enable = true;
 
       shellAliases = {
         ll = "ls -l";
@@ -42,6 +42,7 @@
         ];
       };
 
+      # For faster performance
       # https://discourse.nixos.org/t/terminal-zsh-performance-issue-under-home-manager-help/55798/12
       completionInit = /* bash */ ''
         autoload -Uz compinit

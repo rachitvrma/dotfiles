@@ -35,6 +35,7 @@
 
         defaultApplications = {
           "image/jpeg" = "swayimg.desktop";
+          "video/*" = "mpv.desktop";
         };
       };
       portal = {

@@ -31,6 +31,11 @@
           tags = [ "nix" ];
           title = "Ian Henry";
         }
+        {
+          url = "https://techhub.social/@hmnews.rss";
+          tags = [ "nix" ];
+          title = "Home-Manager News";
+        }
 
         # Editor
         {

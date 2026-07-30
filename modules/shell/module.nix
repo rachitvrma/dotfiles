@@ -1,6 +1,10 @@
 {
   flake.nixosModules.shell = {
     programs = {
+      comma = {
+        enable = true;
+        enableZshIntegration = true;
+      };
       starship = {
         enable = true;
         transientPrompt.enable = true;
@@ -28,11 +32,6 @@
         };
       };
       vivid.enable = true;
-      direnv = {
-        enable = true;
-        nix-direnv.enable = true;
-        enableZshIntegration = true;
-      };
     };
   };
 
@@ -44,6 +43,7 @@
       };
 
       shellAliases = {
+        ".." = "cd ..";
         ff = "${pkgs.fastfetch}/bin/fastfetch";
         nos = "nh os switch";
         nca = "nh clean all";
@@ -76,6 +76,10 @@
           };
         };
       };
+      devenv = {
+        enable = true;
+        enableZshIntegration = true;
+      };
       jq.enable = true;
       bat = {
         enable = true;
@@ -105,14 +109,6 @@
       carapace = {
         enable = true;
         enableZshIntegration = true;
-      };
-
-      direnv = {
-        enable = true;
-        enableZshIntegration = true;
-        nix-direnv = {
-          enable = true;
-        };
       };
 
       fd.enable = true;

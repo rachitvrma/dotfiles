@@ -41,7 +41,7 @@
     };
   };
 
-  flake.homeModules.nixsettings = { pkgs, ... }: {
+  flake.homeModules.nixsettings = { pkgs, config, ... }: {
     imports = [
       inputs.nix-index-database.homeModules.default
     ];
@@ -49,6 +49,7 @@
     home.packages = with pkgs; [
       nix-prefetch
       nix-prefetch-github
+      nix-auth
     ];
 
     programs = {
@@ -79,7 +80,9 @@
         max-jobs = 1;
         show-trace = true;
       };
-
+      extraOptions = ''
+        !include ${config.xdg.configHome}/nix/access-tokens.conf
+      '';
       nixPath = [
         "nixpkgs=${builtins.path { path = inputs.nixpkgs; }}"
       ];
