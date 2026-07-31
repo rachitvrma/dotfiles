@@ -50,7 +50,6 @@
               mini-ai
               mini-align
               mini-animate
-              mini-base16
               mini-basics
               mini-bracketed
               mini-bufremove
@@ -67,7 +66,9 @@
               mini-git
               mini-hipatterns
               mini-icons
+              mini-input
               mini-indentscope
+              mini-operators
               mini-jump
               mini-jump2d
               mini-keymap
@@ -117,6 +118,7 @@
               # Markdown stack
               mkdnflow-nvim
               render-markdown-nvim
+              zk-nvim
             ];
           in
           startPlugins

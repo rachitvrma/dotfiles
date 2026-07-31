@@ -73,11 +73,11 @@
     programs.pomo = {
       enable = true;
       settings = {
-        onSessionEnd = "ask";
+        onSessionEnd = "start";
         asciiArt = {
           enabled = true;
-          font = "mono12";
-          color = "#5A56E0";
+          font = "rebel";
+          color = "#d3869b";
         };
         work = {
           duration = "25m";
@@ -87,6 +87,7 @@
             urgent = false;
             title = "work finished 🎉";
             message = "time to take a break";
+            icon = "~/.face";
           };
         };
         break = {

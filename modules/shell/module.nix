@@ -28,7 +28,6 @@
           italic-text = "always";
           pager = "less";
           paging = "never";
-          theme = "gruvbox-dark";
         };
       };
       vivid.enable = true;
@@ -53,7 +52,6 @@
         figlet
         speedtest-cli
         trash-cli
-        pomo # pomodoro timer
       ];
       sessionVariables = {
         # Use the $XDG_NOTES_DIR as the ZK_NOTEBOOK_DIR
@@ -68,7 +66,6 @@
           note = {
             language = "en";
             default-title = "Untitled";
-            filename = "{{id}}-{{slug title}}";
             extension = "md";
             id-charset = "alphanum";
             id-length = 4;
@@ -91,7 +88,6 @@
             "*.props:Java Properties"
           ];
           pager = "less -FR";
-          theme = "gruvbox-dark";
         };
       };
 
@@ -128,7 +124,6 @@
 
       vivid = {
         enable = true;
-        activeTheme = "gruvbox-dark-hard";
         colorMode = "24-bit";
         enableZshIntegration = true;
       };
@@ -199,6 +194,15 @@
       nix-search-tv = {
         enable = true;
         enableTelevisionIntegration = true;
+        settings = {
+          indexes = [
+            "nixpkgs"
+            "home-manager"
+            "nixos"
+            "nur"
+            "noogle"
+          ];
+        };
       };
 
       zoxide = {

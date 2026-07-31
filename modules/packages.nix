@@ -13,6 +13,11 @@
       devmon.enable = true;
     };
 
+    programs.appimage = {
+      enable = true;
+      binfmt = true;
+    };
+
     security = {
       sudo = {
         enable = true;
@@ -86,6 +91,18 @@
         ];
         settings = {
           path_unrar = "unrar-free";
+        };
+      };
+      btop = {
+        enable = true;
+        package = pkgs.symlinkJoin {
+          name = "btop-wrapped";
+          paths = [ pkgs.btop ];
+          buildInputs = [ pkgs.makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/btop \
+            --add-flags "--force-utf"
+          '';
         };
       };
       bottom = {
@@ -177,6 +194,7 @@
       };
       gcc.enable = true;
       # TODO: Make a module for $XDG_CONFIG_HOME/cava/themes
+      # NOTE: For cava enabled the stylix.cava.rainbow.enable
       cava = {
         enable = true;
         settings = {
@@ -195,19 +213,17 @@
             waves = 1;
             noise_reduction = 77;
           };
-          color = {
-            background = "'#141617'";
-            foreground = "'#ddc7a1'";
-            gradient = 1;
-            gradient_color_1 = "'#ea6962'";
-            gradient_color_2 = "'#e78a4e'";
-            gradient_color_3 = "'#d8a657'";
-            horizontal_gradient = 1;
-            horizontal_gradient_color_1 = "'#a9b665'";
-            horizontal_gradient_color_2 = "'#7daea3'";
-            horizontal_gradient_color_3 = "'#d3869b'";
-            blend_direction = "up";
-          };
+        };
+      };
+
+      onlyoffice = {
+        enable = true;
+        settings = {
+          UITheme = "theme-dark";
+          titlebar = "custom";
+          maximized = true;
+          editorWindowMode = false;
+          forcedRtl = false;
         };
       };
     };

@@ -26,7 +26,6 @@
 
         plymouth = {
           enable = true;
-          theme = "bgrt";
         };
 
         # For plymouth

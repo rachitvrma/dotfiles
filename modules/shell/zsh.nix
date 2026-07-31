@@ -20,20 +20,38 @@
     users.defaultUserShell = pkgs.zsh;
     environment.shells = with pkgs; [ zsh ];
   };
-  flake.homeModules.zsh = {
+  flake.homeModules.zsh = { config, ... }: {
     programs.zsh = {
       enable = true;
       enableCompletion = true;
+      autocd = true;
       autosuggestion.enable = true;
       fastSyntaxHighlighting.enable = true;
+
+      dirHashes = {
+        # TODO: replace with xdg.userDirs
+        docs = "${config.home.homeDirectory}/Documents";
+        vids = "${config.home.homeDirectory}/Videos";
+        dl = "${config.home.homeDirectory}/Downloads";
+      };
 
       shellAliases = {
         ll = "ls -l";
         update = "nh os switch";
       };
+      historySubstringSearch.enable = true;
+      setOptions = [
+        "INTERACTIVE_COMMENTS"
+      ];
       history = {
+        append = true;
+        expireDuplicatesFirst = true;
+        extended = true;
+        findNoDups = true;
         size = 10000;
         ignoreAllDups = true;
+        ignoreDups = true;
+        saveNoDups = true;
         path = "$HOME/.zsh_history";
         ignorePatterns = [
           "rm *"

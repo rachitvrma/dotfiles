@@ -6,9 +6,12 @@
         web = {
           enable = true;
         };
-        tui = {
-          theme = "system";
-        };
+      };
+    };
+
+    services = {
+      ollama = {
+        enable = true;
       };
     };
   };

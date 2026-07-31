@@ -36,6 +36,21 @@
           tags = [ "nix" ];
           title = "Home-Manager News";
         }
+        {
+          url = "https://nixos.org/blog/newsletters-rss.xml";
+          tags = [ "nix" ];
+          title = "NixOS Blog (Newsletter)";
+        }
+        {
+          url = "https://nixos.org/blog/announcements-rss.xml";
+          tags = [ "nix" ];
+          title = "NixOS Blog (Announcements)";
+        }
+        {
+          url = "https://nixos.org/blog/stories-rss.xml";
+          tags = [ "nix" ];
+          title = "NixOS Blog (Stories)";
+        }
 
         # Editor
         {

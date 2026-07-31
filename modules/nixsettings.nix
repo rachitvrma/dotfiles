@@ -79,6 +79,8 @@
         cores = 8;
         max-jobs = 1;
         show-trace = true;
+        http2 = false;
+        max-substitution-jobs = 4;
       };
       extraOptions = ''
         !include ${config.xdg.configHome}/nix/access-tokens.conf

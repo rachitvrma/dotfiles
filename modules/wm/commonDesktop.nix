@@ -20,10 +20,8 @@
     programs = {
       swayimg = {
         enable = true;
+        # TODO: enable a stylix module for it.
         initLua = /* lua */ ''
-          -- ~/.config/swayimg/init.lua
-
-          -- Gruvbox Material Dark Hard base16 palette
           local bg      = 0xcc1d2021 -- base00, ~80% opacity for blur to show through
           local fg      = 0xffd4be98 -- base05
           local bg_alt  = 0xcc3c3836 -- base01, same alpha as bg

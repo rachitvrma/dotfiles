@@ -334,6 +334,10 @@
         };
       };
 
+      stylix.targets.firefox.profileNames = [
+        "krish"
+      ];
+
       xdg.mimeApps = {
         associations.added = {
           "x-scheme-handler/http" = "firefox.desktop";

@@ -1,5 +1,0 @@
-output "eDP-1" {
-  focus-at-startup
-  mode "1920x1080@60.056"
-  transform "normal"
-}

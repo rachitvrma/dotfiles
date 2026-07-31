@@ -3,6 +3,7 @@
 ## Neovim / Lua / Vim Regex / Editing Fluency
 
 ### Lua itself
+
 - **[Learn Lua in Y Minutes](https://learnxinyminutes.com/lua/)** — fastest
   syntax-level primer if you already know programming; ~15 minutes.
 - **[Programming in Lua (official book, 1st edition free online)](https://www.lua.org/pil/contents.html)**
@@ -12,7 +13,14 @@
   embeds LuaJIT (5.1-compatible), so this is the actual spec you're targeting,
   not 5.4.
 
+  #### Do and Learn
+  - Best overall: Lua on [Excersism](https://exercism.org/tracks/lua).
+  - Best for Algorithm Practice: [Codewars](https://www.codewars.com/).
+  - Game and Lua at the same time: [CodinGame](https://www.codingame.com/start/).
+  - We got [Rosetta Code](https://rosettacode.org/wiki/Rosetta_Code).
+
 ### Neovim's Lua API specifically
+
 - **`:help lua-guide`** — genuinely underrated; open it in Neovim itself
   (`nvim-lua-guide` is now upstreamed into core help docs). Covers
   `vim.api`, `vim.fn`, `vim.opt` vs `vim.o` vs `vim.g`, autocommands, etc.
@@ -30,6 +38,7 @@
   decent second angle on LSP config specifically.
 
 ### Vim motions / regex / "editing as a language"
+
 - **[vimregex.com](https://vimregex.com/)** — the best single reference for
   Vim's regex dialect (magic/nomagic/very-magic, differences from PCRE).
 - **[Learn Vimscript the Hard Way](https://learnvimscriptthehardway.stevelosh.com/)**
@@ -45,6 +54,7 @@
   any blog summary of the same material.
 
 ### Config architecture / "how do people actually structure this"
+
 - **[kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)** — not to
   use wholesale, but a good single-file reference for idiomatic modern
   (`vim.lsp.enable`-era) config structure.
@@ -56,6 +66,7 @@
   README explains the picker/source/action model better than any blog post will.
 
 ### Where mini.nvim specifically is documented
+
 - **[mini.nvim online docs](https://github.com/echasnovski/mini.nvim/tree/main/doc)**
   — raw vimdoc, but complete and current; given how fast mini.nvim ships, this
   is more reliable than any tutorial for exact API surface (e.g. the
