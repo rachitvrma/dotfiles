@@ -59,6 +59,7 @@
         };
       };
     };
+
   flake.homeModules.hyprtoolkit = {
     programs.hyprtoolkit = {
       enable = false;

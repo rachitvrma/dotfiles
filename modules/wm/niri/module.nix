@@ -101,7 +101,7 @@
             "session"
             "lock-and-suspend"
           ];
-          # prefer-no-csd = { };
+          prefer-no-csd = { };
           gestures.hot-corners.off = { };
 
           # ── blur.kdl ──
@@ -438,7 +438,7 @@
               window-rule = {
                 clip-to-geometry = true;
                 draw-border-with-background = false;
-                geometry-corner-radius = 30;
+                geometry-corner-radius = 25;
                 open-maximized = true;
               };
             }
@@ -451,12 +451,16 @@
             {
               window-rule = {
                 match._props.is-floating = true;
-                geometry-corner-radius = [
-                  30.0
-                  30.0
-                  30.0
-                  30.0
-                ];
+                geometry-corner-radius =
+                  let
+                    r = 30.0;
+                  in
+                  [
+                    r
+                    r
+                    r
+                    r
+                  ];
               };
             }
             {
@@ -512,6 +516,14 @@
             {
               window-rule = {
                 match._props.title = "nix-search-tv";
+                open-floating = true;
+                default-column-width.proportion = 0.75;
+                default-window-height.proportion = 0.75;
+              };
+            }
+            {
+              window-rule = {
+                match._props.title = "yazi_filemanager";
                 open-floating = true;
                 default-column-width.proportion = 0.75;
                 default-window-height.proportion = 0.75;

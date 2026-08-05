@@ -31,7 +31,11 @@
             name = "Rachit Kumar Verma";
             email = "155641117+rachitvrma@users.noreply.github.com";
           };
-          ui.default-command = "log";
+          ui = {
+            default-command = "log";
+            diff-editor = ":builtin";
+            merge-tools = ":builtin";
+          };
           merge-tools.vimdiff.program = "nvim";
         };
       };
@@ -40,9 +44,6 @@
       # TODO: Make a themes module for it.
       jjui = {
         enable = true;
-        settings = {
-          ui.theme = "base24-gruvbox-dark";
-        };
       };
 
       git = {

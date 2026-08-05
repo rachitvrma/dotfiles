@@ -4,6 +4,11 @@ local opt = vim.opt
 opt.number = true
 opt.relativenumber = true
 
+-- Ruler
+opt.ruler = true
+opt.textwidth = 80
+opt.colorcolumn = '80,120'
+
 -- Indentation
 opt.tabstop = 2
 opt.shiftwidth = 2

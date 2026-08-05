@@ -47,7 +47,7 @@ vim.lsp.enable({
   'nixd',
   'markdown_oxide',
   'mpls',
-  'tombi', -- For toml
+  'taplo',
   'clangd', -- For c/c++
 })
 

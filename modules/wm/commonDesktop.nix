@@ -63,11 +63,11 @@
         enable = true;
         extraArgs = [
           "-w"
-          "40" # warning level
+          "50" # warning level
           "-c"
-          "30" # critical level
+          "40" # critical level
           "-d"
-          "20" # danger level
+          "30" # danger level
           "-f"
           "80" # full-battery notification (0 disables; 97-99 is the usual choice since some batteries never report exactly 100)
           "-m"

@@ -122,7 +122,11 @@ require('mini.icons').setup()
 require('mini.indentscope').setup()
 
 require('mini.input').setup()
-require('mini.operators').setup()
+require('mini.operators').setup({
+  mappings = {
+    replace = 'gl',
+  },
+})
 
 -- Swap adjacent arguments. Relies on the `a` argument textobject from
 -- 'mini.ai'; not 100% reliable but mostly works. Overrides the built-in

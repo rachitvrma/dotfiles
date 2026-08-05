@@ -156,6 +156,8 @@
           fd
 
           imagemagick # image.nvim stack
+
+          taplo # for toml
         ];
       };
     };
