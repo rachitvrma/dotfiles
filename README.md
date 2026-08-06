@@ -4,21 +4,21 @@
     </div>
     <br>
     <p>Rachit's NixOS configuration</p>
-    <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=0:d3869b,100:7daea3&text=Rachit's%20nixdots&fontColor=1d2021&fontAlign=50&fontAlignY=38&fontSize=48&animation=fadeIn&desc=NixOS%20%C2%B7%20Home-Manager%20%C2%B7%20Niri&descAlign=50&descAlignY=62&descSize=18&descColor=1d2021" />
+    <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=0:cba6f7,100:89b4fa&text=Rachit's%20nixdots&fontColor=1e1e2e&fontAlign=50&fontAlignY=38&fontSize=48&animation=fadeIn&desc=NixOS%20%C2%B7%20Home-Manager%20%C2%B7%20Niri&descAlign=50&descAlignY=62&descSize=18&descColor=1e1e2e" />
     <div align="center">
         <p></p>
         <div align="center">
             <a href="https://neovim.io/">
-                <img src="https://img.shields.io/badge/v0.12.4-green?style=for-the-badge&logo=neovim&logoColor=a9b665&label=neovim&labelColor=141617&color=a9b665">
+                <img src="https://img.shields.io/badge/v0.12.4-green?style=for-the-badge&logo=neovim&logoColor=a6e3a1&label=neovim&labelColor=1e1e2e&color=a6e3a1">
             </a>
             <a href="https://niri-wm.github.io/niri/index.html">
-                <img src="https://img.shields.io/badge/26.04%20(Nixpkgs)-orange?style=for-the-badge&logo=niri&logoColor=e78a4e&label=niri&labelColor=141617&color=e78a4e">
+                <img src="https://img.shields.io/badge/26.04%20(Nixpkgs)-orange?style=for-the-badge&logo=niri&logoColor=fab387&label=niri&labelColor=1e1e2e&color=fab387">
             </a>
             <a href="https://nixos.org">
-                <img src="https://img.shields.io/badge/NixOS-unstable-blue.svg?style=for-the-badge&labelColor=141617&logo=NixOS&logoColor=7daea3&color=7daea3">
+                <img src="https://img.shields.io/badge/NixOS-unstable-blue.svg?style=for-the-badge&labelColor=1e1e2e&logo=NixOS&logoColor=89b4fa&color=89b4fa">
             </a>
             <a href="https://github.com/rachitvrma/nixdots/blob/main/LICENSE">
-                <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=GPL&colorA=141617&colorB=d3869b&logo=unlicense&logoColor=ddc7a1&%22"/>
+                <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=GPL&colorA=1e1e2e&colorB=cba6f7&logo=unlicense&logoColor=f9e2af&%22"/>
             </a>
         </div>
         <br>
@@ -42,7 +42,7 @@
 | File Manager (GUI)      | PCManFM                          |
 | File Manager (TUI)      | Yazi                             |
 | RSS Reader              | Newsboat                         |
-| Theme                   | Gruvbox Material (Dark Hard)     |
+| Theme                   | Catppuccin Mocha (Mauve)         |
 | Browser (GUI)           | Firefox/QuteBrowser (I use both) |
 | Text Browser (Terminal) | w3m                              |
 | Agenda/Task Maintainer  | taskwarrior                      |

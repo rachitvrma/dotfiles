@@ -147,16 +147,16 @@
             border = {
               on = { };
               width = 2;
-              urgent-color = "#ea6962";
+              urgent-color = config.lib.stylix.colors.withHashtag.base08;
               active-gradient._props = {
-                from = "#d3869b";
-                to = "#7daea3";
+                from = config.lib.stylix.colors.withHashtag.base0E;
+                to = config.lib.stylix.colors.withHashtag.base0D;
                 angle = 45;
                 relative-to = "workspace-view";
               };
               inactive-gradient._props = {
-                from = "#504945";
-                to = "#7c6f64";
+                from = config.lib.stylix.colors.withHashtag.base03;
+                to = config.lib.stylix.colors.withHashtag.base04;
                 angle = 45;
                 relative-to = "workspace-view";
                 "in" = "srgb-linear";
@@ -438,7 +438,7 @@
               window-rule = {
                 clip-to-geometry = true;
                 draw-border-with-background = false;
-                geometry-corner-radius = 25;
+                geometry-corner-radius = 10;
                 open-maximized = true;
               };
             }
@@ -453,7 +453,7 @@
                 match._props.is-floating = true;
                 geometry-corner-radius =
                   let
-                    r = 30.0;
+                    r = 10.0;
                   in
                   [
                     r

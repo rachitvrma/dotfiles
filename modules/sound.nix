@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.sound = { pkgs, ... }: {
+  flake.nixosModules.sound = { ... }: {
     # Enable sound with pipewire.
     services.pulseaudio.enable = false;
     security.rtkit.enable = true;
@@ -9,10 +9,6 @@
       wireplumber.enable = true;
       pulse.enable = true;
     };
-
-    environment.systemPackages = with pkgs; [
-      wiremix
-    ];
   };
 
   flake.homeModules.sound = { ... }: {
@@ -20,5 +16,6 @@
       enable = true;
       wireplumber.enable = true;
     };
+    programs.wiremix.enable = true;
   };
 }

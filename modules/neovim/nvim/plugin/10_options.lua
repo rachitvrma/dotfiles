@@ -1,5 +1,8 @@
 local opt = vim.opt
 
+-- title
+opt.title = true
+
 -- Line numbers
 opt.number = true
 opt.relativenumber = true
@@ -58,7 +61,6 @@ vim.api.nvim_create_autocmd('FileType', {
   desc = 'Start treesitter parsing and indent',
 })
 
--- clear the gutter's background
 local function clear_gutter_bg()
   local groups = {
     'LineNr',
@@ -69,12 +71,12 @@ local function clear_gutter_bg()
     'FoldColumn',
   }
   for _, group in ipairs(groups) do
-    local hl = vim.api.nvim_get_hl(0, { name = group })
-    hl.bg = 'none'
+    local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+    hl.bg = nil
+    ---@cast hl any
     vim.api.nvim_set_hl(0, group, hl)
   end
 end
-
 clear_gutter_bg()
 
 vim.api.nvim_create_autocmd('ColorScheme', {

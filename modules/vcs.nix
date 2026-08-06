@@ -35,6 +35,7 @@
             default-command = "log";
             diff-editor = ":builtin";
             merge-tools = ":builtin";
+            merge-editor = ":builtin";
           };
           merge-tools.vimdiff.program = "nvim";
         };

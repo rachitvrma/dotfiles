@@ -58,7 +58,10 @@
               "--chooser-file={}"
             ];
           };
-          content.javascript.enabled = true;
+          content = {
+            javascript.enabled = true;
+            blocking.method = "both";
+          };
           colors.webpage = {
             darkmode.enabled = true;
             preferred_color_scheme = "dark";
@@ -77,6 +80,19 @@
           hm = "https://search.nixos.org/options?channel=unstable&query={}&source=home_manager&type=options";
           g = "https://www.google.com/search?hl=en&q={}";
           stylix = "https://nix-community.github.io/stylix/installation.html?search={}";
+          lrc = "https://lrclib.net/search/{}";
+          mb = "https://musicbrainz.org/search?query={}&type=artist&method=indexed";
+          ytm = "https://music.youtube.com/search?q={}";
+        };
+
+        perDomainSettings = {
+          "https://app.element.io".content.notifications.enabled = true;
+          "https://claude.ai/new".content.notifications.enabled = true;
+        };
+
+        quickmarks = {
+          github = "https://github.com/";
+          github-notifications = "https://github.com/notifications?query=is%3Aunread";
         };
       };
   };

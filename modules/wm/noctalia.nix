@@ -21,7 +21,8 @@
             background_opacity = config.stylix.opacity.desktop;
             capsule = true;
             capsule_border = "outline";
-            capsule_opacity = 0.9;
+
+            capsule_opacity = 0.89999997988343239;
             position = "top";
           };
         };
@@ -104,7 +105,7 @@
         };
         lockscreen = {
           enabled = true;
-          wallpaper = "/home/krish/Pictures/Wallpapers/Gruvbox/camera.png";
+          wallpaper = "/home/krish/Pictures/Wallpapers/Catppuccin/wallhaven-k8d7j7_1920x1080.png";
         };
         lockscreen_widgets = {
           enabled = true;
@@ -224,24 +225,13 @@
           time_format = "{:%-I:%M %p}";
         };
         theme = {
-          builtin = "Gruvbox";
-          community_palette = "Gruvbox Material";
+          builtin = "Catppuccin";
+          community_palette = "Catppuccin Mocha Mauve-Lavender";
           mode = "dark";
           source = "custom";
         };
         wallpaper = {
-          # default = {
-          #   path = "/home/krish/Pictures/Wallpapers/Gruvbox/camera-2.jpg";
-          # };
           enabled = true;
-          last = {
-            path = "/home/krish/Pictures/Wallpapers/Gruvbox/camera-2.jpg";
-          };
-          monitors = {
-            eDP-1 = {
-              path = "/home/krish/Pictures/Wallpapers/Gruvbox/camera-2.jpg";
-            };
-          };
         };
         widget = {
           clock = {

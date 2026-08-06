@@ -5,15 +5,11 @@
 
     stylix = {
       enable = true;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-
-      override = {
-        base00 = "141617";
-      };
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 
       image = pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/rachitvrma/Wallpapers/main/Gruvbox/castle.jpg";
-        hash = "sha256-OHRzLcnenyZvQ0Q3pRx/tM5PBKw0hta+/YTo37tXRKc=";
+        url = "https://raw.githubusercontent.com/rachitvrma/Wallpapers/main/Catppuccin/catppuccin-13.png";
+        hash = "sha256-fYMzoY3un4qGOSR4DMqVUAFmGGil+wUze31rLLrjcAc=";
       };
 
       polarity = "dark";
@@ -25,15 +21,18 @@
       };
 
       icons = {
-        dark = "Gruvbox-Plus-Dark";
-        light = "Gruvbox-Plus-Dark";
-        package = pkgs.gruvbox-plus-icons.override { folder-color = "violet"; };
+        enable = true;
+        dark = "cat-mocha-mauve";
+        light = config.stylix.icons.dark;
+        package = pkgs.catppuccin-papirus-folders.override {
+          accent = "mauve";
+        };
       };
 
       fonts = {
         serif = {
-          package = pkgs.nerd-fonts.jetbrains-mono;
-          name = "JetBrainsMono Nerd Font";
+          package = pkgs.maple-mono.NF;
+          name = "Maple Mono NF";
         };
         sansSerif = config.stylix.fonts.serif;
         monospace = config.stylix.fonts.serif;
@@ -52,22 +51,16 @@
       overlays.enable = true;
     };
   };
-  flake.homeModules.stylix = { pkgs, config, ... }: {
+  flake.homeModules.stylix = { config, pkgs, ... }: {
     stylix = {
       enable = true;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-
-      targets.cava.rainbow.enable = true;
-
-      override = {
-        base00 = "141617";
-      };
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 
       image = pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/rachitvrma/Wallpapers/main/Gruvbox/castle.jpg";
-        hash = "sha256-OHRzLcnenyZvQ0Q3pRx/tM5PBKw0hta+/YTo37tXRKc=";
+        url = "https://raw.githubusercontent.com/rachitvrma/Wallpapers/main/Catppuccin/wallhaven-yqg6r7_1920x1080.png";
+        hash = "sha256-KRdrPEiFZwjAEWcEuNoKy8p07E0WdmooNPLhTg9ZtKo=";
       };
-
+      targets.cava.rainbow.enable = true;
       polarity = "dark";
 
       cursor = {
@@ -77,15 +70,18 @@
       };
 
       icons = {
-        dark = "Gruvbox-Plus-Dark";
-        light = "Gruvbox-Plus-Dark";
-        package = pkgs.gruvbox-plus-icons.override { folder-color = "violet"; };
+        enable = true;
+        dark = "Papirus-Dark";
+        light = config.stylix.icons.dark;
+        package = pkgs.catppuccin-papirus-folders.override {
+          accent = "mauve";
+        };
       };
 
       fonts = {
         serif = {
-          package = pkgs.nerd-fonts.jetbrains-mono;
-          name = "JetBrainsMono Nerd Font";
+          package = pkgs.maple-mono.NF;
+          name = "Maple Mono NF";
         };
         sansSerif = config.stylix.fonts.serif;
         monospace = config.stylix.fonts.serif;
@@ -93,6 +89,13 @@
           package = pkgs.noto-fonts-color-emoji;
           name = "Noto Color Emoji";
         };
+      };
+
+      opacity = rec {
+        desktop = 0.8;
+        applications = desktop;
+        popups = desktop;
+        terminal = 0.9;
       };
     };
   };
