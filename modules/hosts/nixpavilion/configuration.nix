@@ -21,9 +21,13 @@
         loader = {
           systemd-boot.enable = true;
           efi.canTouchEfiVariables = true;
-          timeout = 0; # For plymouth. See https://wiki.nixos.org/wiki/Plymouth
+          # Hide the OS choice for bootloaders.
+          # It's still possible to open the bootloader list by pressing any key
+          # It will just not appear on screen unless a key is pressed
+          timeout = 0;
         };
 
+        # For plymouth. See https://wiki.nixos.org/wiki/Plymouth
         plymouth = {
           enable = true;
         };

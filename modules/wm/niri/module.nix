@@ -444,12 +444,6 @@
             }
             {
               window-rule = {
-                match._props.app-id = "kitty";
-                open-maximized = false;
-              };
-            }
-            {
-              window-rule = {
                 match._props.is-floating = true;
                 geometry-corner-radius =
                   let
@@ -469,8 +463,6 @@
                 shadow.off = { };
               };
             }
-            # TODO: add pcmanfm configuration
-            # TODO: When making kitty a floating-window, use this
             {
               window-rule = {
                 match._props.app-id = "dev.noctalia.Noctalia";
@@ -503,6 +495,8 @@
                 };
               };
             }
+
+            # For specific window bluring
             {
               window-rule = {
                 match._props.app-id = "kitty";
@@ -513,6 +507,16 @@
                 };
               };
             }
+            {
+              window-rule = {
+                match._props.app-id = "org.pwmt.zathura";
+                background-effect = {
+                  blur = true;
+                  xray = false;
+                };
+              };
+            }
+
             {
               window-rule = {
                 match._props.title = "nix-search-tv";

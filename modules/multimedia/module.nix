@@ -71,7 +71,7 @@
           '';
 
           # TODO: Write a rmpc theme module
-          "rmpc/theme.ron".source = ./rmpc_config/theme.ron;
+          "rmpc/catppuccin-mocha.ron".source = ./rmpc_config/catppuccin-mocha.ron;
         };
       };
 
@@ -160,6 +160,8 @@
               vdpauSupport = false;
             };
             scripts = with pkgs.mpvScripts; [
+              autoload
+              eisa01.smartskip
               uosc
               sponsorblock
               thumbfast

@@ -6,7 +6,7 @@
       config = {
         confirmation = false;
       };
-      colorTheme = "dark-yellow-green";
+      colorTheme = "dark-violets-256";
     };
   };
 }
