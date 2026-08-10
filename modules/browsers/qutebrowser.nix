@@ -98,6 +98,10 @@
           claude = "https://claude.ai/";
           news = "http://localhost:8080/"; # for miniflux
         };
+
+        keyBindings = {
+          normal.";v" = "hint links spawn --detach mpv {hint-url}";
+        };
       };
   };
 }
