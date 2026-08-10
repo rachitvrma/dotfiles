@@ -73,7 +73,7 @@
               }
               {
                 key = "l";
-                deck = "Lock";
+                desc = "Lock";
                 cmd = "noctalia msg session lock || loginctl lock-session";
               }
             ];
