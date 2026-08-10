@@ -239,6 +239,12 @@
                   keyword = "news";
                   url = "http://localhost:8080/";
                 }
+                # Nerd Fonts
+                {
+                  name = "Nerd Fonts";
+                  keyword = "nerdfonts";
+                  url = "https://www.nerdfonts.com/cheat-sheet";
+                }
               ];
             };
             containers = {

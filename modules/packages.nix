@@ -1,12 +1,21 @@
-{ self, ... }:
 {
-  flake.nixosModules.packages = { pkgs, ... }: {
+  flake.nixosModules.packages = { pkgs, lib, ... }: {
     # List packages installed in system profile. To search, run:
     # $ nix search wget
-    environment.systemPackages = with pkgs; [
-      # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-      wget
-    ];
+    environment = {
+      systemPackages = with pkgs; [
+        wget
+      ];
+      sessionVariables = {
+        SUDO_PROMPT = lib.concatStrings [
+          " "
+          "$(tput setaf 5 bold)[sudo]"
+          "$(tput sgr0) $(tput setaf 6)password for"
+          "$(tput sgr0) $(tput setaf 5)%p"
+          "$(tput sgr0): "
+        ];
+      };
+    };
 
     services = {
       gvfs.enable = true;
