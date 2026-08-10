@@ -63,6 +63,21 @@
               }
             ];
           };
+
+          powermenu = commonSettings // {
+            menu = [
+              {
+                key = "p";
+                desc = "Power Off";
+                cmd = "noctalia msg session shutdown || systemctl poweroff";
+              }
+              {
+                key = "l";
+                deck = "Lock";
+                cmd = "noctalia msg session lock || loginctl lock-session";
+              }
+            ];
+          };
         };
       };
   };
