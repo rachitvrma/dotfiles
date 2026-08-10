@@ -221,6 +221,8 @@
               "browsers"
             ];
 
+            "Mod+D".spawn = [ "wlr-which-key" ];
+
             "Mod+E".spawn = [
               "wlr-which-key"
               "filemanagers"
@@ -269,7 +271,7 @@
             "Print".screenshot = { };
 
             # Noctalia v5 settings — core Noctalia binds
-            "Mod+D".spawn-sh = "noctalia msg panel-toggle launcher";
+            "Mod+Space".spawn-sh = "noctalia msg panel-toggle launcher";
             "Mod+S".spawn-sh = "noctalia msg panel-toggle control-center";
             "Mod+Comma".spawn-sh = "noctalia msg settings-toggle";
 

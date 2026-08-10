@@ -30,22 +30,22 @@
 > [!NOTE]
 > Looks matter. It is a good thing to have utility with a good rice.
 
-| Util                    | Program used                     |
-| ----------------------- | -------------------------------- |
-| Shell                   | Fish                             |
-| WM/DE                   | Niri                             |
-| Editor                  | Neovim                           |
-| Terminal                | Kitty                            |
-| Audio                   | RMPC + MPD                       |
-| System Monitor          | Bottom                           |
-| Mail                    | _still wip_                      |
-| File Manager (GUI)      | PCManFM                          |
-| File Manager (TUI)      | Yazi                             |
-| RSS Reader              | Newsboat                         |
-| Theme                   | Catppuccin Mocha (Mauve)         |
-| Browser (GUI)           | Firefox/QuteBrowser (I use both) |
-| Text Browser (Terminal) | w3m                              |
-| Agenda/Task Maintainer  | taskwarrior                      |
+| Util                    | Program used                        |
+| ----------------------- | ----------------------------------- |
+| Shell                   | Fish                                |
+| WM/DE                   | Niri                                |
+| Editor                  | Neovim                              |
+| Terminal                | Kitty                               |
+| Audio                   | RMPC + MPD                          |
+| System Monitor          | Bottom                              |
+| Mail                    | _still wip_                         |
+| File Manager (GUI)      | PCManFM                             |
+| File Manager (TUI)      | Yazi                                |
+| RSS Reader              | MiniFlux (WebUI) + Eilmeldung (TUI) |
+| Theme                   | Rose Pine                           |
+| Browser (GUI)           | Firefox/QuteBrowser (I use both)    |
+| Text Browser (Terminal) | w3m                                 |
+| Agenda/Task Maintainer  | taskwarrior                         |
 
 ---
 ## Instructions for Installation:
@@ -130,7 +130,21 @@ sudo mv /etc/nixos ~/etc/
 sudo chown -R $(id -un):users ~/etc/nixos
 sudo ln -s ~/etc/nixos /etc/
 ```
----
+
+#### 📰 Miniflux setup
+
+To set up miniflux for RSS feeds
+
+```bash
+sudo mkdir -p /etc/secrets/miniflux-admin-credentials
+sudo chmod 600 /etc/secrets/miniflux-admin-credentials
+```
+
+In that file put:
+```txt
+ADMIN_USERNAME=<username>
+ADMIN_PASSWORD=something6charactersLong
+```
 
 ## Nix / NixOS / Flakes
 
@@ -194,7 +208,6 @@ sudo ln -s ~/etc/nixos /etc/
 - Search current channels for **"vimjoyer"** and **"ryan4yin"** on YouTube —
   both do NixOS/flake-parts/home-manager walkthroughs pretty regularly; check
   what's recent since the corpus of videos changes often.
-
 ---
 
 ## 📃 License

@@ -83,6 +83,7 @@
           lrc = "https://lrclib.net/search/{}";
           mb = "https://musicbrainz.org/search?query={}&type=artist&method=indexed";
           ytm = "https://music.youtube.com/search?q={}";
+          rsslkup = "https://www.rsslookup.com/?url={}";
         };
 
         perDomainSettings = {
@@ -93,6 +94,9 @@
         quickmarks = {
           github = "https://github.com/";
           github-notifications = "https://github.com/notifications?query=is%3Aunread";
+          github-pr = "https://github.com/pulls/inbox";
+          claude = "https://claude.ai/";
+          news = "http://localhost:8080/"; # for miniflux
         };
       };
   };

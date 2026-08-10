@@ -20,7 +20,7 @@
     users.defaultUserShell = pkgs.zsh;
     environment.shells = with pkgs; [ zsh ];
   };
-  flake.homeModules.zsh = { config, ... }: {
+  flake.homeModules.zsh = { config, pkgs, ... }: {
     programs.zsh = {
       enable = true;
       enableCompletion = true;
@@ -34,6 +34,14 @@
         vids = "${config.home.homeDirectory}/Videos";
         dl = "${config.home.homeDirectory}/Downloads";
       };
+
+      plugins = [
+        {
+          name = "zsh-fzf-tab";
+          src = pkgs.zsh-fzf-tab;
+          file = "share/fzf-tab/fzf-tab.plugin.zsh";
+        }
+      ];
 
       shellAliases = {
         ll = "ls -l";

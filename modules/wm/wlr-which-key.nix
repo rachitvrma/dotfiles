@@ -26,9 +26,9 @@
               cmd = "noctalia msg panel-toggle clipboard";
             }
             {
-              key = "Return";
-              desc = "Terminal";
-              cmd = "xdg-terminal-exec || systemd-run --user kitty";
+              key = "e";
+              desc = "Equibop";
+              cmd = "systemd-run --user equibop";
             }
           ];
         };

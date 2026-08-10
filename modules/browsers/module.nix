@@ -7,9 +7,6 @@
     }:
     {
       programs = {
-        w3m = {
-          enable = true;
-        };
         firefox = {
           enable = true;
           # TODO: there's something wrong with the ln command in the derivation here
@@ -226,6 +223,22 @@
                   keyword = "whatsapp";
                   url = "https://web.whatsapp.com/";
                 }
+                {
+                  name = "GitHub PRs";
+                  keyword = "ghpr";
+                  url = "https://github.com/pulls/inbox";
+                }
+                {
+                  name = "Claude.Ai";
+                  keyword = "claude";
+                  url = "https://claude.ai/";
+                }
+                # For miniflux news, hardcoded
+                {
+                  name = "MiniFlux";
+                  keyword = "news";
+                  url = "http://localhost:8080/";
+                }
               ];
             };
             containers = {
@@ -327,7 +340,24 @@
                 };
 
                 bing.metaData.hidden = true;
-                google.metaData.alias = "@g"; # builtin engines only support specifying one additional alias
+                google.metaData.alias = "@g";
+
+                # For RSS link lookup
+                rsslookup = {
+                  name = "RSS Lookup";
+                  urls = [
+                    {
+                      template = "https://www.rsslookup.com/";
+                      params = [
+                        {
+                          name = "url";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  definedAliases = [ "@rsslkup" ];
+                };
               };
             };
           };

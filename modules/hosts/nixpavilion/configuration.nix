@@ -96,7 +96,7 @@
 
       # host specific cpu settings
       nix.settings = {
-        cores = 8;
+        cores = 4;
         max-jobs = 1;
       };
 

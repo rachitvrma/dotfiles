@@ -11,8 +11,6 @@
           "flakes"
           "pipe-operators"
         ];
-        cores = 8;
-        max-jobs = 1;
         show-trace = true;
       };
 
@@ -76,7 +74,7 @@
           "flakes"
           "pipe-operators"
         ];
-        cores = 8;
+        cores = 4;
         max-jobs = 1;
         show-trace = true;
         http2 = false;

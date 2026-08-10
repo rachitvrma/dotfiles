@@ -4,7 +4,7 @@
 (
     address: "/run/user/1000/mpd/socket:6600",
     password: None,
-    theme: Some("~/.config/rmpc/catppuccin-mocha.ron"),
+    theme: Some("~/.config/rmpc/rose-pine.ron"),
     cache_dir: Some("~/.cache/rmpc"),
     on_song_change: ["/home/krish/.config/rmpc/fetch-lyrics"],
     lyrics_dir: Some("~/Music"),
@@ -149,7 +149,7 @@ cava: (
                     direction: Vertical,
                     panes: [
                        (size: "67%", pane: Pane(AlbumArt), vertical_align: top),
-  
+
     (size: "1", pane: Pane(Property(
 
     content: [

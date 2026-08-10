@@ -1,0 +1,217 @@
+#![enable(implicit_some)]
+#![enable(unwrap_newtypes)]
+#![enable(unwrap_variant_newtypes)]
+(
+    default_album_art_path: None,
+    show_song_table_header: false,
+    draw_borders: false,
+    format_tag_separator: " | ",
+    browser_column_widths: [20, 38, 42],
+    background_color: "#191724",
+    text_color: "#e0def4",
+    header_background_color: None,
+    modal_background_color: None,
+    modal_backdrop: false,
+    preview_label_style: (fg: "#f6c177"),
+    preview_metadata_group_style: (fg: "#f6c177", modifiers: "Bold"),
+    tab_bar: (
+        active_style: (fg: "#191724", bg: "#c4a7e7", modifiers: "Bold"),
+        inactive_style: (fg: "#e0def4", bg: "#191724"),
+    ),
+    highlighted_item_style: (fg: "#c4a7e7", modifiers: "Bold"),
+    current_item_style: (bg: "#26233a", modifiers: "Bold"),
+    borders_style: (fg: "#908caa"),
+    highlight_border_style: (fg: "#e0def4"),
+    symbols: (
+        song: "󰝚",
+        dir: "󰀥",
+        playlist: "󰲸",
+        marker: "M",
+        ellipsis: "...",
+        song_style: None,
+        dir_style: None,
+        playlist_style: None,
+    ),
+    level_styles: (
+        info: (fg: "#c4a7e7", bg: "#191724"),
+        warn: (fg: "#f6c177", bg: "#191724"),
+        error: (fg: "#eb6f92", bg: "#191724"),
+        debug: (fg: "#31748f", bg: "#191724"),
+        trace: (fg: "#9ccfd8", bg: "#191724"),
+    ),
+  progress_bar: (
+        symbols: ["", "█", "", "█", ""],
+        track_style: (fg: "#191724"),
+        elapsed_style: (fg: "#c4a7e7"),
+        thumb_style: (fg: "#c4a7e7", bg: "#191724"),
+        use_track_when_empty: false,
+    ), 
+    scrollbar: (
+        symbols: ["│", "█", "", "󰅀"],
+        track_style: (fg: "#c4a7e7"),
+        ends_style: (fg: "#191724"),
+        thumb_style: (fg: "#c4a7e7"),
+    ),
+    song_table_format: [
+        (
+            prop: (kind: Property(Artist), style: (fg: "#ebbcba", modifiers: "Bold"),
+                default: (kind: Text("Unknown"), style: (fg: "#ebbcba", modifiers: "Bold"))
+            ),
+            width: "20%",
+	    alignment: Right,
+        ),
+        (
+            prop: (kind: Text("-"), style: (fg: "#e0def4"), default: (kind: Text("Unknown"))),
+            width: "1",
+            alignment: Center,
+        ),
+	(
+            prop: (kind: Property(Title), style: (fg: "#f6c177", modifiers: "Bold"),
+                default: (kind: Text("Unknown"), style: (fg: "#f6c177", modifiers: "Bold"))
+            ),
+            width: "80%",
+	    alignment: Left
+        ),
+    ],
+
+    components: {},
+    layout: Split(
+        direction: Vertical,
+        panes: [
+            (
+                pane: Pane(Tabs),
+                size: "1",
+            ),
+            	    (
+		size: "1",
+		style: (align: Right),
+		pane: Split(
+		
+		direction: Horizontal,
+		panes: [
+  (size: "100%", pane: Pane(Property(content: [
+  (kind: Text(" ("), style: (fg: "#e0def4", modififiers: "Bold")),
+
+    (kind: Property(Status(RepeatV2(on_label: "", off_label: "",
+				 on_style: (fg: "#31748f", modifiers: "Bold"),
+				 off_style: (fg: "#6e6a86", modifiers: "Bold"))))),
+
+	(kind: Text(" | "), style: (fg: "#e0def4", modififiers: "Bold")),
+
+    (kind: Property(Status(RandomV2(on_label: "", off_label: "",
+				 on_style: (fg: "#eb6f92", modifiers: "Bold"),
+				 off_style: (fg: "#6e6a86", modifiers: "Bold"))))), 
+
+    (kind: Text(" | "), style: (fg: "#e0def4", modififiers: "Bold")),
+
+
+    (kind: Property(Status(ConsumeV2(on_label: "󰮯",off_label: "󰮯",oneshot_label: "󰮯 󰇊",on_style: (fg: "#f6c177", modifiers: "Bold"),off_style: (fg: "#6e6a86", modifiers: "Bold"),oneshot_style: (fg: "#c4a7e7", modifiers: "Bold"),)))),
+
+    (kind: Text(" | "), style: (fg: "#e0def4", modififiers: "Bold")),
+
+	(kind: Property(Status(SingleV2(on_label: "󰎤", off_label: "󰎦", oneshot_label: "󰇊", off_oneshot_label: "󱅊", on_style: (fg: "#9ccfd8", modifiers: "Bold"), off_style: (fg: "#6e6a86", modifiers: "Bold"), oneshot_style: (fg: "#f6c177", modifiers: "Bold"))))),
+
+	  (kind: Text(" )"), style: (fg: "#e0def4", modififiers: "Bold")),
+
+
+  ], style: (fg: "#e0def4"), align: Right))),
+		]
+
+		),
+
+	    ),
+            (
+                pane: Pane(TabContent),
+                size: "100%",
+            ),
+	    (
+	    	size: "1",
+		pane: Split(
+		direction: Horizontal,
+		panes: [
+		(size: "2", pane: Pane(Property(content: [(kind: Text("󰕾 ")),], style: (fg: "#e0def4"), align: Left))),
+		(size: "100%", pane: Pane(Volume(
+		kind: Slider(
+		symbols: (
+			filled: "─",
+	                thumb: "●",
+			track: "─",
+		),
+		track_style: (fg: "#6e6a86"),
+		filled_style: (fg: "#c4a7e7"),
+		thumb_style: (fg: "#6e6a86"),
+
+		)
+
+		))),
+		(size: "3", pane: Pane(Property(content: [(kind: Property(Status(Volume)), style: (fg: "#e0def4"))], align: Right))),
+		(size: "1", pane: Pane(Property(content: [(kind: Text("%")),], style: (fg: "#e0def4"), align: Left))),
+		]
+		)
+
+	    ),
+            (
+                pane: Pane(ProgressBar),
+                size: "1",
+            ),
+        ],
+    ),
+    browser_song_format: [
+        (
+            kind: Group([
+                (kind: Property(Track)),
+                (kind: Text(" ")),
+            ])
+        ),
+        (
+            kind: Group([
+                (kind: Property(Artist)),
+                (kind: Text(" - ")),
+                (kind: Property(Title)),
+            ]),
+            default: (kind: Property(Filename))
+        ),
+    ],
+
+
+cava: (
+    // symbols that will be used to draw the bar in the visualiser, in ascending order of
+    // fill fraction
+    bar_symbols: ['▁', '▂', '▃', '▄', '▅', '▆', '▇', '█'],
+    // similar to bar_symbols but these are used for the top-down rendering, meaning for orientation
+    // "Horizontal" and "Top"
+    inverted_bar_symbols: ['▔', '🮂', '🮃', '▀', '🮄', '🮅', '🮆', '█'],
+
+    //bg_color: "", // background color, defaults to rmpc's bg color if not provided
+    bar_width: 1, // width of a single bar in columns
+    bar_spacing: 1, // free space between bars in columns
+
+    // Possible values are "Top", "Bottom" and "Horizontal". Top makes the bars go from top to
+    // bottom, "Bottom" is from bottom up, and "Horizontal" is split in the middle with bars going
+    // both down and up from there.
+    // Using non-default symbols with "Top" and "Horizontal" may produce undesired output.
+    orientation: Horizontal,
+
+    // Colors can be configured in three different ways: a single color, different colors
+    // per row and a gradient. You can use the same colors as everywhere else. Only specify
+    // one of these:
+
+    // Every bar symbol will be red
+    //bar_color: Single("#c4a7e7"),
+
+    bar_color: Gradient({
+
+            12: "#31748f",
+            25: "#9ccfd8",
+            36: "#9ccfd8",
+            50: "#c4a7e7",
+            60: "#c4a7e7",
+            75: "#ebbcba",
+            84: "#f6c177",
+            100: "#eb6f92",    
+    }),
+  ),
+    lyrics: (
+        timestamp: false
+    )
+)

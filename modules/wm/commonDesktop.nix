@@ -69,9 +69,9 @@
           "-d"
           "30" # danger level
           "-f"
-          "80" # full-battery notification (0 disables; 97-99 is the usual choice since some batteries never report exactly 100)
+          "90" # full-battery notification (0 disables; 97-99 is the usual choice since some batteries never report exactly 100)
           "-m"
-          "60" # min seconds between checks
+          "30" # min seconds between checks
         ];
       };
     };

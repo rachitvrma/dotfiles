@@ -82,3 +82,12 @@ clear_gutter_bg()
 vim.api.nvim_create_autocmd('ColorScheme', {
   callback = clear_gutter_bg,
 })
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local bufname = vim.api.nvim_buf_get_name(args.buf)
+    if bufname:match('maintainer%-list%.nix$') then
+      vim.lsp.buf_detach_client(args.buf, args.data.client_id)
+    end
+  end,
+})
