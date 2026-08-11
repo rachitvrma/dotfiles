@@ -245,6 +245,12 @@
                   keyword = "nerdfonts";
                   url = "https://www.nerdfonts.com/cheat-sheet";
                 }
+                # Read Manga
+                {
+                  name = "Comix";
+                  keyword = "comix";
+                  url = "https://comix.to/";
+                }
               ];
             };
             containers = {

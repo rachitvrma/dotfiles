@@ -97,6 +97,7 @@
           github-pr = "https://github.com/pulls/inbox";
           claude = "https://claude.ai/";
           news = "http://localhost:8080/"; # for miniflux
+          comix = "https://comix.to/";
         };
 
         keyBindings = {
