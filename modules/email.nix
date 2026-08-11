@@ -9,10 +9,6 @@
         enable = true;
         package = pkgs.pass-wayland;
       };
-      himalaya = {
-        enable = true;
-        settings = { };
-      };
     };
 
     accounts = {
@@ -24,7 +20,7 @@
         # TODO: Package pimalaya's orties auth tool, and move to it
         passwordCommand = "pass show email/gmail";
         himalaya = {
-          enable = true;
+          enable = false;
           settings.pgp.type = "gpg";
         };
       };
