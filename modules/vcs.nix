@@ -29,7 +29,7 @@
         settings = {
           user = {
             name = "Rachit Kumar Verma";
-            email = "155641117+rachitvrma@users.noreply.github.com";
+            email = "rachitverma1122@gmail.com";
           };
           ui = {
             default-command = "log";
