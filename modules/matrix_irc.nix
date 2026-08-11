@@ -1,14 +1,40 @@
 {
-  flake.homeModules.matrix_irc = { pkgs, ... }: {
-    home.packages = [ pkgs.irssi ];
+  flake.homeModules.matrix_irc = { config, ... }: {
     programs = {
-      # element-desktop.enable = true;
-      # TODO: Configure Irssi and then transfer stuff here.
-      /*
-        irssi = {
-          enable = true;
+      # For IRC
+      halloy = {
+        enable = true;
+        settings = {
+          notifications = {
+            direct_message = {
+              sound = "peck";
+              show_toast = true;
+            };
+          };
+          buffer.channel.topic = {
+            enabled = true;
+          };
+          servers.Libera = {
+            channels = [
+              "#halloy"
+              "#home-manager"
+              "#archlinux-offtopic"
+            ];
+            nickname = "woodenAllen";
+            server = "irc.libera.chat";
+            use_tls = true;
+            sasl.plain = {
+              username = "woodenAllen";
+              # Create {file}`~/.config/halloy/matrix_password`, put the correct password, and then
+              # change the permission to 0600 using `chmod 0600 ~/.config/halloy/irc_password`
+              password_file = "${config.xdg.configHome}/halloy/irc_password";
+            };
+          };
         };
-      */
+      };
+
+      # For matrix
+      # Use cinny for a minimal WebUI
       iamb = {
         enable = true;
         settings = {

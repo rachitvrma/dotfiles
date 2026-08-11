@@ -39,6 +39,8 @@
 | Audio                   | RMPC + MPD                          |
 | System Monitor          | Bottom                              |
 | Mail                    | _still wip_                         |
+| Matrix Client           | Iamb (with Cinny as my WebUI)       |
+| IRC Client              | Halloy                              |
 | File Manager (GUI)      | PCManFM                             |
 | File Manager (TUI)      | Yazi                                |
 | RSS Reader              | MiniFlux (WebUI) + Eilmeldung (TUI) |
@@ -145,6 +147,11 @@ In that file put:
 ADMIN_USERNAME=<username>
 ADMIN_PASSWORD=something6charactersLong
 ```
+
+#### 🐦 To Setup Halloy
+
+For IRC I use Halloy. I use a plain text password file in `~/.config/halloy/irc_password`. So remember to create that file with the correct password. Also change the permission to 0600.
+
 
 ## Nix / NixOS / Flakes
 

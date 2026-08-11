@@ -98,6 +98,7 @@
           claude = "https://claude.ai/";
           news = "http://localhost:8080/"; # for miniflux
           comix = "https://comix.to/";
+          cinny = "https://app.cinny.in/"; # For a matrix UI
         };
 
         keyBindings = {

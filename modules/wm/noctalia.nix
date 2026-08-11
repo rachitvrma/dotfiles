@@ -26,6 +26,7 @@
             position = "top";
           };
         };
+        battery.warning_threshold = 55;
         desktop_widgets = {
           grid = {
             cell_size = 16;
