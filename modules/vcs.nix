@@ -12,7 +12,7 @@
     };
   };
 
-  flake.homeModules.vcs = { pkgs, ... }: {
+  flake.homeModules.vcs = { pkgs, config, ... }: {
     programs = {
       gh = {
         enable = true;
@@ -38,6 +38,12 @@
             merge-editor = ":builtin";
           };
           merge-tools.vimdiff.program = "nvim";
+          signing = {
+            behavior = "own";
+            backend = "gpg";
+            key = config.programs.git.signing.key;
+            sign-all = true;
+          };
         };
       };
 
@@ -50,6 +56,11 @@
       git = {
         enable = true;
         package = pkgs.gitFull;
+        signing = {
+          # Use GnuPG by default for signing commits
+          key = "C9C615C3FD2FDB09";
+          signByDefault = true;
+        };
         settings = {
           init.defaultBranch = "main";
           push = {

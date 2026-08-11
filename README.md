@@ -42,7 +42,7 @@
 | File Manager (GUI)      | PCManFM                             |
 | File Manager (TUI)      | Yazi                                |
 | RSS Reader              | MiniFlux (WebUI) + Eilmeldung (TUI) |
-| Theme                   | Rose Pine                           |
+| Theme                   | Catppuccin Mocha (mauve)            |
 | Browser (GUI)           | Firefox/QuteBrowser (I use both)    |
 | Text Browser (Terminal) | w3m                                 |
 | Agenda/Task Maintainer  | taskwarrior                         |

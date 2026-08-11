@@ -25,41 +25,7 @@
           - Run `nix flake check` before considering a change done.
         '';
         settings = {
-          # Default model: cheap/local for routine edits.
-          # Override per-session with /models when you need Groq for
-          # harder reasoning or larger context.
-          model = "ollama/qwen2.5-coder:7b";
-
-          provider = {
-            ollama = {
-              npm = "@ai-sdk/openai-compatible";
-              name = "Ollama (local)";
-              options.baseURL = "http://127.0.0.1:11434/v1";
-              models = {
-                "qwen2.5-coder:7b" = {
-                  name = "Qwen2.5 Coder 7B";
-                  limit = {
-                    context = 16384;
-                    output = 4096;
-                  };
-                };
-                "qwen2.5-coder:3b" = {
-                  name = "Qwen2.5 Coder 3B (fast)";
-                  limit = {
-                    context = 8192;
-                    output = 2048;
-                  };
-                };
-              };
-            };
-            # groq and openrouter are built into OpenCode's provider
-            # registry already — no config needed here. Auth with:
-            #   opencode
-            #   > /connect  (search "Groq" / "OpenRouter")
-            # This writes keys to ~/.local/share/opencode/auth.json,
-            # never into the Nix store.
-          };
-
+          model = "opencode/deepseek-v4-flash-free";
           autoshare = false;
           autoupdate = true;
         };

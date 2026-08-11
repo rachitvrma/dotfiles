@@ -70,7 +70,15 @@
             style = "bg:cyan";
             symbol = "";
           };
-          format = "[](blue)$os$username[](bg:red fg:blue)$directory[](bg:yellow fg:red)$git_branch$git_status[](fg:yellow bg:green)$c$rust$golang$nodejs$bun$php$java$kotlin$haskell$python[](fg:green bg:brown)$conda[](fg:brown bg:cyan)$time[ ](fg:cyan)$cmd_duration$line_break$character";
+          format = lib.concatStrings [
+            "[](blue)$os$username"
+            "[](bg:red fg:blue)$directory"
+            "[](bg:yellow fg:red)$git_branch$git_status"
+            "[](fg:yellow bg:green)$c$rust$golang$nodejs$bun$php$java$kotlin$haskell$python"
+            "[](fg:green bg:brown)$conda"
+            "[](fg:brown bg:cyan)$time"
+            "[ ](fg:cyan)$cmd_duration$line_break$character"
+          ];
           git_branch = {
             format = "[[ $symbol $branch ](fg:black bg:yellow)]($style)";
             style = "bg:yellow";

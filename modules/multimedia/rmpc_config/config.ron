@@ -2,13 +2,12 @@
 #![enable(unwrap_newtypes)]
 #![enable(unwrap_variant_newtypes)]
 (
-    address: "/run/user/1000/mpd/socket:6600",
-    password: None,
-    theme: Some("~/.config/rmpc/rose-pine.ron"),
+    theme: Some("~/.config/rmpc/catppuccin-mocha.ron"),
     cache_dir: Some("~/.cache/rmpc"),
-    on_song_change: ["/home/krish/.config/rmpc/fetch-lyrics"],
+    on_song_change: ["~/.config/rmpc/fetch-lyrics"],
     lyrics_dir: Some("~/Music"),
     enable_lyrics_hot_reload: true,
+    password: None,
     volume_step: 5,
     max_fps: 180,
     scrolloff: 0,
@@ -149,7 +148,7 @@ cava: (
                     direction: Vertical,
                     panes: [
                        (size: "67%", pane: Pane(AlbumArt), vertical_align: top),
-
+  
     (size: "1", pane: Pane(Property(
 
     content: [

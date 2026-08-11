@@ -132,6 +132,7 @@
               write = true;
               resume = "ask";
               incremental = true;
+              singletons = true;
             };
             paths = {
               default = "$albumartist/$album ($year)/$track - $title";

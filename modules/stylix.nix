@@ -5,7 +5,7 @@
 
     stylix = {
       enable = true;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 
       image = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/rachitvrma/Wallpapers/main/Catppuccin/catppuccin-13.png";
@@ -54,7 +54,7 @@
   flake.homeModules.stylix = { config, pkgs, ... }: {
     stylix = {
       enable = true;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 
       image = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/rachitvrma/Wallpapers/main/Catppuccin/wallhaven-yqg6r7_1920x1080.png";

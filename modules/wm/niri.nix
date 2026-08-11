@@ -206,8 +206,6 @@
             "Mod+BracketRight".consume-or-expel-window-right = { };
             "Mod+C".center-column = { };
 
-            # disabled in source via `/-Mod+Comma { consume-window-into-column }`
-
             "Mod+Ctrl+M".expand-column-to-available-width = { };
             "Mod+Ctrl+R".reset-window-height = { };
 
