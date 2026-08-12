@@ -212,6 +212,7 @@
             "Mod+Equal".set-column-width = "+10%";
 
             "Mod+T".spawn = [ "xdg-terminal-exec" ];
+            "Mod+Return".spawn = [ "xdg-terminal-exec" ];
 
             # For browsers specifically
             "Mod+F".spawn = [

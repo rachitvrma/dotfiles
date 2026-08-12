@@ -55,9 +55,9 @@
           dht-listen-port = 60000;
           disable-ipv6 = true;
           bt-max-peers = 55;
-          enable-dht = false;
-          bt-enable-lpd = false;
-          enable-peer-exchange = false;
+          enable-dht = true;
+          bt-enable-lpd = true;
+          enable-peer-exchange = true;
           seed-ratio = 0.0;
           bt-hash-check-seed = true;
           bt-seed-unverified = true;

@@ -8,6 +8,34 @@
       halloy = {
         enable = true;
         settings = {
+          # VIM keys
+          keyboard = {
+            close_buffer = "alt+q";
+            command_bar = "alt+shift+;";
+            cycle_next_buffer = "alt+n";
+            cycle_next_unread_buffer = "alt+shift+n";
+            cycle_previous_buffer = "alt+p";
+            cycle_previous_unread_buffer = "alt+shift+p";
+            leave_buffer = "alt+shift+q";
+            mark_as_read = "alt+m";
+            maximize_buffer = "alt+shift+k";
+            move_down = "alt+j";
+            move_left = "alt+h";
+            move_right = "alt+l";
+            move_up = "alt+k";
+            new_horizontal_buffer = "alt+s";
+            new_vertical_buffer = "alt+v";
+            reload_configuration = "alt+r";
+            restore_buffer = "alt+shift+j";
+            scroll_down_page = "ctrl+f";
+            scroll_to_bottom = "alt+shift+g";
+            scroll_to_top = "alt+g";
+            scroll_up_page = "ctrl+b";
+            toggle_nick_list = "alt+shift+m";
+            toggle_sidebar = "alt+b";
+            toggle_topic = "alt+t";
+          };
+
           notifications = {
             direct_message = {
               sound = "peck";
@@ -21,7 +49,6 @@
             Libera = {
               channels = [
                 # Interests
-                "##anime"
                 "#reading"
                 "#writers"
                 "#books"

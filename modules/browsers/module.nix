@@ -251,6 +251,12 @@
                   keyword = "comix";
                   url = "https://comix.to/";
                 }
+                # Download Anime
+                {
+                  name = "Nyaa";
+                  keyword = "nyaa";
+                  url = "https://nyaa.si/";
+                }
               ];
             };
             containers = {

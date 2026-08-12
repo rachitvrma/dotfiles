@@ -38,10 +38,12 @@
         nos = "nh os switch";
         nca = "nh clean all";
         cat = "bat --paging=never";
+        sl = "sl -dFGl";
       };
 
       packages = with pkgs; [
         figlet
+        sl
         speedtest-cli
         trash-cli
       ];
