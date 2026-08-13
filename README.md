@@ -40,7 +40,7 @@
 | System Monitor          | Bottom                              |
 | Mail                    | _still wip_                         |
 | Matrix Client           | Iamb (with Cinny as my WebUI)       |
-| IRC Client              | Halloy                              |
+| IRC Client              | Senpai                              |
 | File Manager (GUI)      | PCManFM                             |
 | File Manager (TUI)      | Yazi                                |
 | RSS Reader              | MiniFlux (WebUI) + Eilmeldung (TUI) |
@@ -148,12 +148,6 @@ ADMIN_USERNAME=<username>
 ADMIN_PASSWORD=something6charactersLong
 ```
 
-#### 🐦 To Setup Halloy
-
-For IRC I use Halloy. I use a plain text password file in `~/.config/halloy/irc_password`. So remember to create that file with the correct password. Also change the permission to 0600.
-
-Also there are resources here:
-- [IRC cheat sheet](https://gist.github.com/xero/2d6e4b061b4ecbeb9f99)
 
 
 ## Nix / NixOS / Flakes
@@ -218,6 +212,11 @@ Also there are resources here:
 - Search current channels for **"vimjoyer"** and **"ryan4yin"** on YouTube —
   both do NixOS/flake-parts/home-manager walkthroughs pretty regularly; check
   what's recent since the corpus of videos changes often.
+
+#### IRC Cheatsheet
+
+Also there are resources here:
+- [IRC cheat sheet](https://gist.github.com/xero/2d6e4b061b4ecbeb9f99)
 ---
 
 ## 📃 License

@@ -239,6 +239,12 @@
                   keyword = "news";
                   url = "http://localhost:8080/";
                 }
+                # See home-manager news
+                {
+                  name = "Home Manager News (Mstodon)";
+                  keyword = "hmnews";
+                  url = "https://techhub.social/@hmnews";
+                }
                 # Nerd Fonts
                 {
                   name = "Nerd Fonts";
@@ -256,6 +262,18 @@
                   name = "Nyaa";
                   keyword = "nyaa";
                   url = "https://nyaa.si/";
+                }
+                # Chatgpt
+                {
+                  name = "ChatGPT";
+                  keyword = "chatgpt";
+                  url = "https://chatgpt.com/";
+                }
+                # Gemini
+                {
+                  name = "Gemini";
+                  keyword = "gemini";
+                  url = "https://gemini.google.com/app";
                 }
               ];
             };

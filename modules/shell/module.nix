@@ -49,6 +49,11 @@
       ];
     };
     programs = {
+      pay-respects = {
+        # TODO: Configure this.
+        enable = true;
+        enableZshIntegration = true;
+      };
       clock-rs = {
         enable = true;
         settings = {

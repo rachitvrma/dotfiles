@@ -35,11 +35,6 @@
               desc = "Iamb Matrix";
               cmd = "systemd-run --user kitty --title=iamb_matrix -e iamb";
             }
-            {
-              key = "h";
-              desc = "Halloy";
-              cmd = "systemd-run --user halloy";
-            }
           ];
         };
 

@@ -5,6 +5,23 @@
           - Luke 12:6-7
   '';
 
+  nixConfig = {
+    max-jobs = "auto";
+    auto-optimise-store = true;
+
+    allowed-users = [
+      "@wheel"
+    ];
+    trusted-users = [
+      "root"
+      "@wheel"
+    ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
+
   inputs = {
     disko.url = "github:nix-community/disko";
 

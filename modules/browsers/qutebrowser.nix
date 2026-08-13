@@ -84,6 +84,18 @@
           mb = "https://musicbrainz.org/search?query={}&type=artist&method=indexed";
           ytm = "https://music.youtube.com/search?q={}";
           rsslkup = "https://www.rsslookup.com/?url={}";
+
+          # GitHub-scoped search
+          ghrepo = "https://github.com/search?q={}&type=repositories";
+          ghcode = "https://github.com/search?q={}&type=code";
+          ghissue = "https://github.com/search?q={}&type=issues";
+          ghpr = "https://github.com/search?q={} is%3Apr&type=pullrequests";
+          ghuser = "https://github.com/search?q={}&type=users";
+          ghtopic = "https://github.com/topics/{}";
+          ghdiscuss = "https://github.com/search?q={}&type=discussions";
+          gh = "https://github.com/{}"; # jump straight to user/org or user/repo
+          ghnp = "https://github.com/search?q=repo%3ANixOS%2Fnixpkgs+{}&type=code"; # code search within nixpkgs
+          ghhm = "https://github.com/search?q=repo%3Anix-community%2Fhome-manager+{}&type=code"; # code search within home-manager
         };
 
         perDomainSettings = {
@@ -92,14 +104,17 @@
         };
 
         quickmarks = {
-          github = "https://github.com/";
-          github-notifications = "https://github.com/notifications?query=is%3Aunread";
-          github-pr = "https://github.com/pulls/inbox";
+          g-hub = "https://github.com/";
+          gh-nt = "https://github.com/notifications?query=is%3Aunread";
+          gh-pr = "https://github.com/pulls/inbox";
           claude = "https://claude.ai/";
           news = "http://localhost:8080/"; # for miniflux
           comix = "https://comix.to/";
+          hmnews = "https://techhub.social/@hmnews"; # For home-manager news
           cinny = "https://app.cinny.in/"; # For a matrix UI
           nyaa = "https://nyaa.si/"; # Search Anime
+          chatgpt = "https://chatgpt.com/";
+          gemini = "https://gemini.google.com/app";
         };
 
         keyBindings = {

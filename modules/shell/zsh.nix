@@ -81,6 +81,12 @@
           compinit -C
         fi
       '';
+
+      initContent = /* bash */ ''
+        mkcd() {
+          mkdir --parent "$1" && cd "$1"
+        }
+      '';
     };
   };
 }

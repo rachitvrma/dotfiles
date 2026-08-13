@@ -1,140 +1,29 @@
 {
-  flake.homeModules.matrix_irc = { config, ... }: {
+  flake.nixosModules.matrix_irc = {
+    services.soju = {
+      enable = true;
+      hostName = "localhost";
+      listen = [ "irc+insecure://127.0.0.1:6667" ];
+      adminSocket.enable = true;
+    };
+  };
+  flake.homeModules.matrix_irc = { ... }: {
     stylix.targets.halloy.fonts.override = {
       sizes.applications = 14;
     };
     programs = {
       # For IRC
-      halloy = {
+      senpai = {
         enable = true;
-        settings = {
-          # VIM keys
-          keyboard = {
-            close_buffer = "alt+q";
-            command_bar = "alt+shift+;";
-            cycle_next_buffer = "alt+n";
-            cycle_next_unread_buffer = "alt+shift+n";
-            cycle_previous_buffer = "alt+p";
-            cycle_previous_unread_buffer = "alt+shift+p";
-            leave_buffer = "alt+shift+q";
-            mark_as_read = "alt+m";
-            maximize_buffer = "alt+shift+k";
-            move_down = "alt+j";
-            move_left = "alt+h";
-            move_right = "alt+l";
-            move_up = "alt+k";
-            new_horizontal_buffer = "alt+s";
-            new_vertical_buffer = "alt+v";
-            reload_configuration = "alt+r";
-            restore_buffer = "alt+shift+j";
-            scroll_down_page = "ctrl+f";
-            scroll_to_bottom = "alt+shift+g";
-            scroll_to_top = "alt+g";
-            scroll_up_page = "ctrl+b";
-            toggle_nick_list = "alt+shift+m";
-            toggle_sidebar = "alt+b";
-            toggle_topic = "alt+t";
-          };
-
-          notifications = {
-            direct_message = {
-              sound = "peck";
-              show_toast = true;
-            };
-          };
-          buffer.channel.topic = {
-            enabled = true;
-          };
-          servers = {
-            Libera = {
-              channels = [
-                # Interests
-                "#reading"
-                "#writers"
-                "#books"
-
-                # Operating Systems & Core Distributions
-                "#linux"
-                "#gnu"
-                "#nixos"
-                "#nixos-dev"
-                "#nixos-chat"
-                "#home-manager"
-                "#debian"
-                "#fedora"
-                "#rhel"
-                "#gentoo"
-                "#gentoo-chat"
-                "#gentoo-ops"
-                "#freebsd"
-                "#openbsd"
-                "#netbsd"
-
-                # Editors, Terminals & User Interfaces
-                "#vim"
-                "#neovim"
-                "#neovim-chat"
-                "#neovim-dev"
-                "#halloy"
-                "#mpv"
-                "#firefox"
-
-                # Shells, Scripting & System Tooling
-                "#bash"
-                "#zsh"
-                "#systemd"
-                "#btrfs"
-                "#jujutsu"
-                "#git"
-                "#taskwarrior"
-
-                # Programming Languages & Low-Level Development
-                "#c"
-                "#C++"
-                "#java"
-                "#lua"
-                "#algorithms"
-                "#osdev"
-                "#kernel"
-
-                # Infrastructure, Security & Networking
-                "#security"
-                "#networking"
-                "#postgresql"
-
-                # General & Theoretical Sciences
-                "##programming"
-                "##math"
-                "##physics"
-                "#philosophy"
-                "##chat"
-              ];
-              nickname = "woodenAllen";
-              server = "irc.libera.chat";
-              use_tls = true;
-              sasl.plain = {
-                username = "woodenAllen";
-                # Create {file}`~/.config/halloy/matrix_password`, put the correct password, and then
-                # change the permission to 0600 using `chmod 0600 ~/.config/halloy/irc_password`
-                password_file = "${config.xdg.configHome}/halloy/irc_password";
-              };
-            };
-            Hackint = {
-              nickname = "woodenAllen";
-              server = "irc.hackint.org";
-              use_tls = true;
-              channels = [
-                "#nixos"
-                "#sway"
-              ];
-              # sasl.plain = {
-              #   username = "woodenAllen";
-              #   # Create {file}`~/.config/halloy/matrix_password`, put the correct password, and then
-              #   # change the permission to 0600 using `chmod 0600 ~/.config/halloy/irc_password`
-              #   password_file = "${config.xdg.configHome}/halloy/irc_password";
-              # };
-            };
-          };
+        config = {
+          # address = "irc.libera.chat";
+          address = "irc+insecure://127.0.0.1:6667";
+          nickname = "woodenAllen";
+          password-cmd = [
+            "pass"
+            "show"
+            "irc/libera"
+          ];
         };
       };
 

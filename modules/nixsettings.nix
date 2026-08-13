@@ -12,6 +12,7 @@
           "pipe-operators"
         ];
         show-trace = true;
+        accept-flake-config = true;
       };
 
       nixPath = [
@@ -75,6 +76,7 @@
           "pipe-operators"
         ];
         cores = 4;
+        accept-flake-config = true;
         max-jobs = 1;
         show-trace = true;
         http2 = false;

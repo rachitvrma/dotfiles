@@ -10,16 +10,16 @@
         HandleLidSwitch = "ignore";
         HandleLidSwitchExternalPower = "ignore";
       };
-      greetd = {
-        enable = true;
-        settings = rec {
-          initial_session = {
-            command = "niri-session";
-            user = "krish";
-          };
-          default_session = initial_session;
-        };
-      };
+      # greetd = {
+      #   enable = true;
+      #   settings = rec {
+      #     initial_session = {
+      #       command = "niri-session";
+      #       user = "krish";
+      #     };
+      #     default_session = initial_session;
+      #   };
+      # };
     };
   };
 

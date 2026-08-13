@@ -2,7 +2,6 @@
   flake.nixosModules.networking = { pkgs, ... }: {
     # Enable networking
     networking = {
-      useNetworkd = true;
       networkmanager = {
         enable = true;
         wifi = {
