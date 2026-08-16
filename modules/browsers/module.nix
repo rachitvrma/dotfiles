@@ -171,15 +171,6 @@
               # Suggested by claude
               "network.trr.uri" = "https://dns.quad9.net/dns-query";
 
-              # Disable wasm, which is known to pass pre-compiled code with malware
-              # Also, WhatsApp web stops working.
-              "javascript.options.wasm" = false;
-              "javascript.options.wasm_baselinejit" = false;
-              "javascript.options.wasm_ionjit" = false;
-
-              # Disable webgl
-              "webgl.disabled" = true; # comment to allow WhatsApp to work.
-
               # Disable all suggestions:
               "browser.urlbar.suggest.history" = false;
               "browser.urlbar.suggest.bookmark" = false;

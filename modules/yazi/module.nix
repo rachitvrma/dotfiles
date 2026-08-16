@@ -28,9 +28,6 @@
         mediainfo = {
           package = pkgs.yaziPlugins.mediainfo;
         };
-        piper = {
-          package = pkgs.yaziPlugins.piper;
-        };
       };
       settings = {
         plugin = {
@@ -60,10 +57,6 @@
             {
               run = "mediainfo";
               url = "*.{ai,eps,ait}";
-            }
-            {
-              run = "piper -- eza -TL=3 --color=always --icons=always --group-directories-first --no-quotes \"$1\"";
-              url = "*/";
             }
           ];
         };

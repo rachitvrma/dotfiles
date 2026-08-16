@@ -32,7 +32,7 @@
 
 | Util                    | Program used                        |
 | ----------------------- | ----------------------------------- |
-| Shell                   | Fish                                |
+| Shell                   | Zsh                                 |
 | WM/DE                   | Niri                                |
 | Editor                  | Neovim                              |
 | Terminal                | Kitty                               |
