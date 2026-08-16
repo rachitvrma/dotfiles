@@ -58,8 +58,8 @@
             menu = [
               {
                 key = "e";
-                desc = "Yazi";
-                cmd = "systemd-run --user kitty --title=yazi_filemanager -e yazi";
+                desc = "Xplr";
+                cmd = "systemd-run --user kitty --title=xplr_filemanager -e xplr";
               }
               {
                 key = "E";

@@ -55,7 +55,7 @@
         settings = {
           program_options = {
             # Needs to be set explicitly
-            file_manager = "${config.programs.kitty.package}/bin/kitty -e ${config.programs.yazi.package}/bin/yazi";
+            file_manager = "${config.programs.kitty.package}/bin/kitty -e ${config.programs.lf.package}/bin/lf";
           };
         };
       };

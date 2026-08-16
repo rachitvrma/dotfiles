@@ -33,30 +33,6 @@
           };
           fileselect = {
             handler = "external";
-            folder.command = [
-              "kitty"
-              "--class"
-              "filechoose_yazi"
-              "-e"
-              "yazi"
-              "--chooser-file={}"
-            ];
-            single_file.command = [
-              "kitty"
-              "--class"
-              "filechoose_yazi"
-              "-e"
-              "yazi"
-              "--chooser-file={}"
-            ];
-            multiple_files.command = [
-              "kitty"
-              "--class"
-              "filechoose_yazi"
-              "-e"
-              "yazi"
-              "--chooser-file={}"
-            ];
           };
           content = {
             javascript.enabled = true;
