@@ -4,7 +4,7 @@
     </div>
     <br>
     <p>Rachit's NixOS configuration</p>
-    <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=0:cba6f7,100:89b4fa&text=Rachit's%20nixdots&fontColor=1e1e2e&fontAlign=50&fontAlignY=38&fontSize=48&animation=fadeIn&desc=NixOS%20%C2%B7%20Home-Manager%20%C2%B7%20Niri&descAlign=50&descAlignY=62&descSize=18&descColor=1e1e2e" />
+    <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=0:cba6f7,100:89b4fa&text=Rachit's%20dotfiles&fontColor=1e1e2e&fontAlign=50&fontAlignY=38&fontSize=48&animation=fadeIn&desc=NixOS%20%C2%B7%20Home-Manager%20%C2%B7%20Niri&descAlign=50&descAlignY=62&descSize=18&descColor=1e1e2e" />
     <div align="center">
         <p></p>
         <div align="center">
@@ -17,7 +17,7 @@
             <a href="https://nixos.org">
                 <img src="https://img.shields.io/badge/NixOS-unstable-blue.svg?style=for-the-badge&labelColor=1e1e2e&logo=NixOS&logoColor=89b4fa&color=89b4fa">
             </a>
-            <a href="https://github.com/rachitvrma/nixdots/blob/main/LICENSE">
+            <a href="https://github.com/rachitvrma/dotfiles/blob/main/LICENSE">
                 <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=GPL&colorA=1e1e2e&colorB=cba6f7&logo=unlicense&logoColor=f9e2af&%22"/>
             </a>
         </div>
@@ -82,7 +82,7 @@ Clone the repository into `/tmp`:
 ```bash
 mkdir -p /tmp
 cd /tmp
-git clone --depth=1 https://github.com/rachitvrma/nixdots.git
+git clone --depth=1 https://github.com/rachitvrma/dotfiles.git
 ```
 
 ### 💾 Run Disko to Prepare Disks
@@ -94,7 +94,7 @@ the `disko-config.nix` belongs to the correct host. By default, it's set
 for [nixpavilion](./modules/hosts/nixpavilion).
 
 ```bash
-cd /tmp/nixdots/modules/hosts/nixpavilion
+cd /tmp/dotfiles/modules/hosts/nixpavilion
 nix run github:nix-community/disko/latest -- --mode destroy,format,mount ./disko-config.nix
 ```
 
@@ -104,7 +104,7 @@ Copy the cloned repo into `/mnt/etc/nixos` and run the installation:
 
 ```bash
 mkdir -p /mnt/etc
-cp -r /tmp/nixdots /mnt/etc/nixos
+cp -r /tmp/dotfiles /mnt/etc/nixos
 nixos-install --no-root-passwd --root /mnt --cores 8 --max-jobs 1 --flake /mnt/etc/nixos#nixpavilion
 ```
 
