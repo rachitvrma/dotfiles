@@ -10,16 +10,6 @@
         HandleLidSwitch = "ignore";
         HandleLidSwitchExternalPower = "ignore";
       };
-      # greetd = {
-      #   enable = true;
-      #   settings = rec {
-      #     initial_session = {
-      #       command = "niri-session";
-      #       user = "krish";
-      #     };
-      #     default_session = initial_session;
-      #   };
-      # };
     };
   };
 
@@ -484,6 +474,17 @@
                 open-focused = true;
                 default-column-width.fixed = 900;
                 default-window-height.fixed = 550;
+              };
+            }
+            {
+              window-rule = {
+                match._props = {
+                  app-id = "pcmanfm";
+                  title = "^Copying files$";
+                };
+                open-floating = true;
+                default-column-width.fixed = 480;
+                default-window-height.fixed = 160;
               };
             }
             {

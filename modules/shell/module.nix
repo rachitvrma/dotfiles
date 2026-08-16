@@ -46,6 +46,7 @@
         sl
         speedtest-cli
         trash-cli
+        jdupes
       ];
     };
     programs = {

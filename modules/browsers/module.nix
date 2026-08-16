@@ -275,6 +275,12 @@
                   keyword = "gemini";
                   url = "https://gemini.google.com/app";
                 }
+                # X.com
+                {
+                  name = "X/Twitter";
+                  keyword = "x";
+                  url = "https://x.com/home";
+                }
               ];
             };
             containers = {

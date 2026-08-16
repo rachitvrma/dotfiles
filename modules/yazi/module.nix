@@ -7,6 +7,7 @@
   };
 
   flake.homeModules.yazi = { pkgs, ... }: {
+    home.packages = with pkgs; [ dragon-drop ];
     programs.yazi = {
       enable = true;
       package = pkgs.yazi.override { _7zz = pkgs._7zz-rar; };
@@ -14,6 +15,7 @@
       extraPackages = with pkgs; [
         mediainfo
         socat
+        dragon-drop
       ];
       plugins = {
         git = {
@@ -25,6 +27,9 @@
         };
         mediainfo = {
           package = pkgs.yaziPlugins.mediainfo;
+        };
+        piper = {
+          package = pkgs.yaziPlugins.piper;
         };
       };
       settings = {
@@ -55,6 +60,10 @@
             {
               run = "mediainfo";
               url = "*.{ai,eps,ait}";
+            }
+            {
+              run = "piper -- eza -TL=3 --color=always --icons=always --group-directories-first --no-quotes \"$1\"";
+              url = "*/";
             }
           ];
         };
@@ -152,6 +161,21 @@
               "r"
             ];
             run = ''shell -- ya emit cd "$(git rev-parse --show-toplevel)"'';
+          }
+          {
+            # Move into a shell by pressing "!"
+            on = [ "!" ];
+            for = "unix";
+            run = ''shell "$SHELL" --block'';
+            desc = "Open $SHELL here";
+          }
+          {
+            # NOTE: The nightly build of yazi doesn't require dragon-drop
+            # <https://yazi-rs.github.io/docs/next/dnd>
+            # Use dragon for drag'n'drop
+            on = [ "<C-n>" ];
+            run = "shell -- dragon-drop -x -i -T %h";
+            desc = "Open dragon-drop for drag and drop";
           }
         ];
       };

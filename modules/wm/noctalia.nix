@@ -74,6 +74,13 @@
               show_when_idle = true;
               color_2 = "secondary";
             };
+            tray = {
+              hide_passive = true;
+              drawer = true;
+              drawer_columns = 3;
+              drawer_item_size = 20;
+              detached_panel = false;
+            };
           };
           nightlight.enabled = true;
           bar = {

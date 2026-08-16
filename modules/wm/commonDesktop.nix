@@ -1,12 +1,5 @@
 {
-  flake.nixosModules.commonDesktop = { pkgs, ... }: {
-    services = {
-      udisks2.enable = true;
-      gvfs.package = pkgs.gvfs.override { gnomeSupport = false; };
-      gnome.gnome-keyring.enable = true;
-      playerctld.enable = true;
-    };
-
+  flake.nixosModules.commonDesktop = { ... }: {
     security = {
       polkit.enable = true;
       pam.services = {
@@ -15,7 +8,7 @@
     };
   };
 
-  flake.homeModules.commonDesktop = {
+  flake.homeModules.commonDesktop = { config, ... }: {
     xdg.portal.enable = true;
     programs = {
       swayimg = {
@@ -57,7 +50,15 @@
     };
     services = {
       playerctld.enable = true;
-      udiskie.enable = true;
+      udiskie = {
+        enable = true;
+        settings = {
+          program_options = {
+            # Needs to be set explicitly
+            file_manager = "${config.programs.kitty.package}/bin/kitty -e ${config.programs.yazi.package}/bin/yazi";
+          };
+        };
+      };
 
       batsignal = {
         enable = true;
