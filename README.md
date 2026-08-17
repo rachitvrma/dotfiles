@@ -42,7 +42,7 @@
 | Matrix Client           | Iamb (with Cinny as my WebUI)       |
 | IRC Client              | Senpai                              |
 | File Manager (GUI)      | PCManFM                             |
-| File Manager (TUI)      | Xplr                                |
+| File Manager (TUI)      | Yazi                                |
 | RSS Reader              | MiniFlux (WebUI) + Eilmeldung (TUI) |
 | Theme                   | Catppuccin Mocha (mauve)            |
 | Browser (GUI)           | Firefox/QuteBrowser (I use both)    |

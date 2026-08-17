@@ -47,6 +47,7 @@
         speedtest-cli
         trash-cli
         jdupes
+        gdu
       ];
     };
     programs = {

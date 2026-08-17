@@ -34,7 +34,7 @@
       services.ollama = {
         enable = true;
         package = pkgs.ollama-vulkan;
-        # acceleration = "vulkan";
+        acceleration = "vulkan";
         environmentVariables = {
           OLLAMA_KEEP_ALIVE = "10m";
           # Cap memory pressure: never load more than one model,

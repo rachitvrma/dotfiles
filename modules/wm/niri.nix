@@ -534,7 +534,7 @@
             }
             {
               window-rule = {
-                match._props.title = "xplr_filemanager";
+                match._props.title = "yazi_filemanager";
                 open-floating = true;
                 default-column-width.proportion = 0.75;
                 default-window-height.proportion = 0.75;

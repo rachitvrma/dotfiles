@@ -13,6 +13,10 @@
         ];
         show-trace = true;
         accept-flake-config = true;
+        trusted-users = [
+          "@wheel"
+          "krish"
+        ];
       };
 
       nixPath = [
@@ -81,6 +85,10 @@
         show-trace = true;
         http2 = false;
         max-substitution-jobs = 4;
+        trusted-users = [
+          "@wheel"
+          "krish"
+        ];
       };
       extraOptions = ''
         !include ${config.xdg.configHome}/nix/access-tokens.conf
