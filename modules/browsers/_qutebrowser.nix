@@ -50,9 +50,11 @@
         searchEngines = {
           w = "https://en.wikipedia.org/wiki/Special:Search?search={}&go=Go&ns0=1";
           aw = "https://wiki.archlinux.org/?search={}";
-          nw = "https://wiki.nixos.org/index.php?search={}";
+          nw = "https://wiki.nixos.org/w/index.php?search={}";
           no = "https://search.nixos.org/options?channel=unstable&query={}&type=options";
           np = "https://search.nixos.org/packages?type=packages&query={}&channel=unstable";
+          npt = "https://nixpk.gs/pr-tracker.html?pr={}";
+
           hm = "https://search.nixos.org/options?channel=unstable&query={}&source=home_manager&type=options";
           g = "https://www.google.com/search?hl=en&q={}";
           stylix = "https://nix-community.github.io/stylix/installation.html?search={}";

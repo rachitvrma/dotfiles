@@ -39,21 +39,6 @@
         };
 
         extraMenus = {
-          browsers = commonSettings // {
-            menu = [
-              {
-                key = "f";
-                desc = "Firefox";
-                cmd = "systemd-run --user firefox";
-              }
-              {
-                key = "q";
-                desc = "Qutebrowser";
-                cmd = "systemd-run --user qutebrowser";
-              }
-            ];
-          };
-
           filemanagers = commonSettings // {
             menu = [
               {
@@ -75,6 +60,11 @@
                 key = "p";
                 desc = "Power Off";
                 cmd = "noctalia msg session shutdown || systemctl poweroff";
+              }
+              {
+                key = "r";
+                desc = "Reboot";
+                cmd = "noctalia msg session reboot || systemctl reboot";
               }
               {
                 key = "l";

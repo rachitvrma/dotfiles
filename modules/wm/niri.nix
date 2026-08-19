@@ -96,10 +96,10 @@
 
           # ── blur.kdl ──
           blur = {
-            passes = 2;
-            offset = 4;
-            noise = 0.00;
-            saturation = 1.3;
+            passes = 3;
+            offset = 3;
+            noise = 0.02;
+            saturation = 1.5;
           };
 
           # ── layout.kdl ──
@@ -109,7 +109,7 @@
             default-column-width.proportion = 0.5000;
             empty-workspace-above-first = { };
             focus-ring.off = { };
-            gaps = 5;
+            gaps = 10;
             preset-column-widths._children = [
               { proportion = 0.500000; }
               { proportion = 0.333333; }
@@ -206,8 +206,9 @@
 
             # For browsers specifically
             "Mod+F".spawn = [
-              "wlr-which-key"
-              "browsers"
+              "systemd-run"
+              "--user"
+              "firefox"
             ];
 
             "Mod+D".spawn = [ "wlr-which-key" ];
@@ -236,7 +237,11 @@
             "Mod+Shift+U".move-window-to-workspace-down = { };
             "Mod+Shift+I".move-window-to-workspace-up = { };
 
+            # Window maximization/fullscreen rules
             "Mod+M".maximize-column = { };
+            "Mod+Shift+M".maximize-window-to-edges = { };
+            "Mod+Ctrl+Shift+M".fullscreen-window = { };
+
             "Mod+Minus".set-column-width = "-10%";
             "Mod+O" = {
               _props.repeat = false;
@@ -250,7 +255,6 @@
             "Mod+Shift+J".move-window-down = { };
             "Mod+Shift+K".move-window-up = { };
             "Mod+Shift+L".move-column-right = { };
-            "Mod+Shift+M".maximize-window-to-edges = { };
             "Mod+Shift+Minus".set-window-height = "-10%";
 
             # Cycle through preset heights and widths — see window-rules.kdl
@@ -434,7 +438,7 @@
               window-rule = {
                 clip-to-geometry = true;
                 draw-border-with-background = false;
-                geometry-corner-radius = 10;
+                geometry-corner-radius = 20;
                 open-maximized = true;
               };
             }
@@ -511,6 +515,8 @@
                 background-effect = {
                   blur = true;
                   xray = false;
+                  saturation = 1.6;
+                  noise = 0.02;
                 };
               };
             }

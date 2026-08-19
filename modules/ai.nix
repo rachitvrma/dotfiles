@@ -24,10 +24,18 @@
           - Never commit secrets or generated files.
           - Run `nix flake check` before considering a change done.
         '';
+
         settings = {
-          model = "opencode/deepseek-v4-flash-free";
+          model = "ollama/qwen2.5-coder:7b-instruct-q4_K_M";
           autoshare = false;
           autoupdate = true;
+          provider = {
+            ollama = {
+              npm = "@ai-sdk/openai-compatible";
+              options.baseURL = "http://localhost:11434/v1";
+              models."qwen2.5-coder:7b-instruct-q4_K_M" = { };
+            };
+          };
         };
       };
 

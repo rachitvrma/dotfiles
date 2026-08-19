@@ -64,9 +64,6 @@ miniclue.setup({
     -- Dropbar related
     { mode = 'n', keys = '<Leader>;', desc = 'Breadcrumb pick' },
 
-    -- Notes group (zk integration)
-    { mode = 'n', keys = '<Leader>n', desc = '+Notes' },
-
     -- For surround
     { mode = { 'n', 'x' }, keys = 's' },
   },
@@ -119,6 +116,8 @@ require('mini.hipatterns').setup({
 })
 
 require('mini.icons').setup()
+MiniIcons.tweak_lsp_kind('prepend')
+
 require('mini.indentscope').setup()
 
 require('mini.input').setup()

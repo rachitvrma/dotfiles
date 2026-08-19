@@ -75,7 +75,6 @@
               color_2 = "secondary";
             };
             tray = {
-              hide_passive = true;
               drawer = true;
               drawer_columns = 3;
               drawer_item_size = 20;
@@ -204,9 +203,13 @@
             widget_order = [ ];
           };
           dock = {
-            background_opacity = 0.8;
             enabled = true;
             launcher_position = "start";
+            icon_size = 40;
+            item_spacing = 10;
+            launcher_custom_image = "/home/krish/.face";
+            margin_edge = 10;
+            margin_ends = 10;
             reserve_space = false;
             smart_auto_hide = true;
             pinned = [
@@ -393,7 +396,7 @@
             };
           };
           theme = {
-            builtin = "Catppuccin";
+            builtin = "Gruvbox";
             community_palette = "Catppuccin Mocha Mauve-Lavender";
             custom_palette = "stylix";
             mode = "dark";

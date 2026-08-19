@@ -5,7 +5,7 @@
 
     stylix = {
       enable = true;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
 
       image = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/rachitvrma/Wallpapers/main/Catppuccin/catppuccin-13.png";
@@ -22,10 +22,10 @@
 
       icons = {
         enable = true;
-        dark = "cat-mocha-mauve";
+        dark = "Gruvbox-Plus-Dark";
         light = config.stylix.icons.dark;
-        package = pkgs.catppuccin-papirus-folders.override {
-          accent = "mauve";
+        package = pkgs.gruvbox-plus-icons.override {
+          folder-color = "violet";
         };
       };
 
@@ -54,13 +54,16 @@
   flake.homeModules.stylix = { config, pkgs, ... }: {
     stylix = {
       enable = true;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
 
       image = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/rachitvrma/Wallpapers/main/Catppuccin/wallhaven-yqg6r7_1920x1080.png";
         hash = "sha256-KRdrPEiFZwjAEWcEuNoKy8p07E0WdmooNPLhTg9ZtKo=";
       };
-      targets.cava.rainbow.enable = true;
+      targets = {
+        cava.rainbow.enable = true;
+        qt.standardDialogs = "xdgdesktopportal";
+      };
       polarity = "dark";
 
       cursor = {
@@ -71,10 +74,10 @@
 
       icons = {
         enable = true;
-        dark = "Papirus-Dark";
+        dark = "Gruvbox-Plus-Dark";
         light = config.stylix.icons.dark;
-        package = pkgs.catppuccin-papirus-folders.override {
-          accent = "mauve";
+        package = pkgs.gruvbox-plus-icons.override {
+          folder-color = "violet";
         };
       };
 
@@ -95,7 +98,7 @@
         desktop = 0.8;
         applications = desktop;
         popups = desktop;
-        terminal = 0.9;
+        terminal = 0.85;
       };
     };
   };

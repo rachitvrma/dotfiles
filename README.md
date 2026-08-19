@@ -4,21 +4,21 @@
     </div>
     <br>
     <p>Rachit's NixOS configuration</p>
-    <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=0:cba6f7,100:89b4fa&text=Rachit's%20dotfiles&fontColor=1e1e2e&fontAlign=50&fontAlignY=38&fontSize=48&animation=fadeIn&desc=NixOS%20%C2%B7%20Home-Manager%20%C2%B7%20Niri&descAlign=50&descAlignY=62&descSize=18&descColor=1e1e2e" />
+    <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=0:d3869b,100:89b482&text=Rachit's%20dotfiles&fontColor=202020&fontAlign=50&fontAlignY=38&fontSize=48&animation=fadeIn&desc=NixOS%20%C2%B7%20Home-Manager%20%C2%B7%20Niri&descAlign=50&descAlignY=62&descSize=18&descColor=202020" />
     <div align="center">
         <p></p>
         <div align="center">
             <a href="https://neovim.io/">
-                <img src="https://img.shields.io/badge/v0.12.4-green?style=for-the-badge&logo=neovim&logoColor=a6e3a1&label=neovim&labelColor=1e1e2e&color=a6e3a1">
+                <img src="https://img.shields.io/badge/v0.12.4-green?style=for-the-badge&logo=neovim&logoColor=a9b665&label=neovim&labelColor=202020&color=a9b665">
             </a>
             <a href="https://niri-wm.github.io/niri/index.html">
-                <img src="https://img.shields.io/badge/26.04%20(Nixpkgs)-orange?style=for-the-badge&logo=niri&logoColor=fab387&label=niri&labelColor=1e1e2e&color=fab387">
+                <img src="https://img.shields.io/badge/26.04%20(Nixpkgs)-orange?style=for-the-badge&logo=niri&logoColor=e78a4e&label=niri&labelColor=202020&color=e78a4e">
             </a>
             <a href="https://nixos.org">
-                <img src="https://img.shields.io/badge/NixOS-unstable-blue.svg?style=for-the-badge&labelColor=1e1e2e&logo=NixOS&logoColor=89b4fa&color=89b4fa">
+                <img src="https://img.shields.io/badge/NixOS-unstable-blue.svg?style=for-the-badge&labelColor=202020&logo=NixOS&logoColor=89b482&color=89b482">
             </a>
             <a href="https://github.com/rachitvrma/dotfiles/blob/main/LICENSE">
-                <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=GPL&colorA=1e1e2e&colorB=cba6f7&logo=unlicense&logoColor=f9e2af&%22"/>
+                <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=GPL&colorA=202020&colorB=d3869b&logo=unlicense&logoColor=fbf1c7&%22"/>
             </a>
         </div>
         <br>
@@ -44,8 +44,8 @@
 | File Manager (GUI)      | PCManFM                             |
 | File Manager (TUI)      | Yazi                                |
 | RSS Reader              | MiniFlux (WebUI) + Eilmeldung (TUI) |
-| Theme                   | Catppuccin Mocha (mauve)            |
-| Browser (GUI)           | Firefox/QuteBrowser (I use both)    |
+| Theme                   | Gruvbox Material Dark Hard          |
+| Browser (GUI)           | Firefox                             |
 | Text Browser (Terminal) | w3m                                 |
 | Agenda/Task Maintainer  | taskwarrior                         |
 

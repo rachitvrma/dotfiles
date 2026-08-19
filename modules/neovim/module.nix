@@ -47,7 +47,7 @@
               markdown-preview-nvim
 
               # Mini ecosystem
-              mini-ai
+              mini-ai # Better textobjects (Don't know what that means)
               mini-align
               mini-animate
               mini-basics
@@ -56,7 +56,7 @@
               mini-clue
               mini-cmdline
               mini-comment
-              mini-completion
+              mini-completion # Completion Engine
               mini-cursorword
               mini-diff
               mini-doc
@@ -118,7 +118,6 @@
               # Markdown stack
               mkdnflow-nvim
               render-markdown-nvim
-              zk-nvim
             ];
           in
           startPlugins

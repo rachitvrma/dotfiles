@@ -32,29 +32,25 @@
           max-overall-download-limit = 0;
           max-download-limit = 0;
           max-overall-upload-limit = 0;
-          max-upload-limit = "50K";
+          max-upload-limit = "500K";
 
           ## ── Disk ─────────────────────────────────────────────────────
-          # falloc is best on ext4/xfs/btrfs — change to trunc on FAT/NTFS
           file-allocation = "falloc";
           enable-mmap = true;
-          disk-cache = "64M";
+          disk-cache = "128M";
 
           ## ── RPC ──────────────────────────────────────────────────────
           enable-rpc = true;
           rpc-listen-port = 6800;
           rpc-allow-origin-all = true;
-          # rpc-listen-all=false means localhost only (safer, fine for local clients)
-          # flip to true only if you need LAN access from another device
           rpc-listen-all = false;
-          # rpc-secret=CHANGE_ME   ← uncomment if you ever expose this on LAN
 
           ## ── BitTorrent ───────────────────────────────────────────────
           follow-torrent = true;
           listen-port = 60000;
           dht-listen-port = 60000;
           disable-ipv6 = true;
-          bt-max-peers = 55;
+          bt-max-peers = 0;
           enable-dht = true;
           bt-enable-lpd = true;
           enable-peer-exchange = true;
@@ -63,7 +59,9 @@
           bt-seed-unverified = true;
           bt-save-metadata = true;
           bt-require-crypto = true;
+          bt-tracker = "udp://tracker.opentrackr.org:1337/announce,udp://open.stealth.si:80/announce,udp://tracker.torrent.eu.org:451/announce";
           ftp-pasv = true;
+
           # Transmission spoof for private tracker compatibility
           peer-id-prefix = "-TR2770-";
           user-agent = "Transmission/2.77";

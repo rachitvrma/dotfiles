@@ -6,6 +6,33 @@
       lib,
       ...
     }:
+    let
+      c = config.lib.stylix.colors.withHashtag;
+
+      # catppuccin-mocha hex -> stylix base16 replacement
+      themeColors = {
+        "#1e1e2e" = c.base00; # background
+        "#181825" = c.base01; # crust (track/thumb backgrounds)
+        "#313244" = c.base02;
+        "#45475a" = c.base02; # current_item bg (surface1)
+        "#585b70" = c.base03;
+        "#9399b2" = c.base04; # borders (overlay2)
+        "#a6adc8" = c.base04;
+        "#bac2de" = c.base05;
+        "#cdd6f4" = c.base05; # main text
+        "#f38ba8" = c.base08; # error / red
+        "#fab387" = c.base09; # artist / peach
+        "#f9e2af" = c.base0A; # labels, warn / yellow
+        "#a6e3a1" = c.base0B; # debug / green
+        "#94e2d5" = c.base0C;
+        "#b4befe" = c.base0D; # trace / lavender
+        "#cba6f7" = c.base0E; # accent: tabs, highlight, progress / mauve
+      };
+
+      themeRon =
+        builtins.replaceStrings (builtins.attrNames themeColors) (builtins.attrValues themeColors)
+          (builtins.readFile ./rmpc_config/catppuccin-mocha.ron);
+    in
     {
       systemd.user.services = {
         # Without this the socket file is not created correctly.
@@ -71,7 +98,7 @@
           '';
 
           # TODO: Write a rmpc theme module
-          "rmpc/catppuccin-mocha.ron".source = ./rmpc_config/catppuccin-mocha.ron;
+          "rmpc/theme.ron".text = themeRon;
         };
       };
 
@@ -108,7 +135,9 @@
       programs = {
         rmpc = {
           enable = true;
-          config = builtins.readFile ./rmpc_config/config.ron;
+          config = builtins.replaceStrings [ "catppuccin-mocha" ] [ "theme" ] (
+            builtins.readFile ./rmpc_config/config.ron
+          );
         };
         beets = {
           enable = true;

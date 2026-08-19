@@ -33,6 +33,9 @@
           visual_bell_duration = 0.1;
           window_padding_width = 15;
           notify_on_cmd_finish = "invisible 20";
+          background_tint = 0.35;
+          background_tint_gaps = 0.5;
+          dynamic_background_opacity = true;
           background_blur = 64;
 
           allow_remote_control = true;

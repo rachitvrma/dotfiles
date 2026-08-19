@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>~</title>
+<style>
+  :root {
+    --base00: #141617; /* bg */
+    --base05: #d4be98; /* fg */
+    --base0D: #7daea3; /* blue accent */
+    --base0E: #d3869b; /* magenta accent */
+    --base03: #45403d; /* muted */
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    background: var(--base00);
+    color: var(--base05);
+    font-family: "Maple Mono NF", monospace;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  #clock {
+    font-size: 4rem;
+    font-weight: 600;
+    color: var(--base0E);
+    letter-spacing: 0.05em;
+  }
+
+  #date {
+    font-size: 1rem;
+    color: var(--base05);
+    opacity: 0.7;
+  }
+
+  form {
+    margin-top: 1rem;
+  }
+
+  input {
+    width: 32rem;
+    max-width: 80vw;
+    padding: 0.7rem 1rem;
+    background: transparent;
+    border: 1px solid var(--base03);
+    border-radius: 4px;
+    color: var(--base05);
+    font-family: inherit;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  input:focus {
+    border-color: var(--base0D);
+  }
+
+  input::placeholder {
+    color: var(--base03);
+  }
+</style>
+</head>
+<body>
+  <div id="clock"></div>
+  <div id="date"></div>
+
+  <form action="https://duckduckgo.com/" method="get" autocomplete="off">
+    <input type="text" name="q" placeholder="search" autofocus>
+  </form>
+
+  <script>
+    function pad(n) { return n.toString().padStart(2, '0'); }
+
+    function tick() {
+      const now = new Date();
+      document.getElementById('clock').textContent =
+        `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+      document.getElementById('date').textContent =
+        now.toLocaleDateString('en-US', {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+    }
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>

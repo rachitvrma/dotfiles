@@ -54,14 +54,17 @@
           "stderr:always"
         ];
         downloader = "aria2c";
-        downloader-args = "aria2c:'-c -j 3 -x8 -s8 -k1M --async-dns=false'";
-        # embed-subs = true;
+        downloader-args = "aria2c:'-c -j16 -x16 -s16 -k512K --async-dns=false --conf-path=/dev/null --user-agent=Mozilla/5.0'";
+        force-ipv4 = true;
         embed-thumbnail = true;
         embed-metadata = true;
         format = "bestvideo+bestaudio/best";
         continue = true;
+        cookies-from-browser = "firefox";
         restrict-filenames = true;
         ignore-errors = true;
+        concurrent-fragments = 8;
+        # embed-subs = true;
         # sub-langs = "all,-live_chat";
       };
     };

@@ -6,6 +6,7 @@
       ...
     }:
     {
+      xdg.configFile."firefox-startpage/startpage.html".source = ./startpage.html;
       programs = {
         firefox = {
           enable = true;
@@ -193,18 +194,17 @@
 
               "browser.tabs.tabmanager.enabled" = false;
 
-              "browser.startup.homepage" = "https://nixos.org";
+              # Custom startup page
+              "browser.startup.homepage" = "file://${config.xdg.configHome}/firefox-startpage/startpage.html";
+              "browser.newtab.url" = "file://${config.xdg.configHome}/firefox-startpage/startpage.html";
+              "browser.startup.page" = 1;
+              "browser.newtabpage.enabled" = false;
+
               "browser.search.region" = "GB";
               "browser.search.isUS" = false;
               "distribution.searchplugins.defaultLocale" = "en-GB";
               "general.useragent.locale" = "en-GB";
               "browser.bookmarks.showMobileBookmarks" = true;
-              "browser.newtabpage.pinned" = [
-                {
-                  title = "NixOS";
-                  url = "https://nixos.org";
-                }
-              ];
             };
             bookmarks = {
               force = true;
@@ -214,11 +214,28 @@
                   keyword = "whatsapp";
                   url = "https://web.whatsapp.com/";
                 }
+                # Github Related
                 {
                   name = "GitHub PRs";
                   keyword = "ghpr";
                   url = "https://github.com/pulls/inbox";
                 }
+                {
+                  name = "GitHub Main Page";
+                  keyword = "gh";
+                  url = "https://github.com/";
+                }
+                {
+                  name = "GitHub Notifications";
+                  keyword = "ghn";
+                  url = "https://github.com/notifications";
+                }
+                {
+                  name = "GitHub My Dotfiles";
+                  keyword = "ghdot";
+                  url = "https://github.com/rachitvrma/dotfiles";
+                }
+
                 {
                   name = "Claude.Ai";
                   keyword = "claude";
@@ -235,6 +252,12 @@
                   name = "Home Manager News (Mstodon)";
                   keyword = "hmnews";
                   url = "https://techhub.social/@hmnews";
+                }
+                # Stylix main page
+                {
+                  name = "Stylix";
+                  keyword = "stylix";
+                  url = "https://nix-community.github.io/stylix/index.html";
                 }
                 # Nerd Fonts
                 {
@@ -347,6 +370,21 @@
                   iconMapObj."16" = "https://wiki.nixos.org/favicon.ico";
                   definedAliases = [ "@nw" ];
                 };
+                nixpkgs-pr-tracker = {
+                  name = "Nixpkgs PR Tracker";
+                  urls = [
+                    {
+                      template = "https://nixpk.gs/pr-tracker.html";
+                      params = [
+                        {
+                          name = "pr";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  definedAliases = [ "@npt" ];
+                };
                 noogle = {
                   name = "Noogle";
                   urls = [ { template = "https://noogle.dev/q?term={searchTerms}"; } ];
@@ -370,6 +408,22 @@
                   ];
                   iconMapObj."16" = "https://music.youtube.com/favicon.ico";
                   definedAliases = [ "@ytm" ];
+                };
+                yt-videos = {
+                  name = "YouTube";
+                  urls = [
+                    {
+                      template = "https://www.youtube.com/results";
+                      params = [
+                        {
+                          name = "search_query";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  iconMapObj."16" = "https://www.youtube.com/favicon.ico";
+                  definedAliases = [ "@yt" ];
                 };
 
                 bing.metaData.hidden = true;

@@ -5,6 +5,7 @@
       options = {
         font = "monospace normal 11";
         selection-clipboard = "clipboard";
+        recolor = true;
       };
     };
   };

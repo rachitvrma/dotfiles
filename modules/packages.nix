@@ -39,47 +39,9 @@
     };
   };
 
-  flake.homeModules.packages = { pkgs, config, ... }: {
-    # Autostart equibop
-    xdg.autostart.entries = [ "${config.programs.equibop.package}/share/applications/equibop.desktop" ];
+  flake.homeModules.packages = { pkgs, ... }: {
     programs = {
       # For autostart, I use xdg.autostart.entries module
-      equibop = {
-        enable = true;
-        settings = {
-          appBadge = false;
-          arRPC = true;
-          checkUpdates = false;
-          customTitleBar = false;
-          disableMinSize = true;
-          minimizeToTray = false;
-          tray = false;
-          splashBackground = "#000000";
-          splashColor = "#ffffff";
-          splashTheming = true;
-          staticTitle = true;
-          hardwareAcceleration = true;
-          discordBranch = "stable";
-        };
-        equicord = {
-          settings = {
-            autoUpdate = false;
-            autoUpdateNotification = false;
-            disableMinSize = true;
-            notifyAboutUpdates = false;
-            plugins = {
-              FakeNitro = {
-                enabled = true;
-              };
-              MessageLogger = {
-                enabled = true;
-                ignoreSelf = true;
-              };
-            };
-            useQuickCss = true;
-          };
-        };
-      };
       pandoc.enable = true;
       atool = {
         enable = true;
@@ -100,21 +62,13 @@
           path_unrar = "unrar-free";
         };
       };
-      btop = {
-        enable = true;
-        package = pkgs.symlinkJoin {
-          name = "btop-wrapped";
-          paths = [ pkgs.btop ];
-          buildInputs = [ pkgs.makeWrapper ];
-          postBuild = ''
-            wrapProgram $out/bin/btop \
-            --add-flags "--force-utf"
-          '';
-        };
-      };
+
+      # Popular system monitors for the terminal
       bottom = {
         enable = true;
       };
+      htop.enable = true;
+
       gcc.enable = true;
       # TODO: Make a module for $XDG_CONFIG_HOME/cava/themes
       # NOTE: For cava enabled the stylix.cava.rainbow.enable

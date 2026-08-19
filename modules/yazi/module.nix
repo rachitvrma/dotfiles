@@ -16,15 +16,18 @@
         socat
       ];
       plugins = {
-        # git = {
-        #   package = pkgs.yaziPlugins.git;
-        #   setup = true;
-        #   settings = {
-        #     order = 1500;
-        #   };
-        # };
+        git = {
+          package = pkgs.yaziPlugins.git;
+          setup = true;
+          settings = {
+            order = 1500;
+          };
+        };
         mediainfo = {
           package = pkgs.yaziPlugins.mediainfo;
+        };
+        vcs-files = {
+          package = pkgs.yaziPlugins.vcs-files;
         };
       };
       settings = {
@@ -103,16 +106,16 @@
         plugin = {
           prepend_fetchers = [
             # git.yazi {{{
-            # {
-            #   url = "*";
-            #   run = "git";
-            #   group = "git";
-            # }
-            # {
-            #   url = "*/";
-            #   run = "git";
-            #   group = "git";
-            # }
+            {
+              url = "*";
+              run = "git";
+              group = "git";
+            }
+            {
+              url = "*/";
+              run = "git";
+              group = "git";
+            }
             # }}} git.yazi
           ];
         };
@@ -124,10 +127,20 @@
               desc = "Open";
             }
           ];
+
           add-sub = [
             {
               desc = "Add sub to MPV";
               run = " printf \"sub-add '%%s'\\n\" %s1 | socat - /tmp/mpv.sock ";
+            }
+          ];
+
+          # Change wallpaper using noctalia
+          set-wallpaper = [
+            {
+              desc = "Set as wallpaper";
+              for = "linux";
+              run = "noctalia msg wallpaper-set %s1";
             }
           ];
         };
@@ -138,6 +151,15 @@
               use = [
                 "add-sub"
                 "edit"
+              ];
+            }
+
+            # Use set-wallpaper as an opener for images
+            {
+              mime = "image/*";
+              use = [
+                "set-wallpaper"
+                "open"
               ];
             }
           ];
@@ -154,11 +176,30 @@
             run = ''shell -- ya emit cd "$(git rev-parse --show-toplevel)"'';
           }
           {
+            # VCS-files setup
+            on = [
+              "g"
+              "C"
+            ];
+            run = "plugin vcs-files";
+            desc = "Show Git file changes";
+          }
+          {
             # Move into a shell by pressing "!"
             on = [ "!" ];
             for = "unix";
             run = ''shell "$SHELL" --block'';
             desc = "Open $SHELL here";
+          }
+          {
+            # Move to nixos configuration quickly
+            on = [
+              "g"
+              "n"
+            ];
+            run = "cd ~/etc/nixos";
+            desc = "Go to nixos configuration";
+            for = "unix";
           }
         ];
       };
