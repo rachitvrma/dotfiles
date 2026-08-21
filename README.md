@@ -148,7 +148,21 @@ ADMIN_USERNAME=<username>
 ADMIN_PASSWORD=something6charactersLong
 ```
 
+#### Fastfetch Setup
 
+In my fastfetch config, I use images from [Maheswara660's fastfetch repo](https://github.com/Maheswara660/fastfetch/). So this step must be followed.
+
+1. Clone the repo somewhere:
+```bash
+git clone --depth=1 https://github.com/Maheswara660/fastfetch/
+```
+
+2. Go into the `images` directory and run `git lfs pull` command.
+```bash
+git lfs pull
+```
+
+3. Cut the entire `images` directory into `~/.config/fastfetch/images`
 
 ## Nix / NixOS / Flakes
 

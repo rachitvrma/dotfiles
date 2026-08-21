@@ -4,184 +4,91 @@
       enable = true;
       settings = {
         "$schema" = "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
-        logo = {
-          type = "small";
-        };
         display = {
           separator = " ";
         };
+        logo = {
+          padding = {
+            top = 2;
+            right = 6;
+          };
+          type = "auto";
+          source = "~/.config/fastfetch/images/*";
+          width = 30;
+        };
         modules = [
           {
-            key = "╭─󰌢";
-            keyColor = "green";
-            type = "host";
+            key = "╭───────────╮";
+            type = "custom";
           }
           {
-            key = "├─󰻠";
-            keyColor = "green";
-            type = "cpu";
-          }
-          {
-            key = "├─󰍛";
-            keyColor = "green";
-            type = "gpu";
-          }
-          {
-            key = "├─";
-            keyColor = "green";
-            type = "disk";
-          }
-          {
-            key = "├─󰑭";
-            keyColor = "green";
-            type = "memory";
-          }
-          {
-            key = "├─󰓡";
-            keyColor = "green";
-            type = "swap";
-          }
-          {
-            key = "├─󰍹";
-            keyColor = "green";
-            type = "display";
-          }
-          {
-            key = "├─󰃞";
-            keyColor = "green";
-            type = "brightness";
-          }
-          {
-            key = "├─";
-            keyColor = "green";
-            type = "battery";
-          }
-          {
-            key = "├─";
-            keyColor = "green";
-            type = "poweradapter";
-          }
-          {
-            key = "├─";
-            keyColor = "green";
-            type = "gamepad";
-          }
-          {
-            key = "├─";
-            keyColor = "green";
-            type = "bluetooth";
-          }
-          {
-            key = "╰─";
-            keyColor = "green";
-            type = "sound";
-          }
-          "break"
-          {
-            key = "╭─";
-            keyColor = "yellow";
-            type = "shell";
-          }
-          {
-            key = "├─";
-            keyColor = "yellow";
-            type = "terminal";
-          }
-          {
-            key = "├─";
-            keyColor = "yellow";
-            type = "terminalfont";
-          }
-          {
-            key = "├─󰧨";
-            keyColor = "yellow";
-            type = "lm";
-          }
-          {
-            key = "├─";
-            keyColor = "yellow";
-            type = "de";
-          }
-          {
-            key = "├─";
-            keyColor = "yellow";
-            type = "wm";
-          }
-          {
-            key = "├─󰉼";
-            keyColor = "yellow";
-            type = "theme";
-          }
-          {
-            key = "├─󰀻";
-            keyColor = "yellow";
-            type = "icons";
-          }
-          {
-            key = "╰─󱇘";
-            keyColor = "yellow";
-            type = "disk";
-            folders = "/";
-            format = "{create-time:10} ({days} days)";
-          }
-          "break"
-          {
-            format = "{user-name}@{host-name}";
-            key = "╭─";
-            keyColor = "blue";
+            format = "{user-name}";
+            key = "│ {#31} user    {#keys}│";
             type = "title";
           }
           {
-            key = "├─";
-            keyColor = "blue";
-            type = "os";
+            format = "{host-name}";
+            key = "│ {#32}󰇅 hname   {#keys}│";
+            type = "title";
           }
           {
-            key = "├─";
-            keyColor = "blue";
-            type = "kernel";
-          }
-          {
-            key = "├─󰏖";
-            keyColor = "blue";
-            type = "packages";
-          }
-          {
-            key = "├─󰅐";
-            keyColor = "blue";
+            key = "│ {#33}󰅐 uptime  {#keys}│";
             type = "uptime";
           }
           {
-            key = "├─󰝚";
-            keyColor = "blue";
-            type = "media";
+            key = "│ {#34}{icon} distro  {#keys}│";
+            type = "os";
           }
           {
-            compact = true;
-            key = "├─󰩟";
-            keyColor = "blue";
+            key = "│ {#35} kernel  {#keys}│";
+            type = "kernel";
+          }
+          {
+            key = "│ {#36}󰇄 desktop {#keys}│";
+            type = "de";
+          }
+          {
+            key = "│ {#31} term    {#keys}│";
+            type = "terminal";
+          }
+          {
+            key = "│ {#32} shell   {#keys}│";
+            type = "shell";
+          }
+          {
+            key = "│ {#33}󰃭 age     {#keys}│";
+            text = "days=$(( ($(date +%s) - $(stat -c %W /)) / 86400 )); echo $days days";
+            type = "command";
+          }
+          {
+            folders = "/";
+            key = "│ {#34}󰉉 disk    {#keys}│";
+            type = "disk";
+          }
+          {
+            key = "│ {#35} memory  {#keys}│";
+            type = "memory";
+          }
+          {
+            format = "{ipv4} ({ifname})";
+            key = "│ {#36}󰩟 network {#keys}│";
             type = "localip";
           }
           {
-            key = "├─󰩠";
-            keyColor = "blue";
-            timeout = 1000;
-            type = "publicip";
+            key = "├───────────┤";
+            type = "custom";
           }
           {
-            format = "{ssid}";
-            key = "├─";
-            keyColor = "blue";
-            type = "wifi";
+            key = "│ {#39} colors  {#keys}│";
+            symbol = "circle";
+            type = "colors";
           }
           {
-            key = "╰─";
-            keyColor = "blue";
-            type = "locale";
+            key = "╰───────────╯";
+            type = "custom";
           }
         ];
       };
-
     };
   };
 }

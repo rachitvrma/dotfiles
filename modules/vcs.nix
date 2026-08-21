@@ -5,6 +5,7 @@
       git = {
         enable = true;
         package = pkgs.gitFull;
+        lfs.enable = true;
       };
       lazygit = {
         enable = true;
@@ -56,6 +57,7 @@
       git = {
         enable = true;
         package = pkgs.gitFull;
+        lfs.enable = true;
         signing = {
           # Use GnuPG by default for signing commits
           key = "C9C615C3FD2FDB09";

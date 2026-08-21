@@ -86,6 +86,9 @@
         mkcd() {
           mkdir --parent "$1" && cd "$1"
         }
+
+        # Run fastfetch
+        fastfetch
       '';
     };
   };
