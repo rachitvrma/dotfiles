@@ -31,7 +31,7 @@
       grabKeyboardAndMouse = true;
       defaultCacheTtl = 3600;
       maxCacheTtl = 86400;
-      pinentry.package = pkgs.pinentry-curses;
+      pinentry.package = pkgs.pinentry-gnome3;
       enableSshSupport = false;
     };
   };

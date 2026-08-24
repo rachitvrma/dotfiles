@@ -41,7 +41,6 @@
 
   flake.homeModules.packages = { pkgs, ... }: {
     programs = {
-      # For autostart, I use xdg.autostart.entries module
       pandoc.enable = true;
       atool = {
         enable = true;

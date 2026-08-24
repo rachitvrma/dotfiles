@@ -1,34 +1,49 @@
 {
-  flake.nixosModules.matrix_irc = {
-    services.soju = {
-      enable = true;
-      hostName = "localhost";
-      listen = [ "irc+insecure://127.0.0.1:6667" ];
-      adminSocket.enable = true;
-    };
-  };
-  flake.homeModules.matrix_irc = { ... }: {
+  flake.homeModules.matrix_irc = { config, ... }: {
+    xdg.autostart.entries = [
+      "${config.programs.halloy.package}/share/applications/org.squidowl.halloy.desktop"
+    ];
     stylix.targets.halloy.fonts.override = {
-      sizes.applications = 14;
+      sizes.applications = 15;
     };
     programs = {
-      # For IRC
-      senpai = {
+      element-desktop = {
+        # TODO configure this
         enable = true;
-        config = {
-          # address = "irc.libera.chat";
-          address = "irc+insecure://127.0.0.1:6667";
-          nickname = "woodenAllen";
-          password-cmd = [
-            "pass"
-            "show"
-            "irc/libera"
-          ];
+      };
+      # For matrix
+      halloy = {
+        enable = true;
+        settings = {
+          servers.liberachat = {
+            password_keyring = true;
+            sasl = {
+              plain = {
+                username = "woodenAllen";
+                password_keyring = true;
+              };
+            };
+            server = "irc.libera.chat";
+            use_tls = true;
+            nickname = "woodenAllen";
+            channels = [
+              "##anime"
+              "#archlinux"
+              "#archlinux-offtopic"
+              "##chat"
+              "#gentoo"
+              "#gentoo-chat"
+              "#halloy"
+            ];
+          };
+          notifications = {
+            direct_message = {
+              sound = "peck";
+              show_toast = true;
+            };
+          };
         };
       };
-
-      # For matrix
-      # Use cinny for a minimal WebUI
       iamb = {
         enable = true;
         settings = {

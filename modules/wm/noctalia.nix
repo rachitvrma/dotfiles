@@ -91,9 +91,11 @@
 
               start = [
                 "group:g3"
+                "clock-12h"
+              ];
+              center = [
                 "workspaces"
               ];
-              center = [ "clock-12h" ];
               end = [
                 "group:g4"
                 "tray"

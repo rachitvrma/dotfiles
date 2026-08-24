@@ -1,11 +1,9 @@
-# NOTE: For per compositor settings edit that compositor's configuration
 {
   flake.nixosModules.keymap = {
     # Configure keymap in X11
     services.xserver.xkb = {
       layout = "us";
       variant = "colemak_dh";
-      # options = "ctrl:swapcaps";
       options = "caps:swapescape";
     };
 
@@ -17,7 +15,6 @@
     home.keyboard = {
       layout = "us";
       options = [
-        # "ctrl:swapcaps"
         "caps:swapescape"
       ];
       variant = "colemak_dh";
@@ -28,12 +25,8 @@
       settings = {
         "org/gnome/desktop/input-sources" = {
           xkb-options = [
-            # "ctrl:swapcaps"
             "caps:swapescape"
           ];
-        };
-        "org/gnome/desktop/interface" = {
-          # gtk-key-theme = "Emacs";
         };
       };
     };

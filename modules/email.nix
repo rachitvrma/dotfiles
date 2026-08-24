@@ -4,6 +4,9 @@
 {
   flake.homeModules.email = { pkgs, ... }: {
 
+    services.pass-secret-service = {
+      enable = true;
+    };
     programs = {
       password-store = {
         enable = true;

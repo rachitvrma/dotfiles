@@ -36,6 +36,7 @@
         defaultApplications = {
           "image/jpeg" = "swayimg.desktop";
           "video/*" = "mpv.desktop";
+          "application/vnd.comicbook+zip" = "org.pwmt.zathura.desktop";
         };
       };
       portal = {

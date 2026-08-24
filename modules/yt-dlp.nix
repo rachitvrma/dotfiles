@@ -54,7 +54,7 @@
           "stderr:always"
         ];
         downloader = "aria2c";
-        downloader-args = "aria2c:'-c -j16 -x16 -s16 -k512K --async-dns=false --conf-path=/dev/null --user-agent=Mozilla/5.0'";
+        downloader-args = "aria2c:'-c -j16 -x16 -s16 -k1M --async-dns=false --conf-path=/dev/null --user-agent=Mozilla/5.0'";
         force-ipv4 = true;
         embed-thumbnail = true;
         embed-metadata = true;

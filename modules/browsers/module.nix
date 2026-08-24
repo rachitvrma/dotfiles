@@ -295,6 +295,18 @@
                   keyword = "x";
                   url = "https://x.com/home";
                 }
+                # Youtube
+                {
+                  name = "YouTube";
+                  keyword = "yt";
+                  url = "https://www.youtube.com/";
+                }
+                # Web Based Matrix client
+                {
+                  name = "Cinny";
+                  keyword = "cinny";
+                  url = "https://app.cinny.in/home/";
+                }
               ];
             };
             containers = {

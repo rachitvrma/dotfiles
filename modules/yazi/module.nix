@@ -121,9 +121,19 @@
         };
         # The opener.
         opener = {
+          # cbz and cbr files don't open with zathura
+          read = [
+            {
+              run = "zathura %s1";
+              orphan = true;
+              for = "unix";
+            }
+          ];
+
+          # Use xdg-open as the default opener
           open = [
             {
-              run = "xdg-open %s";
+              run = "xdg-open %s1";
               desc = "Open";
             }
           ];
@@ -146,6 +156,7 @@
         };
         open = {
           prepend_rules = [
+            # Enable subtitles for the currently playing video in MPV
             {
               url = "*.{ass,srt,ssa,sty,sup,vtt}";
               use = [
@@ -153,13 +164,27 @@
                 "edit"
               ];
             }
-
             # Use set-wallpaper as an opener for images
             {
               mime = "image/*";
               use = [
                 "set-wallpaper"
                 "open"
+              ];
+            }
+            # Use the read rule for certain filetypes
+            {
+              url = "*.cbz";
+              use = [
+                "read"
+                "reveal"
+              ];
+            }
+            {
+              url = "*.cbr";
+              use = [
+                "read"
+                "reveal"
               ];
             }
           ];

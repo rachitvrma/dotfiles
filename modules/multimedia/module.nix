@@ -133,6 +133,52 @@
       };
 
       programs = {
+        cliamp = {
+          enable = true;
+          settings = {
+            eq = [
+              "-2"
+              "0"
+              "0"
+              "0"
+              "0"
+              "0"
+              "0"
+              "0"
+              "0"
+              "0"
+            ];
+            eq_preset = "Custom";
+            theme = "stylix";
+            visualizer = "Bricks";
+            ytmusic = {
+              enabled = true;
+            };
+          };
+          radios = {
+            station = [
+              {
+                name = "Jazz FM";
+                url = "https://jazz.example.com/stream";
+              }
+              {
+                name = "Ambient Radio";
+                url = "https://ambient.example.com/stream.m3u";
+              }
+            ];
+          };
+          themes = {
+            stylix = with config.lib.stylix.colors.withHashtag; {
+              bg = base00;
+              accent = base0D;
+              bright_fg = base05;
+              fg = base0C;
+              green = base0B;
+              yellow = base0A;
+              red = base08;
+            };
+          };
+        };
         rmpc = {
           enable = true;
           config = builtins.replaceStrings [ "catppuccin-mocha" ] [ "theme" ] (
@@ -215,6 +261,7 @@
             border = "no";
             save-position-on-quit = "yes";
             input-ipc-server = "/tmp/mpv.sock";
+            ytdl-raw-options = ''cookies-from-browser=firefox,extractor-args="youtube:player_client=mweb"'';
           };
         };
       };
