@@ -108,7 +108,6 @@
       gitingest
       wl-clipboard
       unzip
-      gophertube
       kotatogram-desktop
     ];
   };

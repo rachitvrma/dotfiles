@@ -1,96 +1,103 @@
--- Leader keybindings utilising the mini keybindings
-local nmap_leader = function(suffix, rhs, desc)
-  vim.keymap.set('n', '<Leader>' .. suffix, rhs, { desc = desc })
-end
-local xmap_leader = function(suffix, rhs, desc)
-  vim.keymap.set('x', '<Leader>' .. suffix, rhs, { desc = desc })
-end
+do
+  -- [[ Basic Keymaps ]]
+  --  See `:help vim.keymap.set()`
 
--- Buffer related keymaps
-nmap_leader('bd', '<Cmd>lua MiniBufremove.delete()<CR>', 'Delete')
-nmap_leader('bw', '<Cmd>lua MiniBufremove.wipeout()<CR>', 'Wipeout')
--- Pick open buffers, <Tab> for preview (mini.pick's default toggle_preview mapping)
-nmap_leader('bb', function()
-  local wipeout_cur = function()
-    MiniBufremove.wipeout(MiniPick.get_picker_matches().current.bufnr)
-  end
-  MiniPick.builtin.buffers(
-    {},
-    { mappings = { wipeout = { char = '<C-d>', func = wipeout_cur } } }
+  -- Clear highlights on search when pressing <Esc> in normal mode
+  --  See `:help hlsearch`
+  vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+  -- Diagnostic Config & Keymaps
+  --  See `:help vim.diagnostic.Opts`
+  vim.diagnostic.config({
+    update_in_insert = false,
+    severity_sort = true,
+    float = { border = 'rounded', source = 'if_many' },
+    underline = { severity = { min = vim.diagnostic.severity.WARN } },
+
+    -- Can switch between these as you prefer
+    virtual_text = true, -- Text shows up at the end of the line
+    virtual_lines = false, -- Text shows up underneath the line, with virtual lines
+
+    -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
+    jump = {
+      on_jump = function(_, bufnr)
+        vim.diagnostic.open_float({
+          bufnr = bufnr,
+          scope = 'cursor',
+          focus = false,
+        })
+      end,
+    },
+  })
+
+  vim.keymap.set(
+    'n',
+    '<leader>q',
+    vim.diagnostic.setloclist,
+    { desc = 'Open diagnostic [Q]uickfix list' }
   )
-end, 'Buffers')
 
-nmap_leader('lf', '<Cmd>lua vim.lsp.buf.format()<CR>', 'Format')
-xmap_leader('lf', '<Cmd>lua vim.lsp.buf.format()<CR>', 'Format')
-nmap_leader('lr', '<Cmd>lua vim.lsp.buf.rename()<CR>', 'Rename')
-nmap_leader('lR', '<Cmd>lua vim.lsp.buf.references()<CR>', 'References')
+  -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
+  -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
+  -- is not what someone will guess without a bit more experience.
+  --
+  -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
+  -- or just use <C-\><C-n> to exit terminal mode
+  vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- New file
-nmap_leader('fe', function()
-  vim.ui.input({ prompt = 'New file: ', completion = 'file' }, function(name)
-    if name and name ~= '' then vim.cmd.edit(name) end
-  end)
-end, 'New file')
+  -- TIP: Disable arrow keys in normal mode
+  -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
+  -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
+  -- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
+  -- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
--- Find file
-nmap_leader('ff', function() MiniPick.builtin.files() end, 'Find file')
+  -- Keybinds to make split navigation easier.
+  --  Use CTRL+<hjkl> to switch between windows
+  --
+  --  See `:help wincmd` for a list of all window commands
+  vim.keymap.set(
+    'n',
+    '<C-h>',
+    '<C-w><C-h>',
+    { desc = 'Move focus to the left window' }
+  )
+  vim.keymap.set(
+    'n',
+    '<C-l>',
+    '<C-w><C-l>',
+    { desc = 'Move focus to the right window' }
+  )
+  vim.keymap.set(
+    'n',
+    '<C-j>',
+    '<C-w><C-j>',
+    { desc = 'Move focus to the lower window' }
+  )
+  vim.keymap.set(
+    'n',
+    '<C-k>',
+    '<C-w><C-k>',
+    { desc = 'Move focus to the upper window' }
+  )
 
--- Recently opened files
-nmap_leader('fh', function() MiniExtra.pickers.oldfiles() end, 'Recent files')
+  -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
+  -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
+  -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
+  -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
+  -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
--- Frequency / MRU (mini.visits' default sort is frecency: frequency + recency combined)
-nmap_leader('fr', function() MiniExtra.pickers.visit_paths() end, 'Frecent files')
+  -- [[ Basic Autocommands ]]
+  --  See `:help lua-guide-autocommands`
 
--- Find word — live ripgrep search
-nmap_leader('fg', function() MiniPick.builtin.grep_live() end, 'Find word (rg)')
-
--- Jump to bookmarks — Vim marks, via mini.extra
-nmap_leader('fm', function() MiniExtra.pickers.marks() end, 'Jump to bookmark')
-
--- Open last session
-nmap_leader('sl', function()
-  local latest_name, latest_time = nil, -1
-  for name, data in pairs(MiniSessions.detected) do
-    if data.modify_time > latest_time then
-      latest_name, latest_time = name, data.modify_time
-    end
-  end
-  if latest_name then
-    MiniSessions.read(latest_name)
-  else
-    vim.notify('No sessions found', vim.log.levels.WARN)
-  end
-end, 'Open last session')
-
--- MiniFiles toggle at the current directory
-vim.keymap.set('n', '<leader>e', function()
-  local mini_files = require('mini.files')
-  if not mini_files.close() then mini_files.open(vim.api.nvim_buf_get_name(0)) end
-end, { desc = 'Toggle file explorer' })
-
--- Dropbar related keymaps
-local dropbar_api = require('dropbar.api')
-
-vim.keymap.set(
-  'n',
-  '<Leader>;',
-  dropbar_api.pick,
-  { desc = 'Pick breadcrumb symbol' }
-)
-vim.keymap.set(
-  'n',
-  '[;',
-  dropbar_api.goto_context_start,
-  { desc = 'Go to context start' }
-)
-vim.keymap.set(
-  'n',
-  '];',
-  dropbar_api.select_next_context,
-  { desc = 'Select next context' }
-)
-
-nmap_leader('z', function() require('mini.misc').zoom() end, 'Zoom window')
-
--- Mini.Map for a sideview
-nmap_leader('m', function() require('mini.map').toggle() end, 'Toggle map')
+  -- Highlight when yanking (copying) text
+  --  Try it with `yap` in normal mode
+  --  See `:help vim.hl.on_yank()`
+  vim.api.nvim_create_autocmd('TextYankPost', {
+    desc = 'Highlight when yanking (copying) text',
+    group = vim.api.nvim_create_augroup(
+      'kickstart-highlight-yank',
+      { clear = true }
+    ),
+    callback = function() vim.hl.on_yank() end,
+  })
+end

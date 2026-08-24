@@ -2,6 +2,7 @@
   flake.homeModules.matrix_irc = { config, ... }: {
     xdg.autostart.entries = [
       "${config.programs.halloy.package}/share/applications/org.squidowl.halloy.desktop"
+      "${config.programs.element-desktop.package}/share/applications/element-desktop.desktop"
     ];
     stylix.targets.halloy.fonts.override = {
       sizes.applications = 15;
@@ -69,7 +70,6 @@
             ];
             notifications = {
               enabled = true;
-              sound_hint = "message-new-instant";
               via = "desktop";
               show_message = true;
             };

@@ -1,62 +1,30 @@
 do
-  -- Enable faster startup by caching compiled Lua modules
   vim.loader.enable()
+  -- Set <space> as the leader key
+  -- See `:help mapleader`
+  --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+  vim.g.mapleader = ' '
+  vim.g.maplocalleader = ' '
 
-  local opt = vim.opt
+  -- Set to true if you have a Nerd Font installed and selected in the terminal
+  vim.g.have_nerd_font = false
 
-  -- title
-  opt.title = true
+  -- [[ Setting options ]]
+  --  See `:help vim.o`
+  -- NOTE: You can change these options as you wish!
+  --  For more options, you can see `:help option-list`
 
-  -- Enable mouse mode, can be useful when resizing nvim splits!
-  opt.mouse = 'a'
+  -- Make line numbers default
+  vim.o.number = true
+  -- You can also add relative line numbers, to help with jumping.
+  --  Experiment for yourself to see if you like it!
+  -- vim.o.relativenumber = true
 
-  -- Don't show the mode since it's already in the status line
-  opt.showmode = false
+  -- Enable mouse mode, can be useful for resizing splits for example!
+  vim.o.mouse = 'a'
 
-  -- Line numbers
-  opt.number = true
-  opt.relativenumber = true
-
-  -- Ruler
-  opt.ruler = true
-  opt.textwidth = 80
-  opt.colorcolumn = '80,120'
-
-  -- Indentation
-  opt.tabstop = 2
-  opt.shiftwidth = 2
-  opt.expandtab = true
-  -- opt.smartindent = true -- Doesn't work with treesitter indent
-
-  -- UI
-  opt.termguicolors = true
-  opt.signcolumn = 'yes' -- always show gutter (prevents layout shift)
-  opt.cursorline = true
-  opt.scrolloff = 10 -- keep 10 lines above/below cursor
-  opt.wrap = false
-
-  -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
-  -- instead raise a dialog asking if you wish to save the current file(s)
-  -- See `:help 'confirm'`
-  opt.confirm = true
-
-  -- Search
-  opt.ignorecase = true
-  opt.smartcase = true
-  opt.hlsearch = false
-  opt.incsearch = true
-
-  -- Splits
-  opt.splitright = true
-  opt.splitbelow = true
-
-  -- Misc
-  opt.undofile = true -- persistent undo
-  opt.swapfile = false
-  opt.updatetime = 250 -- faster diagnostics
-
-  -- Decrease mapped sequence wait time
-  opt.timeoutlen = 300
+  -- Don't show the mode, since it's already in the status line
+  vim.o.showmode = false
 
   -- Sync clipboard between OS and Neovim.
   --  Schedule the setting after `UiEnter` because it can increase startup-time.
@@ -65,56 +33,52 @@ do
   vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 
   -- Enable break indent
-  opt.breakindent = true
+  vim.o.breakindent = true
 
-  -- Preview substitution live, as you type!
-  opt.inccommand = 'split'
+  -- Enable undo/redo changes even after closing and reopening a file
+  vim.o.undofile = true
 
-  -- Clear the ~ signs in the gutter for newlines
-  opt.fillchars = {
-    eob = ' ',
-  }
-  opt.list = true
-  opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+  -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+  vim.o.ignorecase = true
+  vim.o.smartcase = true
 
-  -- Treesitter setup
-  vim.api.nvim_create_autocmd('FileType', {
-    callback = function()
-      if pcall(vim.treesitter.start) then
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-      end
-    end,
-    desc = 'Start treesitter parsing and indent',
-  })
+  -- Keep signcolumn on by default
+  vim.o.signcolumn = 'yes'
 
-  local function clear_gutter_bg()
-    local groups = {
-      'LineNr',
-      'LineNrAbove',
-      'LineNrBelow',
-      'CursorLineNr',
-      'SignColumn',
-      'FoldColumn',
-    }
-    for _, group in ipairs(groups) do
-      local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
-      hl.bg = nil
-      ---@cast hl any
-      vim.api.nvim_set_hl(0, group, hl)
-    end
-  end
-  clear_gutter_bg()
+  -- Decrease update time
+  vim.o.updatetime = 250
 
-  vim.api.nvim_create_autocmd('ColorScheme', {
-    callback = clear_gutter_bg,
-  })
+  -- Decrease mapped sequence wait time
+  vim.o.timeoutlen = 300
 
-  vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(args)
-      local bufname = vim.api.nvim_buf_get_name(args.buf)
-      if bufname:match('maintainer%-list%.nix$') then
-        vim.lsp.buf_detach_client(args.buf, args.data.client_id)
-      end
-    end,
-  })
+  -- Configure how new splits should be opened
+  vim.o.splitright = true
+  vim.o.splitbelow = true
+
+  -- Sets how neovim will display certain whitespace characters in the editor.
+  --  See `:help 'list'`
+  --  and `:help 'listchars'`
+  --
+  --  Notice listchars is set using `vim.opt` instead of `vim.o`.
+  --  It is very similar to `vim.o` but offers an interface for conveniently interacting with tables.
+  --   See `:help lua-options`
+  --   and `:help lua-guide-options`
+  vim.o.list = true
+  vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+  -- Preview substitutions live, as you type!
+  vim.o.inccommand = 'split'
+
+  -- Show which line your cursor is on
+  vim.o.cursorline = true
+
+  -- Minimal number of screen lines to keep above and below the cursor.
+  vim.o.scrolloff = 10
+
+  -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
+  -- instead raise a dialog asking if you wish to save the current file(s)
+  -- See `:help 'confirm'`
+  vim.o.confirm = true
+
+  vim.opt.termguicolors = true
 end

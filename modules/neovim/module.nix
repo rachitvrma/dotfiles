@@ -11,159 +11,169 @@
     };
   };
 
-  flake.homeModules.neovim = { pkgs, ... }: {
-    programs = {
-      neovim = {
-        enable = true;
-        sideloadInitLua = true;
-        defaultEditor = true;
-        withNodeJs = true;
-        viAlias = true;
-        vimAlias = true;
-        vimdiffAlias = true;
-        waylandSupport = true;
-        # For lazydev setup
-        initLua = ''
-          vim.g.luvit_meta_path = "${pkgs.vimPlugins.luvit-meta}"
-        '';
-        withPython3 = true;
-        plugins =
-          let
-            startPlugins = with pkgs.vimPlugins; [
-              conform-nvim # Auto format code
-              dropbar-nvim # IDE-Like Breadcrumbs
-              grug-far-nvim # find and replace
-              image-nvim # image in neovim
-              nvim-lspconfig # Lspconfig contains prebuilt configurations
+  flake.homeModules.neovim =
+    { pkgs, config, ... }:
+    let
+      colors = config.lib.stylix.colors.withHashtag;
+    in
+    {
+      # NOTE: There's a PR to use tinted-nvim rather than mini.base16
+      # When it's merged, just use it.
+      stylix.targets.neovim.enable = false;
 
-              # Neovim Configuration
-              lazydev-nvim
-              luvit-meta
+      programs = {
+        # NOTE: This is custom module.
+        stylua = {
+          enable = true;
+          settings = {
+            call_parentheses = "Always";
+            collapse_simple_statement = "Always";
+            column_width = 85;
+            indent_type = "Spaces";
+            indent_width = 2;
+            line_endings = "Unix";
+            quote_style = "AutoPreferSingle";
+          };
+        };
 
-              lz-n # for lazy-loading plugins
-              lzn-auto-require # auto-require lazy-loaded specs
+        neovim = {
+          enable = true;
+          sideloadInitLua = true;
+          defaultEditor = true;
+          withNodeJs = true;
+          viAlias = true;
+          vimAlias = true;
+          vimdiffAlias = true;
+          waylandSupport = true;
+          # For lazydev setup
+          initLua = /* lua */ ''
+            vim.g.luvit_meta_path = "${pkgs.vimPlugins.luvit-meta}"
 
-              # Preview markdown in browser
-              markdown-preview-nvim
+            -- This is for C/C++ development
+            vim.g.codelldb_path = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb"
 
-              # Mini ecosystem
-              mini-ai # Better textobjects (Don't know what that means)
-              mini-align
-              mini-animate
-              mini-basics
-              mini-bracketed
-              mini-bufremove
-              mini-clue
-              mini-cmdline
-              mini-comment
-              mini-completion # Completion Engine
-              mini-cursorword
-              mini-diff
-              mini-doc
-              mini-extra
-              mini-files
-              mini-fuzzy
-              mini-git
-              mini-hipatterns
-              mini-icons
-              mini-input
-              mini-indentscope
-              mini-operators
-              mini-jump
-              mini-jump2d
-              mini-keymap
-              mini-map
-              mini-misc
-              mini-move
-              mini-notify
-              mini-pairs
-              mini-pick
-              mini-sessions
-              mini-snippets
-              mini-splitjoin
-              mini-starter # replaced by alpha.nvim
-              mini-statusline
-              mini-surround
-              mini-tabline
-              mini-trailspace
-              mini-visits
+            vim.g.stylix_colors = {
+              base00 = "${colors.base00}",
+              base01 = "${colors.base01}",
+              base02 = "${colors.base02}",
+              base03 = "${colors.base03}",
+              base04 = "${colors.base04}",
+              base05 = "${colors.base05}",
+              base06 = "${colors.base06}",
+              base07 = "${colors.base07}",
+              base08 = "${colors.base08}",
+              base09 = "${colors.base09}",
+              base0A = "${colors.base0A}",
+              base0B = "${colors.base0B}",
+              base0C = "${colors.base0C}",
+              base0D = "${colors.base0D}",
+              base0E = "${colors.base0E}",
+              base0F = "${colors.base0F}",
+            }
+          '';
+          withPython3 = true;
+          plugins =
+            let
+              startPlugins = with pkgs.vimPlugins; [
+                aerial-nvim # For function and navigation and stuff
+                blink-cmp # Completion engine
+                bufferline-nvim # For a list of tabs and buffers
+                conform-nvim # For formatting
+                fidget-nvim # For lsp notifications
+                gitsigns-nvim # See git info in the colorcolumn
+                guess-indent-nvim # Does what the name says
+                indent-blankline-nvim # Does what it says
+                lazydev-nvim # Neovim Configuration stuff
+                lualine-nvim # For a good status bar
+                luasnip # For snippet generation
+                luvit-meta # NeoVim configuration
+                lz-n # for lazy-loading plugins
+                lzn-auto-require # auto-require lazy-loaded specs
 
-              project-nvim
+                # NOTE: Neo-tree lazily loads itself
+                neo-tree-nvim # For a good filemanager
 
-              SchemaStore-nvim
+                nvim-autopairs # Autopairs
+                nvim-dap
+                nvim-dap-ui
+                nvim-highlight-colors
+                nvim-lint
+                nvim-lspconfig # Lspconfig contains prebuilt configurations
+                nvim-notify # A notification plugin
+                nvim-web-devicons # For icons
+                rainbow-delimiters-nvim # For delimiters of course
+                SchemaStore-nvim # JSON Schemas for neovim
 
-              rainbow-delimiters-nvim
-              trouble-nvim
-            ];
+                # The beast is here
+                telescope-nvim
+                telescope-ui-select-nvim
 
-            treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (
-              p: with p; [
-                bash
-                c
-                cpp
-                html
-                json
-                kdl
-                lua
-                markdown
-                markdown_inline
-                nix
-                ron
-                toml
-                yaml
-              ]
-            );
+                tinted-nvim
+                todo-comments-nvim
+                which-key-nvim
+              ];
 
-            optPlugins = with pkgs.vimPlugins; [
-              # Markdown stack
-              mkdnflow-nvim
-              render-markdown-nvim
-            ];
-          in
-          startPlugins
-          ++ [ treesitter ]
-          ++ map (plugin: {
-            inherit plugin;
-            optional = true;
-          }) optPlugins;
+              treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (
+                p: with p; [
+                  bash
+                  c
+                  cpp
+                  html
+                  json
+                  kdl
+                  lua
+                  markdown
+                  markdown_inline
+                  nix
+                  ron
+                  toml
+                  yaml
+                ]
+              );
 
-        extraLuaPackages = ps: with ps; [ magick ];
-        extraPackages = with pkgs; [
-          vscode-json-languageserver
+              optPlugins = with pkgs.vimPlugins; [
+                trouble-nvim # For diagnostics management
+              ];
+            in
+            startPlugins
+            ++ [ treesitter ]
+            ++ map (plugin: {
+              inherit plugin;
+              optional = true;
+            }) optPlugins;
 
-          # grug-far needs this
-          ast-grep
+          extraLuaPackages = ps: with ps; [ magick ];
+          extraPackages = with pkgs; [
+            # Nix stack
+            nixd
+            nixfmt
 
-          # Nix stack
-          nixd
-          nixfmt
+            # Lua stack
+            lua-language-server
+            stylua
 
-          # Lua stack
-          lua-language-server
-          stylua
+            # Bash/Shell scripts stack
+            bash-language-server
+            shfmt
+            shellcheck
 
-          # Bash/Shell scripts stack
-          bash-language-server
-          shfmt
-          shellcheck
+            # C/C++ stack
+            clang-tools
 
-          # C/C++ stack
-          clang-tools
+            # Shell tools
+            ripgrep
+            fd
 
-          # Shell tools
-          ripgrep
-          fd
+            taplo # for toml
 
-          imagemagick # image.nvim stack
+            markdownlint-cli2
+          ];
+        };
+      };
 
-          taplo # for toml
-        ];
+      xdg.configFile."nvim" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/etc/nixos/modules/neovim/nvim";
+        recursive = true;
       };
     };
-
-    xdg.configFile."nvim" = {
-      source = ./nvim;
-      recursive = true;
-    };
-  };
 }
