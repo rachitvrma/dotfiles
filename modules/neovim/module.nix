@@ -80,6 +80,7 @@
               startPlugins = with pkgs.vimPlugins; [
                 aerial-nvim # For function and navigation and stuff
                 blink-cmp # Completion engine
+                bufferline-nvim # Tabline plugin
                 conform-nvim # For formatting
                 dropbar-nvim # Breadcrumbs for neovim
                 gitsigns-nvim # See git info in the colorcolumn
@@ -92,8 +93,8 @@
                 lz-n # for lazy-loading plugins
                 lzn-auto-require # auto-require lazy-loaded specs
                 mini-icons # For extra set of icons
-                mini-tabline # For a tabline
 
+                neovim-project # Better project management and navigation
                 nvim-autopairs # Autopairs
                 nvim-dap
                 nvim-dap-ui
