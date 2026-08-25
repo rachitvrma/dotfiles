@@ -5,7 +5,8 @@
       gvfs = {
         enable = true;
       };
-      gnome.gnome-keyring.enable = true;
+      # I am using pass-secret-service already
+      # gnome.gnome-keyring.enable = true;
       playerctld.enable = true;
       devmon.enable = true;
     };

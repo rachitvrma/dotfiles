@@ -457,6 +457,31 @@
                   ];
                   definedAliases = [ "@rsslkup" ];
                 };
+
+                # Search musicbrainz for music database
+                musicbrainz = {
+                  name = "Music Brainz";
+                  urls = [
+                    {
+                      template = "https://musicbrainz.org/search";
+                      params = [
+                        {
+                          name = "query";
+                          value = "{searchTerms}";
+                        }
+                        {
+                          name = "type";
+                          value = "artist";
+                        }
+                        {
+                          name = "method";
+                          value = "indexed";
+                        }
+                      ];
+                    }
+                  ];
+                  definedAliases = [ "@mb" ];
+                };
               };
             };
           };

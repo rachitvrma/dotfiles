@@ -81,4 +81,16 @@ do
   vim.o.confirm = true
 
   vim.opt.termguicolors = true
+
+  vim.opt.autowrite = true -- Enable auto write
+
+  vim.opt.completeopt = 'menu,menuone,noselect'
+
+  vim.opt.expandtab = true -- Use spaces instead of tabs
+
+  vim.opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
+
+  vim.opt.linebreak = true -- Wrap lines at convenient points
+
+  vim.opt.jumpoptions = 'view'
 end

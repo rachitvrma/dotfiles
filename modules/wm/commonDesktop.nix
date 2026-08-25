@@ -1,9 +1,11 @@
 {
   flake.nixosModules.commonDesktop = { ... }: {
+    services.xserver.updateDbusEnvironment = true;
     security = {
       polkit.enable = true;
       pam.services = {
         greetd.enableGnomeKeyring = true;
+        login.enableGnomeKeyring = true;
       };
     };
   };

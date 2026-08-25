@@ -17,12 +17,15 @@
       colors = config.lib.stylix.colors.withHashtag;
     in
     {
-      # NOTE: There's a PR to use tinted-nvim rather than mini.base16
-      # When it's merged, just use it.
+      # NOTE: there's a pr to use tinted-nvim rather than mini.base16
+      # when it's merged, just use it.
       stylix.targets.neovim.enable = false;
 
+      # Snacks.nvim needs this for the Snacks.picker.cliphist()
+      services.cliphist.enable = true;
+
       programs = {
-        # NOTE: This is custom module.
+        # NOTE: this is custom module.
         stylua = {
           enable = true;
           settings = {
@@ -77,21 +80,19 @@
               startPlugins = with pkgs.vimPlugins; [
                 aerial-nvim # For function and navigation and stuff
                 blink-cmp # Completion engine
-                bufferline-nvim # For a list of tabs and buffers
                 conform-nvim # For formatting
-                fidget-nvim # For lsp notifications
+                dropbar-nvim # Breadcrumbs for neovim
                 gitsigns-nvim # See git info in the colorcolumn
                 guess-indent-nvim # Does what the name says
-                indent-blankline-nvim # Does what it says
                 lazydev-nvim # Neovim Configuration stuff
+                nvim-lightbulb # Just a lightbulb symbol
                 lualine-nvim # For a good status bar
                 luasnip # For snippet generation
                 luvit-meta # NeoVim configuration
                 lz-n # for lazy-loading plugins
                 lzn-auto-require # auto-require lazy-loaded specs
-
-                # NOTE: Neo-tree lazily loads itself
-                neo-tree-nvim # For a good filemanager
+                mini-icons # For extra set of icons
+                mini-tabline # For a tabline
 
                 nvim-autopairs # Autopairs
                 nvim-dap
@@ -99,18 +100,18 @@
                 nvim-highlight-colors
                 nvim-lint
                 nvim-lspconfig # Lspconfig contains prebuilt configurations
-                nvim-notify # A notification plugin
-                nvim-web-devicons # For icons
                 rainbow-delimiters-nvim # For delimiters of course
                 SchemaStore-nvim # JSON Schemas for neovim
 
-                # The beast is here
-                telescope-nvim
-                telescope-ui-select-nvim
-
                 tinted-nvim
                 todo-comments-nvim
-                which-key-nvim
+
+                snacks-nvim # QoL plugins
+              ];
+
+              optPlugins = with pkgs.vimPlugins; [
+                trouble-nvim # For diagnostics management
+                which-key-nvim # It can be lazy-loaded using lz.n
               ];
 
               treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (
@@ -130,10 +131,6 @@
                   yaml
                 ]
               );
-
-              optPlugins = with pkgs.vimPlugins; [
-                trouble-nvim # For diagnostics management
-              ];
             in
             startPlugins
             ++ [ treesitter ]

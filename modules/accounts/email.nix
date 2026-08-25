@@ -2,8 +2,10 @@
 # https://github.com/nix-community/home-manager/pull/9794
 # TODO: Also make a PR for ortie, pimalaya's own OAuth agent
 {
+  flake.nixosModules.pass = { ... }: {
+    services.passSecretService.enable = true;
+  };
   flake.homeModules.email = { pkgs, ... }: {
-
     services.pass-secret-service = {
       enable = true;
     };
