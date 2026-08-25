@@ -1,5 +1,6 @@
 do
   vim.opt.winborder = 'rounded'
+  vim.opt.pumborder = 'rounded' -- adds border to mini.completion windows
 
   require('vim._core.ui2').enable({
 

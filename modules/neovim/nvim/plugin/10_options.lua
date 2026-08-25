@@ -35,6 +35,9 @@ do
   -- Enable break indent
   vim.o.breakindent = true
 
+  vim.o.smartindent = true
+  vim.o.autoindent = true
+
   -- Enable undo/redo changes even after closing and reopening a file
   vim.o.undofile = true
 
@@ -93,4 +96,28 @@ do
   vim.opt.linebreak = true -- Wrap lines at convenient points
 
   vim.opt.jumpoptions = 'view'
+
+  vim.g.markdown_recommended_style = 0 -- Default forces shiftwidth=4
+  vim.opt.shiftwidth = 2
+  vim.opt.tabstop = 2 -- Number of spaces tabs count for
+  vim.opt.softtabstop = 2
+
+  vim.opt.grepprg = 'rg --vimgrep'
+  vim.opt.grepformat = '%f:%l:%c:%m'
+
+  vim.opt.shiftround = true -- `>>`/`<<` round to a multiple of shiftwidth
+  vim.opt.smoothscroll = true -- pixel-smooth <C-d>/<C-u>/scroll, not line-jumps
+  vim.opt.sidescrolloff = 8 -- Columns of context
+  vim.opt.splitkeep = 'screen' -- new splits don't shift existing text on screen
+  vim.opt.undolevels = 10000 -- pairs naturally with your existing undofile=true
+  vim.opt.virtualedit = 'block' -- cursor can move past EOL, but only in visual-block mode
+  vim.opt.wildmode = 'longest:full,full' -- saner cmdline Tab-completion
+  vim.opt.winminwidth = 5
+  vim.opt.pumblend = 10
+  vim.opt.pumheight = 10
+  vim.opt.shortmess:append({ W = true, I = true, c = true })
+
+  vim.opt.formatoptions = 'jcroqlnt' -- worth it. Default is tcqj; the extra flags add: r/o (auto-continue comment leader on <CR>/o/O), l (don't hard-wrap long lines while typing), n (recognize numbered-list indents for gq)
+
+  vim.opt.laststatus = 3 -- one global statusline instead of one per split
 end

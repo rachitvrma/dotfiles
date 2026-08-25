@@ -1,23 +1,97 @@
+-- NOTE: Using the 'startup' option in dashboard will result in error because it requires lazy.nvim libraries, which I am not gonna install.
 do
   require('snacks').setup({
     -- your configuration comes here
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
     bigfile = { enabled = true },
+    terminal = { enabled = true },
     dashboard = {
       enabled = true,
-      -- The section is like this so that lazy.stats is not sourced
-      -- removing this section might lead to error of not being able to find
-      -- lazy.nvim package manager
+      preset = {
+        keys = {
+          {
+            icon = ' ',
+            key = 'f',
+            desc = 'Find File',
+            action = ":lua Snacks.dashboard.pick('files')",
+          },
+          {
+            icon = ' ',
+            key = 'n',
+            desc = 'New File',
+            action = ':ene | startinsert',
+          },
+          {
+            icon = ' ',
+            key = 'p',
+            desc = 'Projects',
+            action = ":lua Snacks.dashboard.pick('projects')",
+          },
+          {
+            icon = ' ',
+            key = 'g',
+            desc = 'Find Text',
+            action = ":lua Snacks.dashboard.pick('live_grep')",
+          },
+          {
+            icon = ' ',
+            key = 'r',
+            desc = 'Recent Files',
+            action = ":lua Snacks.dashboard.pick('oldfiles')",
+          },
+          {
+            icon = ' ',
+            key = 'c',
+            desc = 'Config',
+            action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+          },
+          { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
+        },
+      },
       sections = {
         { section = 'header' },
+        {
+          pane = 2,
+          section = 'terminal',
+          cmd = 'colorscript -e square',
+          height = 5,
+          padding = 1,
+        },
         { section = 'keys', gap = 1, padding = 1 },
-        -- no 'startup' section — that's the one that requires lazy.stats
-        { section = 'recent_files', limit = 8, padding = 1 },
-        { section = 'projects', limit = 5, padding = 1 },
+        {
+          pane = 2,
+          icon = ' ',
+          title = 'Recent Files',
+          section = 'recent_files',
+          indent = 2,
+          padding = 1,
+        },
+        {
+          pane = 2,
+          icon = ' ',
+          title = 'Projects',
+          section = 'projects',
+          indent = 2,
+          padding = 1,
+        },
+        {
+          pane = 2,
+          icon = ' ',
+          title = 'Git Status',
+          section = 'terminal',
+          enabled = function() return Snacks.git.get_root() ~= nil end,
+          cmd = 'git status --short --branch --renames',
+          height = 5,
+          padding = 1,
+          ttl = 5 * 60,
+          indent = 3,
+        },
       },
     },
     explorer = { enabled = true },
+    gitbrowse = { enabled = true },
+    image = { enabled = true },
     indent = { enabled = true },
     input = { enabled = true },
     lazygit = { enabled = true },
@@ -35,7 +109,8 @@ do
     statuscolumn = { enabled = true },
     words = { enabled = true },
   })
-  vim.keymap.set(
+
+  Snacks.keymap.set(
     'n',
     '<leader>e',
     function() Snacks.explorer() end,
@@ -43,27 +118,27 @@ do
   )
 
   -- Jump to references
-  vim.keymap.set(
+  Snacks.keymap.set(
     'n',
     ']]',
     function() Snacks.words.jump(1) end,
     { desc = 'Next reference' }
   )
-  vim.keymap.set(
+  Snacks.keymap.set(
     'n',
     '[[',
     function() Snacks.words.jump(-1) end,
     { desc = 'Prev reference' }
   )
   -- Use Lazygit without lazygit.nvim
-  vim.keymap.set(
+  Snacks.keymap.set(
     'n',
     '<leader>lg',
     function() Snacks.lazygit.open() end,
     { desc = '[L]azy [G]it' }
   )
   -- Use cliphist for a list of clips
-  vim.keymap.set(
+  Snacks.keymap.set(
     'n',
     '<leader>p',
     function() Snacks.picker.cliphist() end,
@@ -116,16 +191,50 @@ do
   })
 
   -- Keymap for scratch buffers
-  vim.keymap.set(
+  Snacks.keymap.set(
     'n',
     '<leader>.',
     function() Snacks.scratch() end,
     { desc = 'Toggle Scratch Buffer' }
   )
-  vim.keymap.set(
+  Snacks.keymap.set(
     'n',
     '<leader>S',
     function() Snacks.scratch.select() end,
     { desc = 'Select Scratch Buffer' }
   )
+
+  -- Quickly choose buffers
+  Snacks.keymap.set(
+    'n',
+    '<leader><leader>',
+    function() Snacks.picker.buffers() end,
+    { desc = 'Buffer list' }
+  )
+
+  -- SEARCHes
+  -- See all the keymaps
+  Snacks.keymap.set(
+    'n',
+    '<leader>k',
+    function() Snacks.picker.keymaps() end,
+    { desc = '[K]eymaps' }
+  )
+  -- Search for files
+  Snacks.keymap.set(
+    'n',
+    '<leader>sf',
+    function() Snacks.picker.files() end,
+    { desc = '[F]iles' }
+  )
+  -- Search for projects
+  Snacks.keymap.set(
+    'n',
+    '<leader>sp',
+    function() Snacks.picker.projects() end,
+    { desc = '[P]rojects' }
+  )
+
+  vim.ui.input = Snacks.input()
+  vim.ui.select = Snacks.picker.select()
 end

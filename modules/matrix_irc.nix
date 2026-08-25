@@ -1,9 +1,11 @@
 {
   flake.homeModules.matrix_irc = { config, ... }: {
-    xdg.autostart.entries = [
-      "${config.programs.halloy.package}/share/applications/org.squidowl.halloy.desktop"
-      "${config.programs.element-desktop.package}/share/applications/element-desktop.desktop"
-    ];
+    /*
+      xdg.autostart.entries = [
+        "${config.programs.halloy.package}/share/applications/org.squidowl.halloy.desktop"
+        "${config.programs.element-desktop.package}/share/applications/element-desktop.desktop"
+      ];
+    */
     stylix.targets.halloy.fonts.override = {
       sizes.applications = 15;
     };

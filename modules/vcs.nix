@@ -21,6 +21,9 @@
         settings = {
           git_protocol = "ssh";
         };
+        extensions = with pkgs; [
+          gh-notify
+        ];
       };
       gh-dash.enable = true;
 

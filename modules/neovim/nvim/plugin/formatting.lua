@@ -1,11 +1,13 @@
 do
   -- [[ Formatting ]]
+  --
   require('conform').setup({
     notify_on_error = false,
     format_on_save = function(bufnr)
       -- You can specify filetypes to autoformat on save here:
       local enabled_filetypes = {
         lua = true,
+
         -- python = true,
         nix = true,
       }
@@ -19,12 +21,12 @@ do
       lsp_format = 'fallback', -- Use external formatters if configured below, otherwise use LSP formatting. Set to `false` to disable LSP formatting entirely.
     },
     formatters = {
-      stylua = {
-        prepend_args = {
-          '--config-path',
-          vim.fn.expand('~/.config/stylua/stylua.toml'),
-        },
-      },
+      -- stylua = {
+      --   prepend_args = {
+      --     '--config-path',
+      --     vim.fn.expand('~/.config/stylua/stylua.toml'),
+      --   },
+      -- },
     },
     -- You can also specify external formatters in here.
     formatters_by_ft = {

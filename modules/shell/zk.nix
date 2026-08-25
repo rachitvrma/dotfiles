@@ -44,9 +44,5 @@
         };
       };
     };
-    home.sessionVariables = {
-      # Use the $XDG_NOTES_DIR as the ZK_NOTEBOOK_DIR
-      ZK_NOTEBOOK_DIR = config.xdg.userDirs.extraConfig.NOTES;
-    };
   };
 }
