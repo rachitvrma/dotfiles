@@ -35,6 +35,6 @@
     };
 
     # Control iwd from the terminal
-    environment.systemPackages = [ pkgs.impala ];
+    # environment.systemPackages = [ pkgs.impala ];
   };
 }

@@ -72,8 +72,8 @@
           date = {
             fmt = "%A, %B %d, %Y";
             use_12h = true;
-            utc = true;
-            hide_seconds = true;
+            utc = false; # Display the system time.
+            hide_seconds = false;
           };
         };
       };

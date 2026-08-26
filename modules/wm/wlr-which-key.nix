@@ -93,7 +93,7 @@
                 cmd = "noctalia msg panel-toggle clipboard";
               }
               {
-                key = "d";
+                key = "space";
                 desc = "Launcher";
                 cmd = "noctalia msg panel-toggle launcher";
               }

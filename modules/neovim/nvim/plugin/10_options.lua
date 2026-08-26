@@ -1,123 +1,143 @@
-do
-  vim.loader.enable()
-  -- Set <space> as the leader key
-  -- See `:help mapleader`
-  --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-  vim.g.mapleader = ' '
-  vim.g.maplocalleader = ' '
+-- ┌──────────────────────────┐
+-- │ Built-in Neovim behavior │
+-- └──────────────────────────┘
+--
+-- This file defines Neovim's built-in behavior. The goal is to improve overall
+-- usability in a way that works best with MINI.
+--
+-- Here `vim.o.xxx = value` sets default value of option `xxx` to `value`.
+-- See `:h 'xxx'` (replace `xxx` with actual option name).
+--
+-- Option values can be customized on a per buffer or window basis.
+-- See 'after/ftplugin/' for common example.
+--
+-- Notes:
+-- - Some options (like `:h 'exrc'`) need to be set before this file is sourced.
+--   Set them directly at the bottom of the 'init.lua' file.
 
-  -- Set to true if you have a Nerd Font installed and selected in the terminal
-  vim.g.have_nerd_font = false
+-- stylua: ignore start
+-- The next part (until `-- stylua: ignore end`) is aligned manually for easier
+-- reading. Consider preserving this or remove `-- stylua` lines to autoformat.
 
-  -- [[ Setting options ]]
-  --  See `:help vim.o`
-  -- NOTE: You can change these options as you wish!
-  --  For more options, you can see `:help option-list`
+-- General ====================================================================
+vim.g.mapleader = ' ' -- Use `<Space>` as <Leader> key
 
-  -- Make line numbers default
-  vim.o.number = true
-  -- You can also add relative line numbers, to help with jumping.
-  --  Experiment for yourself to see if you like it!
-  -- vim.o.relativenumber = true
+vim.o.mouse       = 'a'            -- Enable mouse
+vim.o.mousescroll = 'ver:25,hor:6' -- Customize mouse scroll
+vim.o.switchbuf   = 'usetab'       -- Use already opened buffers when switching
+vim.o.undofile    = true           -- Enable persistent undo
 
-  -- Enable mouse mode, can be useful for resizing splits for example!
-  vim.o.mouse = 'a'
+vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit ShaDa file (for startup)
 
-  -- Don't show the mode, since it's already in the status line
-  vim.o.showmode = false
+-- UI =========================================================================
+vim.o.breakindent    = true       -- Indent wrapped lines to match line start
+vim.o.breakindentopt = 'list:-1'  -- Add padding for lists (if 'wrap' is set)
+vim.o.colorcolumn    = '+1'       -- Draw column on the right of maximum width
+vim.o.cursorline     = true       -- Enable current line highlighting
+vim.o.linebreak      = true       -- Wrap lines at 'breakat' (if 'wrap' is set)
+vim.o.list           = true       -- Show helpful text indicators
+vim.o.number         = true       -- Show line numbers
+vim.o.pumborder      = 'rounded'   -- Use border in popup menu
+vim.o.pumheight      = 10         -- Make popup menu smaller
+vim.o.pummaxwidth    = 100        -- Make popup menu not too wide
+vim.o.ruler          = false      -- Don't show cursor coordinates
+vim.o.shortmess      = 'CFOSWaco' -- Disable some built-in completion messages
+vim.o.showmode       = false      -- Don't show mode in command line
+vim.o.signcolumn     = 'yes'      -- Always show signcolumn (less flicker)
+vim.o.splitbelow     = true       -- Horizontal splits will be below
+vim.o.splitkeep      = 'screen'   -- Reduce scroll during window split
+vim.o.splitright     = true       -- Vertical splits will be to the right
+vim.o.winborder      = 'rounded'   -- Use border in floating windows
+vim.o.wrap           = false      -- Don't visually wrap lines (toggle with \w)
 
-  -- Sync clipboard between OS and Neovim.
-  --  Schedule the setting after `UiEnter` because it can increase startup-time.
-  --  Remove this option if you want your OS clipboard to remain independent.
-  --  See `:help 'clipboard'`
-  vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
+vim.o.cursorlineopt  = 'screenline,number' -- Show cursor line per screen line
 
-  -- Enable break indent
-  vim.o.breakindent = true
+-- Special UI symbols. More is set via 'mini.basics' later.
+vim.o.fillchars = 'eob: ,fold:╌'
+vim.o.listchars = 'extends:…,nbsp:␣,precedes:…,tab:> '
 
-  vim.o.smartindent = true
-  vim.o.autoindent = true
+-- Folds (see `:h fold-commands`, `:h zM`, `:h zR`, `:h zA`, `:h zj`)
+vim.o.foldlevel   = 10       -- Fold nothing by default; set to 0 or 1 to fold
+vim.o.foldmethod  = 'indent' -- Fold based on indent level
+vim.o.foldnestmax = 10       -- Limit number of fold levels
+vim.o.foldtext    = ''       -- Show text under fold with its highlighting
 
-  -- Enable undo/redo changes even after closing and reopening a file
-  vim.o.undofile = true
+-- Editing ====================================================================
+vim.o.autoindent    = true    -- Use auto indent
+vim.o.expandtab     = true    -- Convert tabs to spaces
+vim.o.formatoptions = 'rqnl1j'-- Improve comment editing
+vim.o.ignorecase    = true    -- Ignore case during search
+vim.o.incsearch     = true    -- Show search matches while typing
+vim.o.infercase     = true    -- Infer case in built-in completion
+vim.o.shiftwidth    = 2       -- Use this number of spaces for indentation
+vim.o.smartcase     = true    -- Respect case if search pattern has upper case
+vim.o.smartindent   = true    -- Make indenting smart
+vim.o.spelloptions  = 'camel' -- Treat camelCase word parts as separate words
+vim.o.tabstop       = 2       -- Show tab as this number of spaces
+vim.o.virtualedit   = 'block' -- Allow going past end of line in blockwise mode
 
-  -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-  vim.o.ignorecase = true
-  vim.o.smartcase = true
+vim.o.iskeyword = '@,48-57,_,192-255,-' -- Treat dash as `word` textobject part
 
-  -- Keep signcolumn on by default
-  vim.o.signcolumn = 'yes'
+-- Pattern for a start of numbered list (used in `gw`). This reads as
+-- "Start of list item is: at least one special character (digit, -, +, *)
+-- possibly followed by punctuation (. or `)`) followed by at least one space".
+vim.o.formatlistpat = [[^\s*[0-9\-\+\*]\+[\.\)]*\s\+]]
 
-  -- Decrease update time
-  vim.o.updatetime = 250
+-- Built-in completion
+vim.o.complete        = '.,w,b,kspell'                  -- Use less sources
+vim.o.completeopt     = 'menuone,noselect,fuzzy,nosort' -- Use custom behavior
+vim.o.completetimeout = 100                             -- Limit sources delay
 
-  -- Decrease mapped sequence wait time
-  vim.o.timeoutlen = 300
+-- Custom options set by me
+vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)  -- MiniMax doesn't touch clipboard at all
+vim.o.updatetime = 250       -- default 4000ms is sluggish for lightbulb/gitsigns/diagnostics
+vim.o.timeoutlen = 300       -- affects mini.clue's popup delay too — your call on feel
+vim.o.inccommand = 'split'   -- live substitution preview, MiniMax leaves this unset
+vim.o.scrolloff = 10
+vim.o.confirm = true
+vim.o.jumpoptions = 'view'
+vim.g.markdown_recommended_style = 0  -- otherwise markdown ftplugin overrides your shiftwidth=2 to 4
+vim.o.softtabstop = 2
+vim.o.shiftround = true
+vim.o.smoothscroll = true
+vim.o.sidescrolloff = 8      -- pairs well with MiniMax's wrap=false
+vim.o.undolevels = 10000
+vim.o.winminwidth = 5
+vim.o.pumblend = 10
+vim.o.laststatus = 3         -- global statusline; MiniMax leaves Neovim's default (2, per-window)
 
-  -- Configure how new splits should be opened
-  vim.o.splitright = true
-  vim.o.splitbelow = true
+-- Autocommands ===============================================================
 
-  -- Sets how neovim will display certain whitespace characters in the editor.
-  --  See `:help 'list'`
-  --  and `:help 'listchars'`
-  --
-  --  Notice listchars is set using `vim.opt` instead of `vim.o`.
-  --  It is very similar to `vim.o` but offers an interface for conveniently interacting with tables.
-  --   See `:help lua-options`
-  --   and `:help lua-guide-options`
-  vim.o.list = true
-  vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+-- Don't auto-wrap comments and don't insert comment leader after hitting 'o'.
+-- Do on `FileType` to always override these changes from filetype plugins.
+local f = function() vim.cmd('setlocal formatoptions-=c formatoptions-=o') end
+Config.new_autocmd('FileType', nil, f, "Proper 'formatoptions'")
 
-  -- Preview substitutions live, as you type!
-  vim.o.inccommand = 'split'
+-- There are other autocommands created by 'mini.basics'. See 'plugin/30_mini.lua'.
 
-  -- Show which line your cursor is on
-  vim.o.cursorline = true
+-- Diagnostics ================================================================
 
-  -- Minimal number of screen lines to keep above and below the cursor.
-  vim.o.scrolloff = 10
+-- Neovim has built-in support for showing diagnostic messages. This configures
+-- a more conservative display while still being useful.
+-- See `:h vim.diagnostic` and `:h vim.diagnostic.config()`.
+local diagnostic_opts = {
+  -- Show signs on top of any other sign, but only for warnings and errors
+  signs = { priority = 9999, severity = { min = 'WARN', max = 'ERROR' } },
 
-  -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
-  -- instead raise a dialog asking if you wish to save the current file(s)
-  -- See `:help 'confirm'`
-  vim.o.confirm = true
+  -- Show all diagnostics as underline (for their messages type `<Leader>ld`)
+  underline = { severity = { min = 'HINT', max = 'ERROR' } },
 
-  vim.opt.termguicolors = true
+  -- Show more details immediately for errors on the current line
+  virtual_lines = false,
+  virtual_text = {
+    current_line = true,
+    severity = { min = 'ERROR', max = 'ERROR' },
+  },
 
-  vim.opt.autowrite = true -- Enable auto write
+  -- Don't update diagnostics when typing
+  update_in_insert = false,
+}
 
-  vim.opt.completeopt = 'menu,menuone,noselect'
-
-  vim.opt.expandtab = true -- Use spaces instead of tabs
-
-  vim.opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
-
-  vim.opt.linebreak = true -- Wrap lines at convenient points
-
-  vim.opt.jumpoptions = 'view'
-
-  vim.g.markdown_recommended_style = 0 -- Default forces shiftwidth=4
-  vim.opt.shiftwidth = 2
-  vim.opt.tabstop = 2 -- Number of spaces tabs count for
-  vim.opt.softtabstop = 2
-
-  vim.opt.grepprg = 'rg --vimgrep'
-  vim.opt.grepformat = '%f:%l:%c:%m'
-
-  vim.opt.shiftround = true -- `>>`/`<<` round to a multiple of shiftwidth
-  vim.opt.smoothscroll = true -- pixel-smooth <C-d>/<C-u>/scroll, not line-jumps
-  vim.opt.sidescrolloff = 8 -- Columns of context
-  vim.opt.splitkeep = 'screen' -- new splits don't shift existing text on screen
-  vim.opt.undolevels = 10000 -- pairs naturally with your existing undofile=true
-  vim.opt.virtualedit = 'block' -- cursor can move past EOL, but only in visual-block mode
-  vim.opt.wildmode = 'longest:full,full' -- saner cmdline Tab-completion
-  vim.opt.winminwidth = 5
-  vim.opt.pumblend = 10
-  vim.opt.pumheight = 10
-  vim.opt.shortmess:append({ W = true, I = true, c = true })
-
-  vim.opt.formatoptions = 'jcroqlnt' -- worth it. Default is tcqj; the extra flags add: r/o (auto-continue comment leader on <CR>/o/O), l (don't hard-wrap long lines while typing), n (recognize numbered-list indents for gq)
-
-  vim.opt.laststatus = 3 -- one global statusline instead of one per split
-end
+-- Use `later()` to avoid sourcing `vim.diagnostic` on startup
+Config.later(function() vim.diagnostic.config(diagnostic_opts) end)
+-- stylua: ignore end

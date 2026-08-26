@@ -110,7 +110,7 @@
         "group:g5"
         "session"
       ];
-      font_family = "Maple Mono NF";
+      # font_family = "Maple Mono NF";
       margin_ends = 50;
       panel_overlap = 0;
       radius = 80;
@@ -179,7 +179,7 @@
   keybinds = {
     down = [
       "Down"
-      "Ctrl+j"
+      "Ctrl+n"
     ];
     left = [
       "Left"
@@ -187,11 +187,15 @@
     ];
     right = [
       "Right"
-      "Ctrl+l"
+      "Ctrl+f"
     ];
     up = [
       "Up"
-      "Ctrl+k"
+      "Ctrl+b"
+    ];
+    cancel = [
+      "Escape"
+      "Ctrl+g"
     ];
   };
   location = {
@@ -496,7 +500,7 @@
   shell = {
     avatar_path = "~/.face";
     corner_radius_scale = 2;
-    font_family = "Maple Mono NF";
+    # font_family = "Maple Mono NF";
     greeter_sync = {
       auto_sync = true;
     };
@@ -510,6 +514,9 @@
     polkit_agent = true;
     settings_window_translucent = false;
     time_format = "{:%-I:%M %p}";
+  };
+  audio = {
+    enable_sounds = true;
   };
   theme = {
     builtin = "Gruvbox";

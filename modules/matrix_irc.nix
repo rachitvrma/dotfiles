@@ -74,6 +74,7 @@
               enabled = true;
               via = "desktop";
               show_message = true;
+              sound_hint = "message-new-instant";
             };
           };
         };

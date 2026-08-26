@@ -40,7 +40,7 @@
 | System Monitor          | Bottom                              |
 | Mail                    | _still wip_                         |
 | Matrix Client           | Iamb (with Cinny as my WebUI)       |
-| IRC Client              | Senpai                              |
+| IRC Client              | Halloy                              |
 | File Manager (GUI)      | PCManFM                             |
 | File Manager (TUI)      | Yazi                                |
 | RSS Reader              | MiniFlux (WebUI) + Eilmeldung (TUI) |

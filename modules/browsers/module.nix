@@ -61,12 +61,13 @@
 
               # ── Privacy ──────────────────────────────────────────────────────────────
               "privacy.resistFingerprinting" = false; # Disabled: dark mode breaks with this on
-              "media.peerconnection.enabled" = false; # Disable WebRTC IP leak, may perhaps stop WhatsApp from working
+              "media.peerconnection.enabled" = true; # Disable WebRTC IP leak, may perhaps stop WhatsApp from working
               "privacy.globalprivacycontrol.enabled" = true; # Send GPC signal to sites
               "dom.battery.enabled" = false; # Block Battery Status API (fingerprinting vector)
               "geo.enabled" = false; # Disable Geolocation API
               "permissions.default.geo" = 2; # Block geo permission prompts by default
               "network.dns.disablePrefetch" = true; # Don't prefetch DNS for unvisited links
+              "media.peerconnection.ice.no_host" = true; # hides local IPs from the ICE candidate list
 
               # Taken from
               # https://wiki.archlinux.org/title/Firefox/Privacy#Change_user_agent_and_platform
@@ -157,8 +158,8 @@
               # Disable Safe Browsing telemetry. It phones to Google.
               # Trade-off:  this disables phishing/malware warnings.
               # Skip if you'd rather keep them.
-              "browser.safebrowsing.malware.enabled" = false;
-              "browser.safebrowsing.phishing.enabled" = false;
+              "browser.safebrowsing.malware.enabled" = true;
+              "browser.safebrowsing.phishing.enabled" = true;
 
               # Disable search suggestions. Keystrokes are sent to the search engines
               "browser.search.suggest.enabled" = false;
@@ -264,6 +265,12 @@
                   name = "Stylix";
                   keyword = "stylix";
                   url = "https://nix-community.github.io/stylix/index.html";
+                }
+                # Nixpkgs merge queue
+                {
+                  name = "Nixpkgs Update Log";
+                  keyword = "nixpkgs-update-logs";
+                  url = "https://nixpkgs-update-logs.nix-community.org/~supervisor/queue.html";
                 }
                 # Nerd Fonts
                 {

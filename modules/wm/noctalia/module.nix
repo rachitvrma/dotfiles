@@ -7,7 +7,7 @@ let
     };
 in
 {
-  flake.nixosModules.noctalia = { pkgs, ... }: {
+  flake.nixosModules.noctalia = { pkgs, config, ... }: {
     programs = {
       noctalia = {
         enable = true;
@@ -34,7 +34,7 @@ in
         keyboard = {
           layout = "us";
           variant = "colemak_dh";
-          options = "caps:swapescape";
+          options = config.services.xserver.xkb.options;
           numlock = true;
         };
         auth = {

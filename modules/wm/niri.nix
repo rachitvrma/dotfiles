@@ -201,8 +201,7 @@
 
             "Mod+Equal".set-column-width = "+10%";
 
-            # "Mod+T".spawn = [ "xdg-terminal-exec" ];
-            "Mod+Return".spawn = [ "xdg-terminal-exec" ];
+            "Mod+T".spawn = [ "xdg-terminal-exec" ];
 
             # For browsers specifically
             "Mod+F".spawn = [
@@ -515,6 +514,17 @@
               window-rule = {
                 match._props.app-id = "kitty";
                 open-maximized = false;
+                background-effect = {
+                  blur = true;
+                  xray = false;
+                  saturation = 1.6;
+                  noise = 0.02;
+                };
+              };
+            }
+            {
+              window-rule = {
+                match._props.app-id = "emacs";
                 background-effect = {
                   blur = true;
                   xray = false;

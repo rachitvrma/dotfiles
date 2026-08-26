@@ -4,6 +4,7 @@
     programs = {
       zk = {
         enable = true;
+        exportNotebookDir = true;
         settings = {
           notebook.dir = "${config.home.homeDirectory}/Notes"; # match XDG_NOTES_DIR
           note = {

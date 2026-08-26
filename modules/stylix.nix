@@ -3,7 +3,7 @@ let
   commonStylix = pkgs: config: {
     stylix = {
       enable = true;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-terminal-dark.yaml";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
 
       /*
         image = pkgs.fetchurl {
@@ -22,17 +22,17 @@ let
 
       icons = {
         enable = true;
-        dark = "Papirus-Dark";
+        dark = "Gruvbox-Plus-Dark";
         light = config.stylix.icons.dark;
-        package = pkgs.papirus-icon-theme.override {
-          color = "magenta";
+        package = pkgs.gruvbox-plus-icons.override {
+          folder-color = "purple";
         };
       };
 
       fonts = {
         serif = {
-          package = pkgs.maple-mono.NF;
-          name = "Maple Mono NF";
+          package = pkgs.nerd-fonts.jetbrains-mono;
+          name = "JetBrainsMono Nerd Font";
         };
         sansSerif = config.stylix.fonts.serif;
         monospace = config.stylix.fonts.serif;
@@ -58,6 +58,15 @@ in
       imports = [ inputs.stylix.nixosModules.stylix ];
       gtk.iconCache.enable = true;
       stylix.overlays.enable = true; # This is a NixOS only option
+
+      # Required for configuring extra fonts, like symbols-only-nerd font
+      # Enabling this in nixosModules, automatically enables in home-manager.
+      fonts = {
+        enableDefaultPackages = false;
+        fontconfig = {
+          enable = true;
+        };
+      };
     }
     // (commonStylix pkgs config);
   flake.homeModules.stylix = { config, pkgs, ... }: commonStylix pkgs config;

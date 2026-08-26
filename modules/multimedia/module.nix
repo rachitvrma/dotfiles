@@ -261,7 +261,7 @@
             border = "no";
             save-position-on-quit = "yes";
             input-ipc-server = "/tmp/mpv.sock";
-            ytdl-raw-options = ''cookies-from-browser=firefox,extractor-args="youtube:player_client=mweb"'';
+            # ytdl-raw-options = ''cookies-from-browser=firefox,extractor-args="youtube:player_client=mweb"'';
           };
         };
       };
