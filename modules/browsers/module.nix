@@ -214,6 +214,12 @@
                   keyword = "whatsapp";
                   url = "https://web.whatsapp.com/";
                 }
+                # Monkeytype
+                {
+                  name = "MonkeyType";
+                  keyword = "monkeytype";
+                  url = "https://monkeytype.com/";
+                }
                 # Github Related
                 {
                   name = "GitHub PRs";

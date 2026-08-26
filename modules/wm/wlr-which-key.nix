@@ -102,6 +102,11 @@
                 desc = "Emojis";
                 cmd = "noctalia msg panel-toggle launcher /emo";
               }
+              {
+                key = "k";
+                desc = "Kaomoji";
+                cmd = "noctalia msg panel-toggle launcher /kao";
+              }
             ];
           };
         };
