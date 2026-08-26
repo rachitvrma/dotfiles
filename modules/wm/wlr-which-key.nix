@@ -21,11 +21,6 @@
         settings = commonSettings // {
           menu = [
             {
-              key = "c";
-              desc = "clipboard";
-              cmd = "noctalia msg panel-toggle clipboard";
-            }
-            {
               key = "e";
               desc = "Equibop";
               cmd = "systemd-run --user equibop";
@@ -85,6 +80,27 @@
                 key = "l";
                 desc = "Lock";
                 cmd = "noctalia msg session lock || loginctl lock-session";
+              }
+            ];
+          };
+
+          # Panels comprising of various noctalia launcher options
+          noctalia-panels = commonSettings // {
+            menu = [
+              {
+                key = "c";
+                desc = "Clipboard";
+                cmd = "noctalia msg panel-toggle clipboard";
+              }
+              {
+                key = "d";
+                desc = "Launcher";
+                cmd = "noctalia msg panel-toggle launcher";
+              }
+              {
+                key = "e";
+                desc = "Emojis";
+                cmd = "noctalia msg panel-toggle launcher /emo";
               }
             ];
           };

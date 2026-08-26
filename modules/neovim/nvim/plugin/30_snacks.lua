@@ -235,6 +235,14 @@ do
     { desc = '[P]rojects' }
   )
 
-  vim.ui.input = Snacks.input()
-  vim.ui.select = Snacks.picker.select()
+  -- Toggle Terminal
+  Snacks.keymap.set(
+    'n',
+    '<leader>tt',
+    function() Snacks.terminal.toggle() end,
+    { desc = '[T]oggle [T]erminal' }
+  )
+
+  vim.ui.input = Snacks.input
+  vim.ui.select = Snacks.picker.select
 end

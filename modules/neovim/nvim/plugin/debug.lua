@@ -33,18 +33,21 @@ vim.keymap.set(
   function() require('dap').step_out() end,
   { desc = 'Debug: Step Out' }
 )
-vim.keymap.set(
+
+-- Use snacks keymap
+Snacks.keymap.set(
   'n',
-  '<leader>b',
+  '<leader>db',
   function() require('dap').toggle_breakpoint() end,
   { desc = 'Debug: Toggle Breakpoint' }
 )
-vim.keymap.set(
+Snacks.keymap.set(
   'n',
-  '<leader>B',
+  '<leader>dB',
   function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end,
   { desc = 'Debug: Set Breakpoint' }
 )
+
 vim.keymap.set(
   'n',
   '<F7>',

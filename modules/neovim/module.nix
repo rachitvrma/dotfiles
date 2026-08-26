@@ -150,8 +150,6 @@
           fd
 
           taplo # for toml
-
-          markdownlint-cli2
         ];
       };
     };

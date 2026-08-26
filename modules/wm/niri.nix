@@ -201,7 +201,8 @@
 
             "Mod+Equal".set-column-width = "+10%";
 
-            "Mod+T".spawn = [ "xdg-terminal-exec" ];
+            # "Mod+T".spawn = [ "xdg-terminal-exec" ];
+            "Mod+Return".spawn = [ "xdg-terminal-exec" ];
 
             # For browsers specifically
             "Mod+F".spawn = [
@@ -268,7 +269,10 @@
             "Print".screenshot = { };
 
             # Noctalia v5 settings — core Noctalia binds
-            "Mod+Space".spawn-sh = "noctalia msg panel-toggle launcher";
+            "Mod+Space".spawn = [
+              "wlr-which-key"
+              "noctalia-panels"
+            ];
             "Mod+S".spawn-sh = "noctalia msg panel-toggle control-center";
             "Mod+Comma".spawn-sh = "noctalia msg settings-toggle";
 
