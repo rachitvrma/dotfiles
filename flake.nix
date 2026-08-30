@@ -6,6 +6,15 @@
   '';
 
   inputs = {
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        # Avoids downloading darwin stuff
+        darwin.follows = "";
+      };
+    };
+
     disko.url = "github:nix-community/disko";
 
     flake-parts = {
@@ -42,7 +51,12 @@
       inherit (inputs.nixpkgs) lib;
       inherit (lib.fileset) toList fileFilter;
 
-      isNixModule = file: file.hasExt "nix" && file.name != "flake.nix" && !lib.hasPrefix "_" file.name;
+      isNixModule =
+        file:
+        file.hasExt "nix"
+        && file.name != "flake.nix"
+        && file.name != "secrets.nix" # Agenix secrets.nix files are not imported
+        && !lib.hasPrefix "_" file.name;
 
       importTree = path: toList (fileFilter isNixModule path);
       mkFlake = inputs.flake-parts.lib.mkFlake { inherit inputs; };

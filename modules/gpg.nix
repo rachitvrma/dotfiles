@@ -1,5 +1,13 @@
 {
+  flake.nixosModules.gpg = { pkgs, ... }: {
+    services.dbus.packages = with pkgs; [
+      gcr
+    ];
+  };
   flake.homeModules.gpg = { pkgs, config, ... }: {
+    # Beware that pinentry-gnome3 may not work on non-Gnome systems. You can fix it by adding the following to your system configuration:
+    # services.dbus.packages = [ pkgs.gcr ];
+    dbus.packages = with pkgs; [ gcr ];
     programs.gpg = {
       enable = true;
       homedir = "${config.xdg.dataHome}/gnupg";
@@ -31,7 +39,7 @@
       grabKeyboardAndMouse = true;
       defaultCacheTtl = 3600;
       maxCacheTtl = 86400;
-      pinentry.package = pkgs.pinentry-qt;
+      pinentry.package = pkgs.pinentry-gnome3;
       enableSshSupport = false;
     };
   };

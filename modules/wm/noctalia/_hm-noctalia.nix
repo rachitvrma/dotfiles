@@ -191,7 +191,7 @@
     ];
     up = [
       "Up"
-      "Ctrl+b"
+      "Ctrl+p"
     ];
     cancel = [
       "Escape"

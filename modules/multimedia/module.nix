@@ -52,6 +52,11 @@
           mpc
           (python3.withPackages (ps: with ps; [ mutagen ])) # used for album art embedding
         ];
+
+        sessionVariables = {
+          CLIAMP_YTMUSIC_CLIENT_ID = "$(cat ${config.age.secrets.ytmusic-client-id.path})";
+          CLIAMP_YTMUSIC_CLIENT_SECRET = "$(cat ${config.age.secrets.ytmusic-client-secret.path})";
+        };
       };
 
       # RMPC's lyrics fetching script.
@@ -150,10 +155,13 @@
             ];
             eq_preset = "Custom";
             theme = "stylix";
-            visualizer = "Bars";
+            visualizer = "Firework";
+            provider = "ytmusic";
             ytmusic = {
               enabled = true;
               cookies_from = "firefox";
+              client_id = "\${CLIAMP_YTMUSIC_CLIENT_ID}";
+              client_secret = "\${CLIAMP_YTMUSIC_CLIENT_SECRET}";
             };
             soundcloud = {
               enabled = true;

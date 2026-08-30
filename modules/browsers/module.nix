@@ -495,6 +495,11 @@
                   ];
                   definedAliases = [ "@mb" ];
                 };
+                lyrics = {
+                  name = "Lrclib";
+                  urls = [ { template = "https://lrclib.net/search/{searchTerms}"; } ];
+                  definedAliases = [ "@lrc" ];
+                };
               };
             };
           };

@@ -135,7 +135,11 @@ sudo ln -s ~/etc/nixos /etc/
 
 #### 📰 Miniflux setup
 
-To set up miniflux for RSS feeds
+>[!important]
+>If miniflux doesn't find these credentials in the designated directory
+>rebuild will fail, because it's systemd-unit will fail.
+
+To set up miniflux for RSS feeds.
 
 ```bash
 sudo mkdir -p /etc/secrets/miniflux-admin-credentials
@@ -147,6 +151,47 @@ In that file put:
 ADMIN_USERNAME=<username>
 ADMIN_PASSWORD=something6charactersLong
 ```
+
+#### 🔑 GPG / pass restoration
+
+>[!important]
+>Do this BEFORE the first `home-manager switch`/rebuild after a reinstall.
+>Nix does not and cannot manage your GPG secret key material — `pass`,
+>`pass-secret-service`, and the email module's `passwordCommand` will all
+>fail until it's restored, which can block the rebuild the same way a
+>missing Miniflux credential does.
+
+**Before wiping the old system**, export your key and keep it somewhere
+off-machine (encrypted USB, not this repo):
+
+```bash
+gpg --homedir ~/.local/share/gnupg --export-secret-keys --armor > gpg-backup.asc
+```
+
+Also confirm `~/.password-store` is backed up or pushed to a remote —
+the key alone decrypts nothing without the encrypted store itself.
+
+**After reinstall, before rebuilding:**
+
+```bash
+mkdir -p ~/.local/share/gnupg
+gpg --homedir ~/.local/share/gnupg --import gpg-backup.asc
+gpg --homedir ~/.local/share/gnupg --edit-key <keyid> trust   # choose 5 (ultimate)
+
+git clone <your-pass-store-remote> ~/.password-store
+```
+
+>[!note]
+>`programs.gpg.homedir` is `~/.local/share/gnupg`, **not** `~/.gnupg`.
+>Restoring your key to the default path is the easy way to reproduce
+>"gpg can't find my key."
+
+>[!note]
+>`pinentry-gnome3` needs `gcr` on D-Bus to work outside GNOME (niri included).
+>Both `nixosModules.gpg` and `homeModules.gpg` already set
+>`services.dbus.packages = [ pkgs.gcr ]`, so this should self-heal on
+>rebuild — but if pinentry never appears on first login, log out/in once
+>so the D-Bus session picks it up.
 
 #### Fastfetch Setup
 

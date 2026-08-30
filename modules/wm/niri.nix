@@ -81,7 +81,7 @@
           debug.honor-xdg-activation-with-invalid-serial = { };
           hotkey-overlay.skip-at-startup = { };
           overview = {
-            backdrop-color = "#141617";
+            backdrop-color = config.lib.stylix.colors.withHashtag.base00;
             # workspace-shadow was `{ // off }` (empty/disabled) in the source
             workspace-shadow = { };
           };

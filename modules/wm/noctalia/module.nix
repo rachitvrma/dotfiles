@@ -32,8 +32,8 @@ in
           corner_radius_scale = 2.0;
         };
         keyboard = {
-          layout = "us";
-          variant = "colemak_dh";
+          layout = config.services.xserver.xkb.layout;
+          variant = config.services.xserver.xkb.variant;
           options = config.services.xserver.xkb.options;
           numlock = true;
         };

@@ -21,7 +21,6 @@
     };
 
     dconf = {
-      enable = true;
       settings = {
         "org/gnome/desktop/input-sources" = {
           xkb-options = [
