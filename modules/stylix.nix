@@ -62,7 +62,7 @@ in
       # Required for configuring extra fonts, like symbols-only-nerd font
       # Enabling this in nixosModules, automatically enables in home-manager.
       fonts = {
-        enableDefaultPackages = false;
+        # enableDefaultPackages = false;
         fontconfig = {
           enable = true;
         };

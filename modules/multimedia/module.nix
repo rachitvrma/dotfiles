@@ -150,10 +150,21 @@
             ];
             eq_preset = "Custom";
             theme = "stylix";
-            visualizer = "Bricks";
+            visualizer = "Bars";
             ytmusic = {
               enabled = true;
+              cookies_from = "firefox";
             };
+            soundcloud = {
+              enabled = true;
+              user = "woodenAllen";
+              cookies_from = "firefox";
+            };
+            volume = 0;
+            repeat = "off";
+            shuffle = false;
+            initial_directory = "~/Music";
+            low_power = false;
           };
           radios = {
             station = [

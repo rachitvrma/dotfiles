@@ -59,24 +59,35 @@
           let
             startPlugins = with pkgs.vimPlugins; [
               conform-nvim # For formatting
-              dropbar-nvim # Breadcrumbs for neovim
               friendly-snippets # For premade snippets
               guess-indent-nvim # Does what the name says
               lazydev-nvim # Neovim Configuration stuff
-              nvim-lightbulb # Just a lightbulb symbol
+              lz-n # For lazy-loading
               luvit-meta # NeoVim configuration
 
               mini-nvim # MiniMax config
 
-              nvim-dap
-              nvim-dap-ui
               nvim-lint
               nvim-lspconfig # Lspconfig contains prebuilt configurations
+
+              # Breadcrumbs plugin for more IDE like feautre
+              # Doesn't need to be lazy-loaded, because it does it itself.
+              # https://github.com/Bekaboo/dropbar.nvim#:~:text=Lazy%2Dloading%20is%20unneeded%20as%20it%20is%20already%20done%20in%20plugin%2Fdropbar%2Elua%2E
+              dropbar-nvim
+
+              # Also comes with its own lazy-loading capabilities
               rainbow-delimiters-nvim # For delimiters of course
-              SchemaStore-nvim # JSON Schemas for neovim
             ];
 
-            optPlugins = [ ];
+            optPlugins = with pkgs.vimPlugins; [
+              render-markdown-nvim # For rendering markdown beautifully
+              nvim-lightbulb # Just a lightbulb symbol, loaded at LspAttach
+
+              nvim-dap
+              nvim-dap-ui
+
+              SchemaStore-nvim # JSON Schemas for neovim
+            ];
 
             treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (
               p: with p; [
@@ -118,6 +129,9 @@
           # Nix stack
           nixd
           nixfmt
+
+          # LSP server for json
+          vscode-json-languageserver
 
           # Lua stack
           lua-language-server
