@@ -21,7 +21,7 @@
         };
       };
 
-      accounts.contact.accounts.gmail.khard = {
+      accounts.contact.accounts.Personal.khard = {
         enable = true;
       };
     };

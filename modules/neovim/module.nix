@@ -94,6 +94,7 @@
                 bash
                 c
                 css
+                git_config
                 javascript
                 jjdescription
                 latex

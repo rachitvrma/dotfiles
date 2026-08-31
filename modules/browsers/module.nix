@@ -389,6 +389,34 @@
                   icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
                   definedAliases = [ "@no" ];
                 };
+                home-manager-options = {
+                  name = "Home-Manager Options";
+                  urls = [
+                    {
+                      url = "https://search.nixos.org/options";
+                      params = [
+                        {
+                          name = "channel";
+                          value = "unstable";
+                        }
+                        {
+                          name = "query";
+                          value = "{searchTerms}";
+                        }
+                        {
+                          name = "source";
+                          value = "home_manager";
+                        }
+                        {
+                          name = "type";
+                          value = "options";
+                        }
+                      ];
+                    }
+                  ];
+                  icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                  definedAliases = [ "@hm" ];
+                };
                 nixos-wiki = {
                   name = "NixOS Wiki";
                   urls = [ { template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; } ];

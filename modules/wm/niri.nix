@@ -98,7 +98,7 @@
           blur = {
             passes = 3;
             offset = 3;
-            noise = 0.02;
+            noise = 0.03;
             saturation = 1.5;
           };
 

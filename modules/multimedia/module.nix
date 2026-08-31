@@ -169,7 +169,7 @@
               cookies_from = "firefox";
             };
             volume = 0;
-            repeat = "off";
+            repeat = "Off";
             shuffle = false;
             initial_directory = "~/Music";
             low_power = false;
