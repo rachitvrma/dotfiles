@@ -14,6 +14,7 @@
       extraPackages = with pkgs; [
         mediainfo
         socat
+        glow
       ];
       plugins = {
         git = {
@@ -22,6 +23,9 @@
           settings = {
             order = 1500;
           };
+        };
+        faster-piper = {
+          package = pkgs.nur.repos.adam0.yaziPlugins.faster-piper;
         };
         mediainfo = {
           package = pkgs.yaziPlugins.mediainfo;
@@ -58,6 +62,13 @@
             {
               run = "mediainfo";
               url = "*.{ai,eps,ait}";
+            }
+
+            # Faster-Piper
+            {
+              url = "*.md";
+              # Use glow to see markdown
+              run = ''faster-piper -- CLICOLOR_FORCE=1 glow -w=$w -- "$1"'';
             }
           ];
         };

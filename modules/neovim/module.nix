@@ -12,6 +12,17 @@
   };
 
   flake.homeModules.neovim = { pkgs, config, ... }: {
+
+    xdg.configFile."stylua/stylua.toml".source = (pkgs.formats.toml { }).generate "hm_stylua.toml" {
+      call_parentheses = "Always";
+      collapse_simple_statement = "Always";
+      column_width = 85;
+      indent_type = "Spaces";
+      indent_width = 2;
+      line_endings = "Unix";
+      quote_style = "AutoPreferSingle";
+    };
+
     services = {
       cliphist = {
         enable = true;
@@ -25,19 +36,6 @@
       };
     };
     programs = {
-      stylua = {
-        enable = true;
-        settings = {
-          call_parentheses = "Always";
-          collapse_simple_statement = "Always";
-          column_width = 85;
-          indent_type = "Spaces";
-          indent_width = 2;
-          line_endings = "Unix";
-          quote_style = "AutoPreferSingle";
-        };
-      };
-
       neovim = {
         enable = true;
         sideloadInitLua = true;
@@ -131,12 +129,13 @@
           nixd
           nixfmt
 
-          # LSP server for json
+          # LSP server for json & yaml
           vscode-json-languageserver
+          yaml-language-server
 
           # Lua stack
           lua-language-server
-          (config.programs.stylua.finalPackage)
+          stylua
 
           # Bash/Shell scripts stack
           bash-language-server

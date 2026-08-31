@@ -38,7 +38,7 @@
 | Terminal                | Kitty                               |
 | Audio                   | RMPC + MPD                          |
 | System Monitor          | Bottom                              |
-| Mail                    | _still wip_                         |
+| Mail                    | Aerc                                |
 | Matrix Client           | Iamb (with Cinny as my WebUI)       |
 | IRC Client              | Halloy                              |
 | File Manager (GUI)      | PCManFM                             |

@@ -278,18 +278,6 @@
                   keyword = "nerdfonts";
                   url = "https://www.nerdfonts.com/cheat-sheet";
                 }
-                # Read Manga
-                {
-                  name = "Comix";
-                  keyword = "comix";
-                  url = "https://comix.to/";
-                }
-                # Download Anime
-                {
-                  name = "Nyaa";
-                  keyword = "nyaa";
-                  url = "https://nyaa.si/";
-                }
                 # Chatgpt
                 {
                   name = "ChatGPT";
@@ -301,18 +289,6 @@
                   name = "Gemini";
                   keyword = "gemini";
                   url = "https://gemini.google.com/app";
-                }
-                # X.com
-                {
-                  name = "X/Twitter";
-                  keyword = "x";
-                  url = "https://x.com/home";
-                }
-                # Youtube
-                {
-                  name = "YouTube";
-                  keyword = "yt";
-                  url = "https://www.youtube.com/";
                 }
                 # Web Based Matrix client
                 {

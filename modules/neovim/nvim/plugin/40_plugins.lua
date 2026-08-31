@@ -195,10 +195,13 @@ later(function()
         -- `stylua` binary from programs.stylua already injects it via
         -- wrapProgram, so Conform's own default (which also adds this
         -- flag) would collide with it and stylua errors out.
-        args = { '--stdin-filepath', '$FILENAME', '-' },
       },
     },
-    formatters_by_ft = { lua = { 'stylua' }, nix = { 'nixfmt' } },
+    formatters_by_ft = {
+      lua = { 'stylua' },
+      nix = { 'nixfmt' },
+      markdown = { 'dprint' },
+    },
   })
 end)
 
