@@ -3,6 +3,9 @@
 # Just delete the block
 { shinchan, pkgs, ... }:
 {
+  audio = {
+    enable_sounds = true;
+  };
   bar = {
     default = {
       background_opacity = 0.8;
@@ -99,6 +102,7 @@
       center = [
         "pomodoro"
         "clock-12h"
+        "timer"
       ];
       end = [
         "group:g6"
@@ -124,6 +128,20 @@
   battery = {
     warning_threshold = 60;
   };
+  calendar = {
+    account = {
+      rachitverma1122 = {
+        name = "Personal";
+        type = "google";
+      };
+    };
+    enabled = true;
+  };
+  control_center = {
+    calendar = {
+      show_week_numbers = true;
+    };
+  };
   desktop_widgets = {
     grid = {
       cell_size = 16;
@@ -135,7 +153,6 @@
     widget_order = [ ];
   };
   dock = {
-    # background_opacity = 0.7;
     enabled = true;
     icon_size = 40;
     item_spacing = 10;
@@ -177,6 +194,10 @@
     ];
   };
   keybinds = {
+    cancel = [
+      "Escape"
+      "Ctrl+g"
+    ];
     down = [
       "Down"
       "Ctrl+n"
@@ -192,10 +213,6 @@
     up = [
       "Up"
       "Ctrl+p"
-    ];
-    cancel = [
-      "Escape"
-      "Ctrl+g"
     ];
   };
   location = {
@@ -481,6 +498,7 @@
     enabled = [
       "thepunkoff/pomodoro"
       "noctalia/kaomoji"
+      "noctalia/timer"
     ];
     source = [
       {
@@ -514,9 +532,6 @@
     polkit_agent = true;
     settings_window_translucent = false;
     time_format = "{:%-I:%M %p}";
-  };
-  audio = {
-    enable_sounds = true;
   };
   theme = {
     builtin = "Gruvbox";
@@ -570,6 +585,9 @@
     };
     temp = {
       visualization = "graph";
+    };
+    timer = {
+      type = "noctalia/timer:bar";
     };
     tray = {
       detached_panel = false;
