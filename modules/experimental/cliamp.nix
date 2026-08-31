@@ -57,11 +57,7 @@
           '';
         };
         themes = mkOption {
-          type = types.attrsOf (
-            types.oneOf [
-              tomlFormat.type
-            ]
-          );
+          type = types.attrsOf tomlFormat.type;
           default = { };
           example = {
             solarized = {
@@ -81,7 +77,7 @@
         radios = mkOption {
           inherit (tomlFormat) type;
           default = { };
-          example = ''
+          example = {
             station = [
               {
                 name = "Jazz FR";
@@ -92,10 +88,77 @@
                 url = "https://ambient.example.com/stream.m3u";
               }
             ];
-          '';
+          };
           description = ''
             Add your own stations to {file}`$XDG_CONFIG_HOME/cliamp/radios.toml`.
             See <https://github.com/bjarneo/cliamp/blob/main/docs/configuration.md#custom-radio-stations>
+          '';
+        };
+        systemd = {
+          enable = mkEnableOption "a systemd user service for cliamp";
+
+          extraFlags = mkOption {
+            type = types.listOf types.str;
+            default = [ ];
+            example = [
+              "--auto-play"
+              "--playlist"
+              "Lofi"
+            ];
+            description = ''
+              Extra command-line flags appended after `cliamp --daemon`
+              in the generated systemd user service.
+
+              See <https://whiterose.org.contextowl.co/docs/cliamp/headless-daemon-mode> for
+              more details.
+            '';
+          };
+        };
+        plugins = mkOption {
+          type =
+            with types;
+            attrsOf (
+              either package (
+                addCheck path (
+                  p:
+                  (lib.pathIsDirectory p && lib.pathExists (p + "/init.lua"))
+                  || (lib.hasSuffix ".lua" (toString p) && lib.pathIsRegularFile p)
+                )
+              )
+            );
+          default = { };
+          example = {
+            cliamp-lastfm = pkgs.fetchurl {
+              url = "https://raw.githubusercontent.com/tetsuo76/cliamp-lastfm/f337901ad0b79471aea249479399b84e3d6ded13/cliamp-lastfm.lua";
+              hash = "sha256-vnPJPXjdp332tKHY6fGWYMxejRi+Su8e3R4K1zQ9TzA=";
+            };
+            cliamp-single-file = ../plugins/visualizer.lua;
+            cliamp-local-dir = ../plugins/lastfm-scrobbler;
+          };
+          description = ''
+            Plugins to install in {path}`XDG_CONFIG_HOME/cliamp/plugins`.
+
+            Accepts either a package/derivation (e.g. `pkgs.fetchFromGitHub { ... }`)
+            or a local path. A local path may point at a single `.lua` file, or
+            at a directory containing an `init.lua` entry point — cliamp loads
+            only `init.lua` from a plugin directory, so a directory without one
+            is rejected at evaluation time rather than silently doing nothing.
+
+            Note on trust: cliamp requires every plugin's contents to be
+            approved with `cliamp plugins trust <name>` before it will run
+            them, and re-approval is required whenever the content changes
+            (see cliamp's plugin docs). This module only places files under
+            {file}`plugins/`; it does not and cannot manage
+            {file}`plugins/.trust.json` for you. After a rebuild that adds or
+            changes a plugin here, you will need to re-run
+            `cliamp plugins trust <name>` yourself.
+
+            Package-based plugins (branch above) are not checked for shape at
+            evaluation time, since a derivation's output does not exist on
+            disk until it is built.
+
+            See <https://whiterose.org.contextowl.co/docs/cliamp/lua-plugins>
+            for more details.
           '';
         };
       };
@@ -119,7 +182,33 @@
               source = tomlFormat.generate "cliamp-theme-${name}" value;
             }
           ) cfg.themes)
+          (lib.mapAttrs' (
+            name: value:
+            lib.nameValuePair "cliamp/plugins/${name}${lib.optionalString (!lib.pathIsDirectory value) ".lua"}"
+              {
+                source = value;
+              }
+          ) cfg.plugins)
         ];
+
+        systemd.user.services.cliamp = mkIf cfg.systemd.enable {
+          Unit = {
+            Description = "cliamp headless music player";
+          };
+          Service = {
+            ExecStart = lib.escapeShellArgs (
+              [
+                (lib.getExe cfg.package)
+                "--daemon"
+              ]
+              ++ cfg.systemd.extraFlags
+            );
+            Restart = "on-failure";
+          };
+          Install = {
+            WantedBy = [ "default.target" ];
+          };
+        };
       };
     };
 }

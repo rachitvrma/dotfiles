@@ -1,7 +1,7 @@
 {
   flake.homeModules.discord =
     {
-      # config,
+      config,
       ...
     }:
     {
@@ -16,8 +16,8 @@
           disableMinSize = true;
           minimizeToTray = false;
           tray = false;
-          splashBackground = "#1e1e2e";
-          splashColor = "#f5e0dc";
+          splashBackground = config.lib.stylix.colors.withHashtag.base00;
+          splashColor = config.lib.stylix.colors.withHashtag.base05;
           splashTheming = true;
           staticTitle = true;
           hardwareAcceleration = true;
