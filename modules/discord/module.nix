@@ -5,7 +5,7 @@
       ...
     }:
     {
-      # xdg.autostart.entries = [ "${config.programs.equibop.package}/share/applications/equibop.desktop" ];
+      xdg.autostart.entries = [ "${config.programs.equibop.package}/share/applications/equibop.desktop" ];
       programs.equibop = {
         enable = true;
         settings = {

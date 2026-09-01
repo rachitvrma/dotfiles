@@ -6,7 +6,7 @@
     };
   };
 
-  flake.homeModules.yazi = { pkgs, ... }: {
+  flake.homeModules.yazi = { pkgs, config, ... }: {
     programs.yazi = {
       enable = true;
       package = pkgs.yazi.override { _7zz = pkgs._7zz-rar; };
@@ -49,6 +49,12 @@
               run = "mediainfo";
               url = "*.{ai,eps,ait}";
             }
+
+            # For instantaneous preview using faster-piper.yazi
+            {
+              url = "*.md";
+              run = "faster-piper --rely-on-preloader";
+            }
           ];
           prepend_previewers = [
             {
@@ -68,7 +74,7 @@
             {
               url = "*.md";
               # Use glow to see markdown
-              run = ''faster-piper -- CLICOLOR_FORCE=1 glow -w=$w -- "$1"'';
+              run = ''faster-piper -- CLICOLOR_FORCE=1 glow -w=$w -s=${config.xdg.configHome}/glow/styles/stylix.json -- "$1"'';
             }
           ];
         };

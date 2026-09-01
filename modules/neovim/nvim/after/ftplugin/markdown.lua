@@ -16,10 +16,19 @@
 -- See `:h mini.nvim-buffer-local-config` and `:h mini.nvim-disabling-recipes`.
 
 -- Enable spelling and wrap for window
-vim.cmd('setlocal spell wrap')
+-- vim.cmd('setlocal spell wrap')
 
 -- Fold with tree-sitter
-vim.cmd('setlocal foldmethod=expr foldexpr=v:lua.vim.treesitter.foldexpr()')
+-- vim.cmd('setlocal foldmethod=expr foldexpr=v:lua.vim.treesitter.foldexpr()')
+
+-- Same as above, just uses vim options.
+-- Enable spelling and wrap for window
+vim.opt_local.spell = true
+vim.opt_local.wrap = true
+
+-- Fold with tree-sitter
+vim.opt_local.foldmethod = 'expr'
+vim.opt_local.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 -- Disable built-in `gO` mapping in favor of 'mini.basics'
 vim.keymap.del('n', 'gO', { buffer = 0 })

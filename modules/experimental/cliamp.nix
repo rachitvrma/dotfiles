@@ -136,7 +136,7 @@
             cliamp-local-dir = ../plugins/lastfm-scrobbler;
           };
           description = ''
-            Plugins to install in {path}`XDG_CONFIG_HOME/cliamp/plugins`.
+            Plugins to install in {file}`XDG_CONFIG_HOME/cliamp/plugins`.
 
             Accepts either a package/derivation (e.g. `pkgs.fetchFromGitHub { ... }`)
             or a local path. A local path may point at a single `.lua` file, or

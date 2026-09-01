@@ -155,7 +155,7 @@ ADMIN_PASSWORD=something6charactersLong
 #### 🔑 GPG / pass restoration
 
 >[!important]
->Do this BEFORE the first `home-manager switch`/rebuild after a reinstall.
+>Do this BEFORE the first `home-manager switch`/`nh os switch`/rebuild after a reinstall.
 >Nix does not and cannot manage your GPG secret key material — `pass`,
 >`pass-secret-service`, and the email module's `passwordCommand` will all
 >fail until it's restored, which can block the rebuild the same way a

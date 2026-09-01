@@ -48,6 +48,7 @@
           brightnessctl
           kitty
           trash-cli
+          runapp
         ];
       };
       wayland.windowManager.hyprland = {
@@ -56,10 +57,6 @@
         systemd.enable = false;
 
         extraConfig = builtins.readFile ./hyprland.lua;
-      };
-
-      services = {
-        hyprpolkitagent.enable = true;
       };
     };
 }
