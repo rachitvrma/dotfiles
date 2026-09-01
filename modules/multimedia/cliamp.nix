@@ -64,7 +64,7 @@
         };
       };
       systemd = {
-        enable = true;
+        enable = false;
         extraFlags = [
           "--auto-play"
           "%h/Music"
