@@ -2,7 +2,7 @@ let
   shinchan =
     pkgs:
     pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/rachitvrma/Wallpapers/main/Fastfetch/Shinchan.png";
+      url = "https://raw.githubusercontent.com/rachitvrma/rachitvrma/main/.github/assets/shinchan.png";
       hash = "sha256-CP9uGyslZ19wCaglMb1UG+NmcU/GxN5HDXSdrO5jAlw=";
     };
 in
@@ -52,6 +52,7 @@ in
 
   # For modification see noctalia module in experimental modules
   flake.homeModules.noctalia = { pkgs, ... }: {
+    home.file.".face".source = shinchan pkgs;
     programs.noctalia = {
       enable = true;
       systemd.enable = true;
