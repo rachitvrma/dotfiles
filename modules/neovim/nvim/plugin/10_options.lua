@@ -30,6 +30,7 @@ vim.o.undofile    = true           -- Enable persistent undo
 vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit ShaDa file (for startup)
 
 -- UI =========================================================================
+vim.o.background     = "dark"     -- Opt for dark background
 vim.o.breakindent    = true       -- Indent wrapped lines to match line start
 vim.o.breakindentopt = 'list:-1'  -- Add padding for lists (if 'wrap' is set)
 vim.o.colorcolumn    = '+1'       -- Draw column on the right of maximum width

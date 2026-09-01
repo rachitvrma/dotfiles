@@ -65,6 +65,8 @@
 
               mini-nvim # MiniMax config
 
+              nfnl # Use fennel (Lisp) to configure neovim
+
               nvim-lint
               nvim-lspconfig # Lspconfig contains prebuilt configurations
 
@@ -91,27 +93,28 @@
               p: with p; [
                 bash
                 c
+                cpp
                 css
+                fennel
                 git_config
+                html
                 javascript
                 jjdescription
-                latex
-                scss
-                svelte
-                tsx
-                typst
-                vue
-                cpp
-                html
                 json
                 kdl
+                latex
                 lua
-                regex
                 markdown
                 markdown_inline
                 nix
+                regex
                 ron
+                scss
+                svelte
                 toml
+                tsx
+                typst
+                vue
                 yaml
               ]
             );
@@ -132,6 +135,10 @@
           # LSP server for json & yaml
           vscode-json-languageserver
           yaml-language-server
+
+          # Fennel stack
+          fennel-ls # LSP for fennel
+          fnlfmt # formatter for fennel
 
           # Lua stack
           lua-language-server

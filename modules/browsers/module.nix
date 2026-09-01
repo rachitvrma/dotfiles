@@ -504,6 +504,35 @@
                   urls = [ { template = "https://lrclib.net/search/{searchTerms}"; } ];
                   definedAliases = [ "@lrc" ];
                 };
+
+                # ArchLinux packages
+                archlinux-packages = {
+                  name = "ArchLinux Package Search";
+                  urls = [
+                    {
+                      template = "https://archlinux.org/packages/";
+                      params = [
+                        {
+                          name = "sort";
+                          value = "";
+                        }
+                        {
+                          name = "q";
+                          value = "{searchTerms}";
+                        }
+                        {
+                          name = "maintainer";
+                          value = "";
+                        }
+                        {
+                          name = "flagged";
+                          value = "";
+                        }
+                      ];
+                    }
+                  ];
+                  definedAliases = [ "@archpkgs" ];
+                };
               };
             };
           };

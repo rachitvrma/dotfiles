@@ -86,6 +86,7 @@ now_if_args(function()
     -- ts_ls = {},
 
     stylua = {}, -- Used to format Lua code
+    fennel_ls = {},
 
     nixd = {
       cmd = { 'nixd', '--semantic-tokens=true' },
@@ -196,10 +197,12 @@ later(function()
         -- wrapProgram, so Conform's own default (which also adds this
         -- flag) would collide with it and stylua errors out.
       },
+      fnlfmt = {},
     },
     formatters_by_ft = {
       lua = { 'stylua' },
       nix = { 'nixfmt' },
+      fennel = { 'fnlfmt' },
       markdown = { 'dprint' },
     },
   })
