@@ -134,16 +134,20 @@
         };
       };
 
-      onlyoffice = {
-        enable = true;
-        settings = {
-          UITheme = "theme-dark";
-          titlebar = "custom";
-          maximized = true;
-          editorWindowMode = false;
-          forcedRtl = false;
+      /*
+        onlyoffice = {
+          enable = true;
+          settings = {
+            UITheme = "theme-dark";
+            titlebar = "custom";
+            maximized = true;
+            editorWindowMode = false;
+            forcedRtl = false;
+          };
         };
-      };
+      */
+
+      libreoffice.enable = true;
     };
 
     home.packages = with pkgs; [
