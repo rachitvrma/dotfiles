@@ -81,7 +81,7 @@
 
             optPlugins = with pkgs.vimPlugins; [
               render-markdown-nvim # For rendering markdown beautifully
-              nvim-lightbulb # Just a lightbulb symbol, loaded at LspAttach
+              nvim-lightbulb # Just a lightbulb symbol, shows where a code action is available
 
               nvim-dap
               nvim-dap-ui
