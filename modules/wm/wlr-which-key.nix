@@ -31,11 +31,6 @@
               cmd = "systemd-run --user kitty --title=iamb_matrix -e iamb";
             }
             {
-              key = "E";
-              desc = "Elment Desktop";
-              cmd = "systemd-run --user element-desktop";
-            }
-            {
               key = "h";
               desc = "Halloy IRC Client";
               cmd = "systemd-run --user halloy";

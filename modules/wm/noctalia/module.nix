@@ -32,9 +32,8 @@ in
           corner_radius_scale = 2.0;
         };
         keyboard = {
-          layout = config.services.xserver.xkb.layout;
-          variant = config.services.xserver.xkb.variant;
-          options = config.services.xserver.xkb.options;
+          # Use the same settings as defined in modules/keymap.nix
+          inherit (config.services.xserver.xkb) layout variant options;
           numlock = true;
         };
         auth = {

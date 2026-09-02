@@ -2,16 +2,11 @@
   flake.homeModules.matrix_irc = { config, ... }: {
     xdg.autostart.entries = [
       "${config.programs.halloy.package}/share/applications/org.squidowl.halloy.desktop"
-      "${config.programs.element-desktop.package}/share/applications/element-desktop.desktop"
     ];
     stylix.targets.halloy.fonts.override = {
       sizes.applications = 15;
     };
     programs = {
-      element-desktop = {
-        # TODO configure this
-        enable = true;
-      };
       # For matrix
       halloy = {
         enable = true;
@@ -32,6 +27,10 @@
               "#archlinux"
               "#archlinux-offtopic"
               "##chat"
+              "#emacs"
+              "#emacs-beginners"
+              "#emacs-social"
+              "#emacs-til"
               "#gentoo"
               "#gentoo-chat"
               "#halloy"

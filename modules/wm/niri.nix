@@ -524,17 +524,6 @@
             }
             {
               window-rule = {
-                match._props.app-id = "emacs";
-                background-effect = {
-                  blur = true;
-                  xray = false;
-                  saturation = 1.6;
-                  noise = 0.02;
-                };
-              };
-            }
-            {
-              window-rule = {
                 match._props.app-id = "org.pwmt.zathura";
                 background-effect = {
                   blur = true;

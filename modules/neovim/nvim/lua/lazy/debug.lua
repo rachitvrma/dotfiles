@@ -1,14 +1,8 @@
-return {
-  'nvim-dap',
-  keys = {
-    {
-      '<leader>db',
-      function() require('dap').toggle_breakpoint() end,
-      desc = 'Toggle breakpoint',
-    },
-  },
-  after = function()
-    -- any one-time nvim-dap config (adapters, signs, etc.) goes here,
-    -- runs once when the plugin first loads
-  end,
-}
+-- [nfnl] lua/lazy/debug.fnl
+local function _1_()
+  return require("dap").toggle_breakpoint()
+end
+local function _2_()
+  return nil
+end
+return {"nvim-dap", keys = {{"<leader>db", _1_, desc = "Toggle breakpoint"}}, after = _2_}

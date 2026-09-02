@@ -87,6 +87,7 @@
               nvim-dap-ui
 
               SchemaStore-nvim # JSON Schemas for neovim
+              undotree # For a undotree, of course
             ];
 
             treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (
@@ -95,6 +96,8 @@
                 c
                 cpp
                 css
+                diff
+                editorconfig
                 fennel
                 git_config
                 html
