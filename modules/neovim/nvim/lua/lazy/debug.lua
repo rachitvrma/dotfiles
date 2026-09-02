@@ -1,4 +1,4 @@
--- [nfnl] lua/lazy/debug.fnl
+-- [nfnl] fnl/lazy/debug.fnl
 local function _1_()
   return require("dap").toggle_breakpoint()
 end

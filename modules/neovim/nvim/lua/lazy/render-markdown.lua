@@ -1,4 +1,4 @@
--- [nfnl] lua/lazy/render-markdown.fnl
+-- [nfnl] fnl/lazy/render-markdown.fnl
 local function _1_()
   return require("render-markdown").setup()
 end

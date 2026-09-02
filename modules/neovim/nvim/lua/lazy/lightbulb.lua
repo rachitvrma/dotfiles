@@ -1,4 +1,4 @@
--- [nfnl] lua/lazy/lightbulb.fnl
+-- [nfnl] fnl/lazy/lightbulb.fnl
 local function _1_()
   local nvim_lightbulb = require("nvim-lightbulb")
   return nvim_lightbulb.setup({autocmd = {enabled = true}})

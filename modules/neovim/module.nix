@@ -101,6 +101,7 @@
                 editorconfig
                 fennel
                 git_config
+                gitignore
                 html
                 javascript
                 jjdescription

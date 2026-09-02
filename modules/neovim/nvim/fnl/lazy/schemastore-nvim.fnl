@@ -23,10 +23,10 @@
  :ft [:json :jsonc :yaml]
  :after (fn []
           (let [schemastore (require :schemastore)]
-            (vim.lsp.config :jsonls
-                            {:settings {:json {:schemas (schemastore.json.schemas)
-                                               :validate {:enable true}}}})
-            (vim.lsp.enable :jsonls)
-            (vim.lsp.config :yamlls
-                            {:settings {:yaml {:schemas (schemastore.yaml.schemas)}}})
-            (vim.lsp.enable :yamlls)))}
+            (_G.vim.lsp.config :jsonls
+                               {:settings {:json {:schemas (schemastore.json.schemas)
+                                                  :validate {:enable true}}}})
+            (_G.vim.lsp.enable :jsonls)
+            (_G.vim.lsp.config :yamlls
+                               {:settings {:yaml {:schemas (schemastore.yaml.schemas)}}})
+            (_G.vim.lsp.enable :yamlls)))}

@@ -19,6 +19,48 @@
   - Game and Lua at the same time: [CodinGame](https://www.codingame.com/start/).
   - We got [Rosetta Code](https://rosettacode.org/wiki/Rosetta_Code).
 
+### Fennel
+
+The config is now written in Fennel and compiled to Lua by
+[Olical/nfnl](https://github.com/Olical/nfnl) on save (already in the plugin
+list as `nfnl`). Fennel is a small Lisp that compiles straight to Lua with no
+runtime cost — read the compiled `.lua` sibling of any `.fnl` file if you ever
+want to see exactly what it becomes.
+
+- **[fennel-lang.org/tutorial](https://fennel-lang.org/tutorial)** — the
+  official from-scratch walkthrough of the language: forms, tables, `let`,
+  `fn`, destructuring, the whole surface syntax in one sitting.
+- **[fennel-lang.org/reference](https://fennel-lang.org/reference)** — the
+  full special-forms reference; the thing to grep when you forget the exact
+  shape of `each`/`icollect`/`match`/etc.
+- **[fennel-lang.org/lua-primer](https://fennel-lang.org/lua-primer)** — short
+  primer aimed specifically at people who already know Lua and want the "here's
+  the Fennel spelling of the Lua thing you already know" mapping; given you're
+  converting an existing Lua config line by line, this is the fastest on-ramp.
+- **[fennel-lang.org/macros](https://fennel-lang.org/macros)** — once the
+  basics click, macros are where Fennel earns its keep over plain Lua
+  (compile-time codegen, no runtime table-construction overhead).
+- **[Olical/nfnl](https://github.com/Olical/nfnl)** — the compiler this config
+  actually uses. Its README covers `.nfnl.fnl` project config (the
+  `source-file-patterns` setting controls which directories get auto-compiled
+  on save — this config's is set to cover `fnl/**/*.fnl` and
+  `plugin/**/*.fnl`), plus `:NfnlCompileFile`/`:NfnlCompileAllFiles` for
+  manual (re)compilation and `:NfnlFindOrphans`/`:NfnlDeleteOrphans` for
+  cleaning up stale `.lua` output.
+- **[Learning Fennel from Scratch to Develop Neovim Plugins](https://lambdaisland.com/blog/2025-04-16-fennel)**
+  — practical, warts-and-all account of learning Fennel specifically for
+  Neovim config/plugin work, including nfnl debugging gotchas.
+- **["Packing Neovim with Fennel"](https://www.jonashietala.se/blog/2025/10/29/packing_neovim_with_fennel/)**
+  — a full from-scratch Fennel Neovim config walkthrough; useful for seeing a
+  different structural approach (it uses nvim-thyme instead of nfnl) alongside
+  this one.
+- **[Olical/conjure](https://github.com/Olical/conjure)** — REPL-driven
+  development for Fennel (and Clojure/others) inside Neovim; handy once you
+  want to eval Fennel forms interactively instead of round-tripping through
+  `:w` + `:messages` to see compiler errors.
+- **`#fennel` on Libera.Chat IRC** — small but responsive channel for
+  language/compiler questions; worth a lurk given you're already on IRC.
+
 ### Neovim's Lua API specifically
 
 - **`:help lua-guide`** — genuinely underrated; open it in Neovim itself
