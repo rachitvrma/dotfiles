@@ -103,6 +103,7 @@
                 gitattributes
                 git_config
                 gitignore
+                glsl
                 html
                 javascript
                 jjdescription

@@ -9,5 +9,3 @@ modules/neovim/plugin/**/*.lua    linguist-generated
 modules/neovim/after/**/*.lua     linguist-generated
 
 modules/yazi/init.lua             linguist-generated
-
-modules/wm/hyprland/hyprland.lua  linguist-generated
