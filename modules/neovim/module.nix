@@ -96,6 +96,7 @@
                 c
                 cpp
                 css
+                desktop
                 diff
                 editorconfig
                 fennel
