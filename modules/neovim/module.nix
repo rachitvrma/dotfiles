@@ -100,6 +100,7 @@
                 diff
                 editorconfig
                 fennel
+                gitattributes
                 git_config
                 gitignore
                 html

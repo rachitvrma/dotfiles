@@ -1,0 +1,9 @@
+# Tell GitHub's Linguist that these .lua files are nfnl's compiled output,
+# not hand-written source, so the repo's language stats reflect the Fennel
+# you actually write instead of the Lua nfnl generates from it.
+# See: https://github.com/Olical/nfnl#github-language-statistics
+
+init.lua           linguist-generated
+lua/**/*.lua       linguist-generated
+plugin/**/*.lua    linguist-generated
+after/**/*.lua     linguist-generated
