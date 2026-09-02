@@ -3,32 +3,33 @@
     services.dbus.packages = with pkgs; [
       gcr
     ];
+    programs.gnupg.agent.pinentryPackage = pkgs.pinentry-egui;
   };
+
   flake.homeModules.gpg = { pkgs, config, ... }: {
-    # Beware that pinentry-gnome3 may not work on non-Gnome systems. You can fix it by adding the following to your system configuration:
-    # services.dbus.packages = [ pkgs.gcr ];
-    dbus.packages = with pkgs; [ gcr ];
-    programs.gpg = {
-      enable = true;
-      homedir = "${config.xdg.dataHome}/gnupg";
-      settings = {
-        personal-cipher-preferences = "AES256 AES192 AES";
-        personal-digest-preferences = "SHA512 SHA384 SHA256";
-        default-preference-list = "SHA512 SHA384 SHA256 AES256 AES192 AES ZLIB BZIP2 ZIP Uncompressed";
-        cert-digest-algo = "SHA512";
-        s2k-digest-algo = "SHA512";
-        s2k-cipher-algo = "AES256";
-        charset = "utf-8";
-        no-comments = true;
-        no-emit-version = true;
-        no-greeting = true;
-        keyid-format = "0xlong";
-        list-options = "show-uid-validity";
-        verify-options = "show-uid-validity";
-        with-fingerprint = true;
-        require-cross-certification = true;
-        no-symkey-cache = true;
-        use-agent = true;
+    programs = {
+      gpg = {
+        enable = true;
+        homedir = "${config.xdg.dataHome}/gnupg";
+        settings = {
+          personal-cipher-preferences = "AES256 AES192 AES";
+          personal-digest-preferences = "SHA512 SHA384 SHA256";
+          default-preference-list = "SHA512 SHA384 SHA256 AES256 AES192 AES ZLIB BZIP2 ZIP Uncompressed";
+          cert-digest-algo = "SHA512";
+          s2k-digest-algo = "SHA512";
+          s2k-cipher-algo = "AES256";
+          charset = "utf-8";
+          no-comments = true;
+          no-emit-version = true;
+          no-greeting = true;
+          keyid-format = "0xlong";
+          list-options = "show-uid-validity";
+          verify-options = "show-uid-validity";
+          with-fingerprint = true;
+          require-cross-certification = true;
+          no-symkey-cache = true;
+          use-agent = true;
+        };
       };
     };
 
@@ -39,7 +40,7 @@
       grabKeyboardAndMouse = true;
       defaultCacheTtl = 3600;
       maxCacheTtl = 86400;
-      pinentry.package = pkgs.pinentry-gnome3;
+      pinentry.package = pkgs.pinentry-egui;
       enableSshSupport = false;
     };
   };
