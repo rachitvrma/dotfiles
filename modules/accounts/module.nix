@@ -13,6 +13,15 @@
       gcalcli # google calendar cli
     ];
     programs = {
+      ripasso = {
+        enable = true;
+        settings = {
+          stores.default = {
+            path = "/home/krish/.password-store";
+            pgp_implementation = "gpg";
+          };
+        };
+      };
       aerc = {
         enable = true;
 

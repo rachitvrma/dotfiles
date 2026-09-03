@@ -21,7 +21,7 @@
         ];
         eq_preset = "Custom";
         theme = "stylix";
-        visualizer = "block-burst"; # This is from the plugin
+        visualizer = "ClassicLED";
         provider = "ytmusic";
         ytmusic = {
           enabled = true;
