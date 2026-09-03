@@ -10,6 +10,9 @@
         confirmation = false;
       };
       colorTheme = "dark-violets-256";
+      extraConfig = ''
+        editor=nvim
+      '';
     };
   };
 }

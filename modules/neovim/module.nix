@@ -70,6 +70,8 @@
                 lz-n # For lazy-loading
                 luvit-meta # NeoVim configuration
 
+                taskwarrior3 # Adds syntax highlighting for task
+
                 mini-nvim # MiniMax config
 
                 nfnl # Use fennel (Lisp) to configure neovim
