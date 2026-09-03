@@ -132,6 +132,7 @@
                   tsx
                   typst
                   vue
+                  xml
                   yaml
                   zsh
                 ]

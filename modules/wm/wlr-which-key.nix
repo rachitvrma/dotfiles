@@ -21,6 +21,11 @@
         settings = commonSettings // {
           menu = [
             {
+              key = "e";
+              desc = "Email";
+              cmd = "systemd-run --user kitty --title=email -e aerc";
+            }
+            {
               key = "m";
               desc = "Iamb Matrix";
               cmd = "systemd-run --user kitty --title=iamb_matrix -e iamb";
