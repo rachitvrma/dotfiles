@@ -282,3 +282,10 @@ Also there are resources here:
 
 This project is licensed under the GNU General Public License v3.0. See
 the [LICENSE](../LICENSE) file for details.
+
+```mermaid
+graph TD
+    A[Start] --> B{Is it a sample mermaid}
+    B -- Yes --> C[Great!]
+    B -- No --> D[Debug]
+```
