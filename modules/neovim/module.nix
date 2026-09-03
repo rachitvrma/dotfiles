@@ -77,6 +77,7 @@
 
               # Also comes with its own lazy-loading capabilities
               rainbow-delimiters-nvim # For delimiters of course
+
             ];
 
             optPlugins = with pkgs.vimPlugins; [
@@ -86,6 +87,7 @@
               nvim-dap
               nvim-dap-ui
 
+              image-nvim # View images in neovim
               SchemaStore-nvim # JSON Schemas for neovim
               undotree # For a undotree, of course
             ];
@@ -123,6 +125,7 @@
                 typst
                 vue
                 yaml
+                zsh
               ]
             );
           in
@@ -133,7 +136,10 @@
             optional = true;
           }) optPlugins;
 
-        extraLuaPackages = ps: with ps; [ magick ];
+        extraLuaPackages =
+          ps: with ps; [
+            magick # For image.nvim
+          ];
         extraPackages = with pkgs; [
           # Nix stack
           nixd
@@ -164,6 +170,10 @@
           fd
 
           taplo # for toml
+
+          # for image.nvim
+          imagemagick
+          ghostscript # For previewing pdf files as well
         ];
       };
     };

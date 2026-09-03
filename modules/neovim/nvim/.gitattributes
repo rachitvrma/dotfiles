@@ -3,9 +3,7 @@
 # you actually write instead of the Lua nfnl generates from it.
 # See: https://github.com/Olical/nfnl#github-language-statistics
 
-modules/neovim/init.lua           linguist-generated
-modules/neovim/lua/**/*.lua       linguist-generated
-modules/neovim/plugin/**/*.lua    linguist-generated
-modules/neovim/after/**/*.lua     linguist-generated
-
-modules/yazi/init.lua             linguist-generated
+init.lua           linguist-generated
+lua/**/*.lua       linguist-generated
+plugin/**/*.lua    linguist-generated
+after/**/*.lua     linguist-generated

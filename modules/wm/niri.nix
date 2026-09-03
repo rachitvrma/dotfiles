@@ -217,11 +217,6 @@
               "filemanagers"
             ];
 
-            "Mod+X".spawn = [
-              "wlr-which-key"
-              "powermenu"
-            ];
-
             "Mod+H".focus-column-left-or-last = { };
             "Mod+J".focus-window-down = { };
             "Mod+K".focus-window-up = { };

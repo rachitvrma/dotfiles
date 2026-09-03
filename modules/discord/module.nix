@@ -1,12 +1,9 @@
 {
   flake.homeModules.discord =
+    { config, ... }:
     {
-      config,
-      ...
-    }:
-    {
-      xdg.autostart.entries = [ "${config.programs.equibop.package}/share/applications/equibop.desktop" ];
-      programs.equibop = {
+      xdg.autostart.entries = [ "${config.programs.vesktop.package}/share/applications/vesktop.desktop" ];
+      programs.vesktop = {
         enable = true;
         settings = {
           appBadge = true;
@@ -15,7 +12,6 @@
           badgeOnlyForMentions = true;
           checkUpdates = false;
           clickTrayToShowHide = true;
-          customTitleBar = true;
           disableMinSize = true;
           discordBranch = "stable";
           enableTaskbarFlashing = true;
@@ -26,15 +22,14 @@
           splashColor = "color(srgb 0.984314 0.984314 0.984314)";
           splashProgress = true;
           splashTheming = true;
-          staticTitle = true;
+          staticTitle = false;
           tray = true;
+          customTitleBar = false;
+          enableMenu = false;
         };
-        equicord = {
-          themes = {
-            catppuccin-clearvision = builtins.readFile ./catppuccin-ClearVision-v7-BetterDiscord.theme.css;
-          };
+        vencord = {
+          useSystem = true;
           settings = {
-            enabledThemes = [ "catppuccin-clearvision.css" ];
             autoUpdate = false;
             autoUpdateNotification = false;
             disableMinSize = true;
@@ -47,8 +42,36 @@
                 enabled = true;
                 ignoreSelf = true;
               };
+              AlwaysAnimate.enabled = true;
+              AlwaysTrust.enabled = true;
+              oneko.enabled = true;
             };
             useQuickCss = true;
+
+            cloud = {
+              authenticated = false;
+              settingsSync = false;
+              settingsSyncVersion = 1788428016902;
+              url = "https://api.vencord.dev/";
+            };
+            eagerPatches = false;
+            enableReactDevtools = false;
+            frameless = true;
+            notifications = {
+              logLimit = 50;
+              position = "bottom-right";
+              timeout = 5000;
+              useNative = "not-focused";
+            };
+            themeLinks = [ ];
+            transparent = true;
+            uiElements = {
+              chatBarButtons = { };
+              messagePopoverButtons = { };
+            };
+            winCtrlQ = false;
+            winNativeTitleBar = false;
+            windowsMaterial = "none";
           };
         };
       };

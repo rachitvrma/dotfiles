@@ -14,7 +14,15 @@
       };
     };
 
-    environment.localBinInPath = true;
+    environment = {
+      localBinInPath = true;
+      # NOTE: This is necessary, so don't remove it.
+      # This is how NixOS and home-manager xdg outputs communicate
+      pathsToLink = [
+        "/share/xdg-desktop-portal"
+        "/share/applications"
+      ];
+    };
   };
 
   flake.homeModules.xdg = { config, pkgs, ... }: {

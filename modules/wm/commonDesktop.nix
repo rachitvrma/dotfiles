@@ -1,6 +1,10 @@
 {
   flake.nixosModules.commonDesktop = { ... }: {
-    services.xserver.updateDbusEnvironment = true;
+    services = {
+      xserver.updateDbusEnvironment = true;
+      # Use flatpaks to install some stuff
+      flatpak.enable = true;
+    };
     security = {
       polkit.enable = true;
       pam.services = {

@@ -21,11 +21,6 @@
         settings = commonSettings // {
           menu = [
             {
-              key = "e";
-              desc = "Equibop";
-              cmd = "systemd-run --user equibop";
-            }
-            {
               key = "m";
               desc = "Iamb Matrix";
               cmd = "systemd-run --user kitty --title=iamb_matrix -e iamb";
@@ -39,6 +34,11 @@
               key = "k";
               desc = "Kotatogram";
               cmd = "systemd-run --user Kotatogram";
+            }
+            {
+              key = "v";
+              desc = "vesktop";
+              cmd = "systemd-run --user vesktop";
             }
           ];
         };
@@ -55,26 +55,6 @@
                 key = "E";
                 desc = "PcmanFm";
                 cmd = "systemd-run --user pcmanfm";
-              }
-            ];
-          };
-
-          powermenu = commonSettings // {
-            menu = [
-              {
-                key = "p";
-                desc = "Power Off";
-                cmd = "noctalia msg session shutdown || systemctl poweroff";
-              }
-              {
-                key = "r";
-                desc = "Reboot";
-                cmd = "noctalia msg session reboot || systemctl reboot";
-              }
-              {
-                key = "l";
-                desc = "Lock";
-                cmd = "noctalia msg session lock || loginctl lock-session";
               }
             ];
           };
@@ -101,6 +81,11 @@
                 key = "k";
                 desc = "Kaomoji";
                 cmd = "noctalia msg panel-toggle launcher /kao";
+              }
+              {
+                key = "x";
+                desc = "Session Menu";
+                cmd = "noctalia msg panel-toggle launcher /session";
               }
             ];
           };
