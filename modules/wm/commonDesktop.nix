@@ -75,8 +75,8 @@
           "40" # critical level
           "-d"
           "30" # danger level
-          "-f"
-          "95" # full-battery notification (0 disables; 97-99 is the usual choice since some batteries never report exactly 100)
+          # "-f"
+          # "95" # full-battery notification (0 disables; 97-99 is the usual choice since some batteries never report exactly 100)
           "-m"
           "20" # min seconds between checks
         ];
