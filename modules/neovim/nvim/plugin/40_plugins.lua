@@ -42,7 +42,18 @@ local function _5_()
     end
   end
   lua_ls_on_init = _6_
-  local servers = {stylua = {}, fennel_ls = {}, nixd = {cmd = {"nixd", "--semantic-tokens=true"}, settings = {nixd = {nixpkgs = {expr = "import <nixpkgs> { }"}, formatting = {command = {"nixfmt"}}, options = {nixos = {expr = "(builtins.getFlake \"/home/krish/etc/nixos\").nixosConfigurations.nixpavilion.options"}, home_manager = {expr = "(builtins.getFlake \"/home/krish/etc/nixos\").homeConfigurations.krish.options"}}}}}, lua_ls = {on_init = lua_ls_on_init, settings = {Lua = {format = {enable = false}}}}}
+  local servers
+  local function _10_(bufnr, on_dir)
+    local path = vim.api.nvim_buf_get_name(bufnr)
+    local dir = vim.fs.dirname(path)
+    local found = vim.fs.find(".zk", {path = dir, upward = true, type = "directory"})
+    if (#found == 0) then
+      return on_dir((vim.fs.root(bufnr, {".git"}) or vim.fn.getcwd()))
+    else
+      return nil
+    end
+  end
+  servers = {stylua = {}, fennel_ls = {}, nixd = {cmd = {"nixd", "--semantic-tokens=true"}, settings = {nixd = {nixpkgs = {expr = "import <nixpkgs> { }"}, formatting = {command = {"nixfmt"}}, options = {nixos = {expr = "(builtins.getFlake \"/home/krish/etc/nixos\").nixosConfigurations.nixpavilion.options"}, home_manager = {expr = "(builtins.getFlake \"/home/krish/etc/nixos\").homeConfigurations.krish.options"}}}}}, lua_ls = {on_init = lua_ls_on_init, settings = {Lua = {format = {enable = false}}}}, tinymist = {settings = {formatterMode = "disable", exportPdf = "onType", semanticTokens = "disable"}}, zk = {cmd = {"zk", "lsp"}, filetypes = {"markdown"}, root_markers = {".zk"}}, marksman = {filetypes = {"markdown"}, root_dir = _10_}}
   for name, server in pairs(servers) do
     vim.lsp.config(name, server)
     vim.lsp.enable(name)
@@ -50,15 +61,22 @@ local function _5_()
   return nil
 end
 now_if_args(_5_)
-local function _10_()
-  return require("conform").setup({default_format_opts = {lsp_format = "fallback"}, format_on_save = {lsp_format = "fallback", timeout_ms = 500}, formatters = {stylua = {}, fnlfmt = {}}, formatters_by_ft = {lua = {"stylua"}, nix = {"nixfmt"}, fennel = {"fnlfmt"}, markdown = {"dprint"}}})
+local function _12_()
+  return require("conform").setup({default_format_opts = {lsp_format = "fallback"}, format_on_save = {lsp_format = "fallback", timeout_ms = 500}, formatters = {stylua = {}, fnlfmt = {}, typstyle = {}}, formatters_by_ft = {lua = {"stylua"}, nix = {"nixfmt"}, fennel = {"fnlfmt"}, markdown = {"dprint"}, typst = {"typstyle"}}})
 end
-later(_10_)
-local function _11_()
+later(_12_)
+local function _13_()
   return require("lazydev").setup({library = {{path = "mini.nvim", words = {"Mini%u%w+"}}}})
 end
-now_if_args(_11_)
-local function _12_()
+now_if_args(_13_)
+local function _14_()
   return require("guess-indent").setup({})
 end
-return now_if_args(_12_)
+now_if_args(_14_)
+local function _15_()
+  local dropbar_api = require("dropbar.api")
+  vim.keymap.set("n", "<leader>;", dropbar_api.pick, {desc = "Pick symbols in winbar"})
+  vim.keymap.set("n", "[;", dropbar_api.goto_context_start, {desc = "Go to start of current context"})
+  return vim.keymap.set("n", "];", dropbar_api.select_next_context, {desc = "Select next context"})
+end
+return now_if_args(_15_)

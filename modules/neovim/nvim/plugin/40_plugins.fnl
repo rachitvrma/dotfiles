@@ -37,18 +37,17 @@
 ;;   `vimdoc`, `markdown`, etc.), manually install them via 'nvim-treesitter'
 ;;   with `:TSInstall <language>`. Be sure to have necessary system dependencies
 ;;   (see MiniMax README section for software requirements).
-(now_if_args
-  (fn []
-    (local available ((. (require :nvim-treesitter) :get_available)))
-    (local ts_start
-           (fn [ev]
-             (local lang (vim.treesitter.language.get_lang ev.match))
-             (when (and lang (vim.tbl_contains available lang))
-               (vim.treesitter.start ev.buf)
-               (when (vim.treesitter.query.get lang :indents)
-                 (set (. vim.bo ev.buf :indentexpr)
-                      "v:lua.require'nvim-treesitter'.indentexpr()")))))
-    (Config.new_autocmd :FileType nil ts_start "Start tree-sitter")))
+(now_if_args (fn []
+               (local available ((. (require :nvim-treesitter) :get_available)))
+               (local ts_start
+                      (fn [ev]
+                        (local lang (vim.treesitter.language.get_lang ev.match))
+                        (when (and lang (vim.tbl_contains available lang))
+                          (vim.treesitter.start ev.buf)
+                          (when (vim.treesitter.query.get lang :indents)
+                            (set (. vim.bo ev.buf :indentexpr)
+                                 "v:lua.require'nvim-treesitter'.indentexpr()")))))
+               (Config.new_autocmd :FileType nil ts_start "Start tree-sitter")))
 
 ;; Language servers =============================================================
 ;;
@@ -68,70 +67,92 @@
 ;;
 ;; Troubleshooting:
 ;; - Run `:checkhealth vim.lsp` to see potential issues.
-(now_if_args
-  (fn []
-    ;; Enable the following language servers
-    ;;  Feel free to add/remove any LSPs that you want here. They will
-    ;;  automatically be installed.
-    ;;  See `:help lsp-config` for information about keys and how to configure
-    ;;  ---@type table<string, vim.lsp.Config>
-    (local lua-ls-on-init
-           (fn [client]
-             ;; Disable formatting (formatting is done by stylua)
-             (set client.server_capabilities.documentFormattingProvider false)
-
-             ;; Has-own-.luarc-file? if so, skip the rest and let it govern settings
-             (local has-own-luarc?
-                    (and client.workspace_folders
-                         (let [path (. client.workspace_folders 1 :name)]
-                           (and (not= path (vim.fn.stdpath :config))
-                                (or (vim.uv.fs_stat (.. path "/.luarc.json"))
-                                    (vim.uv.fs_stat (.. path "/.luarc.jsonc")))))))
-
-             (when (not has-own-luarc?)
-               ;; NOTE: `current-settings` mirrors `client.config.settings` for
-               ;; readability, matching the original Lua source's local alias.
-               (local current-settings client.config.settings) ;[[@as lspconfig.settings.lua_ls]]
-               (set client.config.settings.Lua
-                    (vim.tbl_deep_extend :force current-settings.Lua
-                                          {:runtime {:version :LuaJIT
-                                                     :path [:lua/?.lua :lua/?/init.lua]}
-                                           :workspace {:checkThirdParty false
-                                                       ;; NOTE: this is a lot slower and will cause
-                                                       ;; issues when working on your own configuration.
-                                                       ;; See https://github.com/neovim/nvim-lspconfig/issues/3189
-                                                       :library (vim.api.nvim_get_runtime_file "" true)}})))))
-
-    (local servers
-           {;; clangd = {},
-            ;; gopls = {},
-            ;; pyright = {},
-            ;; rust_analyzer = {},
-            ;;
-            ;; Some languages (like typescript) have entire language plugins
-            ;; that can be useful:
-            ;;    https://github.com/pmizio/typescript-tools.nvim
-            ;;
-            ;; But for many setups, the LSP (`ts_ls`) will work just fine
-            ;; ts_ls = {},
-
-            :stylua {} ;; Used to format Lua code
-            :fennel_ls {}
-
-            :nixd {:cmd [:nixd "--semantic-tokens=true"]
-                   :settings {:nixd {:nixpkgs {:expr "import <nixpkgs> { }"}
-                                      :formatting {:command [:nixfmt]}
-                                      :options {:nixos {:expr "(builtins.getFlake \"/home/krish/etc/nixos\").nixosConfigurations.nixpavilion.options"}
-                                                :home_manager {:expr "(builtins.getFlake \"/home/krish/etc/nixos\").homeConfigurations.krish.options"}}}}}
-            ;; Special Lua Config, as recommended by neovim help docs
-            :lua_ls {:on_init lua-ls-on-init
-                     ;; ---@type lspconfig.settings.lua_ls
-                     :settings {:Lua {:format {:enable false}}}}}) ;; Disable formatting (formatting is done by stylua)
-
-    ;; Automatically install LSPs and related tools to stdpath for Neovim
-    (each [name server (pairs servers)]
-      (vim.lsp.config name server)
-      (vim.lsp.enable name))))
+(now_if_args (fn []
+               ;; Enable the following language servers
+               ;;  Feel free to add/remove any LSPs that you want here. They will
+               ;;  automatically be installed.
+               ;;  See `:help lsp-config` for information about keys and how to configure
+               ;;  ---@type table<string, vim.lsp.Config>
+               (local lua-ls-on-init
+                      (fn [client]
+                        ;; Disable formatting (formatting is done by stylua)
+                        (set client.server_capabilities.documentFormattingProvider
+                             false)
+                        ;; Has-own-.luarc-file? if so, skip the rest and let it govern settings
+                        (local has-own-luarc?
+                               (and client.workspace_folders
+                                    (let [path (. client.workspace_folders 1
+                                                  :name)]
+                                      (and (not= path (vim.fn.stdpath :config))
+                                           (or (vim.uv.fs_stat (.. path
+                                                                   :/.luarc.json))
+                                               (vim.uv.fs_stat (.. path
+                                                                   :/.luarc.jsonc)))))))
+                        (when (not has-own-luarc?)
+                          ;; NOTE: `current-settings` mirrors `client.config.settings` for
+                          ;; readability, matching the original Lua source's local alias.
+                          (local current-settings client.config.settings)
+                          ;[[@as lspconfig.settings.lua_ls]]
+                          (set client.config.settings.Lua
+                               (vim.tbl_deep_extend :force current-settings.Lua
+                                                    {:runtime {:version :LuaJIT
+                                                               :path [:lua/?.lua
+                                                                      :lua/?/init.lua]}
+                                                     :workspace {:checkThirdParty false
+                                                                 ;; NOTE: this is a lot slower and will cause
+                                                                 ;; issues when working on your own configuration.
+                                                                 ;; See https://github.com/neovim/nvim-lspconfig/issues/3189
+                                                                 :library (vim.api.nvim_get_runtime_file ""
+                                                                                                         true)}})))))
+               (local servers
+                      {;; clangd = {},
+                       ;; gopls = {},
+                       ;; pyright = {},
+                       ;; rust_analyzer = {},
+                       ;;
+                       ;; Some languages (like typescript) have entire language plugins
+                       ;; that can be useful:
+                       ;;    https://github.com/pmizio/typescript-tools.nvim
+                       ;;
+                       ;; But for many setups, the LSP (`ts_ls`) will work just fine
+                       ;; ts_ls = {},
+                       :stylua {}
+                       ;; Used to format Lua code
+                       :fennel_ls {}
+                       :nixd {:cmd [:nixd :--semantic-tokens=true]
+                              :settings {:nixd {:nixpkgs {:expr "import <nixpkgs> { }"}
+                                                :formatting {:command [:nixfmt]}
+                                                :options {:nixos {:expr "(builtins.getFlake \"/home/krish/etc/nixos\").nixosConfigurations.nixpavilion.options"}
+                                                          :home_manager {:expr "(builtins.getFlake \"/home/krish/etc/nixos\").homeConfigurations.krish.options"}}}}}
+                       ;; Special Lua Config, as recommended by neovim help docs
+                       :lua_ls {:on_init lua-ls-on-init
+                                ;; ---@type lspconfig.settings.lua_ls
+                                :settings {:Lua {:format {:enable false}}}}
+                       ;; Disable formatting (formatting is done by stylua)
+                       :tinymist {:settings {:formatterMode :disable
+                                             ;; formatting done by conform+typstyle, matching your lua_ls pattern
+                                             :exportPdf :onType
+                                             :semanticTokens :disable}}
+                       ;; LSPs for markdown
+                       :zk {:cmd [:zk :lsp]
+                            :filetypes [:markdown]
+                            :root_markers [:.zk]}
+                       :marksman {:filetypes [:markdown]
+                                  :root_dir (fn [bufnr on_dir]
+                                              (let [path (vim.api.nvim_buf_get_name bufnr)
+                                                    dir (vim.fs.dirname path)
+                                                    found (vim.fs.find :.zk
+                                                                       {:path dir
+                                                                        :upward true
+                                                                        :type :directory})]
+                                                (when (= (length found) 0)
+                                                  (on_dir (or (vim.fs.root bufnr
+                                                                           [:.git])
+                                                              (vim.fn.getcwd))))))}})
+               ;; Automatically install LSPs and related tools to stdpath for Neovim
+               (each [name server (pairs servers)]
+                 (vim.lsp.config name server)
+                 (vim.lsp.enable name))))
 
 ;; Formatting ====================================================================
 ;;
@@ -141,36 +162,30 @@
 ;;
 ;; The 'stevearc/conform.nvim' plugin is a good and maintained solution for easier
 ;; formatting setup.
-(later
-  (fn []
-    ;; (add {1 :https://github.com/stevearc/conform.nvim})
-
-    ;; See also:
-    ;; - `:h Conform`
-    ;; - `:h conform-options`
-    ;; - `:h conform-formatters`
-    ((. (require :conform) :setup)
-     {:default_format_opts {;; Allow formatting from LSP server if no dedicated formatter is available
-                             :lsp_format :fallback}
-
-      ;; If this is set, Conform will run the formatter on save.
-      ;; It will pass the table to conform.format().
-      ;; This can also be a function that returns the table.
-      :format_on_save {;; I recommend these options. See :help conform.format for details.
-                        :lsp_format :fallback
-                        :timeout_ms 500}
-      ;; Map of filetype to formatters
-      ;; Make sure that necessary CLI tool is available
-      :formatters {:stylua {} ;; NOTE: Don't pass --search-parent-directories here: the
-                              ;; Nix-wrapped `stylua` binary from programs.stylua already
-                              ;; injects it via wrapProgram, so Conform's own default
-                              ;; (which also adds this flag) would collide with it and
-                              ;; stylua errors out.
-                   :fnlfmt {}}
-      :formatters_by_ft {:lua [:stylua]
-                          :nix [:nixfmt]
-                          :fennel [:fnlfmt]
-                          :markdown [:dprint]}})))
+(later (fn []
+         ;; (add {1 :https://github.com/stevearc/conform.nvim})
+         ;; See also:
+         ;; - `:h Conform`
+         ;; - `:h conform-options`
+         ;; - `:h conform-formatters`
+         ((. (require :conform) :setup) {:default_format_opts {;; Allow formatting from LSP server if no dedicated formatter is available
+                                                               :lsp_format :fallback}
+                                         ;; If this is set, Conform will run the formatter on save.
+                                         ;; It will pass the table to conform.format().
+                                         ;; This can also be a function that returns the table.
+                                         :format_on_save {;; I recommend these options. See :help conform.format for details.
+                                                          :lsp_format :fallback
+                                                          :timeout_ms 500}
+                                         ;; Map of filetype to formatters
+                                         ;; Make sure that necessary CLI tool is available
+                                         :formatters {:stylua {}
+                                                      :fnlfmt {}
+                                                      :typstyle {}}
+                                         :formatters_by_ft {:lua [:stylua]
+                                                            :nix [:nixfmt]
+                                                            :fennel [:fnlfmt]
+                                                            :markdown [:dprint]
+                                                            :typst [:typstyle]}})))
 
 ;; Snippets ======================================================================
 ;;
@@ -212,14 +227,27 @@
 ;;    (vim.cmd "color everforest")))
 
 ;; LazyDev for easy neovim config writing
-(now_if_args
-  (fn []
-    ((. (require :lazydev) :setup)
-     {:library [{:path :mini.nvim :words [:Mini%u%w+]}]})))
+(now_if_args (fn []
+               ((. (require :lazydev) :setup) {:library [{:path :mini.nvim
+                                                          :words ["Mini%u%w+"]}]})))
 
 ;; Indentation detection =========================================================
 ;;
 ;; 'nmac427/guess-indent.nvim' inspects a buffer's existing indentation and sets
 ;; 'shiftwidth'/'expandtab' to match, overriding whatever 10_options.lua set as
 ;; the global default on a per-file basis.
-(now_if_args (fn [] ((. (require :guess-indent) :setup) {})))
+(now_if_args (fn []
+               ((. (require :guess-indent) :setup) {})))
+
+; (now_if_args (fn []
+;                (local dropbar_api ((. (require :dropbar.api))))
+;                (vim.keymap.set :n :'<leader>' :dropbar_api.pick, {:desc "Pick symbols in winbar"})))
+
+(now_if_args (fn []
+               (let [dropbar_api (require :dropbar.api)]
+                 (vim.keymap.set :n "<leader>;" dropbar_api.pick
+                                 {:desc "Pick symbols in winbar"})
+                 (vim.keymap.set :n "[;" dropbar_api.goto_context_start
+                                 {:desc "Go to start of current context"})
+                 (vim.keymap.set :n "];" dropbar_api.select_next_context
+                                 {:desc "Select next context"}))))

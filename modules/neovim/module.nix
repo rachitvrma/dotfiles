@@ -189,6 +189,14 @@
             # for image.nvim
             imagemagick
             ghostscript # For previewing pdf files as well
+
+            # For typst
+            tinymist # the lsp server
+            typst # The compiler binary
+            typstyle # Formatter
+
+            # Markdown
+            marksman # LSP Provider
           ];
         };
       };

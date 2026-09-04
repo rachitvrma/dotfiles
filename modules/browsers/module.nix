@@ -296,6 +296,19 @@
                   keyword = "cinny";
                   url = "https://app.cinny.in/home/";
                 }
+
+                # Christian Forums
+                {
+                  name = "Christian Forums";
+                  keyword = "christianforums";
+                  url = "https://www.christianforums.com/";
+                }
+                # Check if any data breach has my data
+                {
+                  name = "HaveIBeenPwned";
+                  keyword = "haveibeenpwned";
+                  url = "https://haveibeenpwned.com/";
+                }
               ];
             };
             containers = {
@@ -367,9 +380,10 @@
                 };
                 home-manager-options = {
                   name = "Home-Manager Options";
+                  # https://search.nixos.org/options?channel=unstable&query=systemd&source=home_manager&type=options
                   urls = [
                     {
-                      url = "https://search.nixos.org/options";
+                      template = "https://search.nixos.org/options";
                       params = [
                         {
                           name = "channel";

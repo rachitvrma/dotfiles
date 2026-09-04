@@ -2,38 +2,41 @@
   flake.homeModules.ai =
     { pkgs, ... }:
     {
-      programs.opencode = {
-        enable = true;
-        package = pkgs.opencode;
-        extraPackages = with pkgs; [
-          ripgrep
-          fd
-          git
-          jq
-        ];
-        web = {
+      programs = {
+        # claude-code.enable = true;
+        opencode = {
           enable = true;
-          extraArgs = [
-            "--port"
-            "4096"
-            "--mdns"
+          package = pkgs.opencode;
+          extraPackages = with pkgs; [
+            ripgrep
+            fd
+            git
+            jq
           ];
-        };
-        context = ''
-          - Prefer Nix syntax highlighting.
-          - Never commit secrets or generated files.
-          - Run `nix flake check` before considering a change done.
-        '';
+          web = {
+            enable = true;
+            extraArgs = [
+              "--port"
+              "4096"
+              "--mdns"
+            ];
+          };
+          context = ''
+            - Prefer Nix syntax highlighting.
+            - Never commit secrets or generated files.
+            - Run `nix flake check` before considering a change done.
+          '';
 
-        settings = {
-          model = "ollama/qwen2.5-coder:7b-instruct-q4_K_M";
-          autoshare = false;
-          autoupdate = true;
-          provider = {
-            ollama = {
-              npm = "@ai-sdk/openai-compatible";
-              options.baseURL = "http://localhost:11434/v1";
-              models."qwen2.5-coder:7b-instruct-q4_K_M" = { };
+          settings = {
+            model = "ollama/qwen2.5-coder:7b-instruct-q4_K_M";
+            autoshare = false;
+            autoupdate = true;
+            provider = {
+              ollama = {
+                npm = "@ai-sdk/openai-compatible";
+                options.baseURL = "http://localhost:11434/v1";
+                models."qwen2.5-coder:7b-instruct-q4_K_M" = { };
+              };
             };
           };
         };
