@@ -187,7 +187,9 @@
         Unit.Description = "Empty trash older than 30 days";
         Service = {
           Type = "oneshot";
-          ExecStart = "${pkgs.trash-cli}/bin/trash-empty 30";
+          # `-f` flag force removes trash without asking for confirmation
+          # which makes sense, right?
+          ExecStart = "${pkgs.trash-cli}/bin/trash-empty -f 30";
         };
       };
       timers.trash-empty = {
