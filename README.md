@@ -186,13 +186,6 @@ git clone <your-pass-store-remote> ~/.password-store
 >Restoring your key to the default path is the easy way to reproduce
 >"gpg can't find my key."
 
->[!note]
->`pinentry-gnome3` needs `gcr` on D-Bus to work outside GNOME (niri included).
->Both `nixosModules.gpg` and `homeModules.gpg` already set
->`services.dbus.packages = [ pkgs.gcr ]`, so this should self-heal on
->rebuild — but if pinentry never appears on first login, log out/in once
->so the D-Bus session picks it up.
-
 #### Fastfetch Setup
 
 In my fastfetch config, I use images from [Maheswara660's fastfetch repo](https://github.com/Maheswara660/fastfetch/). So this step must be followed.
