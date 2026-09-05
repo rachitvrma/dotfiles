@@ -117,11 +117,9 @@
               "nglayout.initialpaint.delay_in_oopif" = 0;
               "content.notify.interval" = 100000; # 100 ms reflow interval (more responsive)
               "browser.tabs.unloadOnLowMemory" = true; # Unload background tabs under memory pressure
-              "browser.cache.memory.capacity" = 524288; # 512 MB in-memory cache (in KB)
               "network.http.max-persistent-connections-per-server" = 10;
               "network.ssl_tokens_cache_capacity" = 10240; # Larger TLS session cache
               "gfx.webrender.all" = true; # Force WebRender compositor
-              "gfx.webrender.precache-shaders" = true; # Pre-compile WebRender shaders at startup
               "media.hardware-video-decoding.force-enabled" = true; # Hardware video decoding
 
               # ── UI Enhancements ──────────────────────────────────────────────────────

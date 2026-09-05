@@ -87,6 +87,7 @@
                 # Also comes with its own lazy-loading capabilities
                 rainbow-delimiters-nvim # For delimiters of course
 
+                tiny-cmdline-nvim # Just a little ui tweak
               ];
 
               optPlugins = with pkgs.vimPlugins; [

@@ -12,6 +12,7 @@ vim.o.colorcolumn = "+1"
 vim.o.cursorline = true
 vim.o.linebreak = true
 vim.o.list = true
+vim.o.cmdheight = 0
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.pumborder = "rounded"
@@ -80,4 +81,5 @@ local diagnostic_opts = {signs = {priority = 9999, severity = {min = "WARN", max
 local function _3_()
   return vim.diagnostic.config(diagnostic_opts)
 end
-return Config.later(_3_)
+Config.later(_3_)
+return require("vim._core.ui2").enable()

@@ -121,9 +121,7 @@
                        :fennel_ls {}
                        :nixd {:cmd [:nixd :--semantic-tokens=true]
                               :settings {:nixd {:nixpkgs {:expr "import <nixpkgs> { }"}
-                                                :formatting {:command [:nixfmt]}
-                                                :options {:nixos {:expr "(builtins.getFlake \"/home/krish/etc/nixos\").nixosConfigurations.nixpavilion.options"}
-                                                          :home_manager {:expr "(builtins.getFlake \"/home/krish/etc/nixos\").homeConfigurations.krish.options"}}}}}
+                                                :formatting {:command [:nixfmt]}}}}
                        ;; Special Lua Config, as recommended by neovim help docs
                        :lua_ls {:on_init lua-ls-on-init
                                 ;; ---@type lspconfig.settings.lua_ls

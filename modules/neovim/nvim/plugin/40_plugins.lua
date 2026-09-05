@@ -53,7 +53,7 @@ local function _5_()
       return nil
     end
   end
-  servers = {stylua = {}, fennel_ls = {}, nixd = {cmd = {"nixd", "--semantic-tokens=true"}, settings = {nixd = {nixpkgs = {expr = "import <nixpkgs> { }"}, formatting = {command = {"nixfmt"}}, options = {nixos = {expr = "(builtins.getFlake \"/home/krish/etc/nixos\").nixosConfigurations.nixpavilion.options"}, home_manager = {expr = "(builtins.getFlake \"/home/krish/etc/nixos\").homeConfigurations.krish.options"}}}}}, lua_ls = {on_init = lua_ls_on_init, settings = {Lua = {format = {enable = false}}}}, tinymist = {settings = {formatterMode = "disable", exportPdf = "onType", semanticTokens = "disable"}}, zk = {cmd = {"zk", "lsp"}, filetypes = {"markdown"}, root_markers = {".zk"}}, marksman = {filetypes = {"markdown"}, root_dir = _10_}}
+  servers = {stylua = {}, fennel_ls = {}, nixd = {cmd = {"nixd", "--semantic-tokens=true"}, settings = {nixd = {nixpkgs = {expr = "import <nixpkgs> { }"}, formatting = {command = {"nixfmt"}}}}}, lua_ls = {on_init = lua_ls_on_init, settings = {Lua = {format = {enable = false}}}}, tinymist = {settings = {formatterMode = "disable", exportPdf = "onType", semanticTokens = "disable"}}, zk = {cmd = {"zk", "lsp"}, filetypes = {"markdown"}, root_markers = {".zk"}}, marksman = {filetypes = {"markdown"}, root_dir = _10_}}
   for name, server in pairs(servers) do
     vim.lsp.config(name, server)
     vim.lsp.enable(name)

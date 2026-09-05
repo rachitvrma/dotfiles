@@ -58,6 +58,9 @@
 ;; Wrap lines at 'breakat' (if 'wrap' is set)
 (set vim.o.list true)
 
+;; Set cmdheight to 0
+(set vim.o.cmdheight 0)
+
 ;; Show helpful text indicators
 (set vim.o.number true)
 
@@ -242,3 +245,5 @@
 
 ;; Use `later()` to avoid sourcing `vim.diagnostic` on startup
 (Config.later (fn [] (vim.diagnostic.config diagnostic-opts)))
+
+((. (require :vim._core.ui2) :enable))
