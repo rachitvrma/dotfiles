@@ -14,24 +14,53 @@
           # See todo.org
           # pkcs11Modules = [ pkgs.p11-kit ];
 
-          globalExtensions = with pkgs.nur.repos.rycee.firefox-addons; [
-            {
-              package = ublock-origin;
-              settings = {
-                private_browsing = true;
-              };
-            }
-            {
-              package = darkreader;
-              settings = {
-                private_browsing = true;
-              };
-            }
-          ];
-
           policies = {
             DisableTelemetry = true;
             DefaultDownloadDirectory = "${config.home.homeDirectory}/Downloads";
+
+            # Firefox installs these itself at runtime — no Nix packaging.
+            # `updates_disabled` pins each at whatever version gets fetched on
+            # first install, so it won't drift later; bump the file yourself
+            # when you want a newer one. `private_browsing` (Firefox 136+)
+            # replaces the old per-extension NUR settings.private_browsing.
+            #
+            # Finding an extension's slug and guid for a new entry below:
+            # - slug: the segment in its AMO URL, e.g. addons.mozilla.org/…
+            #   /firefox/addon/<slug>/ — this is what `moz` below takes.
+            # - guid: the actual extension ID (this attrset's key), NOT the
+            #   slug — it's browser_specific_settings.gecko.id from the xpi's
+            #   manifest.json. Get it with:
+            #     curl -s https://addons.mozilla.org/api/v5/addons/addon/<slug>/ | jq '.guid'
+            #   or install the extension once normally and check
+            #   about:debugging#/runtime/this-firefox.
+            ExtensionSettings =
+              let
+                moz = short: "https://addons.mozilla.org/firefox/downloads/latest/${short}/latest.xpi";
+              in
+              {
+                "*".installation_mode = "blocked";
+
+                "uBlock0@raymondhill.net" = {
+                  install_url = moz "ublock-origin";
+                  installation_mode = "force_installed";
+                  updates_disabled = true;
+                  private_browsing = true;
+                };
+
+                "addon@darkreader.org" = {
+                  install_url = moz "darkreader";
+                  installation_mode = "force_installed";
+                  updates_disabled = true;
+                  private_browsing = true;
+                };
+
+                "myallychou@gmail.com" = {
+                  install_url = moz "youtube-recommended-videos";
+                  installation_mode = "force_installed";
+                  updates_disabled = true;
+                  private_browsing = true;
+                };
+              };
           };
           profiles.krish = {
             isDefault = true;
@@ -433,6 +462,23 @@
                   urls = [ { template = "https://noogle.dev/q?term={searchTerms}"; } ];
                   iconMapObj."16" = "https://noogle.dev/favicon.ico";
                   definedAliases = [ "@ng" ];
+                };
+                # search packages in the Nix User Repository
+                nur = {
+                  name = "NUR Packages";
+                  urls = [
+                    {
+                      template = "https://nur.nix-community.org/?query=unhook";
+                      params = [
+                        {
+                          name = "query";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  iconMapObj."16" = "https://noogle.dev/favicon.ico";
+                  definedAliases = [ "@nur" ];
                 };
 
                 # YouTube Stack
