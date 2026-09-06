@@ -25,7 +25,7 @@
         extraPortals = with pkgs; [
           xdg-desktop-portal-gtk
         ];
-        configPackages = [ pkgs.niri ];
+        configPackages = [ config.wayland.windowManager.niri.package ];
       };
       wayland.windowManager.niri = {
         enable = true;
