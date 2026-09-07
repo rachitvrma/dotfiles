@@ -1,8 +1,5 @@
 {
   flake.nixosModules.gpg = { pkgs, ... }: {
-    services.dbus.packages = with pkgs; [
-      gcr
-    ];
     programs.gnupg.agent.pinentryPackage = pkgs.pinentry-egui;
   };
 

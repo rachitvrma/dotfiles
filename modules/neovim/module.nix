@@ -1,18 +1,23 @@
 {
-  flake.nixosModules.neovim = {
+  flake.nixosModules.neovim = { lib, ... }: {
     programs = {
       neovim = {
         enable = true;
         viAlias = true;
         vimAlias = true;
-        defaultEditor = true;
+        # defaultEditor = lib.mkDefault true;
         withNodeJs = true;
       };
     };
   };
 
   flake.homeModules.neovim =
-    { pkgs, config, ... }:
+    {
+      pkgs,
+      config,
+      lib,
+      ...
+    }:
     {
       home.packages = with pkgs; [
         # Mermaid Diagrams
@@ -46,7 +51,7 @@
         neovim = {
           enable = true;
           sideloadInitLua = true;
-          defaultEditor = true;
+          # defaultEditor = lib.mkDefault true;
           withNodeJs = true;
           viAlias = true;
           vimAlias = true;

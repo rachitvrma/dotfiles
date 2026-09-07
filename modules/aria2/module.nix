@@ -10,7 +10,7 @@
       home.packages = with pkgs; [ libnotify ];
       programs = {
         aria2p = {
-          enable = true;
+          enable = false; # Using aria2.el in emacs
           settings = lib.importTOML ./config.toml;
         };
         aria2 = {

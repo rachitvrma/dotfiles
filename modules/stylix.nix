@@ -53,7 +53,12 @@ let
 in
 {
   flake.nixosModules.stylix =
-    { pkgs, config, ... }:
+    {
+      pkgs,
+      config,
+      lib,
+      ...
+    }:
     {
       imports = [ inputs.stylix.nixosModules.stylix ];
       gtk.iconCache.enable = true;
@@ -63,11 +68,27 @@ in
       # Enabling this in nixosModules, automatically enables in home-manager.
       fonts = {
         # enableDefaultPackages = false;
+
+        # Not using lib.mkAfter can override stylix's default
+        packages = lib.mkAfter (
+          with pkgs;
+          [
+            nerd-fonts.symbols-only
+          ]
+        );
         fontconfig = {
           enable = true;
         };
       };
     }
     // (commonStylix pkgs config);
-  flake.homeModules.stylix = { config, pkgs, ... }: commonStylix pkgs config;
+
+  flake.homeModules.stylix =
+    { config, pkgs, ... }:
+    {
+      fonts.fontconfig.enable = true;
+      # A lot of applications don't work without this, so let this be here
+      home.packages = with pkgs; [ nerd-fonts.symbols-only ];
+    }
+    // (commonStylix pkgs config);
 }

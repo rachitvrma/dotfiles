@@ -11,30 +11,51 @@
       halloy = {
         enable = true;
         settings = {
-          servers.liberachat = {
-            password_keyring = true;
-            sasl = {
-              plain = {
-                username = "woodenAllen";
-                password_keyring = true;
+          servers = {
+            rizon = {
+              irc_protocol_log.enabled = true;
+              password_keyring = true;
+              nickname = "woodenAllen";
+              server = "irc.rizon.net";
+              sasl = {
+                plain = {
+                  username = "woodenAllen";
+                  password_keyring = true;
+                  disconnect_on_failure = false;
+                };
               };
+              use_tls = true;
+              channels = [ "#help" ];
             };
-            server = "irc.libera.chat";
-            use_tls = true;
-            nickname = "woodenAllen";
-            channels = [
-              "##anime"
-              "#archlinux"
-              "#archlinux-offtopic"
-              "##chat"
-              "#emacs"
-              "#emacs-beginners"
-              "#emacs-social"
-              "#emacs-til"
-              "#gentoo"
-              "#gentoo-chat"
-              "#halloy"
-            ];
+            liberachat = {
+              password_keyring = true;
+              sasl = {
+                plain = {
+                  username = "woodenAllen";
+                  password_keyring = true;
+                };
+              };
+              server = "irc.libera.chat";
+              use_tls = true;
+              nickname = "woodenAllen";
+              channels = [
+                "##anime"
+                "#archlinux"
+                "#archlinux-offtopic"
+                "##chat"
+                "#emacs"
+                "#emacs-beginners"
+                "#emacs-social"
+                "#emacs-til"
+                "#gentoo"
+                "#gentoo-chat"
+                "#halloy"
+              ];
+            };
+          };
+          buffer = {
+            nickname.color = "unique";
+            timestamp.format = "%R";
           };
           notifications = {
             direct_message = {

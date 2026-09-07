@@ -102,6 +102,7 @@
       center = [
         "pomodoro"
         "clock-12h"
+        "date"
         "timer"
       ];
       end = [

@@ -1,13 +1,13 @@
 {
-  flake.homeModules.pomo = {
+  flake.homeModules.pomo = { config, ... }: {
     programs.pomo = {
-      enable = true;
+      enable = false;
       settings = {
         onSessionEnd = "ask";
         asciiArt = {
           enabled = true;
-          font = "mono12";
-          color = "#5A56E0";
+          font = "rebel";
+          color = config.lib.stylix.colors.withHashtag.base0E;
         };
         work = {
           duration = "25m";

@@ -1,0 +1,5 @@
+#+TITLE: Why use Emacs?
+#+SUBTITLE: Personal note to myself for not editor-hopping anymore
+
+* The Unification Layer
+The reason I have gotten back to using Emacs is unification and hackability. There are numerous tools that can do one thing only, and that too very well. But none of them can provide the layer of unification that Emacs and Lisp does. For example, =taskwarrior= may have all my tasks, but there are gonna be =TODO's= all over my notes, programs, and other places. You know, for example, there might be a TODO in a =flake.nix=, and there might be one in =hello.c=. I can literally create TODO links in real time while working in the file with the exact place I have that note/TODO for. That's particularly and org-mode feature. However, org-mode is first class citizen of Emacs.
