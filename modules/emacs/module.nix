@@ -49,7 +49,8 @@
           consult-eglot-embark
           corfu
           dash
-          dashboard
+          dashboard # A nice startup screen
+          diff-hl # See git hunks and changes in the line number area
           doom-modeline
           eglot
           embark

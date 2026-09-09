@@ -3,16 +3,11 @@
     {
       pkgs,
       config,
-      lib,
       ...
     }:
     {
       home.packages = with pkgs; [ libnotify ];
       programs = {
-        aria2p = {
-          enable = false; # Using aria2.el in emacs
-          settings = lib.importTOML ./config.toml;
-        };
         aria2 = {
           enable = true;
           systemd.enable = true;

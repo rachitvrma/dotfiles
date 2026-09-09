@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.neovim = { lib, ... }: {
+  flake.nixosModules.neovim = { ... }: {
     programs = {
       neovim = {
         enable = true;
@@ -15,7 +15,6 @@
     {
       pkgs,
       config,
-      lib,
       ...
     }:
     {
@@ -67,6 +66,15 @@
           withPython3 = true;
           plugins =
             let
+              mini-statuscolumn = pkgs.vimUtils.buildVimPlugin {
+                name = "mini-statuscolumn";
+                src = pkgs.fetchFromGitHub {
+                  owner = "nvim-mini";
+                  repo = "mini.statuscolumn";
+                  rev = "bc7896bb314f11169ea5f82b312fa67340f736a4";
+                  hash = "sha256-22h+c4bH8wugU6B96/DD1VjrR0jDIVxwS+8Pmnc2kqo=";
+                };
+              };
               startPlugins = with pkgs.vimPlugins; [
                 conform-nvim # For formatting
                 friendly-snippets # For premade snippets
@@ -78,6 +86,7 @@
                 taskwarrior3 # Adds syntax highlighting for task
 
                 mini-nvim # MiniMax config
+                mini-statuscolumn # Built from scratch
 
                 nfnl # Use fennel (Lisp) to configure neovim
 

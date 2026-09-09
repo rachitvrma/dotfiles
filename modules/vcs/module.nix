@@ -7,9 +7,6 @@
         package = pkgs.gitFull;
         lfs.enable = true;
       };
-      lazygit = {
-        enable = true;
-      };
     };
   };
 
@@ -49,12 +46,6 @@
             sign-all = true;
           };
         };
-      };
-
-      # TODO: Configure this beast
-      # TODO: Make a themes module for it.
-      jjui = {
-        enable = true;
       };
 
       git = {
@@ -165,10 +156,6 @@
           "build/"
           "*.egg-info/"
         ];
-      };
-      lazygit = {
-        enable = true;
-        enableZshIntegration = true; # Use 'lg' to start lazygit
       };
     };
   };

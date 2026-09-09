@@ -219,4 +219,8 @@ later(_43_)
 local function _44_()
   return require("mini.visits").setup()
 end
-return later(_44_)
+later(_44_)
+local function _45_()
+  return require("mini.statuscolumn").setup()
+end
+return now(_45_)

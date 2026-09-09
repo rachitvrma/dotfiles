@@ -97,6 +97,10 @@ There's no separate package for "built-in Emacs behavior", so by convention it's
     (setq use-short-answers t)
     (setq ring-bell-function 'ignore)
 
+    :hook
+    ;; Display line numbers in programming modes only
+    (prog-mode . display-line-numbers-mode)
+
     :custom
     ;; Don't litter every directory with foo~ backup files and
     ;; #foo#/.#foo lock files.
@@ -125,6 +129,11 @@ There's no separate package for "built-in Emacs behavior", so by convention it's
     ;; Do not allow the cursor in the minibuffer prompt
     (minibuffer-prompt-properties
      '(read-only t cursor-intangible t face minibuffer-prompt))
+
+    ;; Display relative line numbers
+    (display-line-numbers-type 'relative)
+    ;; Ensure the column doesn't aggresively jump in width as you scroll
+    (display-line-numbers-width-start t)
     
     :config
     ;; Redundant with the early-init default-frame-alist for the very
@@ -463,7 +472,7 @@ Kept minimal: initialize the standard set of players/sources and let EMMS auto-d
 
 ** =ligature= -- programming ligatures
 
-Only takes effect if the font actually contains the relevant glyphs (e.g. Fira Code, Cascadia Code, JetBrains Mono); if the currently configured font has no ligature glyphs this is simply a no-op rather than something that needs disabling.
+Only takes effect if the font actually contains the relevant glyphs (e.g. Fira Code, Cascadia Code, JetBrains Mono); if the currently configured font has no ligature glyphs this is simply a no-op rather than something that needs disabling. The current snippet is for =JetBrainsMono Nerd Font=, which I currently use.
 
 #+begin_src emacs-lisp
   (use-package ligature
@@ -671,5 +680,131 @@ Elisp front-end for the external =zoxide= CLI; requires the CLI itself to be on 
 
   ;; Consult users will also want the embark-consult package.
   (use-package embark-consult) ; only need to install it, embark loads it after consult if found
+
+#+END_SRC
+
+** GNU =pass-cli= integration
+
+Enable =pass-cli= integration using this:
+#+begin_src emacs-lisp
+
+  ;; Enable pass integration so Emacs can read your ~/.password-store natively
+  (use-package auth-source-pass
+    :ensure nil
+    :config
+    (auth-source-pass-enable))
+
+#+end_src
+
+** =ERC=
+
+Note that =ERC= uses =pass-cli= authentication integration (=auth-source-path-enable=). Make sure that that is enabled.
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package erc
+    :ensure nil
+    :custom
+    ;; Replicating your Halloy identity
+    (erc-nick "woodenAllen")
+
+    (erc-hide-list '("JOIN" "PART" "QUIT"))
+    (erc-server-auto-reconnect t)
+
+    ;; Channels ported directly from your matrix_irc.nix
+    (erc-autojoin-channels-alist
+     '(("rizon.net" "#help")
+       ("libera.chat" "##anime" "#archlinux" "#archlinux-offtopic" "##chat" 
+        "#emacs" "#emacs-beginners" "#emacs-social" "#emacs-til" 
+        "#gentoo" "#gentoo-chat" "#halloy")))
+
+    ;; Instruct ERC to query auth-source (which now checks 'pass') for NickServ
+    (erc-prompt-for-nickserv-password nil)
+    (erc-use-auth-source-for-nickserv-password t)
+
+    :config
+    (defun erc-rizon ()
+      "Connect securely to Rizon."
+      (interactive)
+      (erc-tls :server "irc.rizon.net" :port 6697))
+
+    (defun erc-libera ()
+      "Connect securely to Libera.Chat."
+      (interactive)
+      (erc-tls :server "irc.libera.chat" :port 6697)))
+
+#+END_SRC
+
+** =newsticker=
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package newsticker
+    :ensure nil
+    :bind ("C-c n" . newsticker-treeview)
+    :custom
+    ;; Fetch updates automatically in the background every hour (3600 seconds)
+    (newsticker-retrieval-interval 3600)
+
+    ;; Keep the mode-line clean by not showing the scrolling headline ticker
+    (newsticker-display-interval nil)
+
+    ;; --- Cleanup & Cache Control ---
+    ;; Delete items from Emacs storage once they are marked obsolete/old
+    (newsticker-keep-obsolete-items nil)
+    ;; Absolute fail-safe: force-delete unread articles after 14 days
+    (newsticker-obsolete-item-max-age (* 14 24 60 60))
+
+    ;; Define your feeds: '("Title" "URL")
+    (newsticker-url-list
+     '(
+       ("Noctalia" "https://noctalia.dev/rss.xml")
+       ("Drew Devault's Blog" "https://drewdevault.com/blog/index.xml")
+       ("Fedora Magazine" "https://fedoramagazine.org/feed/")
+       ("FreeCodeCamp Blogs" "https://www.freecodecamp.org/news/tag/blog/rss/")
+       ("FreeCodeCamp News" "https://www.freecodecamp.org/news/rss")
+       ("FreeCodeCamp Programming Blogs" "https://www.freecodecamp.org/news/tag/programming-blogs/rss/")
+       ("Home Manager News" "https://techhub.social/@hmnews.rss")
+       ("Ian Henry's Blog" "https://ianthehenry.com/feed.xml")
+       ("Redhat Blog" "https://www.redhat.com/en/rss/blog")
+       ("Simon Willison's Blog" "https://simonwillison.net/atom/everything/")
+       ("Mini Nvim" "https://nvim-mini.org/blog/index.xml")
+       ("Neovim News" "https://neovim.io/news.xml")
+       ("Neovim Plugins" "https://dotfyle.com/neovim/plugins/rss.xml")
+       ("Neovim Releases" "https://github.com/neovim/neovim/releases.atom")
+       ("r/neovim" "https://www.reddit.com/r/neovim.rss")
+       ("This Week In Neovim Dotfyle" "https://dotfyle.com/this-week-in-neovim/rss.xml")
+       ("NixOS discourse (announcements)" "https://discourse.nixos.org/latest.rss")
+       ("NixOS Discourse (Announcements)" "https://discourse.nixos.org/c/announcements/8.rss")
+       ("https://krebsonsecurity.com/feed/" "https://krebsonsecurity.com/feed/")
+       ("The Hacker News" "https://feeds.feedburner.com/TheHackersNews")
+       ))
+
+    :config
+    ;; Start the background retrieval process automatically
+    (newsticker-start t))
+
+#+END_SRC
+
+** Diff-hl
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package diff-hl
+    :hook ((prog-mode . diff-hl-mode)
+           ;; Show git statuses in Dired buffers too
+           (dired-mode . diff-hl-dired-mode)
+           ;; Sync automatically with Magit/Majutsu actions
+           (magit-pre-refresh . diff-hl-magit-pre-refresh)
+           (magit-post-refresh . diff-hl-magit-post-refresh))
+    :config
+    ;; Calculate diffs live as you type, without needing to save the file
+    (diff-hl-flydiff-mode 1)
+
+    ;; By default, Emacs puts these signs in the graphical "Fringe".
+    ;; Uncomment the line below if you prefer them shifted inward 
+    ;; to sit flush against the line numbers (closer to the Neovim look).
+    ;; (diff-hl-margin-mode 1)
+    )
 
 #+END_SRC
