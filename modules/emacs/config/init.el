@@ -87,10 +87,25 @@
 (use-package dashboard
   :init
   (setq dashboard-startup-banner 'logo
-        initial-buffer-choice #'dashboard-open)
+        initial-buffer-choice #'dashboard-open
+        dashboard-center-content t
+        dashboard-vertically-center-content t
+        dashboard-navigation-cycle t
+        
+        ;; Nerd icons
+        dashboard-display-icons-p t
+        dashboard-icon-type 'nerd-icons
+        dashboard-set-heading-icons t
+        dashboard-set-file-icons t
+        ;; Show shortcuts
+        dashboard-show-shortcuts t)
   :config
   (add-hook 'server-after-make-frame-hook #'dashboard-open)
   (dashboard-setup-startup-hook))
+
+(use-package page-break-lines
+  :init
+  (page-break-lines-mode))
 
 (use-package doom-modeline
   :after nerd-icons
@@ -254,11 +269,21 @@
   (global-corfu-mode))
 
 (use-package eglot
-  :hook ((nix-ts-mode . eglot-ensure)
-         (bash-ts-mode . eglot-ensure))
+  :hook ((nix-ts-mode
+          bash-ts-mode
+          c-ts-mode
+          c++-ts-mode
+          python-ts-mode
+          html-mode
+          html-ts-mode
+          css-ts-mode
+          js-ts-mode
+          json-ts-mode
+          yaml-ts-mode
+          toml-ts-mode) . eglot-ensure)
   :custom
-  (eglot-autoshutdown t)     ; kill the LSP server once its last buffer closes
-  (eglot-sync-connect nil)   ; don't block Emacs waiting for the server to start
+  (eglot-autoshutdown t)
+  (eglot-sync-connect nil)
   :config
   (add-to-list 'eglot-server-programs
                '(nix-ts-mode . ("nixd" "--semantic-tokens=true"))))
@@ -267,13 +292,26 @@
   :init
   (apheleia-global-mode 1)
   :config
-  (setf (alist-get 'nix-mode apheleia-mode-alist) 'nixfmt))
+  (setf (alist-get 'nix-mode apheleia-mode-alist) 'nixfmt)
+  ;; Universal fallback: Wire web and config languages to Dprint
+  (dolist (mode '(html-mode html-ts-mode css-ts-mode js-ts-mode 
+                            json-ts-mode toml-ts-mode yaml-ts-mode markdown-mode))
+    (setf (alist-get mode apheleia-mode-alist) 'dprint)))
 
+;; Tree-sitter grammars
 (use-package treesit
   :config
-  ;; bash-ts-mode ships in Emacs itself, so the bash grammar alone is
-  ;; enough to switch sh-mode buffers over to it.
-  (add-to-list 'major-mode-remap-alist '(sh-mode . bash-ts-mode)))
+  (setq major-mode-remap-alist
+        '((sh-mode         . bash-ts-mode)
+          (c-mode          . c-ts-mode)
+          (c++-mode        . c++-ts-mode)
+          (python-mode     . python-ts-mode)
+          (css-mode        . css-ts-mode)
+          (javascript-mode . js-ts-mode)
+          (js-mode         . js-ts-mode)
+          (json-mode       . json-ts-mode)
+          (yaml-mode       . yaml-ts-mode)
+          (toml-mode       . toml-ts-mode))))
 
 ;; nix-ts-mode isn't remapping a built-in mode the way bash-ts-mode
 ;; remaps sh-mode -- there's no built-in "nix-mode" in Emacs at all --
@@ -352,8 +390,8 @@
 (use-package pulsar
   :bind
   (:map global-map
-    ("C-x l" . pulsar-pulse-line) ; overrides `count-lines-page'
-    ("C-x L" . pulsar-highlight-permanently-dwim)) ; or use `pulsar-highlight-temporarily'
+        ("C-x l" . pulsar-pulse-line) 
+        ("C-x L" . pulsar-highlight-permanently-dwim)) 
   :init
   (pulsar-global-mode 1)
   :hook
@@ -361,13 +399,13 @@
    
    ;; Imenu integration
    (imenu-after-jump . pulsar-recenter-top)
-   (imenu-after-jump . pulsar-recenter-entry)
+   (imenu-after-jump . pulsar-reveal-entry)
    
    (minibuffer-setup . pulsar-pulse-line)
 
    ;; Consult
    (consult-after-jump . pulsar-recenter-top)
-   (consult-after-jump . pulsar-recenter-entry)))
+   (consult-after-jump . pulsar-reveal-entry)))
 
 (use-package ace-window
   :bind ("M-o" . ace-window)
@@ -547,3 +585,62 @@
   ;; to sit flush against the line numbers (closer to the Neovim look).
   ;; (diff-hl-margin-mode 1)
   )
+
+(use-package org
+  :ensure nil
+  :config
+  ;; Bring back the <s TAB template expansions
+  (require 'org-tempo)
+
+  ;; Add a custom expansion for emacs-lisp.
+  ;; You can change "el" to "e" if you don't mind overriding the default
+  ;; #+begin_example expansion. "el" is a common convention for Emacs Lisp.
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (add-to-list 'org-structure-template-alist '("nix" . "src nix")))
+
+(use-package hl-todo
+  :config
+  (global-hl-todo-mode))
+
+;; Use consult-todo with hl-todo
+(use-package consult-todo
+  :demand t
+  :config
+  ;; Use narrows with consult-todo
+  (defconst consult-todo--narrow
+    '((?t . "TODO")
+      (?f . "FIXME")
+      (?b . "BUG")
+      (?h . "HACK"))
+    "Default mapping of narrow and keywords."))
+
+(use-package neotree
+  ;; A common convention is F8 for the sidebar toggle, but you can 
+  ;; adjust this to a comfortable C-c binding if you prefer.
+  :bind (("<f8>" . neotree-toggle)
+         ("C-c d" . neotree-dir))
+  :custom
+  ;; Automatically find and highlight the current file in the sidebar
+  ;; when Neotree is toggled open.
+  (neo-smart-open t)
+
+  ;; Use 'nerd-icons' for the file tree since you already have them 
+  ;; configured. (Falls back to arrows in the terminal).
+  (neo-theme (if (display-graphic-p) 'nerd-icons 'arrow))
+
+  ;; Set a comfortable fixed width for the sidebar
+  (neo-window-width 30)
+  (neo-window-fixed-size nil)
+
+  ;; Show hidden dotfiles by default
+  (neo-show-hidden-files t)
+
+  ;; Uncomment this if you want the sidebar to automatically close 
+  ;; the moment you open a file.
+  ;; (neo-autoclose t)
+
+  :config
+  ;; Prevent the mode-line from feeling cluttered by overriding its format
+  ;; inside the Neotree buffer
+  (setq-default neo-mode-line-type 'none))

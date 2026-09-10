@@ -170,6 +170,7 @@ There's no separate package for "built-in Emacs behavior", so by convention it's
 Every other package below writes *something* to disk eventually (auto-saves, caches, history files). =no-littering= redirects all of that into =~/.emacs.d/var/= and =~/.emacs.d/etc/=, so it has to be configured before those other packages get a chance to pick their own default (scattered) locations -- hence it comes right after the core =emacs= block and before everything else.
 
 #+begin_src emacs-lisp
+
   (use-package no-littering
     :demand t
     :config
@@ -177,6 +178,7 @@ Every other package below writes *something* to disk eventually (auto-saves, cac
     ;; explicit redirect, everything else it handles on its own.
     (setq auto-save-file-name-transforms
           `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+  
 #+end_src
 
 ** =org-auto-tangle= -- keep this very file in sync
@@ -191,13 +193,30 @@ Re-tangles =early-init.el=/=init.el= from this org file automatically whenever i
 ** =dashboard= -- startup screen
 
 #+begin_src emacs-lisp
+
   (use-package dashboard
     :init
     (setq dashboard-startup-banner 'logo
-          initial-buffer-choice #'dashboard-open)
+          initial-buffer-choice #'dashboard-open
+          dashboard-center-content t
+          dashboard-vertically-center-content t
+          dashboard-navigation-cycle t
+          
+          ;; Nerd icons
+          dashboard-display-icons-p t
+          dashboard-icon-type 'nerd-icons
+          dashboard-set-heading-icons t
+          dashboard-set-file-icons t
+          ;; Show shortcuts
+          dashboard-show-shortcuts t)
     :config
     (add-hook 'server-after-make-frame-hook #'dashboard-open)
     (dashboard-setup-startup-hook))
+
+  (use-package page-break-lines
+    :init
+    (page-break-lines-mode))
+
 #+end_src
 
 ** =doom-modeline= -- mode line
@@ -215,6 +234,7 @@ Re-tangles =early-init.el=/=init.el= from this org file automatically whenever i
 =nerd-icons= itself is just the glyph-lookup library; the rest of the =nerd-icons-*= packages in modules.nix are per-UI integrations. The Nerd Font glyphs are already on the system via Nix, so =nerd-icons-install-fonts= is neither needed nor wanted here.
 
 #+begin_src emacs-lisp
+
   (use-package nerd-icons)
 
   (use-package nerd-icons-dired
@@ -244,6 +264,7 @@ Re-tangles =early-init.el=/=init.el= from this org file automatically whenever i
     :after corfu
     :config
     (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+  
 #+end_src
 
 ** Minibuffer completion stack: =vertico= + =orderless= + =marginalia= + =consult=
@@ -399,11 +420,21 @@ Eglot ships with Emacs (29+) -- it's in extraPackages here only to pin/override 
 #+begin_src emacs-lisp
 
   (use-package eglot
-    :hook ((nix-ts-mode . eglot-ensure)
-           (bash-ts-mode . eglot-ensure))
+    :hook ((nix-ts-mode
+            bash-ts-mode
+            c-ts-mode
+            c++-ts-mode
+            python-ts-mode
+            html-mode
+            html-ts-mode
+            css-ts-mode
+            js-ts-mode
+            json-ts-mode
+            yaml-ts-mode
+            toml-ts-mode) . eglot-ensure)
     :custom
-    (eglot-autoshutdown t)     ; kill the LSP server once its last buffer closes
-    (eglot-sync-connect nil)   ; don't block Emacs waiting for the server to start
+    (eglot-autoshutdown t)
+    (eglot-sync-connect nil)
     :config
     (add-to-list 'eglot-server-programs
                  '(nix-ts-mode . ("nixd" "--semantic-tokens=true"))))
@@ -419,7 +450,11 @@ Runs an external formatter asynchronously on save and patches the buffer with a 
     :init
     (apheleia-global-mode 1)
     :config
-    (setf (alist-get 'nix-mode apheleia-mode-alist) 'nixfmt))
+    (setf (alist-get 'nix-mode apheleia-mode-alist) 'nixfmt)
+    ;; Universal fallback: Wire web and config languages to Dprint
+    (dolist (mode '(html-mode html-ts-mode css-ts-mode js-ts-mode 
+                              json-ts-mode toml-ts-mode yaml-ts-mode markdown-mode))
+      (setf (alist-get mode apheleia-mode-alist) 'dprint)))
 #+end_src
 
 ** Tree-sitter grammars
@@ -427,11 +462,21 @@ Runs an external formatter asynchronously on save and patches the buffer with a 
 The =(treesit-grammars.with-grammars ...)= derivation in modules.nix builds and installs pre-compiled bash + nix grammar =.so= files; the Nix-generated loader for that package adds them to =treesit-extra-load-path= on its own, so nothing further is needed here to make the grammars *available* -- =major-mode-remap-alist= below only decides *which major mode uses them*.
 
 #+begin_src emacs-lisp
+
+  ;; Tree-sitter grammars
   (use-package treesit
     :config
-    ;; bash-ts-mode ships in Emacs itself, so the bash grammar alone is
-    ;; enough to switch sh-mode buffers over to it.
-    (add-to-list 'major-mode-remap-alist '(sh-mode . bash-ts-mode)))
+    (setq major-mode-remap-alist
+          '((sh-mode         . bash-ts-mode)
+            (c-mode          . c-ts-mode)
+            (c++-mode        . c++-ts-mode)
+            (python-mode     . python-ts-mode)
+            (css-mode        . css-ts-mode)
+            (javascript-mode . js-ts-mode)
+            (js-mode         . js-ts-mode)
+            (json-mode       . json-ts-mode)
+            (yaml-mode       . yaml-ts-mode)
+            (toml-mode       . toml-ts-mode))))
 
   ;; nix-ts-mode isn't remapping a built-in mode the way bash-ts-mode
   ;; remaps sh-mode -- there's no built-in "nix-mode" in Emacs at all --
@@ -563,8 +608,8 @@ Elisp front-end for the external =zoxide= CLI; requires the CLI itself to be on 
   (use-package pulsar
     :bind
     (:map global-map
-      ("C-x l" . pulsar-pulse-line) ; overrides `count-lines-page'
-      ("C-x L" . pulsar-highlight-permanently-dwim)) ; or use `pulsar-highlight-temporarily'
+          ("C-x l" . pulsar-pulse-line) 
+          ("C-x L" . pulsar-highlight-permanently-dwim)) 
     :init
     (pulsar-global-mode 1)
     :hook
@@ -572,13 +617,13 @@ Elisp front-end for the external =zoxide= CLI; requires the CLI itself to be on 
      
      ;; Imenu integration
      (imenu-after-jump . pulsar-recenter-top)
-     (imenu-after-jump . pulsar-recenter-entry)
+     (imenu-after-jump . pulsar-reveal-entry)
      
      (minibuffer-setup . pulsar-pulse-line)
 
      ;; Consult
      (consult-after-jump . pulsar-recenter-top)
-     (consult-after-jump . pulsar-recenter-entry)))
+     (consult-after-jump . pulsar-reveal-entry)))
 
   (use-package ace-window
     :bind ("M-o" . ace-window)
@@ -808,3 +853,82 @@ Note that =ERC= uses =pass-cli= authentication integration (=auth-source-path-en
     )
 
 #+END_SRC
+
+** Org Tempo
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package org
+    :ensure nil
+    :config
+    ;; Bring back the <s TAB template expansions
+    (require 'org-tempo)
+
+    ;; Add a custom expansion for emacs-lisp.
+    ;; You can change "el" to "e" if you don't mind overriding the default
+    ;; #+begin_example expansion. "el" is a common convention for Emacs Lisp.
+    (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+    (add-to-list 'org-structure-template-alist '("py" . "src python"))
+    (add-to-list 'org-structure-template-alist '("nix" . "src nix")))
+
+#+END_SRC
+
+** =hl-todo=
+
+[[https://github.com/tarsius/hl-todo][=hl-todo=]] highlights keywords tags like =TODO=, =FIXME=, =BUG=, etc.
+
+#+begin_src emacs-lisp
+
+  (use-package hl-todo
+    :config
+    (global-hl-todo-mode))
+
+  ;; Use consult-todo with hl-todo
+  (use-package consult-todo
+    :demand t
+    :config
+    ;; Use narrows with consult-todo
+    (defconst consult-todo--narrow
+      '((?t . "TODO")
+        (?f . "FIXME")
+        (?b . "BUG")
+        (?h . "HACK"))
+      "Default mapping of narrow and keywords."))
+
+#+end_src
+
+** Emacs-neotree
+
+#+begin_src emacs-lisp
+
+  (use-package neotree
+    ;; A common convention is F8 for the sidebar toggle, but you can 
+    ;; adjust this to a comfortable C-c binding if you prefer.
+    :bind (("<f8>" . neotree-toggle)
+           ("C-c d" . neotree-dir))
+    :custom
+    ;; Automatically find and highlight the current file in the sidebar
+    ;; when Neotree is toggled open.
+    (neo-smart-open t)
+
+    ;; Use 'nerd-icons' for the file tree since you already have them 
+    ;; configured. (Falls back to arrows in the terminal).
+    (neo-theme (if (display-graphic-p) 'nerd-icons 'arrow))
+
+    ;; Set a comfortable fixed width for the sidebar
+    (neo-window-width 30)
+    (neo-window-fixed-size nil)
+
+    ;; Show hidden dotfiles by default
+    (neo-show-hidden-files t)
+
+    ;; Uncomment this if you want the sidebar to automatically close 
+    ;; the moment you open a file.
+    ;; (neo-autoclose t)
+
+    :config
+    ;; Prevent the mode-line from feeling cluttered by overriding its format
+    ;; inside the Neotree buffer
+    (setq-default neo-mode-line-type 'none))
+
+#+end_src

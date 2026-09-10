@@ -115,7 +115,6 @@
         "group:g5"
         "session"
       ];
-      # font_family = "Maple Mono NF";
       margin_ends = 50;
       panel_overlap = 0;
       radius = 80;
@@ -162,6 +161,7 @@
     margin_edge = 0;
     margin_ends = 10;
     pinned = [
+      "emacsclient"
       "firefox"
       "pcmanfm"
       "kitty"
@@ -364,7 +364,7 @@
           background_radius = 12;
           font_family = "";
           show_events = true;
-          show_week_numbers = false;
+          show_week_numbers = true;
         };
         type = "calendar";
       };
@@ -519,7 +519,6 @@
   shell = {
     avatar_path = "~/.face";
     corner_radius_scale = 2;
-    # font_family = "Maple Mono NF";
     greeter_sync = {
       auto_sync = true;
     };

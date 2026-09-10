@@ -18,6 +18,18 @@
         nixd
         nixfmt
 
+        vscode-langservers-extracted # HTML, CSS, SCSS, JSON
+        typescript-language-server # Javascript
+        clang-tools # C/C++ (clangd & clang-format)
+        pyright # Python
+        yaml-language-server
+        taplo # TOML
+
+        # For typst
+        tinymist # the lsp server
+        typst # The compiler binary
+        typstyle # Formatter
+
         # Aspell is also pulled in by kotatogram
         (aspellWithDicts (
           dicts: with dicts; [
@@ -47,6 +59,7 @@
           consult
           consult-eglot
           consult-eglot-embark
+          consult-todo # Jump between TODO keywords
           corfu
           dash
           dashboard # A nice startup screen
@@ -56,11 +69,13 @@
           embark
           embark-consult
           emms
+          hl-todo # Highlight tags like TODO, etc.
           indent-bars
           ligature
           magit
           majutsu
           marginalia
+          neotree # The side tree view of current project dir
           nerd-icons
           nerd-icons-completion
           nerd-icons-corfu
@@ -72,6 +87,7 @@
           no-littering
           orderless
           org-auto-tangle
+          page-break-lines
           pulsar # make it shine when you change point
           rainbow-delimiters
           use-package
@@ -80,11 +96,39 @@
           zoxide
 
           # Tree-sitter grammars
-          tree-sitter-indent
           (treesit-grammars.with-grammars (
             grammars: with grammars; [
               tree-sitter-bash
+              tree-sitter-c
+              tree-sitter-cpp
+              tree-sitter-css
+              tree-sitter-diff
+              tree-sitter-fennel
+              tree-sitter-gitattributes
+              tree-sitter-git-config
+              tree-sitter-gitignore
+              tree-sitter-glsl
+              tree-sitter-html
+              tree-sitter-javascript
+              tree-sitter-jjdescription
+              tree-sitter-json
+              tree-sitter-kdl
+              tree-sitter-latex
+              tree-sitter-lua
+              tree-sitter-markdown
+              tree-sitter-markdown-inline
+              tree-sitter-mermaid
               tree-sitter-nix
+              tree-sitter-regex
+              tree-sitter-ron
+              tree-sitter-scss
+              tree-sitter-svelte
+              tree-sitter-toml
+              tree-sitter-tsx
+              tree-sitter-typst
+              tree-sitter-vue
+              tree-sitter-xml
+              tree-sitter-yaml
             ]
           ))
         ];
