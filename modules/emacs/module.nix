@@ -68,7 +68,9 @@
           eglot
           embark
           embark-consult
+          ement # Matrix client within emacs
           emms
+          ghostel
           hl-todo # Highlight tags like TODO, etc.
           indent-bars
           ligature

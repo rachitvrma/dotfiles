@@ -109,7 +109,23 @@
 
 (use-package doom-modeline
   :after nerd-icons
-  :init (doom-modeline-mode 1))
+  :init (doom-modeline-mode 1)
+  :custom
+  ;; doom-modeline--generate-clock caches the live clock SVG in a
+  ;; single global variable (keyed by minute, not by frame), and by
+  ;; default sizes it as (* doom-modeline-height 0.5
+  ;; doom-modeline-time-clock-size). Under emacsclient/services.emacs
+  ;; that comes out wrong -- whichever frame's doom-modeline-height
+  ;; happens to be in effect when the per-minute cache regenerates
+  ;; sets the size for every frame until the next minute. Per the
+  ;; source, an *integer* doom-modeline-time-clock-size is used
+  ;; directly as the pixel radius instead, bypassing
+  ;; doom-modeline-height (and this whole cache-consistency issue)
+  ;; entirely, while keeping the live icon everywhere.
+  (doom-modeline-time-clock-size 9)
+  :config
+  (display-time-mode 1)
+  (display-battery-mode 1))
 
 (use-package nerd-icons)
 
