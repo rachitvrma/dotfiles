@@ -1,8 +1,8 @@
 {
   description = ''
     "Are not five sparrows sold for two pennies? And not one of them is forgotten before God.
-    Why, even the hairs of your head are all numbered. Fear not; you are of more value than many sparrows."
-          - Luke 12:6-7
+     Why, even the hairs of your head are all numbered. Fear not; you are of more value than many sparrows."
+     - Luke 12:6-7
   '';
 
   inputs = {

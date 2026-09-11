@@ -83,7 +83,13 @@ Turning off the menu/tool/scroll bars via =default-frame-alist= (evaluated befor
 * Main Init (=init.el=)
 
 #+begin_src emacs-lisp
-  ;;; init.el --- -*- lexical-binding: t; -*-
+  ;;; init.el --- Config for my Emacs -*- lexical-binding: t; -*-
+
+  ;;; Commentary:
+
+  ;; This is my personal Emacs configuration.
+
+  ;;; Code: 
 #+end_src
 
 ** =emacs= itself: global variables and UI tweaks
@@ -91,6 +97,7 @@ Turning off the menu/tool/scroll bars via =default-frame-alist= (evaluated befor
 There's no separate package for "built-in Emacs behavior", so by convention it's configured as a =(use-package emacs ...)= block, same as every real package below -- one consistent shape for the whole file instead of a pile of loose =(setq ...)= forms at the top.
 
 #+begin_src emacs-lisp
+
   (use-package emacs
     :init
     ;; "y or n" instead of typing out "yes"/"no" at every prompt.
@@ -163,6 +170,12 @@ There's no separate package for "built-in Emacs behavior", so by convention it's
     (setq custom-file (locate-user-emacs-file "custom.el"))
     (when (file-exists-p custom-file)
       (load custom-file 'noerror)))
+
+  (use-package elisp-mode
+    :ensure nil
+    :hook ((emacs-lisp-mode . flymake-mode)
+           (emacs-lisp-mode . eldoc-mode)))   ; eldoc's on by default but explicit here is harmless
+
 #+end_src
 
 ** =no-littering= -- keep =~/.config/emacs= to just this config
@@ -385,7 +398,7 @@ Vertico is the vertical minibuffer UI, orderless is the matching style (space-se
     ;; Configure other variables and modes in the :config section,
     ;; after lazily loading the package.
     :config
-
+    (eval-when-compile (require 'consult))
     ;; Optionally configure preview. The default value
     ;; is 'any, such that any key triggers the preview.
     ;; (setq consult-preview-key 'any)
@@ -447,13 +460,16 @@ Eglot ships with Emacs (29+) -- it's in extraPackages here only to pin/override 
             js-ts-mode
             json-ts-mode
             yaml-ts-mode
-            toml-ts-mode) . eglot-ensure)
+            toml-ts-mode
+            scheme-mode) . eglot-ensure)      
     :custom
     (eglot-autoshutdown t)
     (eglot-sync-connect nil)
     :config
     (add-to-list 'eglot-server-programs
-                 '(nix-ts-mode . ("nixd" "--semantic-tokens=true"))))
+                 '(nix-ts-mode . ("nixd" "--semantic-tokens=true")))
+    (add-to-list 'eglot-server-programs
+                 '(scheme-mode . ("guile-lsp-server"))))
 
 #+end_src
 
@@ -839,6 +855,7 @@ Note that =ERC= uses =pass-cli= authentication integration (=auth-source-path-en
        ("NixOS Discourse (Announcements)" "https://discourse.nixos.org/c/announcements/8.rss")
        ("https://krebsonsecurity.com/feed/" "https://krebsonsecurity.com/feed/")
        ("The Hacker News" "https://feeds.feedburner.com/TheHackersNews")
+       ("GNU Guix Blog" "https://guix.gnu.org/feeds/blog.atom")
        ))
 
     :config
@@ -946,5 +963,41 @@ Note that =ERC= uses =pass-cli= authentication integration (=auth-source-path-en
     ;; Prevent the mode-line from feeling cluttered by overriding its format
     ;; inside the Neotree buffer
     (setq-default neo-mode-line-type 'none))
+
+#+end_src
+
+** =multiple-cursors=
+
+#+begin_src emacs-lisp
+
+  (use-package multiple-cursors
+    :bind (("C-S-c C-S-c" . mc/edit-lines)
+           ("C->"         . mc/mark-next-like-this)
+           ("C-<"         . mc/mark-previous-like-this)
+           ("C-c C-<"     . mc/mark-all-like-this)
+           ("C-M->"       . mc/skip-to-next-like-this)
+           ("C-M-<"       . mc/skip-to-previous-like-this)))
+  
+#+end_src
+
+
+** =pomo-cat=
+
+It's a small Pomodoro timer.
+
+#+begin_src emacs-lisp
+
+  (use-package pomo-cat
+    :custom
+    (pomo-cat-use-dedicated-frame t))
+
+#+end_src
+
+** Footer
+
+#+begin_src emacs-lisp
+
+  (provide 'init)
+  ;;; init.el ends here
 
 #+end_src

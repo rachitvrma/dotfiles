@@ -1,16 +1,17 @@
 {
-  flake.homeModules.python = {
+  flake.homeModules.python = { pkgs, ... }: {
+    home.packages = [ pkgs.python315 ];
     programs = {
       ruff.enable = true;
       matplotlib = {
         enable = true;
         config = {
           axes = {
-            edgecolor = "FF9900";
+            edgecolor = "ff9900";
             facecolor = "black";
             grid = true;
           };
-          backend = "Qt5Agg";
+          backend = "qt5agg";
           grid = {
             color = "FF9900";
           };

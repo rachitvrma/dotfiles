@@ -1,4 +1,10 @@
-;;; init.el --- -*- lexical-binding: t; -*-
+;;; init.el --- Config for my Emacs -*- lexical-binding: t; -*-
+
+;;; Commentary:
+
+;; This is my personal Emacs configuration.
+
+;;; Code:
 
 (use-package emacs
   :init
@@ -72,6 +78,11 @@
   (setq custom-file (locate-user-emacs-file "custom.el"))
   (when (file-exists-p custom-file)
     (load custom-file 'noerror)))
+
+(use-package elisp-mode
+  :ensure nil
+  :hook ((emacs-lisp-mode . flymake-mode)
+         (emacs-lisp-mode . eldoc-mode)))   ; eldoc's on by default but explicit here is harmless
 
 (use-package no-littering
   :demand t
@@ -248,7 +259,7 @@
   ;; Configure other variables and modes in the :config section,
   ;; after lazily loading the package.
   :config
-
+  (eval-when-compile (require 'consult))
   ;; Optionally configure preview. The default value
   ;; is 'any, such that any key triggers the preview.
   ;; (setq consult-preview-key 'any)
@@ -296,13 +307,16 @@
           js-ts-mode
           json-ts-mode
           yaml-ts-mode
-          toml-ts-mode) . eglot-ensure)
+          toml-ts-mode
+          scheme-mode) . eglot-ensure)      
   :custom
   (eglot-autoshutdown t)
   (eglot-sync-connect nil)
   :config
   (add-to-list 'eglot-server-programs
-               '(nix-ts-mode . ("nixd" "--semantic-tokens=true"))))
+               '(nix-ts-mode . ("nixd" "--semantic-tokens=true")))
+  (add-to-list 'eglot-server-programs
+               '(scheme-mode . ("guile-lsp-server"))))
 
 (use-package apheleia
   :init
@@ -579,6 +593,7 @@
      ("NixOS Discourse (Announcements)" "https://discourse.nixos.org/c/announcements/8.rss")
      ("https://krebsonsecurity.com/feed/" "https://krebsonsecurity.com/feed/")
      ("The Hacker News" "https://feeds.feedburner.com/TheHackersNews")
+     ("GNU Guix Blog" "https://guix.gnu.org/feeds/blog.atom")
      ))
 
   :config
@@ -660,3 +675,18 @@
   ;; Prevent the mode-line from feeling cluttered by overriding its format
   ;; inside the Neotree buffer
   (setq-default neo-mode-line-type 'none))
+
+(use-package multiple-cursors
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->"         . mc/mark-next-like-this)
+         ("C-<"         . mc/mark-previous-like-this)
+         ("C-c C-<"     . mc/mark-all-like-this)
+         ("C-M->"       . mc/skip-to-next-like-this)
+         ("C-M-<"       . mc/skip-to-previous-like-this)))
+
+(use-package pomo-cat
+  :custom
+  (pomo-cat-use-dedicated-frame t))
+
+(provide 'init)
+;;; init.el ends here

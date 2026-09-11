@@ -1,16 +1,24 @@
 {
   flake.nixosModules.krish = { pkgs, ... }: {
     # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users."krish" = {
-      isNormalUser = true;
-      description = "Rachit Kumar Verma";
-      extraGroups = [
-        "networkmanager"
-        "wheel"
-      ];
-      shell = pkgs.zsh;
-      initialPassword = "1234";
+    users = {
+      users."krish" = {
+        isNormalUser = true;
+        group = "krish";
+        description = "Rachit Kumar Verma";
+        extraGroups = [
+          "networkmanager"
+          "wheel"
+        ];
+        shell = pkgs.zsh;
+        initialPassword = "1234";
+      };
+      groups.krish = {
+        name = "krish";
+        members = [ "krish" ];
+      };
     };
+
   };
 
   flake.homeModules.krish = {
