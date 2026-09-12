@@ -54,6 +54,70 @@
         gdu
       ];
     };
+
+    editorconfig = {
+      enable = true;
+      # root = true is added automatically by the module -- do not set it here.
+      settings = {
+        "*" = {
+          charset = "utf-8";
+          end_of_line = "lf";
+          insert_final_newline = true;
+          trim_trailing_whitespace = true;
+          indent_style = "space";
+          indent_size = 2;
+          max_line_length = 100;
+        };
+
+        # Tab-indented languages/formats
+        "*.{go,mk,Makefile}" = {
+          indent_style = "tab";
+        };
+        "Makefile" = {
+          indent_style = "tab";
+        };
+
+        # C/C++ -- 4-space is the more common convention there
+        "*.{c,h,cpp,hpp,cc,cxx}" = {
+          indent_size = 4;
+        };
+
+        # Python -- PEP 8
+        "*.py" = {
+          indent_size = 4;
+          max_line_length = 88;
+        };
+
+        # Nix -- nixfmt/alejandra convention
+        "*.nix" = {
+          indent_size = 2;
+        };
+
+        # Lua
+        "*.lua" = {
+          indent_size = 2;
+        };
+
+        # Markdown -- trailing whitespace is sometimes meaningful (hard line breaks)
+        "*.md" = {
+          trim_trailing_whitespace = false;
+          max_line_length = "off";
+        };
+
+        # Data/config formats
+        "*.{json,yaml,yml,toml}" = {
+          indent_size = 2;
+        };
+
+        # Diffs/patches -- never touch whitespace in these
+        "*.{diff,patch}" = {
+          trim_trailing_whitespace = false;
+          insert_final_newline = false;
+        };
+      };
+
+    };
+
     programs = {
       pay-respects = {
         # TODO: Configure this.

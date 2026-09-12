@@ -39,7 +39,6 @@
           config.programs.firefox.finalPackage # Covers html links
           config.programs.mpv.package # Covers audio/video
           config.programs.foliate.package # Covers pdfs and other kinda docs
-          config.programs.swayimg.package # Covers images
         ];
 
         defaultApplications = {

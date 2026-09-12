@@ -81,6 +81,7 @@
             dashboard # A nice startup screen
             diff-hl # See git hunks and changes in the line number area
             doom-modeline
+            editorconfig # Probably a built-in, but still
             eglot
             embark
             embark-consult

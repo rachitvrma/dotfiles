@@ -597,21 +597,8 @@
               };
             };
 
-            handlers = {
-              mimeTypes = {
-                "application/pdf" = {
-                  action = 2;
-                  ask = false;
-                  handlers = [
-                    {
-                      name = "Zathura";
-                      path = "${config.programs.zathura.package}/bin/zathura";
-                    }
-                  ];
-                  extensions = [ "pdf" ];
-                };
-              };
-            };
+            # TODO: Configure handlers
+
             userChrome = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/etc/nixos/modules/browsers/userChrome.css";
             userContent = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/etc/nixos/modules/browsers/userContent.css";
           };

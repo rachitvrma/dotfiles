@@ -84,6 +84,10 @@
   :hook ((emacs-lisp-mode . flymake-mode)
          (emacs-lisp-mode . eldoc-mode)))   ; eldoc's on by default but explicit here is harmless
 
+(use-package editorconfig
+  :config
+  (editorconfig-mode 1))
+
 (use-package no-littering
   :demand t
   :config
@@ -384,9 +388,6 @@
 
 (use-package zoxide
   :bind ("C-c z" . zoxide-travel))
-
-;; credit: EmacsWiki CopyAndPaste, https://www.emacswiki.org/emacs/CopyAndPaste
-(setopt select-active-regions nil)
 
 (use-package dired
   :ensure nil

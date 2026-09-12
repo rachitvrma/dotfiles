@@ -14,12 +14,22 @@ not =package.el=. That means two things everywhere in this file:
 
 Emacs reads =early-init.el= before the package system, UI, or the first frame are initialized, so this is the right place for anything that affects *startup speed* or *what the first frame looks like*.
 
+** Open in Full Screen in Desktop Environments
+
+#+begin_src emacs-lisp :tangle early-init.el
+
+  ;;; early-init.el --- -*- lexical-binding: t; -*-
+
+  ;; Open Emacs in full screen mode
+  (push '(fullscreen . maximized) default-frame-alist)
+
+#+end_src
+
 ** Garbage collection during startup
 
 The default GC threshold (~800kB) causes constant collections while loading dozens of packages at startup. Raise it temporarily and lower it back down once startup is finished so GC pauses don't show up later during normal editing.
 
 #+begin_src emacs-lisp :tangle early-init.el
-  ;;; early-init.el --- -*- lexical-binding: t; -*-
 
   ;; Give startup a large GC budget so package/config loading doesn't
   ;; stall on collections, then put a sane (but still generous) limit
@@ -177,6 +187,17 @@ There's no separate package for "built-in Emacs behavior", so by convention it's
            (emacs-lisp-mode . eldoc-mode)))   ; eldoc's on by default but explicit here is harmless
 
 #+end_src
+
+** =editorconfig=
+
+#+begin_src emacs-lisp
+
+  (use-package editorconfig
+    :config
+    (editorconfig-mode 1))
+
+#+end_src
+
 
 ** =no-littering= -- keep =~/.config/emacs= to just this config
 
@@ -583,15 +604,6 @@ Elisp front-end for the external =zoxide= CLI; requires the CLI itself to be on 
 ** =dash= -- transitive dependency only
 
 =dash= is a general-purpose list-manipulation library that several packages above (dashboard, magit, ...) depend on internally. It has no user-facing configuration of its own, so it's deliberately not given a =use-package= block -- Nix puts it on =load-path= and the packages that need it =require= it themselves.
-
-** Wayland clipboard via =wl-clipboard=
- 
-=emacs-pgtk='s native GTK/Wayland clipboard integration can fail in exactly this shape -- copying elsewhere pastes blank, while pasting into Emacs still works fine -- and EmacsWiki's CopyAndPaste page has a documented cause: on a pure-GTK build, if the system's PRIMARY selection isn't actually functional, Emacs's continuous active-region-to-PRIMARY tracking ends up interfering with the explicit CLIPBOARD claim that =M-w= makes, so other apps see an empty CLIPBOARD. Disabling that tracking (it's for mouse-drag-selects-as- you-go workflows, which =M-w=/=C-y= don't rely on anyway) is the documented fix, and it's a single native variable -- no external process needed.
- 
-#+begin_src emacs-lisp
-  ;; credit: EmacsWiki CopyAndPaste, https://www.emacswiki.org/emacs/CopyAndPaste
-  (setopt select-active-regions nil)
-#+end_src
 
 ** Dired settings
 

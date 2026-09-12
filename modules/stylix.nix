@@ -5,6 +5,8 @@ let
       enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
 
+      # qt.platform = "gnome";
+
       image = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/rachitvrma/Wallpapers/main/catto.jpg";
         hash = "sha256-J3jOuXOjPRh10/r1psNNe2F2kb2ruyRtQ++B27CXPaU=";
@@ -57,8 +59,6 @@ in
 
       qt = {
         enable = true;
-        platformTheme = lib.mkDefault "adwaita";
-        style = lib.mkDefault "kvantum";
       };
 
       # Required for configuring extra fonts, like symbols-only-nerd font
@@ -92,12 +92,9 @@ in
       # A lot of applications don't work without this, so let this be here
       home.packages = with pkgs; [ nerd-fonts.symbols-only ];
 
-      # IDK why I need to enable this, it just felt the right thing to do at the time.
       qt = {
         enable = true;
         kvantum.enable = true;
-        style.name = lib.mkDefault "kvantum";
-        platformTheme = lib.mkDefault "adwaita";
       };
     }
     // (commonStylix pkgs config);
