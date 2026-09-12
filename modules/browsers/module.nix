@@ -6,13 +6,18 @@
       ...
     }:
     {
-      xdg.configFile."firefox-startpage/startpage.html".source = ./startpage.html;
       programs = {
         firefox = {
           enable = true;
           # TODO: there's something wrong with the ln command in the derivation here
           # See todo.org
           # pkcs11Modules = [ pkgs.p11-kit ];
+
+          package = pkgs.firefox.override {
+            nativeMessagingHosts = [
+              pkgs.gnome-browser-connector
+            ];
+          };
 
           policies = {
             DisableTelemetry = true;
@@ -223,8 +228,6 @@
               "browser.tabs.tabmanager.enabled" = false;
 
               # Custom startup page
-              "browser.startup.homepage" = "file://${config.xdg.configHome}/firefox-startpage/startpage.html";
-              "browser.newtab.url" = "file://${config.xdg.configHome}/firefox-startpage/startpage.html";
               "browser.startup.page" = 1;
               "browser.newtabpage.enabled" = false;
 

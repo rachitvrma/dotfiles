@@ -3,9 +3,6 @@
     services.passSecretService.enable = true;
   };
   flake.homeModules.email = { pkgs, ... }: {
-    services.pass-secret-service = {
-      enable = true;
-    };
     home.packages = with pkgs; [
       # Used in image rendering in aerc
       chafa

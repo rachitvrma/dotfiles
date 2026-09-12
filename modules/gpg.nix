@@ -1,9 +1,5 @@
 {
-  flake.nixosModules.gpg = { pkgs, ... }: {
-    programs.gnupg.agent.pinentryPackage = pkgs.pinentry-egui;
-  };
-
-  flake.homeModules.gpg = { pkgs, config, ... }: {
+  flake.homeModules.gpg = { config, ... }: {
     programs = {
       gpg = {
         enable = true;
@@ -37,7 +33,6 @@
       grabKeyboardAndMouse = true;
       defaultCacheTtl = 3600;
       maxCacheTtl = 86400;
-      pinentry.package = pkgs.pinentry-egui;
       enableSshSupport = false;
     };
   };

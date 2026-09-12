@@ -13,13 +13,6 @@
       basePath = "${config.home.homeDirectory}/etc/nixos/modules/emacs/config";
     in
     {
-      stylix.targets.emacs.opacity.override = rec {
-        desktop = 0.9;
-        applications = desktop;
-        popups = desktop;
-        terminal = desktop;
-      };
-
       xdg.configFile = builtins.listToAttrs (
         map (name: {
           name = "emacs/${name}";
@@ -96,6 +89,7 @@
             ghostel
             hl-todo # Highlight tags like TODO, etc.
             indent-bars
+            jsdoc
             ligature
             magit
             majutsu
@@ -140,6 +134,7 @@
                 tree-sitter-html
                 tree-sitter-javascript
                 tree-sitter-jjdescription
+                tree-sitter-jsdoc
                 tree-sitter-json
                 tree-sitter-kdl
                 tree-sitter-latex

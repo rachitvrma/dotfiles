@@ -1,7 +1,27 @@
+let
+  shinchan =
+    pkgs:
+    pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/rachitvrma/rachitvrma/main/.github/assets/shinchan.png";
+      hash = "sha256-CP9uGyslZ19wCaglMb1UG+NmcU/GxN5HDXSdrO5jAlw=";
+    };
+in
 {
-  flake.nixosModules.commonDesktop = { ... }: {
+
+  flake.nixosModules.commonDesktop = { pkgs, ... }: {
+    # For Avatar Image
+    systemd.tmpfiles.rules = [
+      "L+ /var/lib/AccountsService/icons/krish - - - - ${shinchan pkgs}"
+      "f+ /var/lib/AccountsService/users/krish 0644 root root - [User]\\nIcon=/var/lib/AccountsService/icons/krish\\n"
+    ];
     services = {
       xserver.updateDbusEnvironment = true;
+      udisks2.enable = true;
+      gvfs = {
+        enable = true;
+      };
+      playerctld.enable = true;
+      devmon.enable = true;
     };
     security = {
       polkit.enable = true;
@@ -56,12 +76,6 @@
       playerctld.enable = true;
       udiskie = {
         enable = true;
-        settings = {
-          program_options = {
-            # Needs to be set explicitly
-            file_manager = "${config.programs.kitty.package}/bin/kitty -e ${config.programs.yazi.package}/bin/yazi";
-          };
-        };
       };
 
       batsignal = {

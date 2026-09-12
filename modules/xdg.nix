@@ -25,7 +25,7 @@
     };
   };
 
-  flake.homeModules.xdg = { config, pkgs, ... }: {
+  flake.homeModules.xdg = { config, ... }: {
     home.preferXdgDirectories = true;
     xdg = {
       enable = true;
@@ -34,32 +34,25 @@
       mime.enable = true;
       mimeApps = {
         enable = true;
+        # TODO: Separate each of these in thier respective places
         defaultApplicationPackages = [
           config.programs.firefox.finalPackage # Covers html links
           config.programs.mpv.package # Covers audio/video
-          config.programs.zathura.package # Covers pdfs and other kinda docs
+          config.programs.foliate.package # Covers pdfs and other kinda docs
           config.programs.swayimg.package # Covers images
         ];
 
         defaultApplications = {
           "image/jpeg" = "swayimg.desktop";
           "video/*" = "mpv.desktop";
-          "application/vnd.comicbook+zip" = "org.pwmt.zathura.desktop";
+          # NOTE: I use foliate now
+          # "application/vnd.comicbook+zip" = "org.pwmt.zathura.desktop";
         };
       };
       portal = {
         enable = true;
         xdgOpenUsePortal = true;
-        extraPortals = [ pkgs.xdg-desktop-portal-termfilechooser ];
-        config.common."org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
       };
-      # Manages xdg-desktop-portal-termfilechooser
-      configFile."xdg-desktop-portal-termfilechooser/config".text = ''
-        [filechooser]
-        cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
-        env=PATH="$PATH:/run/current-system/sw/bin"
-        default_dir=$HOME
-      '';
       userDirs = {
         enable = true;
         createDirectories = true;
