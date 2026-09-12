@@ -36,6 +36,11 @@
 
           guile-lsp-server # For guile scheme
 
+          # Bash stack
+          bash-language-server
+          shfmt
+          shellcheck
+
           vscode-langservers-extracted # HTML, CSS, SCSS, JSON
           typescript-language-server # Javascript
           clang-tools # C/C++ (clangd & clang-format)
@@ -126,6 +131,7 @@
                 tree-sitter-cpp
                 tree-sitter-css
                 tree-sitter-diff
+                tree-sitter-elisp
                 tree-sitter-fennel
                 tree-sitter-gitattributes
                 tree-sitter-git-config
@@ -145,6 +151,7 @@
                 tree-sitter-python
                 tree-sitter-regex
                 tree-sitter-ron
+                tree-sitter-scheme
                 tree-sitter-scss
                 tree-sitter-svelte
                 tree-sitter-toml
