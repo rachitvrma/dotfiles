@@ -1,4 +1,4 @@
-#+begin_export html
+#+begin_html
 <h1 align="center">
     <div align="center">
         <img src="./.github/images/nixos.svg" width="100px"/>
@@ -25,7 +25,7 @@
         <br>
     </div>
 </h1>
-#+end_export
+#+end_html
 
 * Introduction
 
@@ -35,23 +35,23 @@ Looks matter. It is a good thing to have utility with a good rice.
 
 A single-host NixOS + home-manager configuration, wired together with [[https://flake.parts][flake-parts]] instead of one monolithic =flake.nix=. Every file under [[./modules][modules/]] auto-imports itself via =lib.fileset= --- see [[./flake.nix][flake.nix]] --- so adding a new module is just adding a new =.nix= file, no import list to maintain.
 
-| Util                     | Program used                                  |
-|---------------------------+------------------------------------------------|
-| Shell                    | Zsh                                           |
-| Desktop Environment      | GNOME                                         |
-| Editor                   | Emacs                                         |
-| Terminal                 | Kitty                                         |
-| Audio                    | PipeWire                                      |
+| Util                     | Program used                                                            |
+|--------------------------+-------------------------------------------------------------------------|
+| Shell                    | Zsh                                                                     |
+| Desktop Environment      | GNOME                                                                   |
+| Editor                   | Emacs                                                                   |
+| Terminal                 | Kitty                                                                   |
+| Audio                    | PipeWire                                                                |
 | System Monitor           | GNOME System Monitor (Bottom/htop kept installed, purely aesthetic now) |
-| Mail                     | (see [[./modules/accounts][accounts]])      |
-| Chat                     | Vesktop (Discord) · Emacs ERC (IRC) · Emacs ement.el (Matrix) |
-| File Manager             | Emacs Dired                                   |
-| RSS Reader               | Newsticker (Emacs) · Miniflux (self-hosted WebUI) |
-| Theme                    | Stylix --- Gruvbox Material Dark Hard         |
-| Browser                  | Firefox (hardened) · w3m                      |
-| Secrets                  | agenix · pass / GPG                           |
-| Local AI                 | OpenCode + Ollama                             |
-| Agenda / Task Maintainer | Emacs + org-mode                              |
+| Mail                     | (see [[./modules/accounts][accounts]])                                                          |
+| Chat                     | Vesktop (Discord) · Emacs ERC (IRC) · Emacs ement.el (Matrix)           |
+| File Manager             | Emacs Dired                                                             |
+| RSS Reader               | Newsticker (Emacs) · Miniflux (self-hosted WebUI)                       |
+| Theme                    | Stylix --- Gruvbox Material Dark Hard                                   |
+| Browser                  | Firefox (hardened) · w3m                                                |
+| Secrets                  | agenix · pass / GPG                                                     |
+| Local AI                 | OpenCode + Ollama                                                       |
+| Agenda / Task Maintainer | Emacs + org-mode                                                        |
 
 -----
 
@@ -78,16 +78,16 @@ Every module follows the same shape: a top-level =flake.nixosModules.<name>= and
 
 ** Notable modules
 
-| Module                                               | What it does                                                                                                                                                                    |
-|-------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [[./modules/ai.nix][ai.nix]]                       | Local coding-assistant stack --- OpenCode wired to a local Ollama server (Qwen2.5-Coder), capped to one loaded model / no parallel requests                                     |
-| [[./modules/stylix.nix][stylix.nix]]               | System-wide theming (Gruvbox Material Dark Hard), fonts, cursor, icons --- shared between NixOS and home-manager                                                                |
-| [[./modules/browsers][browsers/module.nix]]        | Privacy-hardened Firefox: telemetry off, forced extensions (uBlock, Dark Reader), custom search engines (Noogle, NixOS/HM options, etc.), vertical tabs, =w3m= as a text-mode fallback with redirect rules to privacy frontends |
-| [[./modules/emacs][emacs/]]                        | Literate, org-tangled config (=Config.org= → =init.el=/=early-init.el=); all packages come from Nix, =package.el= disabled entirely                                             |
-| [[./modules/agenix][agenix/module.nix]]            | Encrypted secrets (age) for things like the YouTube Music API client id/secret                                                                                                  |
-| [[./modules/vcs.nix][vcs.nix]]                     | Git + Jujutsu, GPG-signed commits, a stack of git aliases (=sync=, =up=, =stsh=, ...)                                                                                            |
-| [[./modules/hosts/nixpavilion][hosts/nixpavilion]] | The one real host: disko partitioning (LUKS + btrfs subvolumes), hardware scan, kernel params (zswap, Plymouth splash)                                                          |
-| [[./modules/keymap.nix][keymap.nix]]               | System + home-manager keyboard layout (Colemak-DH, ctrl/caps swap)                                                                                                              |
+| Module              | What it does                                                                                                                                                                                                                    |
+|---------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [[./modules/ai.nix][ai.nix]]              | Local coding-assistant stack --- OpenCode wired to a local Ollama server (Qwen2.5-Coder), capped to one loaded model / no parallel requests                                                                                     |
+| [[./modules/stylix.nix][stylix.nix]]          | System-wide theming (Gruvbox Material Dark Hard), fonts, cursor, icons --- shared between NixOS and home-manager                                                                                                                |
+| [[./modules/browsers][browsers/module.nix]] | Privacy-hardened Firefox: telemetry off, forced extensions (uBlock, Dark Reader), custom search engines (Noogle, NixOS/HM options, etc.), vertical tabs, =w3m= as a text-mode fallback with redirect rules to privacy frontends |
+| [[./modules/emacs][emacs/]]              | Literate, org-tangled config (=Config.org= → =init.el=/=early-init.el=); all packages come from Nix, =package.el= disabled entirely                                                                                             |
+| [[./modules/agenix][agenix/module.nix]]   | Encrypted secrets (age) for things like the YouTube Music API client id/secret                                                                                                                                                  |
+| [[./modules/vcs.nix][vcs.nix]]             | Git + Jujutsu, GPG-signed commits, a stack of git aliases (=sync=, =up=, =stsh=, ...)                                                                                                                                           |
+| [[./modules/hosts/nixpavilion][hosts/nixpavilion]]   | The one real host: disko partitioning (LUKS + btrfs subvolumes), hardware scan, kernel params (zswap, Plymouth splash)                                                                                                          |
+| [[./modules/keymap.nix][keymap.nix]]          | System + home-manager keyboard layout (Colemak-DH, ctrl/caps swap)                                                                                                                                                              |
 
 -----
 
@@ -252,4 +252,3 @@ Then move the =images= directory into =~/.config/fastfetch/images=.
 * 📃 License
 
 Licensed under the GNU General Public License v3.0. See [[./LICENSE][LICENSE]] for details.
-
