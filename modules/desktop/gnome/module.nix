@@ -40,6 +40,8 @@
 
       nautilus-open-any-terminal = {
         enable = true;
+        # kgx is gnome-console
+        terminal = "kgx";
       };
       dconf.profiles = {
         # A "user" profile with a database

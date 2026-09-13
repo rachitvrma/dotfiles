@@ -32,23 +32,23 @@ Looks matter. It is a good thing to have utility with a good rice.
 
 A single-host NixOS + home-manager configuration, wired together with [[https://flake.parts][flake-parts]] instead of one monolithic =flake.nix=. Every file under [[./modules][modules/]] auto-imports itself via =lib.fileset= --- see [[./flake.nix][flake.nix]] --- so adding a new module is just adding a new =.nix= file, no import list to maintain.
 
-| Util                     | Program used                                                            |
-|--------------------------+-------------------------------------------------------------------------|
-| Shell                    | Zsh                                                                     |
-| Desktop Environment      | GNOME                                                                   |
-| Editor                   | Emacs                                                                   |
-| Terminal                 | GNOME Console                                                           |
-| Audio                    | PipeWire                                                                |
-| System Monitor           | GNOME System Monitor (Bottom/htop kept installed, purely aesthetic now) |
-| Mail                     | (see [[./modules/accounts][accounts]])                                                          |
-| Chat                     | Vesktop (Discord) · Emacs ERC (IRC) · Emacs ement.el (Matrix)           |
-| File Manager             | Emacs Dired                                                             |
-| RSS Reader               | Newsticker (Emacs) · Miniflux (self-hosted WebUI)                       |
-| Theme                    | Stylix --- Gruvbox Material Dark Hard                                   |
-| Browser                  | Firefox (hardened) · w3m                                                |
-| Secrets                  | agenix · pass / GPG                                                     |
-| Local AI                 | OpenCode + Ollama                                                       |
-| Agenda / Task Maintainer | Emacs + org-mode                                                        |
+| Util                     | Program used                                                  |
+|--------------------------+---------------------------------------------------------------|
+| Shell                    | Zsh                                                           |
+| Desktop Environment      | GNOME                                                         |
+| Editor                   | Emacs                                                         |
+| Terminal                 | GNOME Console                                                 |
+| Audio                    | PipeWire                                                      |
+| System Monitor           | GNOME System Monitor                                          |
+| Mail                     | (see [[./modules/accounts][accounts]])                                                |
+| Chat                     | Vesktop (Discord) · Emacs ERC (IRC) · Emacs ement.el (Matrix) |
+| File Manager             | Emacs Dired                                                   |
+| RSS Reader               | Newsticker (Emacs)                                            |
+| Theme                    | Stylix --- Gruvbox Material Dark Hard                         |
+| Browser                  | Firefox (hardened) · w3m                                      |
+| Secrets                  | agenix · pass / GPG                                           |
+| Local AI                 | OpenCode + Ollama                                             |
+| Agenda / Task Maintainer | Emacs + org-mode                                              |
 
 -----
 
@@ -175,35 +175,6 @@ git clone <your-pass-store-remote> ~/.password-store
 #+begin_quote
 *Note:* =programs.gpg.homedir= is =~/.local/share/gnupg=, not =~/.gnupg=.
 #+end_quote
-
-*** Miniflux credentials
-
-#+begin_quote
-*Important:* If Miniflux can't find these credentials, the rebuild fails because its systemd unit fails.
-#+end_quote
-
-#+begin_src sh
-sudo mkdir -p /etc/secrets/miniflux-admin-credentials
-sudo chmod 600 /etc/secrets/miniflux-admin-credentials
-#+end_src
-
-#+begin_src text
-ADMIN_USERNAME=<username>
-ADMIN_PASSWORD=something6charactersLong
-#+end_src
-
-*** Fastfetch images
-
-The fastfetch config pulls logos from [[https://github.com/Maheswara660/fastfetch/][Maheswara660's fastfetch repo]]:
-
-#+begin_src sh
-git clone --depth=1 https://github.com/Maheswara660/fastfetch/
-cd fastfetch/images && git lfs pull
-#+end_src
-
-Then move the =images= directory into =~/.config/fastfetch/images=.
-
------
 
 * Nix / NixOS / Flakes --- learning resources
 
