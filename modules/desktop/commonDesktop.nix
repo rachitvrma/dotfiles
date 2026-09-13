@@ -32,8 +32,10 @@ in
     };
   };
 
-  flake.homeModules.commonDesktop = { ... }: {
+  flake.homeModules.commonDesktop = { pkgs, ... }: {
     xdg.portal.enable = true;
+
+    home.file.".face".source = shinchan pkgs;
 
     services = {
       playerctld.enable = true;

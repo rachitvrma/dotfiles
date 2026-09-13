@@ -166,6 +166,11 @@
         defaultEditor = true;
         client = {
           enable = true;
+          arguments = [
+            "-c"
+            "-a"
+            "emacs"
+          ];
         };
         startWithUserSession = "graphical";
       };

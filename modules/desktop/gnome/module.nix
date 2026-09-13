@@ -6,6 +6,8 @@
       gnome-music # Use EMMS from Emacs
       gnome-text-editor # I use Emacs already
       epiphany # Don't need another browser
+      gnome-tour # Don't need that
+      gnome-user-docs # don't need that either
     ];
     services = {
       displayManager.gdm.enable = true;
@@ -38,7 +40,6 @@
 
       nautilus-open-any-terminal = {
         enable = true;
-        terminal = "kitty";
       };
       dconf.profiles = {
         # A "user" profile with a database
@@ -62,7 +63,14 @@
   flake.homeModules.gnome = { pkgs, lib, ... }: {
     dconf.settings = {
       "org/gnome/desktop/interface" = {
+        # 12h clock format
         clock-format = "12h";
+        # Show battery percentage in the top-bar
+        show-battery-percentage = true;
+        # Show weekdays
+        clock-show-weekday = true;
+        # Show seconds in the top bar clock
+        clock-show-seconds = true;
       };
 
       "org/gnome/settings-daemon/plugins/color" = {
@@ -83,7 +91,12 @@
         "user-theme@gnome-shell-extensions.gcampax.github.com"
       ];
 
-      "org/gnome/desktop/interface".show-battery-percentage = true;
+      # Enable/Disable location services. I enable it for switching to Night Mode
+      "org/gnome/system/location".enabled = true;
+      # Enable/Disable automatic timezone. Requires location services enabled.
+      "org/gnome/desktop/datetime".automatic-timezone = true;
+      # Show weekdate in the drop down calendar
+      "org/gnome/desktop/calendar".show-weekdate = true;
     };
     xdg = {
       portal = {
@@ -105,8 +118,10 @@
           { package = pkgs.gnomeExtensions.user-themes; }
         ];
       };
+
+      # gnome-console is the more minimalistic one
       gnome-terminal = {
-        enable = true;
+        enable = false;
         profile = {
           "30effd58-b1b0-44d7-a97c-8f033d617f65" = {
             default = true;

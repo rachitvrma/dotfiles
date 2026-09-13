@@ -15,6 +15,7 @@
   :hook
   ;; Display line numbers in programming modes only
   (prog-mode . display-line-numbers-mode)
+  ((prog-mode org-mode) . hl-line-mode)
 
   :custom
   ;; Don't litter every directory with foo~ backup files and

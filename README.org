@@ -37,7 +37,7 @@ A single-host NixOS + home-manager configuration, wired together with [[https://
 | Shell                    | Zsh                                                                     |
 | Desktop Environment      | GNOME                                                                   |
 | Editor                   | Emacs                                                                   |
-| Terminal                 | Kitty                                                                   |
+| Terminal                 | GNOME Console                                                           |
 | Audio                    | PipeWire                                                                |
 | System Monitor           | GNOME System Monitor (Bottom/htop kept installed, purely aesthetic now) |
 | Mail                     | (see [[./modules/accounts][accounts]])                                                          |
