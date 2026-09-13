@@ -15,9 +15,6 @@
             <a href="https://nixos.org">
                 <img src="https://img.shields.io/badge/NixOS-unstable-blue.svg?style=for-the-badge&labelColor=202020&logo=NixOS&logoColor=89b482&color=89b482">
             </a>
-            <a href="https://flake.parts">
-                <img src="https://img.shields.io/badge/flake--parts-modular-orange?style=for-the-badge&labelColor=202020&color=e78a4e">
-            </a>
             <a href="https://github.com/rachitvrma/dotfiles/blob/main/LICENSE">
                 <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=GPLv3&colorA=202020&colorB=d3869b&logo=unlicense&logoColor=fbf1c7&%22"/>
             </a>

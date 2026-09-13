@@ -394,6 +394,7 @@
   :custom
   (dired-listing-switches "-alh --group-directories-first")
   (dired-kill-when-opening-new-dired-buffer t)
+  (dired-dwim-target t)
   :bind (:map dired-mode-map
               (";" . dired-up-directory)
               ("." . dired-omit-mode)))
