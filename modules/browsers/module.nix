@@ -65,6 +65,13 @@
                   updates_disabled = true;
                   private_browsing = true;
                 };
+
+                "jid1-MnnxcxisBPnSXQ@jetpack" = {
+                  install_url = moz "privacy-badger17";
+                  installation_mode = "force_installed";
+                  updates_disabled = true;
+                  private_browsing = true;
+                };
               };
           };
           profiles.krish = {

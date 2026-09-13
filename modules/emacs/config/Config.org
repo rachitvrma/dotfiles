@@ -99,7 +99,7 @@ Turning off the menu/tool/scroll bars via =default-frame-alist= (evaluated befor
 
   ;; This is my personal Emacs configuration.
 
-  ;;; Code: 
+  ;;; Code:
 #+end_src
 
 ** =emacs= itself: global variables and UI tweaks
@@ -132,7 +132,7 @@ There's no separate package for "built-in Emacs behavior", so by convention it's
     (scroll-conservatively 101)
 
     ;; VERTICO INTEGRATION
-    
+
     ;; Enable context menu. `vertico-multiform-mode' adds a menu in the minibuffer
     ;; to switch display modes.
     (context-menu-mode t)
@@ -151,7 +151,7 @@ There's no separate package for "built-in Emacs behavior", so by convention it's
     (display-line-numbers-type 'relative)
     ;; Ensure the column doesn't aggresively jump in width as you scroll
     (display-line-numbers-width-start t)
-    
+
     :config
     ;; Redundant with the early-init default-frame-alist for the very
     ;; first frame, but this also covers any *later* frames (e.g. new
@@ -212,7 +212,7 @@ Every other package below writes *something* to disk eventually (auto-saves, cac
     ;; explicit redirect, everything else it handles on its own.
     (setq auto-save-file-name-transforms
           `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
-  
+
 #+end_src
 
 ** =org-auto-tangle= -- keep this very file in sync
@@ -235,7 +235,7 @@ Re-tangles =early-init.el=/=init.el= from this org file automatically whenever i
           dashboard-center-content t
           dashboard-vertically-center-content t
           dashboard-navigation-cycle t
-          
+
           ;; Nerd icons
           dashboard-display-icons-p t
           dashboard-icon-type 'nerd-icons
@@ -314,7 +314,7 @@ Re-tangles =early-init.el=/=init.el= from this org file automatically whenever i
     :after corfu
     :config
     (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
-  
+
 #+end_src
 
 ** Minibuffer completion stack: =vertico= + =orderless= + =marginalia= + =consult=
@@ -482,13 +482,13 @@ Eglot ships with Emacs (29+) -- it's in extraPackages here only to pin/override 
             json-ts-mode
             yaml-ts-mode
             toml-ts-mode
-            scheme-mode) . eglot-ensure)      
+            scheme-mode) . eglot-ensure)
     :custom
     (eglot-autoshutdown t)
     (eglot-sync-connect nil)
     :config
     (add-to-list 'eglot-server-programs
-                 '(nix-ts-mode . ("nixd" "--semantic-tokens=true")))
+                 '(nix-ts-mode . ("nixd" "--semantic-tokens=true" "--inlay-hints=false")))
     (add-to-list 'eglot-server-programs
                  '(scheme-mode . ("guile-lsp-server"))))
 
@@ -505,7 +505,7 @@ Runs an external formatter asynchronously on save and patches the buffer with a 
     :config
     (setf (alist-get 'nix-mode apheleia-mode-alist) 'nixfmt)
     ;; Universal fallback: Wire web and config languages to Dprint
-    (dolist (mode '(html-mode html-ts-mode css-ts-mode js-ts-mode 
+    (dolist (mode '(html-mode html-ts-mode css-ts-mode js-ts-mode
                               json-ts-mode toml-ts-mode yaml-ts-mode markdown-mode))
       (setf (alist-get mode apheleia-mode-alist) 'dprint)))
 #+end_src
@@ -652,17 +652,17 @@ Elisp front-end for the external =zoxide= CLI; requires the CLI itself to be on 
   (use-package pulsar
     :bind
     (:map global-map
-          ("C-x l" . pulsar-pulse-line) 
-          ("C-x L" . pulsar-highlight-permanently-dwim)) 
+          ("C-x l" . pulsar-pulse-line)
+          ("C-x L" . pulsar-highlight-permanently-dwim))
     :init
     (pulsar-global-mode 1)
     :hook
     ((next-error . pulsar-pulse-line)
-     
+
      ;; Imenu integration
      (imenu-after-jump . pulsar-recenter-top)
      (imenu-after-jump . pulsar-reveal-entry)
-     
+
      (minibuffer-setup . pulsar-pulse-line)
 
      ;; Consult
@@ -692,7 +692,7 @@ Elisp front-end for the external =zoxide= CLI; requires the CLI itself to be on 
 ** Spell Checking (Org-mode)
 
 #+begin_src emacs-lisp
-  
+
   (use-package ispell
     :ensure nil
     :custom
@@ -701,9 +701,10 @@ Elisp front-end for the external =zoxide= CLI; requires the CLI itself to be on 
     (ispell-extra-args '("--add-extra-dicts=en-computers.rws"
                          "--add-extra-dicts=en_US-science.rws")))
 
+  ;; Enable flyspell for markdown and org buffers
   (use-package flyspell
     :ensure nil
-    :hook (org-mode . flyspell-mode))
+    :hook ((org-mode markdown-mode) . flyspell-mode))
 
 #+end_src
 
@@ -803,8 +804,8 @@ Note that =ERC= uses =pass-cli= authentication integration (=auth-source-path-en
     ;; Channels ported directly from your matrix_irc.nix
     (erc-autojoin-channels-alist
      '(("rizon.net" "#help")
-       ("libera.chat" "##anime" "#archlinux" "#archlinux-offtopic" "##chat" 
-        "#emacs" "#emacs-beginners" "#emacs-social" "#emacs-til" 
+       ("libera.chat" "##anime" "#archlinux" "#archlinux-offtopic" "##chat"
+        "#emacs" "#emacs-beginners" "#emacs-social" "#emacs-til"
         "#gentoo" "#gentoo-chat" "#halloy")))
 
     ;; Instruct ERC to query auth-source (which now checks 'pass') for NickServ
@@ -876,6 +877,38 @@ Note that =ERC= uses =pass-cli= authentication integration (=auth-source-path-en
 
 #+END_SRC
 
+** Markdown Editing
+
+Make markdown editing a better experience
+
+#+begin_src emacs-lisp
+
+  ;; Major mode for markdown editing
+  (use-package markdown-mode
+    :mode (("README\\.md\\'" . gfm-mode)
+           ("\\.md\\'" . markdown-mode))
+    :custom
+    (markdown-command "pandoc")
+    (markdown-fontify-code-blocks-natively t))
+
+  ;; Align tables in markdown
+  (use-package valign
+    :hook (markdown-mode . valign-mode))
+
+  ;; This is a live previewer
+  (use-package grip-mode
+    :custom
+    (grip-command 'grip)
+    (grip-preview-use-webkit t)
+    (grip-update-after-change nil)
+    :config
+    (require 'auth-source)
+    (let ((credential (auth-source-user-and-password "api.github.com")))
+      (setq grip-github-user (car credential)
+            grip-github-password (cadr credential))))
+
+#+end_src
+
 ** Diff-hl
 
 #+BEGIN_SRC emacs-lisp
@@ -892,7 +925,7 @@ Note that =ERC= uses =pass-cli= authentication integration (=auth-source-path-en
     (diff-hl-flydiff-mode 1)
 
     ;; By default, Emacs puts these signs in the graphical "Fringe".
-    ;; Uncomment the line below if you prefer them shifted inward 
+    ;; Uncomment the line below if you prefer them shifted inward
     ;; to sit flush against the line numbers (closer to the Neovim look).
     ;; (diff-hl-margin-mode 1)
     )
@@ -947,7 +980,7 @@ Note that =ERC= uses =pass-cli= authentication integration (=auth-source-path-en
 #+begin_src emacs-lisp
 
   (use-package neotree
-    ;; A common convention is F8 for the sidebar toggle, but you can 
+    ;; A common convention is F8 for the sidebar toggle, but you can
     ;; adjust this to a comfortable C-c binding if you prefer.
     :bind (("<f8>" . neotree-toggle)
            ("C-c d" . neotree-dir))
@@ -956,7 +989,7 @@ Note that =ERC= uses =pass-cli= authentication integration (=auth-source-path-en
     ;; when Neotree is toggled open.
     (neo-smart-open t)
 
-    ;; Use 'nerd-icons' for the file tree since you already have them 
+    ;; Use 'nerd-icons' for the file tree since you already have them
     ;; configured. (Falls back to arrows in the terminal).
     (neo-theme (if (display-graphic-p) 'nerd-icons 'arrow))
 
@@ -967,7 +1000,7 @@ Note that =ERC= uses =pass-cli= authentication integration (=auth-source-path-en
     ;; Show hidden dotfiles by default
     (neo-show-hidden-files t)
 
-    ;; Uncomment this if you want the sidebar to automatically close 
+    ;; Uncomment this if you want the sidebar to automatically close
     ;; the moment you open a file.
     ;; (neo-autoclose t)
 
@@ -989,7 +1022,7 @@ Note that =ERC= uses =pass-cli= authentication integration (=auth-source-path-en
            ("C-c C-<"     . mc/mark-all-like-this)
            ("C-M->"       . mc/skip-to-next-like-this)
            ("C-M-<"       . mc/skip-to-previous-like-this)))
-  
+
 #+end_src
 
 

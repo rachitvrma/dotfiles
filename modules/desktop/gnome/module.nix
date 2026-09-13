@@ -82,6 +82,8 @@
         "Vitals@CoreCoding.com"
         "user-theme@gnome-shell-extensions.gcampax.github.com"
       ];
+
+      "org/gnome/desktop/interface".show-battery-percentage = true;
     };
     xdg = {
       portal = {
@@ -100,6 +102,7 @@
           { package = pkgs.gnomeExtensions.caffeine; }
           { package = pkgs.gnomeExtensions.clipboard-indicator; }
           { package = pkgs.gnomeExtensions.vitals; }
+          { package = pkgs.gnomeExtensions.user-themes; }
         ];
       };
       gnome-terminal = {

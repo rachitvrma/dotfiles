@@ -30,7 +30,7 @@
   (scroll-conservatively 101)
 
   ;; VERTICO INTEGRATION
-  
+
   ;; Enable context menu. `vertico-multiform-mode' adds a menu in the minibuffer
   ;; to switch display modes.
   (context-menu-mode t)
@@ -49,7 +49,7 @@
   (display-line-numbers-type 'relative)
   ;; Ensure the column doesn't aggresively jump in width as you scroll
   (display-line-numbers-width-start t)
-  
+
   :config
   ;; Redundant with the early-init default-frame-alist for the very
   ;; first frame, but this also covers any *later* frames (e.g. new
@@ -106,7 +106,7 @@
         dashboard-center-content t
         dashboard-vertically-center-content t
         dashboard-navigation-cycle t
-        
+
         ;; Nerd icons
         dashboard-display-icons-p t
         dashboard-icon-type 'nerd-icons
@@ -312,13 +312,13 @@
           json-ts-mode
           yaml-ts-mode
           toml-ts-mode
-          scheme-mode) . eglot-ensure)      
+          scheme-mode) . eglot-ensure)
   :custom
   (eglot-autoshutdown t)
   (eglot-sync-connect nil)
   :config
   (add-to-list 'eglot-server-programs
-               '(nix-ts-mode . ("nixd" "--semantic-tokens=true")))
+               '(nix-ts-mode . ("nixd" "--semantic-tokens=true" "--inlay-hints=false")))
   (add-to-list 'eglot-server-programs
                '(scheme-mode . ("guile-lsp-server"))))
 
@@ -328,7 +328,7 @@
   :config
   (setf (alist-get 'nix-mode apheleia-mode-alist) 'nixfmt)
   ;; Universal fallback: Wire web and config languages to Dprint
-  (dolist (mode '(html-mode html-ts-mode css-ts-mode js-ts-mode 
+  (dolist (mode '(html-mode html-ts-mode css-ts-mode js-ts-mode
                             json-ts-mode toml-ts-mode yaml-ts-mode markdown-mode))
     (setf (alist-get mode apheleia-mode-alist) 'dprint)))
 
@@ -421,17 +421,17 @@
 (use-package pulsar
   :bind
   (:map global-map
-        ("C-x l" . pulsar-pulse-line) 
-        ("C-x L" . pulsar-highlight-permanently-dwim)) 
+        ("C-x l" . pulsar-pulse-line)
+        ("C-x L" . pulsar-highlight-permanently-dwim))
   :init
   (pulsar-global-mode 1)
   :hook
   ((next-error . pulsar-pulse-line)
-   
+
    ;; Imenu integration
    (imenu-after-jump . pulsar-recenter-top)
    (imenu-after-jump . pulsar-reveal-entry)
-   
+
    (minibuffer-setup . pulsar-pulse-line)
 
    ;; Consult
@@ -461,9 +461,10 @@
   (ispell-extra-args '("--add-extra-dicts=en-computers.rws"
                        "--add-extra-dicts=en_US-science.rws")))
 
+;; Enable flyspell for markdown and org buffers
 (use-package flyspell
   :ensure nil
-  :hook (org-mode . flyspell-mode))
+  :hook ((org-mode markdown-mode) . flyspell-mode))
 
 (use-package project
   :ensure nil
@@ -536,8 +537,8 @@
   ;; Channels ported directly from your matrix_irc.nix
   (erc-autojoin-channels-alist
    '(("rizon.net" "#help")
-     ("libera.chat" "##anime" "#archlinux" "#archlinux-offtopic" "##chat" 
-      "#emacs" "#emacs-beginners" "#emacs-social" "#emacs-til" 
+     ("libera.chat" "##anime" "#archlinux" "#archlinux-offtopic" "##chat"
+      "#emacs" "#emacs-beginners" "#emacs-social" "#emacs-til"
       "#gentoo" "#gentoo-chat" "#halloy")))
 
   ;; Instruct ERC to query auth-source (which now checks 'pass') for NickServ
@@ -601,6 +602,30 @@
   ;; Start the background retrieval process automatically
   (newsticker-start t))
 
+;; Major mode for markdown editing
+(use-package markdown-mode
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode))
+  :custom
+  (markdown-command "pandoc")
+  (markdown-fontify-code-blocks-natively t))
+
+;; Align tables in markdown
+(use-package valign
+  :hook (markdown-mode . valign-mode))
+
+;; This is a live previewer
+(use-package grip-mode
+  :custom
+  (grip-command 'grip)
+  (grip-preview-use-webkit t)
+  (grip-update-after-change nil)
+  :config
+  (require 'auth-source)
+  (let ((credential (auth-source-user-and-password "api.github.com")))
+    (setq grip-github-user (car credential)
+          grip-github-password (cadr credential))))
+
 (use-package diff-hl
   :hook ((prog-mode . diff-hl-mode)
          ;; Show git statuses in Dired buffers too
@@ -613,7 +638,7 @@
   (diff-hl-flydiff-mode 1)
 
   ;; By default, Emacs puts these signs in the graphical "Fringe".
-  ;; Uncomment the line below if you prefer them shifted inward 
+  ;; Uncomment the line below if you prefer them shifted inward
   ;; to sit flush against the line numbers (closer to the Neovim look).
   ;; (diff-hl-margin-mode 1)
   )
@@ -648,7 +673,7 @@
     "Default mapping of narrow and keywords."))
 
 (use-package neotree
-  ;; A common convention is F8 for the sidebar toggle, but you can 
+  ;; A common convention is F8 for the sidebar toggle, but you can
   ;; adjust this to a comfortable C-c binding if you prefer.
   :bind (("<f8>" . neotree-toggle)
          ("C-c d" . neotree-dir))
@@ -657,7 +682,7 @@
   ;; when Neotree is toggled open.
   (neo-smart-open t)
 
-  ;; Use 'nerd-icons' for the file tree since you already have them 
+  ;; Use 'nerd-icons' for the file tree since you already have them
   ;; configured. (Falls back to arrows in the terminal).
   (neo-theme (if (display-graphic-p) 'nerd-icons 'arrow))
 
@@ -668,7 +693,7 @@
   ;; Show hidden dotfiles by default
   (neo-show-hidden-files t)
 
-  ;; Uncomment this if you want the sidebar to automatically close 
+  ;; Uncomment this if you want the sidebar to automatically close
   ;; the moment you open a file.
   ;; (neo-autoclose t)
 

@@ -1,4 +1,4 @@
-# Tasks
+#+TITLE: Tasks
 
 - [ ] File a PR on Firefox's derivation. See [Firefox's module.nix](./modules/firefox.nix).
 - [ ] Write a userContent and userContent for Firefox.
