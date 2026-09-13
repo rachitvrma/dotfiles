@@ -55,10 +55,6 @@
             ]
           ))
 
-          marksman # for markdown editing
-
-          python314Packages.grip # For grip-mode
-
           # For restarting emacs immediately after rebuild
           (writeShellScriptBin "remacs" ''
             systemctl --user restart emacs.service
@@ -93,7 +89,6 @@
             ement # Matrix client within emacs
             emms
             ghostel
-            grip-mode # View markdown files using the GitHub API
             hl-todo # Highlight tags like TODO, etc.
             indent-bars
             jsdoc
@@ -101,8 +96,6 @@
             magit
             majutsu
             marginalia
-            markdown-mode # Major mode for markdown editing
-            markdown-toc # Generate a toc on top of markdown files, different from pkgs.markdown-toc
             multiple-cursors # This is another beast
             neotree # The side tree view of current project dir
             nerd-icons
@@ -116,14 +109,12 @@
             no-littering
             orderless
             org-auto-tangle
-            ox-gfm # Github Flavored Markdown exporter for Org Mode
             page-break-lines
             pomo-cat # A cute kitty pomodoro timer
             posframe # NOTE IDK what it does... Just a dependency
             pulsar # make it shine when you change point
             rainbow-delimiters
             use-package
-            valign # Align tables in markdown
             vertico
             which-key
             zoxide

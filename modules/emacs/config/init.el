@@ -464,7 +464,7 @@
 ;; Enable flyspell for markdown and org buffers
 (use-package flyspell
   :ensure nil
-  :hook ((org-mode markdown-mode) . flyspell-mode))
+  :hook (org-mode . flyspell-mode))
 
 (use-package project
   :ensure nil
@@ -601,30 +601,6 @@
   :config
   ;; Start the background retrieval process automatically
   (newsticker-start t))
-
-;; Major mode for markdown editing
-(use-package markdown-mode
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode))
-  :custom
-  (markdown-command "pandoc")
-  (markdown-fontify-code-blocks-natively t))
-
-;; Align tables in markdown
-(use-package valign
-  :hook (markdown-mode . valign-mode))
-
-;; This is a live previewer
-(use-package grip-mode
-  :custom
-  (grip-command 'grip)
-  (grip-preview-use-webkit t)
-  (grip-update-after-change nil)
-  :config
-  (require 'auth-source)
-  (let ((credential (auth-source-user-and-password "api.github.com")))
-    (setq grip-github-user (car credential)
-          grip-github-password (cadr credential))))
 
 (use-package diff-hl
   :hook ((prog-mode . diff-hl-mode)
