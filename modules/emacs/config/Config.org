@@ -1035,7 +1035,8 @@ This is not in =nixpkgs= yet.
   (use-package meow
     :config
     (defun meow-setup ()
-      (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+      (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty
+            meow-use-clipboard t)
       (meow-motion-define-key
        '("j" . meow-next)
        '("k" . meow-prev)
@@ -1123,6 +1124,22 @@ This is not in =nixpkgs= yet.
   (use-package meow-tree-sitter
     :config
     (meow-tree-sitter-register-defaults))
+
+#+end_src
+
+** Colorful Mode
+Highlight colors in programming mode.
+
+#+begin_src emacs-lisp
+
+  (use-package colorful-mode
+    :custom
+    (colorful-use-prefix t)
+    ;; (colorful-only-strings 'only-prog)
+    (css-fontify-colors nil)
+    :config
+    (global-colorful-mode t)
+    (add-to-list 'global-colorful-modes 'helpful-mode))
 
 #+end_src
 

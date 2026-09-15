@@ -80,6 +80,7 @@
             apheleia
             aria2
             breadcrumb
+            colorful-mode # Highlight Hex colors in programming modes
             consult
             consult-eglot
             consult-eglot-embark

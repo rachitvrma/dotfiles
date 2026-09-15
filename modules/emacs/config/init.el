@@ -705,7 +705,8 @@
 (use-package meow
   :config
   (defun meow-setup ()
-    (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+    (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty
+          meow-use-clipboard t)
     (meow-motion-define-key
      '("j" . meow-next)
      '("k" . meow-prev)
@@ -793,6 +794,15 @@
 (use-package meow-tree-sitter
   :config
   (meow-tree-sitter-register-defaults))
+
+(use-package colorful-mode
+  :custom
+  (colorful-use-prefix t)
+  ;; (colorful-only-strings 'only-prog)
+  (css-fontify-colors nil)
+  :config
+  (global-colorful-mode t)
+  (add-to-list 'global-colorful-modes 'helpful-mode))
 
 (provide 'init)
 ;;; init.el ends here

@@ -222,6 +222,26 @@
         "type": "gitlab"
       }
     },
+    "hjem": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789234255,
+        "narHash": "sha256-0nvWuRbgL4GEKpR8Y4wsB3kmsVgyd0cW8kLHc2BqlTc=",
+        "owner": "feel-co",
+        "repo": "hjem",
+        "rev": "e5e30b4320a8cbcd6cdfc65f044763669a8f0363",
+        "type": "github"
+      },
+      "original": {
+        "owner": "feel-co",
+        "repo": "hjem",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -366,6 +386,7 @@
         "agenix": "agenix",
         "disko": "disko",
         "flake-parts": "flake-parts",
+        "hjem": "hjem",
         "home-manager": "home-manager_2",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_2",
