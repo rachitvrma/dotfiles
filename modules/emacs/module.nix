@@ -11,6 +11,12 @@
         "early-init.el"
       ];
       basePath = "${config.home.homeDirectory}/etc/nixos/modules/emacs/config";
+
+      # Packages not (yet) in nixpkgs -- see packages/_default.nix.
+      # Underscore-prefixes the *filename*, not the directory -- flake.nix's
+      # isNixModule filter checks file.name only (recursively), so a
+      # prefixed directory with unprefixed files inside is still auto-imported.
+      manualEmacsPackages = import ./packages/_default.nix;
     in
     {
       xdg.configFile = builtins.listToAttrs (
@@ -67,7 +73,9 @@
         enable = true;
         package = pkgs.emacs-pgtk;
         extraPackages =
-          epkgs: with epkgs; [
+          epkgs:
+          with epkgs;
+          [
             ace-window
             apheleia
             aria2
@@ -96,6 +104,8 @@
             magit
             majutsu
             marginalia
+            meow # Modtal editing
+            meow-tree-sitter # Modal editing
             multiple-cursors # This is another beast
             neotree # The side tree view of current project dir
             nerd-icons
@@ -159,7 +169,8 @@
                 tree-sitter-yaml
               ]
             ))
-          ];
+          ]
+          ++ manualEmacsPackages epkgs;
       };
       services.emacs = {
         enable = true;

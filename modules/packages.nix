@@ -1,20 +1,11 @@
 {
-  flake.nixosModules.packages = { pkgs, lib, ... }: {
+  flake.nixosModules.packages = { pkgs, ... }: {
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment = {
       systemPackages = with pkgs; [
         wget
       ];
-      sessionVariables = {
-        SUDO_PROMPT = lib.concatStrings [
-          " "
-          "$(tput setaf 5 bold)[sudo]"
-          "$(tput sgr0) $(tput setaf 6)password for"
-          "$(tput sgr0) $(tput setaf 5)%p"
-          "$(tput sgr0): "
-        ];
-      };
     };
 
     programs.appimage = {
@@ -44,48 +35,6 @@
     stylix.targets.cava.rainbow.enable = true;
 
     programs = {
-      /*
-        # NOTE: This is experimental
-        impala = {
-                enable = true;
-                settings = {
-                  access_point = {
-                    start = "n";
-                    stop = "x";
-                  };
-                  ascii = false;
-                  device = {
-                    infos = "i";
-                    toggle_power = "o";
-                  };
-                  esc_quit = false;
-                  mode = "station";
-                  station = {
-                    known_network = {
-                      remove = "d";
-                      share = "p";
-                      show_all = "a";
-                      toggle_autoconnect = "t";
-                    };
-                    new_network = {
-                      connect_hidden = "";
-                      show_all = "a";
-                    };
-                    toggle_scanning = "s";
-                  };
-                  switch = "r";
-                  theme = {
-                    background = "dark gray";
-                    border = "green";
-                    error_color = "red";
-                    hidden_color = "dark gray";
-                    info_color = "green";
-                    text_color = "white";
-                    warning_color = "yellow";
-                  };
-                };
-              };
-      */
       pandoc.enable = true;
       atool = {
         enable = true;
@@ -137,19 +86,6 @@
         };
       };
 
-      /*
-        onlyoffice = {
-          enable = true;
-          settings = {
-            UITheme = "theme-dark";
-            titlebar = "custom";
-            maximized = true;
-            editorWindowMode = false;
-            forcedRtl = false;
-          };
-        };
-      */
-
       libreoffice.enable = true;
     };
 
@@ -157,7 +93,6 @@
       gitingest
       wl-clipboard
       unzip
-      kotatogram-desktop
     ];
   };
 }

@@ -16,8 +16,8 @@
     home.keyboard = {
       layout = "us";
       options = [
-        # "caps:swapescape"
-        "ctrl:swapcaps"
+        "caps:swapescape"
+        # "ctrl:swapcaps"
       ];
       variant = "colemak_dh";
     };
@@ -26,13 +26,13 @@
       settings = {
         "org/gnome/desktop/input-sources" = {
           xkb-options = [
-            # "caps:swapescape"
-            "ctrl:swapcaps"
+            "caps:swapescape"
+            # "ctrl:swapcaps"
           ];
         };
         # Use Emacs keybindings in GTK Applications
         "org/gnome/desktop/interface" = {
-          gtk-key-theme = "Emacs";
+          # gtk-key-theme = "Emacs";
         };
       };
     };

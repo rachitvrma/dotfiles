@@ -5,8 +5,6 @@ let
       enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-material-dark-hard.yaml";
 
-      # qt.platform = "gnome";
-
       image = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/rachitvrma/Wallpapers/main/catto.jpg";
         hash = "sha256-J3jOuXOjPRh10/r1psNNe2F2kb2ruyRtQ++B27CXPaU=";
@@ -40,6 +38,12 @@ let
           package = pkgs.noto-fonts-color-emoji;
           name = "Noto Color Emoji";
         };
+      };
+      opacity = {
+        desktop = 0.9;
+        terminal = 0.9;
+        popups = 0.9;
+        applications = 0.9;
       };
     };
   };
@@ -84,7 +88,6 @@ in
     {
       config,
       pkgs,
-      lib,
       ...
     }:
     {

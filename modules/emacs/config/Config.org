@@ -100,6 +100,11 @@ Turning off the menu/tool/scroll bars via =default-frame-alist= (evaluated befor
   ;; This is my personal Emacs configuration.
 
   ;;; Code:
+
+  ;; Does what it says
+  (setq use-package-verbose t
+        debug-on-error t)
+
 #+end_src
 
 ** =emacs= itself: global variables and UI tweaks
@@ -162,6 +167,7 @@ There's no separate package for "built-in Emacs behavior", so by convention it's
     (scroll-bar-mode -1)
     (blink-cursor-mode -1)
     (column-number-mode 1)
+
 
     ;; Quality-of-life editing defaults.
     (save-place-mode 1)           ; reopen files at the last visited line
@@ -537,6 +543,9 @@ The =(treesit-grammars.with-grammars ...)= derivation in modules.nix builds and 
   ;; so it's registered directly against the file extension instead.
   (use-package nix-ts-mode
     :mode "\\.nix\\'")
+
+  (use-package json-ts-mode
+    :mode "\\.json\\'")
 #+end_src
 
 Note: there's no =nix-ts-mode= (or =nix-mode=) entry in extraPackages -- the nix grammar is installed, but not the major-mode package that would actually use it for highlighting/indentation, so =.nix= files currently fall back to =fundamental-mode=. =eglot=/=apheleia= above are wired to =nix-mode= in anticipation of adding it; until =nix-mode= (or =nix-ts-mode=) is added to modules.nix's =extraPackages=, those hooks simply won't fire.
@@ -1005,6 +1014,115 @@ It's a small Pomodoro timer.
   (use-package pomo-cat
     :custom
     (pomo-cat-use-dedicated-frame t))
+
+#+end_src
+
+** XDG Launcher
+
+This is not in =nixpkgs= yet.
+
+#+begin_src emacs-lisp
+
+  (use-package xdg-launcher)
+
+#+end_src
+
+
+** Meow Meow
+
+#+begin_src emacs-lisp
+
+  (use-package meow
+    :config
+    (defun meow-setup ()
+      (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+      (meow-motion-define-key
+       '("j" . meow-next)
+       '("k" . meow-prev)
+       '("<escape>" . ignore))
+      (meow-leader-define-key
+       ;; Use SPC (0-9) for digit arguments.
+       '("1" . meow-digit-argument)
+       '("2" . meow-digit-argument)
+       '("3" . meow-digit-argument)
+       '("4" . meow-digit-argument)
+       '("5" . meow-digit-argument)
+       '("6" . meow-digit-argument)
+       '("7" . meow-digit-argument)
+       '("8" . meow-digit-argument)
+       '("9" . meow-digit-argument)
+       '("0" . meow-digit-argument)
+       '("/" . meow-keypad-describe-key)
+       '("?" . meow-cheatsheet))
+      (meow-normal-define-key
+       '("0" . meow-expand-0)
+       '("9" . meow-expand-9)
+       '("8" . meow-expand-8)
+       '("7" . meow-expand-7)
+       '("6" . meow-expand-6)
+       '("5" . meow-expand-5)
+       '("4" . meow-expand-4)
+       '("3" . meow-expand-3)
+       '("2" . meow-expand-2)
+       '("1" . meow-expand-1)
+       '("-" . negative-argument)
+       '(";" . meow-reverse)
+       '("," . meow-inner-of-thing)
+       '("." . meow-bounds-of-thing)
+       '("[" . meow-beginning-of-thing)
+       '("]" . meow-end-of-thing)
+       '("a" . meow-append)
+       '("A" . meow-open-below)
+       '("b" . meow-back-word)
+       '("B" . meow-back-symbol)
+       '("c" . meow-change)
+       '("d" . meow-delete)
+       '("D" . meow-backward-delete)
+       '("e" . meow-next-word)
+       '("E" . meow-next-symbol)
+       '("f" . meow-find)
+       '("g" . meow-cancel-selection)
+       '("G" . meow-grab)
+       '("h" . meow-left)
+       '("H" . meow-left-expand)
+       '("i" . meow-insert)
+       '("I" . meow-open-above)
+       '("j" . meow-next)
+       '("J" . meow-next-expand)
+       '("k" . meow-prev)
+       '("K" . meow-prev-expand)
+       '("l" . meow-right)
+       '("L" . meow-right-expand)
+       '("m" . meow-join)
+       '("n" . meow-search)
+       '("o" . meow-block)
+       '("O" . meow-to-block)
+       '("p" . meow-yank)
+       '("q" . meow-quit)
+       '("Q" . meow-goto-line)
+       '("r" . meow-replace)
+       '("R" . meow-swap-grab)
+       '("s" . meow-kill)
+       '("t" . meow-till)
+       '("u" . meow-undo)
+       '("U" . meow-undo-in-selection)
+       '("v" . meow-visit)
+       '("w" . meow-mark-word)
+       '("W" . meow-mark-symbol)
+       '("x" . meow-line)
+       '("X" . meow-goto-line)
+       '("y" . meow-save)
+       '("Y" . meow-sync-grab)
+       '("z" . meow-pop-selection)
+       '("'" . repeat)
+       '("<escape>" . ignore)))
+    (require 'meow)
+    (meow-setup)
+    (meow-global-mode 1))
+
+  (use-package meow-tree-sitter
+    :config
+    (meow-tree-sitter-register-defaults))
 
 #+end_src
 
