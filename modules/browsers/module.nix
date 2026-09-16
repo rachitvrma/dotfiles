@@ -13,11 +13,11 @@
           # See todo.org
           # pkcs11Modules = [ pkgs.p11-kit ];
 
-          package = pkgs.firefox.override {
-            nativeMessagingHosts = [
-              pkgs.gnome-browser-connector
-            ];
-          };
+          # package = pkgs.firefox.override {
+          #   nativeMessagingHosts = [
+          #     pkgs.gnome-browser-connector
+          #   ];
+          # };
 
           policies = {
             DisableTelemetry = true;

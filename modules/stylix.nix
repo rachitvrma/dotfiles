@@ -43,11 +43,11 @@ let
           name = "Noto Color Emoji";
         };
       };
-      opacity = {
-        desktop = 0.95;
-        terminal = 0.95;
-        popups = 0.95;
-        applications = 0.95;
+      opacity = rec {
+        desktop = 0.92;
+        terminal = desktop;
+        popups = desktop;
+        applications = desktop;
       };
     };
   };

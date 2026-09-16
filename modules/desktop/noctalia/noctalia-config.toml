@@ -6,10 +6,11 @@ sound_volume = 0.99999997764825821
 # background_opacity = 0.84999998100101948
 center = ["group:g1", "date"]
 end = [
+  "group:g7",
   "bar_2",
   "group:g5",
   "tray",
-  "notifications",
+  "group:g6",
   "clipboard",
   "group:g2",
   "group:g3",
@@ -56,7 +57,7 @@ accordion_direction = "end"
 enabled = true
 fill = "surface_variant"
 id = "g4"
-members = ["control-center", "caffeine", "launcher", "wallpaper"]
+members = ["control-center", "caffeine", "nightlight", "launcher", "wallpaper"]
 opacity = 1.0
 padding = 6.0
 
@@ -67,6 +68,26 @@ enabled = true
 fill = "surface_variant"
 id = "g5"
 members = ["audio_visualizer", "media"]
+opacity = 1.0
+padding = 6.0
+
+[[bar.default.capsule_group]]
+accordion = false
+accordion_direction = "end"
+enabled = true
+fill = "surface_variant"
+id = "g6"
+members = ["notifications"]
+opacity = 1.0
+padding = 6.0
+
+[[bar.default.capsule_group]]
+accordion = false
+accordion_direction = "end"
+enabled = true
+fill = "surface_variant"
+id = "g7"
+members = ["ram", "temp", "cpu", "network_rx", "network_tx"]
 opacity = 1.0
 padding = 6.0
 
@@ -85,10 +106,10 @@ show_week_numbers = true
 
 [dock]
 active_monitor_only = true
-# # background_opacity = 0.84999998100101948
+# background_opacity = 0.84999998100101948
 enabled = true
 launcher_position = "end"
-pinned = ["firefox", "footclient", "emacsclient"]
+pinned = ["firefox", "footclient", "emacsclient", "pcmanfm"]
 reserve_space = false
 show_dots = true
 smart_auto_hide = true
@@ -182,10 +203,10 @@ show_weather = true
 enabled = true
 
 [notification]
-# background_opacity = 0.90000000000000002
+# background_opacity = 0.94999999999999996
 
 [osd]
-# background_opacity = 0.90000000000000002
+# background_opacity = 0.94999999999999996
 
 [plugins]
 enabled = ["noctalia/kaomoji", "noctalia/timer", "noctalia/umbriel-companion"]
@@ -213,18 +234,6 @@ source = "custom"
 [wallpaper]
 directory = "/home/krish/Pictures/Wallpapers"
 
-# [wallpaper.default]
-# path = "/home/krish/Pictures/Wallpapers/Sif.png"
-
-# [wallpaper.last]
-# path = "/home/krish/Pictures/Wallpapers/Sif.png"
-
-# [wallpaper.monitors.HDMI-A-1]
-# path = "/home/krish/Pictures/Wallpapers/Sif.png"
-
-# [wallpaper.monitors.eDP-1]
-# path = "/home/krish/Pictures/Wallpapers/Sif.png"
-
 [widget.audio_visualizer]
 color_2 = "secondary"
 
@@ -234,6 +243,11 @@ type = "noctalia/timer:bar"
 [widget.bar_2]
 type = "noctalia/umbriel-companion:bar"
 
+[widget.battery]
+display_mode = "graphic"
+hide_when_full = true
+hide_when_plugged = false
+
 [widget.brightness]
 show_label = false
 
@@ -241,12 +255,28 @@ show_label = false
 format = "{:%-I:%M:%S %p}"
 tooltip_format = "{:%A}\\n{:%Y-%m-%d}"
 
+[widget.cpu]
+show_value = false
+
 [widget.media]
 album_art_only = true
 hide_when_no_media = true
 
 [widget.network]
 show_label = false
+
+[widget.network_rx]
+network_speed_compact = true
+show_value = false
+
+[widget.network_tx]
+show_value = false
+
+[widget.ram]
+show_value = false
+
+[widget.temp]
+show_value = false
 
 [widget.volume]
 show_label = false

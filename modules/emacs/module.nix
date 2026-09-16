@@ -52,6 +52,13 @@
           typst # The compiler binary
           typstyle # Formatter
 
+          # LaTeX stack
+          texlab
+          zathura # Use this for viewing pdf files
+          (texlive.combine {
+            inherit (texlive) scheme-medium latexmk;
+          })
+
           # Aspell is also pulled in by kotatogram
           (aspellWithDicts (
             dicts: with dicts; [
@@ -79,6 +86,8 @@
             ace-window
             apheleia
             aria2
+            auctex # LaTeX stack
+            cdlatex # LaTeX stack
             breadcrumb
             colorful-mode # Highlight Hex colors in programming modes
             consult

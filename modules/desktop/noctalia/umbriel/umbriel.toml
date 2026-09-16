@@ -271,10 +271,11 @@ follows_mouse = true # Focus the pointer target after pointer motion
 
 # Applications and session
 "Mod+T" = "spawn:footclient"
-"Mod" = "spawn:noctalia msg panel-toggle launcher"
+"Mod+D" = "spawn:noctalia msg panel-toggle launcher"
 "Mod+Q" = "window-close"
 "Mod+Return" = "spawn:systemd-run --user emacsclient -c -a \"\""
 "Mod+B" = "spawn:systemd-run --user firefox"
+"Mod+E" = "spawn:systemd-run --user pcmanfm"
 
 # Focus navigation. In overview, Mod+Up/Down retain normal layout focus, so they
 # traverse stacks in the default horizontal layout. Bare Up/Down move between
@@ -307,8 +308,8 @@ follows_mouse = true # Focus the pointer target after pointer motion
 # "Mod+Shift+Down" = "window-move-down"
 # "Mod+Shift+Up" = "window-move-up"
 # "Mod+Shift+Right" = "column-move-right"
-"Mod+F" = "window-toggle-fullscreen"
-"Mod+Ctrl+F" = "window-toggle-maximize"
+"Mod+F" = "window-toggle-maximize"
+"Mod+Ctrl+F" = "window-toggle-fullscreen"
 # "Mod+R" = "window-cycle-width"
 # "Mod+Shift+R" = "window-cycle-width-back"
 # "Mod+Comma" = "window-consume-left"
@@ -401,10 +402,10 @@ bottom = 0
 
 [layout.scrolling]
 # direction = "horizontal"                      # horizontal or vertical strip axis
-default_width_fraction = 0.5  # Initial width for new columns, 0.1-1.0
-center_underfull_strip = true # Center a strip narrower than the viewport
-center_focused = false        # Always center the focused column
-expand_single_column = true   # Let a lone column fill the viewport
+default_width_fraction = 0.5   # Initial width for new columns, 0.1-1.0
+center_underfull_strip = true  # Center a strip narrower than the viewport
+center_focused = "on_overflow" # Always center the focused column
+# expand_single_column = true    # Let a lone column fill the viewport
 
 [layout.dwindle]
 # preserve_split = false                        # Keep every split direction fixed after creation
@@ -452,6 +453,12 @@ match.title = "^notificationtoasts_.+_desktop"
 default_position = { x = 0, y = 0, anchor = "bottom_right" }
 default_focused = false
 default_pinned = true
+
+[[window_rule]]
+match.app_id = "^pcmanfm$"
+default_floating = true
+default_size = [1181, 736]
+default_position = { x = 371, y = 190, anchor = "top_left" }
 
 # Optional placement recipe. Output names follow the same rules as [output.*].
 
@@ -503,26 +510,26 @@ default_pinned = true
 
 # Dynamic effects and output policies can be combined in one matching rule.
 
-# [[window_rule]]
-# match.app_id = "^firefox$"
-# match.title = "^Library$"
-# default_floating = true
-# default_focused = false
-# focus_on_activate = true
-# opacity = 0.95
-# blur_popups = true
-# blur_ignore_alpha = 0.1
-# vrr = "always"
-# tearing = true
-# hdr = "fullscreen"
+[[window_rule]]
+match.app_id = "^firefox$"
+match.title = "^Library$"
+default_floating = true
+default_focused = false
+focus_on_activate = true
+opacity = 0.95
+blur_popups = true
+blur_ignore_alpha = 0.1
+vrr = "always"
+tearing = true
+hdr = "fullscreen"
 
 # Keep related tiled windows in one named scrolling column. Lower orders appear
 # higher in horizontal scrolling and farther left in vertical scrolling.
 
-# [[window_rule]]
-# match.app_id = "^firefox$"
-# default_scrolling_column = "browsers"
-# default_scrolling_column_order = 10
+[[window_rule]]
+match.app_id = "^firefox$"
+default_scrolling_column = "browsers"
+default_scrolling_column_order = 10
 
 # Focus-aware rules update as focus changes.
 

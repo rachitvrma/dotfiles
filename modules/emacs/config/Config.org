@@ -488,8 +488,19 @@ Eglot ships with Emacs (29+) -- it's in extraPackages here only to pin/override 
             js-ts-mode
             json-ts-mode
             yaml-ts-mode
+            tex-mode
+            LaTeX-mode
             toml-ts-mode
             scheme-mode) . eglot-ensure)
+    :bind (:map eglot-mode-map
+                ("C-c l a" . eglot-code-actions)
+                ("C-c l f" . eglot-format-buffer)
+                ("C-c l r" . eglot-rename)
+                ("C-c l d" . eldoc)
+                ("C-c l R" . eglot-reconnect)
+                ("C-c l q" . eglot-shutdown)
+                ("C-c l h" . eglot-inlay-hints-mode)
+                )
     :custom
     (eglot-autoshutdown t)
     (eglot-sync-connect nil)
@@ -1155,6 +1166,32 @@ Source environment variables from the shell into Emacs
               (daemonp))
       (exec-path-from-shell-copy-envs '("GNUPGHOME" "GPG_TTY" "SSH_AUTH_SOCK"))
       (exec-path-from-shell-initialize)))
+
+#+end_src
+
+** LaTeX Setup
+
+#+begin_src emacs-lisp
+
+  (use-package tex
+    :ensure auctex
+    :defer t
+    :hook (LaTeX-mode . turn-on-reftex)
+    :custom
+    (TeX-auto-save t)
+    (TeX-parse-self t)
+    (TeX-master nil)
+    (TeX-command-default "LatexMk")
+    (TeX-source-correlate-mode t)
+    (TeX-source-correlate-start-server t)
+    (TeX-view-program-selection '((output-pdf "Zathura")))
+    (TeX-view-program-list
+     '(("Zathura" "zathura --synctex-forward %n:0:%b %o" "zathura"))))
+
+
+  (use-package cdlatex
+    :after tex
+    :hook (LaTeX-mode . turn-on-cdlatex))
 
 #+end_src
 
