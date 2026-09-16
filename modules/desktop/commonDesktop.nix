@@ -31,7 +31,19 @@ in
           login.enableGnomeKeyring = true;
         };
       };
-
+      # Essential variables for wayland set up
+      environment.sessionVariables = {
+        SDL_VIDEODRIVER = "wayland";
+        QT_QPA_PLATFORM = "wayland";
+        GDK_BACKEND = "wayland,x11";
+        CLUTTER_BACKEND = "wayland";
+        MOZ_ENABLE_WAYLAND = 1;
+        ELECTRON_OZONE_PLATFORM_HINT = "auto";
+        NIXOS_OZONE_WL = 1;
+        WLR_NO_HARDWARE_CURSORS = 1;
+        WLR_RENDERER = "vulkan";
+        LIBVA_DRIVER_NAME = "iHD";
+      };
     };
 
     homeModules.commonDesktop = { pkgs, ... }: {

@@ -93,6 +93,7 @@
       gitingest
       wl-clipboard
       unzip
+      file
     ];
   };
 }

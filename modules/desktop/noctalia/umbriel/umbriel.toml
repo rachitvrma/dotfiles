@@ -196,13 +196,10 @@ middle_click_paste = true # Primary-selection paste; applies on reload
 
 [input.keyboard]
 # Physical keyboard XKB settings. Virtual keyboards provide their own keymaps.
-layout = "us"               # Example: "us,de"; empty uses the system default
-variant = "colemak_dh"      # Example: ",nodeadkeys" for two layouts
-options = "caps:swapescape" # Example: "grp:alt_shift_toggle"
-repeat_rate = 25            # Key repeats per second, 0-1000
-repeat_delay = 600          # Delay before repeating, 0-10000 ms
-numlock_toggle = true       # Enable on connect; false preserves the current state
-track_layout = "global"     # global, or window for per-surface layout memory
+repeat_rate = 25        # Key repeats per second, 0-1000
+repeat_delay = 600      # Delay before repeating, 0-10000 ms
+numlock_toggle = true   # Enable on connect; false preserves the current state
+track_layout = "global" # global, or window for per-surface layout memory
 
 [input.touchpad]
 tap = true            # Tap-to-click
@@ -228,8 +225,6 @@ enabled = true # False disables tablet tools and pads
 # calibration_matrix = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0]
 
 [input.cursor]
-theme = ""              # Empty uses environment or default Xcursor theme
-size = 24               # Logical size, 1-512
 hardware_cursor = true  # False forces cursor composition
 follows_focus = true    # Warp to targets selected by focus navigation
 hide_when_typing = true # Keep visible while typing
@@ -278,7 +273,8 @@ follows_mouse = true # Focus the pointer target after pointer motion
 "Mod+T" = "spawn:footclient"
 "Mod" = "spawn:noctalia msg panel-toggle launcher"
 "Mod+Q" = "window-close"
-"Mod+Return" = "spawn:emacsclient -c -a \"\""
+"Mod+Return" = "spawn:systemd-run --user emacsclient -c -a \"\""
+"Mod+B" = "spawn:systemd-run --user firefox"
 
 # Focus navigation. In overview, Mod+Up/Down retain normal layout focus, so they
 # traverse stacks in the default horizontal layout. Bare Up/Down move between
@@ -311,8 +307,8 @@ follows_mouse = true # Focus the pointer target after pointer motion
 # "Mod+Shift+Down" = "window-move-down"
 # "Mod+Shift+Up" = "window-move-up"
 # "Mod+Shift+Right" = "column-move-right"
-# "Mod+F" = "window-toggle-fullscreen"
-# "Mod+Ctrl+F" = "window-toggle-maximize"
+"Mod+F" = "window-toggle-fullscreen"
+"Mod+Ctrl+F" = "window-toggle-maximize"
 # "Mod+R" = "window-cycle-width"
 # "Mod+Shift+R" = "window-cycle-width-back"
 # "Mod+Comma" = "window-consume-left"
@@ -392,7 +388,7 @@ follows_mouse = true # Focus the pointer target after pointer motion
 
 [layout]
 mode = "scrolling"                  # scrolling, dwindle, or master
-gap = 8                             # Logical pixels between tiles, 0-500
+gap = 16                            # Logical pixels between tiles, 0-500
 width_presets = [0.333, 0.5, 0.667] # Width and height cycling fractions
 
 [layout.struts]

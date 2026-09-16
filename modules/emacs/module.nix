@@ -97,7 +97,8 @@
             embark-consult
             ement # Matrix client within emacs
             emms
-            ghostel
+            exec-path-from-shell
+            # ghostel
             hl-todo # Highlight tags like TODO, etc.
             indent-bars
             jsdoc
@@ -128,6 +129,7 @@
             use-package
             vertico
             which-key
+            zathura # Open links to documents in zathura
             zoxide
 
             # Tree-sitter grammars

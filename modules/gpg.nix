@@ -3,7 +3,6 @@
     programs = {
       gpg = {
         enable = true;
-        homedir = "${config.xdg.dataHome}/gnupg";
         settings = {
           personal-cipher-preferences = "AES256 AES192 AES";
           personal-digest-preferences = "SHA512 SHA384 SHA256";

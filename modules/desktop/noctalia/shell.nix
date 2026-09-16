@@ -12,7 +12,6 @@
     {
       pkgs,
       lib,
-      config,
       ...
     }:
     {
@@ -26,7 +25,7 @@
       programs.noctalia = {
         enable = true;
         systemd.enable = true;
-        settings = lib.importTOML ./noctalia.toml;
+        settings = lib.importTOML ./noctalia-config.toml;
       };
     };
 }

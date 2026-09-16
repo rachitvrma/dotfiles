@@ -1,0 +1,258 @@
+[audio]
+enable_sounds = true
+sound_volume = 0.99999997764825821
+
+[bar.default]
+# background_opacity = 0.84999998100101948
+center = ["group:g1", "date"]
+end = [
+  "bar_2",
+  "group:g5",
+  "tray",
+  "notifications",
+  "clipboard",
+  "group:g2",
+  "group:g3",
+  "battery",
+  "session",
+]
+font_family = "JetBrainsMono Nerd Font"
+panel_overlap = 0
+start = ["group:g4", "workspaces"]
+
+[[bar.default.capsule_group]]
+accordion = true
+accordion_direction = "end"
+enabled = true
+fill = "surface_variant"
+id = "g1"
+members = ["clock", "bar"]
+opacity = 1.0
+padding = 6.0
+
+[[bar.default.capsule_group]]
+accordion = true
+accordion_direction = "end"
+enabled = true
+fill = "surface_variant"
+id = "g2"
+members = ["network", "bluetooth"]
+opacity = 1.0
+padding = 6.0
+
+[[bar.default.capsule_group]]
+accordion = true
+accordion_direction = "end"
+enabled = true
+fill = "surface_variant"
+id = "g3"
+members = ["volume", "brightness"]
+opacity = 1.0
+padding = 6.0
+
+[[bar.default.capsule_group]]
+accordion = true
+accordion_direction = "end"
+enabled = true
+fill = "surface_variant"
+id = "g4"
+members = ["control-center", "caffeine", "launcher", "wallpaper"]
+opacity = 1.0
+padding = 6.0
+
+[[bar.default.capsule_group]]
+accordion = false
+accordion_direction = "end"
+enabled = true
+fill = "surface_variant"
+id = "g5"
+members = ["audio_visualizer", "media"]
+opacity = 1.0
+padding = 6.0
+
+[brightness]
+enable_ddcutil = true
+sync_all_monitors = true
+
+[calendar]
+enabled = true
+
+[calendar.account.personal_google]
+type = "google"
+
+[control_center.calendar]
+show_week_numbers = true
+
+[dock]
+active_monitor_only = true
+# # background_opacity = 0.84999998100101948
+enabled = true
+launcher_position = "end"
+pinned = ["firefox", "footclient", "emacsclient"]
+reserve_space = false
+show_dots = true
+smart_auto_hide = true
+
+[idle]
+behavior_order = ["lock", "screen-off", "lock-and-suspend"]
+
+[idle.behavior.lock]
+action = "lock"
+enabled = true
+timeout = 600.0
+
+[idle.behavior.lock-and-suspend]
+action = "lock_and_suspend"
+enabled = true
+timeout = 900.0
+
+[idle.behavior.screen-off]
+action = "screen_off"
+enabled = true
+timeout = 660.0
+
+[location]
+auto_locate = true
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = ["lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1"]
+
+[lockscreen_widgets.grid]
+cell_size = 16
+major_interval = 4
+visible = true
+
+[lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+box_height = 196.0
+box_width = 810.0
+cx = 911.0
+cy = 842.0
+output = "HDMI-A-1"
+placement_height = 1024.0
+placement_width = 1821.0
+rotation = 0.0
+type = "login_box"
+
+[lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+background_color = "surface_variant"
+background_opacity = 0.88
+background_radius = 12.0
+center_password_text = false
+input_opacity = 1.0
+input_radius = 6.0
+layout = "regular"
+show_caps_lock = true
+show_keyboard_layout = true
+show_login_button = true
+show_media = true
+show_session_buttons = true
+show_unlock_hint = true
+show_weather = true
+
+[lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+box_height = 196.0
+box_width = 810.0
+cx = 960.0
+cy = 898.0
+output = "eDP-1"
+placement_height = 1080.0
+placement_width = 1920.0
+rotation = 0.0
+type = "login_box"
+
+[lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+background_color = "surface_variant"
+background_opacity = 0.88
+background_radius = 12.0
+center_password_text = false
+input_opacity = 1.0
+input_radius = 6.0
+layout = "regular"
+show_caps_lock = true
+show_keyboard_layout = true
+show_login_button = true
+show_media = true
+show_session_buttons = true
+show_unlock_hint = true
+show_weather = true
+
+[nightlight]
+enabled = true
+
+[notification]
+# background_opacity = 0.90000000000000002
+
+[osd]
+# background_opacity = 0.90000000000000002
+
+[plugins]
+enabled = ["noctalia/kaomoji", "noctalia/timer", "noctalia/umbriel-companion"]
+
+[shell]
+font_family = "JetBrainsMono Nerd Font"
+launch_apps_as_systemd_services = true
+launch_apps_custom_command = "systemd-run --user"
+panel_anchor_bar = "default"
+polkit_agent = true
+screen_time_enabled = true
+umbriel_overview_type_to_launch_enabled = true
+
+[shell.greeter_sync]
+auto_sync = true
+
+[shell.panel]
+transparency_mode = "glass"
+
+[theme]
+custom_palette = "stylix"
+mode = "dark"
+source = "custom"
+
+[wallpaper]
+directory = "/home/krish/Pictures/Wallpapers"
+
+# [wallpaper.default]
+# path = "/home/krish/Pictures/Wallpapers/Sif.png"
+
+# [wallpaper.last]
+# path = "/home/krish/Pictures/Wallpapers/Sif.png"
+
+# [wallpaper.monitors.HDMI-A-1]
+# path = "/home/krish/Pictures/Wallpapers/Sif.png"
+
+# [wallpaper.monitors.eDP-1]
+# path = "/home/krish/Pictures/Wallpapers/Sif.png"
+
+[widget.audio_visualizer]
+color_2 = "secondary"
+
+[widget.bar]
+type = "noctalia/timer:bar"
+
+[widget.bar_2]
+type = "noctalia/umbriel-companion:bar"
+
+[widget.brightness]
+show_label = false
+
+[widget.clock]
+format = "{:%-I:%M:%S %p}"
+tooltip_format = "{:%A}\\n{:%Y-%m-%d}"
+
+[widget.media]
+album_art_only = true
+hide_when_no_media = true
+
+[widget.network]
+show_label = false
+
+[widget.volume]
+show_label = false
+
+[widget.workspaces]
+active_pill_size = 3.0
+inactive_pill_size = 1.7000000000000002
+pill_scale = 0.59999999999999998
+show_labels = false

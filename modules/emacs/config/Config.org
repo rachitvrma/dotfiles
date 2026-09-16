@@ -1143,6 +1143,21 @@ Highlight colors in programming mode.
 
 #+end_src
 
+** Exec Path from Shell
+
+Source environment variables from the shell into Emacs
+
+#+begin_src emacs-lisp
+
+  (use-package exec-path-from-shell
+    :config
+    (when (or (memq window-system '(mac ns x pgtk))
+              (daemonp))
+      (exec-path-from-shell-copy-envs '("GNUPGHOME" "GPG_TTY" "SSH_AUTH_SOCK"))
+      (exec-path-from-shell-initialize)))
+
+#+end_src
+
 ** Footer
 
 #+begin_src emacs-lisp

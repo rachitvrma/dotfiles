@@ -804,5 +804,12 @@
   (global-colorful-mode t)
   (add-to-list 'global-colorful-modes 'helpful-mode))
 
+(use-package exec-path-from-shell
+  :config
+  (when (or (memq window-system '(mac ns x pgtk))
+            (daemonp))
+    (exec-path-from-shell-copy-envs '("GNUPGHOME" "GPG_TTY" "SSH_AUTH_SOCK"))
+    (exec-path-from-shell-initialize)))
+
 (provide 'init)
 ;;; init.el ends here

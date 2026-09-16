@@ -10,6 +10,10 @@ let
         hash = "sha256-J3jOuXOjPRh10/r1psNNe2F2kb2ruyRtQ++B27CXPaU=";
       };
 
+      override = {
+        base00 = "141617";
+      };
+
       polarity = "dark";
 
       cursor = {
@@ -40,10 +44,10 @@ let
         };
       };
       opacity = {
-        desktop = 0.9;
-        terminal = 0.9;
-        popups = 0.9;
-        applications = 0.9;
+        desktop = 0.95;
+        terminal = 0.95;
+        popups = 0.95;
+        applications = 0.95;
       };
     };
   };
