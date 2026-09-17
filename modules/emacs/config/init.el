@@ -415,6 +415,7 @@
   (dired-listing-switches "-alh --group-directories-first")
   (dired-kill-when-opening-new-dired-buffer t)
   (dired-dwim-target t)
+  :hook (dired-mode . dired-hide-details-mode)
   :bind (:map dired-mode-map
               (";" . dired-up-directory)
               ("." . dired-omit-mode)))
@@ -427,7 +428,60 @@
 
 (use-package ibuffer
   :ensure nil
-  :bind ("C-x C-b" . ibuffer))
+  :bind ("C-x C-b" . ibuffer)
+  :custom
+  (ibuffer-show-empty-filter-groups nil)
+  (ibuffer-expert t)
+  (ibuffer-default-sorting-mode 'filename/process)
+  (ibuffer-formats
+   '((mark modified read-only locked " "
+           (name 30 30 :left :elide)
+           " "
+           (size 9 -1 :right)
+           " "
+           (mode 16 16 :left :elide)
+           " " filename-and-process)
+     (mark " "
+           (name 16 -1)
+           " " filename)))
+
+  :hook
+  (ibuffer-mode . (lambda () (ibuffer-switch-to-saved-filter-groups "default")))
+
+  :config
+  (setq ibuffer-saved-filter-groups
+        '(("default"
+           ("Org Agenda" (mode . org-agenda-mode))
+           ("Org"        (mode . org-mode))
+           ("News"       (or (name . "^\\*newsticker")
+                             (predicate . (derived-mode-p 'newsticker-mode
+                                                          'newsticker-treeview-mode))))
+           ("Mail"       (or (predicate . (derived-mode-p 'mu4e-headers-mode
+                                                          'mu4e-view-mode
+                                                          'mu4e-main-mode))
+                             ;; swap the above for notmuch-/gnus- modes if that's
+                             ;; what you're actually running with himalaya
+                             ))
+           ("Web"        (or (mode . eww-mode)
+                             (mode . xwidget-webkit-mode)))
+           ("EMMS"       (predicate . (derived-mode-p 'emms-playlist-mode
+                                                      'emms-browser-mode
+                                                      'emms-stream-mode)))
+           ("VCS"        (or (predicate . (derived-mode-p 'magit-mode))
+                             (mode . vc-dir-mode)
+                             ;; add your jujutsu client's mode symbol here once
+                             ;; confirmed — unsure of its exact name
+                             ))
+           ("Dired"      (mode . dired-mode))
+           ("IRC"        (or (mode . erc-mode)
+                             (mode . rcirc-mode)))
+           ("Ement"      (or (predicate . (derived-mode-p 'ement-room-mode
+                                                          'ement-room-list-mode
+                                                          'ement-directory-mode))
+                             (name . "^\\*Ement")))
+           ("Files"      (predicate . (and (buffer-file-name)
+                                           (not (derived-mode-p 'dired-mode)))))
+           ("Special"    (name . "^\\*"))))))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -546,36 +600,38 @@
   :config
   (auth-source-pass-enable))
 
+(defun my/erc-soju-libera ()
+  (interactive)
+  (erc :server "127.0.0.1"
+       :port 6667
+       :nick "woodenAllen"
+       :user "woodenAllen/libera"
+       :password (auth-source-pass-get 'secret "irc/soju")))
+
 (use-package erc
   :ensure nil
+  :bind (("C-c e l" . my/erc-soju-libera))
   :custom
-  ;; Replicating your Halloy identity
-  (erc-nick "woodenAllen")
-
-  (erc-hide-list '("JOIN" "PART" "QUIT"))
-  (erc-server-auto-reconnect t)
-
-  ;; Channels ported directly from your matrix_irc.nix
+  (erc-server-reconnect-attempts 5)
+  (erc-server-reconnect-timeout 3)
   (erc-autojoin-channels-alist
-   '(("rizon.net" "#help")
-     ("libera.chat" "##anime" "#archlinux" "#archlinux-offtopic" "##chat"
-      "#emacs" "#emacs-beginners" "#emacs-social" "#emacs-til"
-      "#gentoo" "#gentoo-chat" "#halloy")))
+   '(("Libera.Chat" "#nixos" "#emacs"))))
 
-  ;; Instruct ERC to query auth-source (which now checks 'pass') for NickServ
-  (erc-prompt-for-nickserv-password nil)
-  (erc-use-auth-source-for-nickserv-password t)
+(use-package rcirc
+  :ensure nil
+  :init
+  (setq rcirc-server-alist
+        `(("127.0.0.1"
+           :port 6667
+           :encryption plain
+           :nick "woodenAllen"
+           :user-name "woodenAllen/libera"
+           :password ,(auth-source-pass-get 'secret "irc/soju")))))
 
-  :config
-  (defun erc-rizon ()
-    "Connect securely to Rizon."
-    (interactive)
-    (erc-tls :server "irc.rizon.net" :port 6697))
-
-  (defun erc-libera ()
-    "Connect securely to Libera.Chat."
-    (interactive)
-    (erc-tls :server "irc.libera.chat" :port 6697)))
+(use-package ement
+  :custom
+  (ement-save-sessions t)
+  (ement-save-sessions-file (expand-file-name "ement-sessions.el" user-emacs-directory)))
 
 (use-package newsticker
   :ensure nil
