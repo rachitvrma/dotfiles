@@ -157,6 +157,8 @@ There's no separate package for "built-in Emacs behavior", so by convention it's
     (display-line-numbers-type 'relative)
     ;; Ensure the column doesn't aggresively jump in width as you scroll
     (display-line-numbers-width-start t)
+    ;; Show the tab when there are more than one tab
+    (tab-bar-show 1)
 
     :config
     ;; Redundant with the early-init default-frame-alist for the very
@@ -1100,6 +1102,34 @@ This is not in =nixpkgs= yet.
 
 #+end_src
 
+** Colorful Mode
+Highlight colors in programming mode.
+
+#+begin_src emacs-lisp
+
+  (use-package colorful-mode
+    :custom
+    (colorful-use-prefix t)
+    ;; (colorful-only-strings 'only-prog)
+    (css-fontify-colors nil)
+    :config
+    (global-colorful-mode t)
+    (add-to-list 'global-colorful-modes 'helpful-mode))
+
+#+end_src
+
+** =direnv=
+
+Emacs can have =direnv= integration.
+
+#+begin_src emacs-lisp
+
+  (use-package direnv
+    :config
+    (direnv-mode))
+
+#+end_src
+
 
 ** Meow Meow
 
@@ -1107,9 +1137,9 @@ This is not in =nixpkgs= yet.
 
   (use-package meow
     :config
+    (setq meow-use-clipboard t)
     (defun meow-setup ()
-      (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty
-            meow-use-clipboard t)
+      (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
       (meow-motion-define-key
        '("j" . meow-next)
        '("k" . meow-prev)
@@ -1197,22 +1227,6 @@ This is not in =nixpkgs= yet.
   (use-package meow-tree-sitter
     :config
     (meow-tree-sitter-register-defaults))
-
-#+end_src
-
-** Colorful Mode
-Highlight colors in programming mode.
-
-#+begin_src emacs-lisp
-
-  (use-package colorful-mode
-    :custom
-    (colorful-use-prefix t)
-    ;; (colorful-only-strings 'only-prog)
-    (css-fontify-colors nil)
-    :config
-    (global-colorful-mode t)
-    (add-to-list 'global-colorful-modes 'helpful-mode))
 
 #+end_src
 

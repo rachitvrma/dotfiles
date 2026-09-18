@@ -1,10 +1,10 @@
 [audio]
 enable_sounds = true
-sound_volume = 0.99999997764825821
+sound_volume = 0.5
 
 [bar.default]
 # background_opacity = 0.84999998100101948
-center = ["group:g1", "date"]
+center = ["widget", "group:g1", "date"]
 end = [
   "group:g7",
   "bar_2",
@@ -109,7 +109,7 @@ active_monitor_only = true
 # background_opacity = 0.84999998100101948
 enabled = true
 launcher_position = "end"
-pinned = ["firefox", "footclient", "emacsclient", "pcmanfm"]
+pinned = ["firefox", "footclient", "emacsclient", "pcmanfm", "vesktop"]
 reserve_space = false
 show_dots = true
 smart_auto_hide = true
@@ -208,8 +208,21 @@ enabled = true
 [osd]
 # background_opacity = 0.94999999999999996
 
+[plugin_settings."thepunkoff/pomodoro"]
+auto-start-breaks = true
+auto-start-work = true
+bypass-noctalia-sound-globals = true
+enable-work-timer-sound = true
+use-bundled-alarm-sound = true
+
+
 [plugins]
-enabled = ["noctalia/kaomoji", "noctalia/timer", "noctalia/umbriel-companion"]
+enabled = [
+  "noctalia/kaomoji",
+  "noctalia/timer",
+  "noctalia/umbriel-companion",
+  "thepunkoff/pomodoro",
+]
 
 [shell]
 font_family = "JetBrainsMono Nerd Font"
@@ -280,6 +293,9 @@ show_value = false
 
 [widget.volume]
 show_label = false
+
+[widget.widget]
+type = "thepunkoff/pomodoro:widget"
 
 [widget.workspaces]
 active_pill_size = 3.0

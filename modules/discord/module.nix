@@ -1,8 +1,11 @@
 {
   flake.homeModules.discord =
-    { config, ... }:
     {
-      xdg.autostart.entries = [ "${config.programs.vesktop.package}/share/applications/vesktop.desktop" ];
+      # config,
+      ...
+    }:
+    {
+      # xdg.autostart.entries = [ "${config.programs.vesktop.package}/share/applications/vesktop.desktop" ];
       programs.vesktop = {
         enable = true;
         settings = {

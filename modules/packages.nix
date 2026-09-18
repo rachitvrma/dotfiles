@@ -90,10 +90,11 @@
     };
 
     home.packages = with pkgs; [
-      gitingest
-      wl-clipboard
-      unzip
-      file
+      gitingest # For the gitingest command
+      wl-clipboard # For wl-copy command
+      unzip # For the unzip command
+      file # For the file command
+      pinta # For editing images
     ];
   };
 }

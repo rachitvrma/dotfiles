@@ -5,9 +5,6 @@
         enable = true;
         enableZshIntegration = true;
       };
-      direnv = {
-        enable = true;
-      };
       television = {
         enable = true;
         enableZshIntegration = true;
@@ -123,9 +120,6 @@
         # TODO: Configure this.
         enable = true;
         enableZshIntegration = true;
-      };
-      direnv = {
-        enable = true;
       };
       clock-rs = {
         enable = true;

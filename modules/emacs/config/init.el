@@ -54,6 +54,8 @@
   (display-line-numbers-type 'relative)
   ;; Ensure the column doesn't aggresively jump in width as you scroll
   (display-line-numbers-width-start t)
+  ;; Show the tab when there are more than one tab
+  (tab-bar-show 1)
 
   :config
   ;; Redundant with the early-init default-frame-alist for the very
@@ -769,11 +771,24 @@
 
 (use-package xdg-launcher)
 
+(use-package colorful-mode
+  :custom
+  (colorful-use-prefix t)
+  ;; (colorful-only-strings 'only-prog)
+  (css-fontify-colors nil)
+  :config
+  (global-colorful-mode t)
+  (add-to-list 'global-colorful-modes 'helpful-mode))
+
+(use-package direnv
+  :config
+  (direnv-mode))
+
 (use-package meow
   :config
+  (setq meow-use-clipboard t)
   (defun meow-setup ()
-    (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty
-          meow-use-clipboard t)
+    (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
     (meow-motion-define-key
      '("j" . meow-next)
      '("k" . meow-prev)
@@ -861,15 +876,6 @@
 (use-package meow-tree-sitter
   :config
   (meow-tree-sitter-register-defaults))
-
-(use-package colorful-mode
-  :custom
-  (colorful-use-prefix t)
-  ;; (colorful-only-strings 'only-prog)
-  (css-fontify-colors nil)
-  :config
-  (global-colorful-mode t)
-  (add-to-list 'global-colorful-modes 'helpful-mode))
 
 (use-package exec-path-from-shell
   :config

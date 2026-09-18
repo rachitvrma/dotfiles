@@ -90,7 +90,7 @@ scale = 1.0 # Logical size is mode size divided by scale
 
 [output.HDMI-A-1]
 enabled = true
-scale = 0.75
+# scale = 0.75
 
 # ────────────────────────────── Workspaces ──────────────────────────────────
 # Choose global workspace behavior. Each output uses dynamic workspaces unless

@@ -4,8 +4,7 @@
     services.xserver.xkb = {
       layout = "us";
       variant = "colemak_dh";
-      # options = "caps:swapescape";
-      options = "ctrl:swapcaps";
+      options = "caps:swapescape";
     };
 
     # also configure the console keymap
@@ -17,7 +16,6 @@
       layout = "us";
       options = [
         "caps:swapescape"
-        # "ctrl:swapcaps"
       ];
       variant = "colemak_dh";
     };
@@ -27,7 +25,6 @@
         "org/gnome/desktop/input-sources" = {
           xkb-options = [
             "caps:swapescape"
-            # "ctrl:swapcaps"
           ];
         };
         # Use Emacs keybindings in GTK Applications

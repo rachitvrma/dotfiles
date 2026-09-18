@@ -55,9 +55,12 @@
           # LaTeX stack
           texlab
           zathura # Use this for viewing pdf files
-          (texlive.combine {
-            inherit (texlive) scheme-medium latexmk;
-          })
+          (texliveSmall.withPackages (
+            ps: with ps; [
+              scheme-medium
+              latexmk
+            ]
+          ))
 
           # Aspell is also pulled in by kotatogram
           (aspellWithDicts (
@@ -102,6 +105,7 @@
               dash
               dashboard # A nice startup screen
               diff-hl # See git hunks and changes in the line number area
+              direnv # Load direnv stuff in emacs
               doom-modeline # A really cool modeline from the doom-emacs stack
               edit-indirect # For editing different regions in different buffers
               editorconfig # Probably a built-in, but still
@@ -119,8 +123,8 @@
               magit
               majutsu
               marginalia
-              meow # Modtal editing
-              meow-tree-sitter # Modal editing
+              meow # Best modal editing package in emacs
+              meow-tree-sitter # Tree-sitter based meow movement
               multiple-cursors # This is another beast
               neotree # The side tree view of current project dir
               nerd-icons
@@ -176,6 +180,7 @@
                   tree-sitter-ron
                   tree-sitter-scheme
                   tree-sitter-scss
+                  tree-sitter-shellcheckrc
                   tree-sitter-svelte
                   tree-sitter-toml
                   tree-sitter-tsx
