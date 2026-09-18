@@ -52,6 +52,9 @@
           typst # The compiler binary
           typstyle # Formatter
 
+          # Python stack
+          python314Packages.jedi-language-server
+
           # LaTeX stack
           texlab
           zathura # Use this for viewing pdf files
