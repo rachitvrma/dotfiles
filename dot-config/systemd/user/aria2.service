@@ -1,0 +1,13 @@
+[Install]
+WantedBy=default.target
+
+[Service]
+ExecStart=/nix/store/6a6hfcn15n1707apcn9xmpn1apvd8v9n-aria2-1.37.0-bin/bin/aria2c --enable-rpc
+ExecStartPre=/nix/store/si964wmmwd8qc03hwxy47iw27dp4bcmj-coreutils-full-9.11/bin/touch %h/.config/aria2/session.lock
+ExecStartPre=/nix/store/si964wmmwd8qc03hwxy47iw27dp4bcmj-coreutils-full-9.11/bin/mkdir -p %h/.config/aria2
+Restart=on-failure
+
+[Unit]
+Description=Aria2c daemon
+Documentation=man:aria2c(1)
+X-Restart-Triggers=/nix/store/axgij2ksk9ajji65jw4q3ly7qwv3dk1g-aria2.conf

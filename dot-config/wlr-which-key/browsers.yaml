@@ -1,0 +1,24 @@
+%YAML 1.1
+---
+anchor: bottom-right
+background: '#282c34d0'
+border: '#c678dd'
+border_width: 2
+color: '#abb2bf'
+column_padding: 25
+corner_r: 10
+font: monospace 12
+margin_bottom: 0
+margin_left: 0
+margin_right: 0
+margin_top: 0
+menu:
+- cmd: systemd-run --user firefox
+  desc: Firefox
+  key: f
+- cmd: systemd-run --user qutebrowser
+  desc: Qutebrowser
+  key: q
+padding: 15
+rows_per_column: 5
+separator: ' ➜ '

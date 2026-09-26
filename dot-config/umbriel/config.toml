@@ -1,0 +1,375 @@
+[animation]
+curve = "easeout"
+duration_ms = 250
+enabled = true
+
+[animation.beziers]
+
+[animation.border]
+curve = "easeout"
+duration_ms = 250
+enabled = false
+
+[animation.dim_unfocused]
+curve = "easeout"
+dim = 0.0
+duration_ms = 250
+enabled = false
+
+[animation.layers]
+curve = "easeout"
+duration_ms = 250
+enabled = false
+
+[animation.overview]
+curve = "easeout"
+duration_ms = 250
+enabled = true
+
+[animation.scratchpad]
+blur = false
+curve = "easeout"
+dim = 0.5
+duration_ms = 250
+enabled = false
+fullscreen = false
+maximize = false
+scale = 0.0
+
+[animation.springs]
+
+[animation.windows_in]
+curve = "easeout"
+duration_ms = 150
+enabled = true
+scale = 0.85
+style = "popin"
+
+[animation.windows_move]
+curve = "snappy"
+duration_ms = 250
+enabled = true
+
+[animation.windows_out]
+curve = "easeout"
+duration_ms = 150
+enabled = true
+style = "fade"
+
+[animation.workspaces]
+curve = "easeout"
+duration_ms = 250
+enabled = true
+
+[appearance]
+border_width = 2
+corner_radius = 10
+drag_opacity = 0.75
+outer_border_width = 0
+prefer_no_csd = true
+
+[appearance.blur]
+brightness = 0.9
+contrast = 0.9
+enabled = true
+noise = 0.02
+optimized = true
+passes = 3
+radius = 3
+saturation = 1.1
+
+[appearance.shadow]
+enabled = true
+offset_x = 2
+offset_y = 2
+softness = 10
+
+[colors]
+accent_primary = "#c678dd"
+accent_secondary = "#e5c07b"
+backdrop = "#282c34"
+background = "#282c34"
+error = "#e06c75"
+insert_hint = "#61afef"
+shadow = "#353b45"
+text_muted = "#565c64"
+text_primary = "#abb2bf"
+warning = "#d19a66"
+
+[colors.border]
+focused = "#c678dd"
+outer = "#282c34"
+scratchpad_focused = "#e5c07b"
+scratchpad_unfocused = "#545862"
+unfocused = "#3e4451"
+
+[colors.overview]
+
+[environment]
+
+[events]
+
+[general]
+autostart = []
+focus_on_activate = false
+honor_restored_maximize = false
+show_cheatsheet = true
+xwayland = true
+
+[hot_corners.bottom_left]
+action = "overview-toggle"
+delay_ms = 500
+enabled = false
+
+[hot_corners.bottom_right]
+action = "spawn:notify-send 'Bottom right'"
+delay_ms = 500
+enabled = false
+
+[hot_corners.top_left]
+action = "overview-open"
+delay_ms = 500
+enabled = true
+
+[hot_corners.top_right]
+action = "overview-close"
+delay_ms = 500
+enabled = false
+
+[include]
+files = []
+
+[input]
+middle_click_paste = true
+
+[input.cursor]
+follows_focus = true
+hardware_cursor = true
+hide_timeout_ms = 0
+hide_when_typing = true
+size = 32
+theme = "phinger-cursors-light"
+
+[input.focus]
+follows_mouse = true
+
+[input.keyboard]
+layout = "us"
+numlock_toggle = true
+options = "ctrl:swapcaps"
+repeat_delay = 600
+repeat_rate = 25
+track_layout = "global"
+variant = "colemak_dh"
+
+[input.mouse]
+scroll_wheel_step = 60
+sensitivity = 0.0
+
+[input.tablet]
+enabled = true
+
+[input.touchpad]
+disable_while_typing = true
+natural_scroll = true
+tap = true
+
+[keybinds]
+"Mod+Alt+Equal" = "window-modify-height:0.1"
+"Mod+Alt+K" = "keyboard-layout-next"
+"Mod+Alt+Minus" = "window-modify-height:-0.1"
+"Mod+Alt+R" = "window-cycle-height"
+"Mod+Alt+Shift+R" = "window-cycle-height-back"
+"Mod+B" = "spawn:wlr-which-key browsers"
+"Mod+BackSpace" = "window-consume-or-expel-left"
+"Mod+Bracketleft" = "window-focus-previous"
+"Mod+Bracketright" = "window-focus-next"
+"Mod+C" = "column-center"
+"Mod+Comma" = "window-consume-left"
+"Mod+Ctrl+F" = "window-toggle-fullscreen"
+"Mod+Ctrl+Space" = "window-restore-from-scratchpad"
+"Mod+Ctrl+T" = "workspace-set-layout:toggle"
+"Mod+D" = "spawn:noctalia msg panel-toggle launcher"
+"Mod+E" = "spawn:systemd-run --user pcmanfm"
+"Mod+End" = "column-focus-last"
+"Mod+Equal" = "window-modify-width:0.1"
+"Mod+F" = "window-toggle-maximize"
+"Mod+Grave" = "window-focus-last"
+"Mod+H" = "window-focus-left"
+"Mod+Home" = "column-focus-first"
+"Mod+I" = "workspace-previous"
+"Mod+J" = "window-focus-down"
+"Mod+K" = "window-focus-up"
+"Mod+L" = "window-focus-right"
+"Mod+M" = "window-toggle-maximize-to-edges"
+"Mod+Minus" = "window-modify-width:-0.1"
+"Mod+MouseMiddle" = "layout-scroll-drag"
+"Mod+P" = "window-toggle-pinned"
+"Mod+Period" = "window-consume-right"
+"Mod+Q" = "window-close"
+"Mod+R" = "window-cycle-width"
+"Mod+Return" = 'spawn:systemd-run --user emacsclient -c -a ""'
+"Mod+Shift+Bracketleft" = "window-swap-previous"
+"Mod+Shift+Bracketright" = "window-swap-next"
+"Mod+Shift+C" = "window-center"
+"Mod+Shift+End" = "column-move-to-last"
+"Mod+Shift+H" = "column-move-left"
+"Mod+Shift+Home" = "column-move-to-first"
+"Mod+Shift+I" = "window-move-to-workspace-previous"
+"Mod+Shift+J" = "window-move-down"
+"Mod+Shift+K" = "window-move-up"
+"Mod+Shift+L" = "column-move-right"
+"Mod+Shift+R" = "window-cycle-width-back"
+"Mod+Shift+Space" = "window-move-to-scratchpad"
+"Mod+Shift+U" = "window-move-to-workspace-next"
+"Mod+Shift+V" = "window-focus-switch-floating"
+"Mod+Space" = "scratchpad-toggle"
+"Mod+T" = "spawn:systemd-run --user xdg-terminal-exec"
+"Mod+Tab" = "scratchpad-focus-next"
+"Mod+U" = "workspace-next"
+"Mod+V" = "window-toggle-floating"
+"Mod+WheelDown" = "window-focus-right"
+"Mod+WheelUp" = "window-focus-left"
+"Mod+X" = "spawn:wlr-which-key"
+Print = "spawn:noctalia msg screenshot-fullscreen"
+"Shift+Print" = "spawn:noctalia msg screenshot-region"
+XF86AudioLowerVolume = "spawn:wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+XF86AudioMute = "spawn:wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+XF86AudioNext = "spawn:playerctl next"
+XF86AudioPlay = "spawn:playerctl play-pause"
+XF86AudioPrev = "spawn:playerctl previous"
+XF86AudioRaiseVolume = "spawn:wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+
+[keybinds."Mod+O"]
+action = "overview-toggle"
+repeat = false
+
+[keybinds.XF86MonBrightnessDown]
+action = "spawn:noctalia msg brightness-down 10"
+allow_when_locked = true
+
+[keybinds.XF86MonBrightnessUp]
+action = "spawn:noctalia msg brightness-up 10"
+allow_when_locked = true
+
+[[layer_rule]]
+blur = true
+blur_ignore_alpha = 0.5
+blur_optimized = false
+blur_popups = true
+
+[layer_rule.match]
+namespace = '^noctalia-(bar-[^"]+|notification|dock|panel|attached-panel|osd|desktop-widget-[^"]*)$'
+
+[layout]
+gap = 16
+mode = "scrolling"
+width_presets = [0.333, 0.5, 0.667]
+
+[layout.dwindle]
+
+[layout.master]
+default_width_fraction = 0.55
+new_on_top = true
+position = "left"
+
+[layout.scrolling]
+center_focused = "on_overflow"
+center_underfull_strip = true
+default_width_fraction = 0.5
+
+[layout.struts]
+bottom = 0
+left = 0
+right = 0
+top = 0
+
+[output.HDMI-A-1]
+enabled = true
+
+[output.eDP-1]
+enabled = true
+scale = 1.0
+
+[overview]
+zoom = 0.5
+
+[[window_rule]]
+blur = false
+blur_optimized = false
+
+[[window_rule]]
+default_floating = true
+default_size = [1020, 900]
+
+[window_rule.match]
+app_id = "^dev.noctalia.Noctalia$"
+
+[[window_rule]]
+default_floating = true
+default_size = [800, 600]
+
+[window_rule.match]
+app_id = "^dev.noctalia.UmbrielSharePicker$"
+
+[[window_rule]]
+default_floating = true
+default_maximize = false
+
+[window_rule.default_position]
+anchor = "bottom_right"
+x = 20
+y = 20
+
+[window_rule.match]
+title = "^(Picture-in-Picture|Picture in picture)$"
+
+[[window_rule]]
+default_focused = false
+default_pinned = true
+
+[window_rule.default_position]
+anchor = "bottom_right"
+x = 0
+y = 0
+
+[window_rule.match]
+title = "^notificationtoasts_.+_desktop"
+
+[[window_rule]]
+default_floating = true
+default_size = [1181, 736]
+
+[window_rule.default_position]
+anchor = "top_left"
+x = 371
+y = 190
+
+[window_rule.match]
+app_id = "^pcmanfm$"
+
+[[window_rule]]
+blur_ignore_alpha = 0.1
+blur_popups = true
+default_floating = true
+default_focused = false
+focus_on_activate = true
+hdr = "fullscreen"
+opacity = 0.95
+tearing = true
+vrr = "always"
+
+[window_rule.match]
+app_id = "^firefox$"
+title = "^Library$"
+
+[[window_rule]]
+default_scrolling_column = "browsers"
+default_scrolling_column_order = 10
+
+[window_rule.match]
+app_id = "^firefox$"
+
+[workspaces]
+back_and_forth = true
+empty_above = true

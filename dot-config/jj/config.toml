@@ -1,0 +1,22 @@
+[merge-tools.ediff]
+merge-args = ["$left", "$right", "$base", "$output"]
+program = "/nix/store/hbyjg629sdbq87wh6cwlj6kib091z3bi-emacs-ediff/bin/emacs-ediff"
+
+[merge-tools.vimdiff]
+program = "nvim"
+
+[signing]
+backend = "gpg"
+behavior = "own"
+key = "C9C615C3FD2FDB09"
+sign-all = true
+
+[ui]
+default-command = "log"
+diff-editor = ":builtin"
+merge-editor = ":builtin"
+merge-tools = ":builtin"
+
+[user]
+email = "rachitverma1122@gmail.com"
+name = "Rachit Kumar Verma"

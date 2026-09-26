@@ -1,0 +1,90 @@
+[alias]
+	br = "branch"
+	ci = "commit"
+	co = "checkout"
+	dev = "!direnv reload"
+	lg = "log --oneline --graph --decorate --all"
+	s = "status"
+	ss = "status --short --branch"
+	stsh = "stash push -u -m"
+	sync = "!f() { git checkout main && git pull upstream main && git push origin main; }; f"
+	up = "pull --rebase --autostash"
+
+[color]
+	ui = "auto"
+
+[commit]
+	gpgSign = true
+	verbose = true
+
+[core]
+	editor = "nvim"
+	fsmonitor = true
+	untrackedCache = true
+
+[credential "https://gist.github.com"]
+	helper = ""
+	helper = "/nix/store/bsjdf8dh5k8sylwzgp58ip47sbpbzw5l-gh-2.101.0/bin/gh auth git-credential"
+
+[credential "https://github.com"]
+	helper = ""
+	helper = "/nix/store/bsjdf8dh5k8sylwzgp58ip47sbpbzw5l-gh-2.101.0/bin/gh auth git-credential"
+
+[diff]
+	algorithm = "histogram"
+	guitool = "kitty.gui"
+	tool = "kitty"
+
+[difftool]
+	prompt = false
+	trustExitCode = true
+
+[difftool "kitty"]
+	cmd = "kitten diff $LOCAL $REMOTE"
+
+[difftool "kitty.gui"]
+	cmd = "kitten diff $LOCAL $REMOTE"
+
+[fetch]
+	prune = true
+
+[filter "lfs"]
+	clean = "/nix/store/znvkn5yky0cq9npv4xnii8dlq400lkr1-git-lfs-3.7.1/bin/git-lfs clean -- %f"
+	process = "/nix/store/znvkn5yky0cq9npv4xnii8dlq400lkr1-git-lfs-3.7.1/bin/git-lfs filter-process"
+	required = true
+	smudge = "/nix/store/znvkn5yky0cq9npv4xnii8dlq400lkr1-git-lfs-3.7.1/bin/git-lfs smudge -- %f"
+
+[init]
+	defaultBranch = "main"
+
+[merge]
+	conflictstyle = "zdiff3"
+
+[push]
+	autoSetupRemote = true
+	default = "simple"
+
+[rebase]
+	autoStash = true
+
+[remote]
+	pushDefault = "origin"
+
+[rerere]
+	enabled = true
+
+[sendemail "Personal"]
+	from = "Rachit Kumar Verma <rachitverma1122@gmail.com>"
+	smtpEncryption = "ssl"
+	smtpServer = "smtp.gmail.com"
+	smtpServerPort = 465
+	smtpSslCertPath = "/etc/ssl/certs/ca-certificates.crt"
+	smtpUser = "rachitverma1122@gmail.com"
+
+[tag]
+	gpgSign = true
+
+[user]
+	email = "rachitverma1122@gmail.com"
+	name = "Rachit Kumar Verma"
+	signingKey = "C9C615C3FD2FDB09"

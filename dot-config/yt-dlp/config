@@ -1,0 +1,13 @@
+--color stdout:no_color
+--color stderr:always
+--concurrent-fragments 8
+--continue
+--cookies-from-browser firefox
+--downloader aria2c
+--downloader-args aria2c:'-c -j16 -x16 -s16 -k1M --async-dns=false --conf-path=/dev/null --user-agent=Mozilla/5.0'
+--embed-metadata
+--embed-thumbnail
+--force-ipv4
+--format bestvideo+bestaudio/best
+--ignore-errors
+--restrict-filenames

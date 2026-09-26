@@ -1,0 +1,86 @@
+"$schema" = "https://starship.rs/config-schema.json"
+format = "$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$line_break$python$character"
+palette = "base16"
+
+[directory]
+style = "blue"
+
+[character]
+success_symbol = "[❯](purple)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"
+
+[git_branch]
+format = "[$branch]($style)"
+style = "bright-black"
+
+[git_status]
+format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
+style = "cyan"
+conflicted = "​"
+untracked = "​"
+modified = "​"
+staged = "​"
+renamed = "​"
+deleted = "​"
+stashed = "≡"
+
+[git_state]
+format = "\\([$state( $progress_current/$progress_total)]($style)\\) "
+style = "bright-black"
+
+[cmd_duration]
+format = "[$duration]($style) "
+style = "yellow"
+
+[python]
+format = "[$virtualenv]($style) "
+style = "bright-black"
+detect_extensions = []
+detect_files = []
+
+[palettes.base16]
+base00 = "#282c34"
+base01 = "#353b45"
+base02 = "#3e4451"
+base03 = "#545862"
+base04 = "#565c64"
+base05 = "#abb2bf"
+base06 = "#b6bdca"
+base07 = "#c8ccd4"
+base08 = "#e06c75"
+base09 = "#d19a66"
+base0a = "#e5c07b"
+base0b = "#98c379"
+base0c = "#56b6c2"
+base0d = "#61afef"
+base0e = "#c678dd"
+base0f = "#be5046"
+base10 = "#282c34"
+base11 = "#282c34"
+base12 = "#e06c75"
+base13 = "#e5c07b"
+base14 = "#98c379"
+base15 = "#56b6c2"
+base16 = "#61afef"
+base17 = "#c678dd"
+black = "#282c34"
+blue = "#61afef"
+bright-black = "#545862"
+bright-blue = "#61afef"
+bright-cyan = "#56b6c2"
+bright-green = "#98c379"
+bright-magenta = "#c678dd"
+bright-purple = "#c678dd"
+bright-red = "#e06c75"
+bright-white = "#c8ccd4"
+bright-yellow = "#e5c07b"
+brown = "#be5046"
+cyan = "#56b6c2"
+green = "#98c379"
+magenta = "#c678dd"
+orange = "#d19a66"
+purple = "#c678dd"
+red = "#e06c75"
+white = "#abb2bf"
+yellow = "#e5c07b"

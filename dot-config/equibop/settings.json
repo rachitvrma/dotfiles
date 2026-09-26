@@ -1,0 +1,21 @@
+{
+    "appBadge": true,
+    "arRPC": true,
+    "autoStartMinimized": true,
+    "badgeOnlyForMentions": true,
+    "checkUpdates": false,
+    "clickTrayToShowHide": true,
+    "customTitleBar": true,
+    "disableMinSize": true,
+    "discordBranch": "stable",
+    "enableTaskbarFlashing": true,
+    "hardwareAcceleration": true,
+    "hardwareVideoAcceleration": true,
+    "minimizeToTray": true,
+    "splashBackground": "rgb(18, 18, 20)",
+    "splashColor": "rgb(239, 239, 241)",
+    "splashProgress": true,
+    "splashTheming": true,
+    "staticTitle": true,
+    "tray": true
+}
