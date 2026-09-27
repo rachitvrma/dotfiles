@@ -1,6 +1,4 @@
-%YAML 1.1
----
 aliases: {}
 editor: ''
 git_protocol: ssh
-version: '1'
+version: 1

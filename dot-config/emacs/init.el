@@ -1,3 +1,5 @@
+(add-to-list 'default-frame-alist '(alpha-background . 95))
+
 ;;; init.el --- Config for my Emacs -*- lexical-binding: t; -*-
 
 ;;; Commentary:
@@ -6,15 +8,72 @@
 
 ;;; Code:
 
-;; Does what it says
+;; Initialize package sources
+(require 'package)
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Initialize use-package
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+
 (setq use-package-verbose t
+      package-vc-allow-build-commands t
       debug-on-error t)
+
+;; package-vc-install refuses to touch an existing checkout directory,
+;; which turns any interrupted :vc install (daemon killed mid-clone,
+;; a prior crash-loop, etc.) into a permanent startup failure on every
+;; subsequent launch. Wipe a stale checkout before it retries.
+;; advice-add (unlike add-function) is documented to handle advising
+;; a not-yet-loaded autoloaded function correctly, so this doesn't
+;; need package-vc/vc-git required up front -- the advice attaches
+;; now and only actually runs the first time a :vc install happens.
+(advice-add 'package-vc--unpack :before
+            (lambda (pkg-desc &rest _)
+              (let ((dir (package-desc-dir pkg-desc)))
+                (when (and dir (file-directory-p dir))
+                  (delete-directory dir t)))))
+
+;; Shallow-clone :vc packages (full history is never needed for an
+;; installed dependency). Scoped to package-user-dir so this doesn't
+;; affect unrelated git-clone calls (e.g. from Magit) elsewhere.
+(advice-add 'vc-git-clone :around
+            (lambda (orig remote directory rev)
+              (if (not (file-in-directory-p directory package-user-dir))
+                  (funcall orig remote directory rev)
+                (if (null rev)
+                    (vc-git--out-ok "clone" "--depth" "1" remote directory)
+                  (or (ignore-errors
+                        (vc-git--out-ok "clone" "--depth" "1" "--branch" rev
+                                        "--single-branch" remote directory))
+                      (progn
+                        (vc-git--out-ok "clone" remote directory)
+                        (let ((default-directory directory))
+                          (vc-git--out-ok "checkout" rev)))))
+                directory)))
 
 (use-package emacs
   :init
   ;; "y or n" instead of typing out "yes"/"no" at every prompt.
   (setq use-short-answers t)
   (setq ring-bell-function 'ignore)
+
+  ;; credit: Lukas Barth at https://www.lukas-barth.net/blog/emacs-wsl-copy-clipboard/
+  (setopt select-active-regions nil)
+  (setopt select-enable-clipboard 't)
+  (setopt select-enable-primary nil)
+  (setopt interprogram-cut-function #'gui-select-text)
+  
 
   :hook
   ;; Display line numbers in programming modes only
@@ -362,8 +421,7 @@
   (global-corfu-mode))
 
 (use-package eglot
-  :hook ((nix-ts-mode
-          bash-ts-mode
+  :hook ((bash-ts-mode
           c-ts-mode
           c++-ts-mode
           python-ts-mode
@@ -389,46 +447,28 @@
   :custom
   (eglot-autoshutdown t)
   (eglot-sync-connect nil)
-  (eglot-watch-files-outside-project-root nil) ; stop pyright from watching the Nix store
+  (eglot-watch-files-outside-project-root nil) ; stop pyright from watching irrelevant directories
   :config
   (add-to-list 'eglot-server-programs
-               '(nix-ts-mode . ("nixd" "--semantic-tokens=true" "--inlay-hints=false")))
+               '(scheme-mode . ("guile-lsp-server")))
   (add-to-list 'eglot-server-programs
-               '(scheme-mode . ("guile-lsp-server"))))
+               '(toml-ts-mode . ("tombi" "lsp"))))
 
 (use-package apheleia
   :init
   (apheleia-global-mode 1)
   :config
-  (setf (alist-get 'nix-mode apheleia-mode-alist) 'nixfmt)
   ;; Universal fallback: Wire web and config languages to Dprint
   (dolist (mode '(html-mode html-ts-mode css-ts-mode js-ts-mode
                             json-ts-mode toml-ts-mode yaml-ts-mode markdown-mode))
     (setf (alist-get mode apheleia-mode-alist) 'dprint)))
 
-;; Tree-sitter grammars
-(use-package treesit
+(use-package treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
   :config
-  (setq major-mode-remap-alist
-        '((sh-mode         . bash-ts-mode)
-          (c-mode          . c-ts-mode)
-          (c++-mode        . c++-ts-mode)
-          (python-mode     . python-ts-mode)
-          (css-mode        . css-ts-mode)
-          (javascript-mode . js-ts-mode)
-          (js-mode         . js-ts-mode)
-          (json-mode       . json-ts-mode)
-          (yaml-mode       . yaml-ts-mode)
-          (toml-mode       . toml-ts-mode))))
-
-;; nix-ts-mode isn't remapping a built-in mode the way bash-ts-mode
-;; remaps sh-mode -- there's no built-in "nix-mode" in Emacs at all --
-;; so it's registered directly against the file extension instead.
-(use-package nix-ts-mode
-  :mode "\\.nix\\'")
-
-(use-package json-ts-mode
-  :mode "\\.json\\'")
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
 
 (use-package magit
   :commands magit-status
@@ -437,8 +477,12 @@
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 (use-package majutsu
+  :vc (:url "https://github.com/0WD0/majutsu")
   :after magit
   :bind ("C-x j" . majutsu))
+
+(use-package forge
+  :after magit)
 
 (use-package emms
   :commands (emms emms-play-directory-tree)
@@ -596,14 +640,25 @@
   :ensure nil
   :custom
   (ispell-program-name "aspell")
-  (ispell-dictionary "en")
-  (ispell-extra-args '("--add-extra-dicts=en-computers.rws"
-                       "--add-extra-dicts=en_US-science.rws")))
+  (ispell-dictionary "en"))
 
 ;; Enable flyspell for markdown and org buffers
 (use-package flyspell
   :ensure nil
   :hook (org-mode . flyspell-mode))
+
+(use-package mason
+  :ensure t
+  :config
+  (mason-setup))
+
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)
+         ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
 
 (use-package project
   :ensure nil
@@ -611,9 +666,6 @@
               ("m" . magit-project-status)
               ("r" . consult-ripgrep))
   :custom
-  ;; Recognize Flake directories as project roots even if they are not yet initialized in Git
-  (project-vc-extra-root-markers '("flake.nix"))
-
   ;; Define the dispatch menu that appears when switching projects (C-x p p)
   (project-switch-commands
    '((project-find-file "Find file" ?f)
@@ -624,6 +676,8 @@
      (project-kill-buffers "Kill project buffers" ?k))))
 
 (use-package reader
+  :vc (:url "https://codeberg.org/MonadicSheep/emacs-reader"
+	        :make "clean all")
   :config
   (reader-global-dark-mode 1))
 
@@ -736,11 +790,8 @@
      ("Neovim Releases" "https://github.com/neovim/neovim/releases.atom")
      ("r/neovim" "https://www.reddit.com/r/neovim.rss")
      ("This Week In Neovim Dotfyle" "https://dotfyle.com/this-week-in-neovim/rss.xml")
-     ("NixOS discourse (announcements)" "https://discourse.nixos.org/latest.rss")
-     ("NixOS Discourse (Announcements)" "https://discourse.nixos.org/c/announcements/8.rss")
      ("https://krebsonsecurity.com/feed/" "https://krebsonsecurity.com/feed/")
      ("The Hacker News" "https://feeds.feedburner.com/TheHackersNews")
-     ("GNU Guix Blog" "https://guix.gnu.org/feeds/blog.atom")
      ))
 
   :config
@@ -767,6 +818,9 @@
 (use-package org
   :ensure nil
   :commands (org-capture org-agenda)
+  :init
+  (unless (file-directory-p (expand-file-name "~/org"))
+    (make-directory (expand-file-name "~/org") t))
   :bind
   (("C-c a" . org-agenda)
    ("C-c c" . org-capture))
@@ -794,8 +848,7 @@
   (require 'org-tempo)
 
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python"))
-  (add-to-list 'org-structure-template-alist '("nix" . "src nix")))
+  (add-to-list 'org-structure-template-alist '("py" . "src python")))
 
 (use-package helpful
   :bind(
@@ -822,11 +875,8 @@
       (?h . "HACK"))
     "Default mapping of narrow and keywords."))
 
-(use-package pomo-cat
-  :custom
-  (pomo-cat-use-dedicated-frame t))
-
-(use-package xdg-launcher)
+(use-package xdg-launcher
+  :vc (:url "https://github.com/emacs-exwm/xdg-launcher"))
 
 (use-package colorful-mode
   :custom
@@ -839,7 +889,9 @@
 
 (use-package direnv
   :config
-  (direnv-mode))
+  (if (executable-find "direnv")
+      (direnv-mode)
+    (message "direnv: executable not found, skipping direnv-mode")))
 
 (use-package doom-themes
   :custom
@@ -870,6 +922,13 @@
             (daemonp))
     (exec-path-from-shell-copy-envs '("GNUPGHOME" "GPG_TTY" "SSH_AUTH_SOCK"))
     (exec-path-from-shell-initialize)))
+
+;; There's no package called epa-file, it's a custom thing
+(use-package epa-file
+  :ensure nil ; built-in
+  :defer t
+  :custom
+  (epa-pinentry-mode 'loopback))
 
 (use-package undo-fu
   :ensure t

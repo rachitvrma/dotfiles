@@ -24,11 +24,11 @@
 
 [credential "https://gist.github.com"]
 	helper = ""
-	helper = "/nix/store/bsjdf8dh5k8sylwzgp58ip47sbpbzw5l-gh-2.101.0/bin/gh auth git-credential"
+	helper = "gh auth git-credential"
 
 [credential "https://github.com"]
 	helper = ""
-	helper = "/nix/store/bsjdf8dh5k8sylwzgp58ip47sbpbzw5l-gh-2.101.0/bin/gh auth git-credential"
+	helper = "gh auth git-credential"
 
 [diff]
 	algorithm = "histogram"
@@ -49,10 +49,10 @@
 	prune = true
 
 [filter "lfs"]
-	clean = "/nix/store/znvkn5yky0cq9npv4xnii8dlq400lkr1-git-lfs-3.7.1/bin/git-lfs clean -- %f"
-	process = "/nix/store/znvkn5yky0cq9npv4xnii8dlq400lkr1-git-lfs-3.7.1/bin/git-lfs filter-process"
+	clean = "git-lfs clean -- %f"
+	process = "git-lfs filter-process"
 	required = true
-	smudge = "/nix/store/znvkn5yky0cq9npv4xnii8dlq400lkr1-git-lfs-3.7.1/bin/git-lfs smudge -- %f"
+	smudge = "git-lfs smudge -- %f"
 
 [init]
 	defaultBranch = "main"

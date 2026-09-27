@@ -1,4 +1,11 @@
+# -*- mode: gitignore -*-
+
+# custom ignores
 \.stowrc
+.*\.(bak|tmp)
+^digest\.txt$
+^/scripts$
+
 # Comments and blank lines are allowed.
 
 RCS

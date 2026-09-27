@@ -1,0 +1,11 @@
+#+TITLE: Dotfiles for ArchLinux
+#+DESCRIPTION: These are my personal dotfiles for ArchLinux on my HP Pavilion Laptop
+#+DATE: <2026-09-27 Sun>
+
+* Keymap
+
+Setting the keymap is essential, coz if I can't get to colemak-dh, my speed is cut down a lot. Use =localectl= to set X11 keymaps as well the vconsole's keymap.
+
+* To-Do list
+- [ ] Remove Neovim (now that we got =mason.el=)
+- [ ] Move from wlr-which-key to noctalia's dmenu 

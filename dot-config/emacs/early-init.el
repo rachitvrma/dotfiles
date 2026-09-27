@@ -14,12 +14,7 @@
             (setq gc-cons-threshold (* 32 1024 1024) ; 32MB
                   gc-cons-percentage 0.1)))
 
-;; Set once, globally, instead of ":ensure nil" on every use-package
-;; block below: nothing should ever be installed by use-package itself.
-(setq use-package-always-ensure nil)
-
-;; use-package's own bookkeeping (:defer, :bind, etc.) is a no-op cost
-;; if statistics aren't being inspected; skip collecting it.
+(setq use-package-always-ensure t)
 (setq use-package-compute-statistics nil)
 
 (setq default-frame-alist
@@ -27,8 +22,10 @@
                 (tool-bar-lines . 0)
                 (vertical-scroll-bars . nil)
                 (horizontal-scroll-bars . nil)
-                (ns-transparent-titlebar . t))
+                (ns-transparent-titlebar . t)
+                (font . "JetBrainsMono Nerd Font-13"))
               default-frame-alist))
+
 
 ;; The frame resizes itself in pixel steps as fonts/lines change,
 ;; instead of Emacs eagerly re-fitting it to a character grid.
