@@ -1,4 +1,4 @@
-#+TITLE: Dotfiles for ArchLinux
+#+TITLE: Dotfiles for Arch Linux 
 #+DESCRIPTION: These are my personal dotfiles for ArchLinux on my HP Pavilion Laptop
 #+DATE: <2026-09-27 Sun>
 #+PROPERTY: header-args: :mkdirp yes
@@ -16,8 +16,22 @@
 
 #+end_src
 
-** Post-Installation
+** Disk layout
+I am going to use XBOOTLDR, EFI and systemd-boot for laying out my partitioning scheme.
 
+*** Btrfs subvolumes
+The subvolumes I am going to be using are the defaults that the =archinstall= script uses. In addition to that I am going to use a swap.
+
+| subvol        | mountpoint              |
+|---------------+-------------------------|
+| =@=           | =/=                     |
+| =@home=       | =/home=                 |
+| =@log=        | =/var/log=              |
+| =@pkg=        | =/var/cache/pacman/pkg= |
+| =@.snapshots= | =/.snapshots=           |
+
+
+** Post-Installation
 Installing the =paru= AUR helper.
 
 #+begin_src bash :tangle ./scripts/install-paru.sh
@@ -31,7 +45,6 @@ Installing the =paru= AUR helper.
 #+end_src
 
 * Key Map Set Up
-
 Setting the keymap is essential, coz if I can't get to colemak-dh, my speed is cut down a lot. Use =localectl= to set X11 keymaps as well the vconsole's keymap.
 
 Set the =/etc/vconsole.conf= to
@@ -51,7 +64,6 @@ Or run these commands
 #+end_src
 
 * Setting GTK theme
-
 Run these commands to set GTK theme. The GTK theme is /mostly/ managed by Noctalia itself.
 
 #+begin_src bash :tangle ./scripts/set-gtk-theme.sh

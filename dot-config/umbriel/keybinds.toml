@@ -77,6 +77,7 @@
 # Volume Keys
 "XF86AudioRaiseVolume" = "spawn:noctalia msg volume-up"
 "XF86AudioLowerVolume" = "spawn:noctalia msg volume-down"
+"XF86AudioMute" = "spawn:noctalia msg volume-mute"
 # Player keys
 "XF86AudioPlay" = "spawn:noctalia msg media toggle"
 "XF86AudioNext" = "spawn:noctalia msg media next"
