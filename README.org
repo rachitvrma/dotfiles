@@ -16,6 +16,20 @@
 
 #+end_src
 
+** Post-Installation
+
+Installing the =paru= AUR helper.
+
+#+begin_src bash :tangle ./scripts/install-paru.sh
+
+  #!/usr/bin/env bash
+  sudo pacman -S --needed base-devel
+  git clone https://aur.archlinux.org/paru.git /tmp/paru
+  cd /tmp/paru || exit
+  makepkg -si
+
+#+end_src
+
 * Key Map Set Up
 
 Setting the keymap is essential, coz if I can't get to colemak-dh, my speed is cut down a lot. Use =localectl= to set X11 keymaps as well the vconsole's keymap.
