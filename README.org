@@ -59,7 +59,7 @@ Or run these commands
 
   #!/usr/bin/env bash
 
-  sudo localectl set-x11-keymap --no-convert us "" colemak_dh "ctrl:swapcaps"
+  sudo localectl set-x11-keymap --no-convert us "" colemak_dh "ctrl:swapescape"
 
 #+end_src
 

@@ -5,6 +5,7 @@
 .*\.(bak|tmp)
 ^digest\.txt$
 ^/scripts$
+^/misc$
 
 # Comments and blank lines are allowed.
 
