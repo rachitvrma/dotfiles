@@ -1,11 +1,60 @@
 #+TITLE: Dotfiles for ArchLinux
 #+DESCRIPTION: These are my personal dotfiles for ArchLinux on my HP Pavilion Laptop
 #+DATE: <2026-09-27 Sun>
+#+PROPERTY: header-args: :mkdirp yes
+#+auto_tangle: t
 
-* Keymap
+* Installation:
+
+** Pre-Installation:
+
+*** Set key map
+
+#+begin_src bash
+
+  loadkeys mod-dh-ansi-us
+
+#+end_src
+
+* Key Map Set Up
 
 Setting the keymap is essential, coz if I can't get to colemak-dh, my speed is cut down a lot. Use =localectl= to set X11 keymaps as well the vconsole's keymap.
 
+Set the =/etc/vconsole.conf= to
+#+begin_src conf
+
+  KEYMAP="us-colemak_dh"
+
+#+end_src
+
+Or run these commands
+#+begin_src bash :tangle ./scripts/keymap.sh
+
+  #!/usr/bin/env bash
+
+  sudo localectl set-x11-keymap --no-convert us "" colemak_dh "ctrl:swapcaps"
+
+#+end_src
+
+* Setting GTK theme
+
+Run these commands to set GTK theme. The GTK theme is /mostly/ managed by Noctalia itself.
+
+#+begin_src bash :tangle ./scripts/set-gtk-theme.sh
+
+  #!/usr/bin/env bash
+
+  gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
+  gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
+  # Set Emacs bindings for GTK
+  gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
+
+  # Filechooser: start in cwd
+  gsettings set org.gtk.Settings.FileChooser startup-mode cwd
+
+#+end_src
+
 * To-Do list
 - [ ] Remove Neovim (now that we got =mason.el=)
-- [ ] Move from wlr-which-key to noctalia's dmenu 
+- [ ] Move from wlr-which-key to noctalia's =dmenu=

@@ -1166,7 +1166,9 @@ Note that =ERC= uses =pass-cli= authentication integration (=auth-source-path-en
     (require 'org-tempo)
 
     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-    (add-to-list 'org-structure-template-alist '("py" . "src python")))
+    (add-to-list 'org-structure-template-alist '("py" . "src python"))
+    (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
+    )
 
 #+end_src
 
