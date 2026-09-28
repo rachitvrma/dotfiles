@@ -3,3 +3,4 @@
 --map-syntax='*.jenkinsfile:Groovy'
 --map-syntax='*.props:Java Properties'
 --pager='less -FR'
+--theme=noctalia
