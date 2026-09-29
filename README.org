@@ -44,20 +44,36 @@ Installing the =paru= AUR helper.
 
 #+end_src
 
+* Firefox
+
+The [[file:misc/firefox/][firefox]] dir contains a few files that can come into use when placed in the correct places.
+
 * Key Map Set Up
 Setting the keymap is essential, coz if I can't get to colemak-dh, my speed is cut down a lot. Use =localectl= to set X11 keymaps as well the vconsole's keymap.
 
 Set the =/etc/vconsole.conf= to
 #+begin_src conf
 
-  KEYMAP="us-colemak_dh"
+  KEYMAP=mod-dh-ansi-us
 
 #+end_src
 
-Or run these commands
+This command can also be used to set the keymap.
+#+begin_quote
+
+Remember to pass the =--no-convert= flag so that the file is not overwritten in any ways.
+
+#+end_quote
+
 #+begin_src bash :tangle ./scripts/keymap.sh
 
   #!/usr/bin/env bash
+  sudo localectl set-keymap --no-convert mod-dh-ansi-us
+
+#+end_src
+
+Run these commands to set the X11 keymaps.
+#+begin_src bash :tangle ./scripts/keymap.sh
 
   sudo localectl set-x11-keymap --no-convert us "" colemak_dh "ctrl:swapescape"
 
@@ -80,6 +96,9 @@ Run these commands to set GTK theme. The GTK theme is /mostly/ managed by Noctal
   gsettings set org.gtk.Settings.FileChooser startup-mode cwd
 
 #+end_src
+
+* Qutebrowser
+To use some aliases and shortcuts in Qutebrowser, use it's userscripts. The userscripts are typically stored in =/usr/share/qutebrowser/userscripts=. Soft symlinking those scripts to =$XDG_CONFIG_HOME/qutebrowser/userscripts= directory will make them available. From there they can be called using a key binding or any alias. I use the =view_in_mpv= userscript to start any video from sites like youtube.
 
 * To-Do list
 - [ ] Remove Neovim (now that we got =mason.el=)

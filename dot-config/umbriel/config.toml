@@ -1,5 +1,5 @@
 [include.optional]
-files = []
+files = ["noctalia.toml"]
 
 [include]
 files = [
@@ -12,8 +12,7 @@ files = [
   "layout.toml",
   "outputs.toml",
   "window-rules.toml",
-  "noctalia.toml",
-]
+  ]
 
 [overview]
 zoom = 0.5

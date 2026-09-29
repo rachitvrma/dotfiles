@@ -1,14 +1,18 @@
 # -*- mode: sh; sh-shell: bash -*-
-if command -v eza &>/dev/null; then
+if have eza; then
 	alias ls='eza --group-directories-first --color=auto --icons=auto'
 fi
 
 alias l='ls -l'
-alias '..'='cd ..'
-alias '...'='cd ../..'
+alias ll='ls -l'
+alias la='ls -al'
 
-  alias vim='nvim'
-  alias vi='nvim'
-  alias ex='nvim'
-  alias nano='nvim'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ex='vim'
+alias vi='vim'
+alias nano='vim'
 
+if have bat; then
+    alias cat='bat --paging=never'
+fi

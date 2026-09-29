@@ -23,7 +23,7 @@ Emacs reads =early-init.el= before the package system, UI, or the first frame ar
 
 ** Enable Transparency
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle early-init.el
 
   (add-to-list 'default-frame-alist '(alpha-background . 95))
 
@@ -877,8 +877,10 @@ Elisp front-end for the external =zoxide= CLI; requires the CLI itself to be on 
 ** Utilities
 
 #+begin_src emacs-lisp
+
   (use-package aria2
     :defer t)
+  
 #+end_src
 
 ** Spell Checking (Org-mode)
@@ -943,18 +945,6 @@ Elisp front-end for the external =zoxide= CLI; requires the CLI itself to be on 
        (project-kill-buffers "Kill project buffers" ?k))))
 
 #+END_SRC
-
-** Reader Mode
-
-#+begin_src emacs-lisp
-
-  (use-package reader
-    :vc (:url "https://codeberg.org/MonadicSheep/emacs-reader"
-  	        :make "clean all")
-    :config
-    (reader-global-dark-mode 1))
-
-#+end_src
 
 ** Embark Stack
 
@@ -1252,6 +1242,21 @@ Emacs can have =direnv= integration.
 #+end_src
 
 
+** Using Pinentry in Emacs
+Ensure that =allow-emacs-pinentry= and =allow-loopback-entry= is set in =~/.gnupg/gpg-agent.conf=.
+
+#+begin_src emacs-lisp
+
+  (use-package pinentry
+    :ensure t
+    :custom
+    (epg-pinentry-mode 'loopback)
+    (epa-pinentry-mode 'loopback)
+    :config
+    (pinentry-start))
+
+#+end_src
+
 ** Doom Themes
 
 #+begin_src emacs-lisp
@@ -1379,6 +1384,26 @@ Source environment variables from the shell into Emacs
   (use-package cdlatex
     :after tex
     :hook (LaTeX-mode . turn-on-cdlatex))
+
+#+end_src
+
+** Auto Update Packages in Emacs
+
+#+begin_src emacs-lisp
+
+  (use-package auto-package-update
+    :ensure t
+    :custom
+    (auto-package-update-interval 7)             ; Check for updates every 7 days
+    (auto-package-update-prompt-before-update t) ; Ask for confirmation before updating
+    (auto-package-update-hide-results t)         ; Hide the update results buffer
+    (auto-package-update-delete-old-versions t)  ; Automatically delete old package versions
+    :config
+    ;; Run the update check automatically when Emacs starts (if the interval has passed)
+    (auto-package-update-maybe)
+
+    ;; Optional: Schedule the update to run at a specific time instead of on startup
+    (auto-package-update-at-time "09:00"))
 
 #+end_src
 

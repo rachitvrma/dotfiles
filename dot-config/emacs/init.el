@@ -1,5 +1,3 @@
-(add-to-list 'default-frame-alist '(alpha-background . 95))
-
 ;;; init.el --- Config for my Emacs -*- lexical-binding: t; -*-
 
 ;;; Commentary:
@@ -675,12 +673,6 @@
      (project-find-dir "Find directory" ?D)
      (project-kill-buffers "Kill project buffers" ?k))))
 
-(use-package reader
-  :vc (:url "https://codeberg.org/MonadicSheep/emacs-reader"
-	        :make "clean all")
-  :config
-  (reader-global-dark-mode 1))
-
 (use-package embark
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
@@ -895,6 +887,14 @@
       (direnv-mode)
     (message "direnv: executable not found, skipping direnv-mode")))
 
+(use-package pinentry
+  :ensure t
+  :custom
+  (epg-pinentry-mode 'loopback)
+  (epa-pinentry-mode 'loopback)
+  :config
+  (pinentry-start))
+
 (use-package doom-themes
   :custom
   ;; Global settings (defaults)
@@ -986,6 +986,20 @@
 (use-package cdlatex
   :after tex
   :hook (LaTeX-mode . turn-on-cdlatex))
+
+(use-package auto-package-update
+  :ensure t
+  :custom
+  (auto-package-update-interval 7)             ; Check for updates every 7 days
+  (auto-package-update-prompt-before-update t) ; Ask for confirmation before updating
+  (auto-package-update-hide-results t)         ; Hide the update results buffer
+  (auto-package-update-delete-old-versions t)  ; Automatically delete old package versions
+  :config
+  ;; Run the update check automatically when Emacs starts (if the interval has passed)
+  (auto-package-update-maybe)
+
+  ;; Optional: Schedule the update to run at a specific time instead of on startup
+  (auto-package-update-at-time "09:00"))
 
 (use-package meow
   :config

@@ -3,6 +3,8 @@
 ;; Open Emacs in full screen mode
 (push '(fullscreen . maximized) default-frame-alist)
 
+(add-to-list 'default-frame-alist '(alpha-background . 95))
+
 ;; Give startup a large GC budget so package/config loading doesn't
 ;; stall on collections, then put a sane (but still generous) limit
 ;; back once the frame is up.

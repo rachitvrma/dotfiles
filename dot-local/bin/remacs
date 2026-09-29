@@ -3,3 +3,5 @@
 set -euo pipefail
 
 systemctl --user restart emacs.service
+echo "Restarted Emacs!!"
+
