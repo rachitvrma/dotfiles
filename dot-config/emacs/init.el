@@ -438,6 +438,7 @@
           tex-mode
           LaTeX-mode
           toml-ts-mode
+          systemd-mode
           scheme-mode) . eglot-ensure)
   :bind (:map eglot-mode-map
               ("C-c l a" . eglot-code-actions)
@@ -456,7 +457,9 @@
   (add-to-list 'eglot-server-programs
                '(scheme-mode . ("guile-lsp-server")))
   (add-to-list 'eglot-server-programs
-               '(toml-ts-mode . ("tombi" "lsp"))))
+               '(toml-ts-mode . ("tombi" "lsp")))
+  (add-to-list 'eglot-server-programs
+               '(systemd-mode . ("systemd-lsp"))))
 
 (use-package apheleia
   :init
@@ -1095,6 +1098,10 @@
   (require 'meow)
   (meow-setup)
   (meow-global-mode 1))
+
+(use-package systemd
+  :ensure t
+  :defer t)
 
 (provide 'init)
 ;;; init.el ends here

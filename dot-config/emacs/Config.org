@@ -622,6 +622,7 @@ Eglot ships with Emacs (29+).
             tex-mode
             LaTeX-mode
             toml-ts-mode
+            systemd-mode
             scheme-mode) . eglot-ensure)
     :bind (:map eglot-mode-map
                 ("C-c l a" . eglot-code-actions)
@@ -640,7 +641,9 @@ Eglot ships with Emacs (29+).
     (add-to-list 'eglot-server-programs
                  '(scheme-mode . ("guile-lsp-server")))
     (add-to-list 'eglot-server-programs
-                 '(toml-ts-mode . ("tombi" "lsp"))))
+                 '(toml-ts-mode . ("tombi" "lsp")))
+    (add-to-list 'eglot-server-programs
+                 '(systemd-mode . ("systemd-lsp"))))
 
 #+end_src
 
@@ -1511,6 +1514,16 @@ Source environment variables from the shell into Emacs
       (require 'meow)
       (meow-setup)
       (meow-global-mode 1))
+
+#+end_src
+
+** Systemd Mode
+
+#+begin_src emacs-lisp
+
+  (use-package systemd
+    :ensure t
+    :defer t)
 
 #+end_src
 
