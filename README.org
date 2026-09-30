@@ -75,7 +75,7 @@ Remember to pass the =--no-convert= flag so that the file is not overwritten in 
 Run these commands to set the X11 keymaps.
 #+begin_src bash :tangle ./scripts/keymap.sh
 
-  sudo localectl set-x11-keymap --no-convert us "" colemak_dh "caps:swapescape"
+  sudo localectl set-x11-keymap --no-convert us "" colemak_dh "ctrl:swapcaps"
 
 #+end_src
 

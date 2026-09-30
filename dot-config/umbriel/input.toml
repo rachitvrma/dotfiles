@@ -15,7 +15,7 @@ follows_mouse = true
 [input.keyboard]
 layout = "us"
 numlock_toggle = true
-options = "caps:swapescape"
+options = "ctrl:swapcaps"
 repeat_delay = 600
 repeat_rate = 25
 track_layout = "global"
