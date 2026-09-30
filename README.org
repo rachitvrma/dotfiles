@@ -20,7 +20,7 @@
 I am going to use XBOOTLDR, EFI and systemd-boot for laying out my partitioning scheme.
 
 *** Btrfs subvolumes
-The subvolumes I am going to be using are the defaults that the =archinstall= script uses. In addition to that I am going to use a swap.
+The subvolumes I am going to be using are the defaults that the =archinstall= script uses.
 
 | subvol        | mountpoint              |
 |---------------+-------------------------|
@@ -75,7 +75,7 @@ Remember to pass the =--no-convert= flag so that the file is not overwritten in 
 Run these commands to set the X11 keymaps.
 #+begin_src bash :tangle ./scripts/keymap.sh
 
-  sudo localectl set-x11-keymap --no-convert us "" colemak_dh "ctrl:swapescape"
+  sudo localectl set-x11-keymap --no-convert us "" colemak_dh "caps:swapescape"
 
 #+end_src
 

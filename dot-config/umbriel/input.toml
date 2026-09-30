@@ -32,3 +32,4 @@ enabled = true
 disable_while_typing = true
 natural_scroll = true
 tap = true
+accel_profile = "adaptive"

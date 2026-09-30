@@ -1,10 +1,10 @@
 ;;; init.el --- Config for my Emacs -*- lexical-binding: t; -*-
 
-;;; Commentary:
+ ;;; Commentary:
 
 ;; This is my personal Emacs configuration.
 
-;;; Code:
+ ;;; Code:
 
 ;; Initialize package sources
 (require 'package)
@@ -90,6 +90,8 @@
   ;; term/tty scenarios; harmless elsewhere.
   (scroll-margin 2)
   (scroll-conservatively 101)
+
+  (tramp-verbose 6)
 
   ;; VERTICO INTEGRATION
 
@@ -407,6 +409,10 @@
   ;; You may want to use `embark-prefix-help-command' or which-key instead.
   ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
   )
+
+(use-package tramp
+  :ensure nil
+  :demand t)
 
 (use-package corfu
   :custom

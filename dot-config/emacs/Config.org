@@ -98,13 +98,13 @@ Byte/native-compilation of dependencies at runtime prints a lot of warnings that
 * Main Init (=init.el=)
 
 #+begin_src emacs-lisp
-  ;;; init.el --- Config for my Emacs -*- lexical-binding: t; -*-
+   ;;; init.el --- Config for my Emacs -*- lexical-binding: t; -*-
 
-  ;;; Commentary:
+   ;;; Commentary:
 
   ;; This is my personal Emacs configuration.
 
-  ;;; Code:
+   ;;; Code:
 
   ;; Initialize package sources
   (require 'package)
@@ -198,6 +198,8 @@ There's no separate package for "built-in Emacs behavior", so by convention it's
     ;; term/tty scenarios; harmless elsewhere.
     (scroll-margin 2)
     (scroll-conservatively 101)
+
+    (tramp-verbose 6)
 
     ;; VERTICO INTEGRATION
 
@@ -572,6 +574,16 @@ Vertico is the vertical minibuffer UI, orderless is the matching style (space-se
     ;; (keymap-set consult-narrow-map (concat consult-narrow-key " ?") #'consult-narrow-help)
     )
 
+#+end_src
+
+** TRAMP set up
+
+#+begin_src emacs-lisp
+
+  (use-package tramp
+    :ensure nil
+    :demand t)
+  
 #+end_src
 
 ** =corfu= -- in-buffer completion popup
