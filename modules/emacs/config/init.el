@@ -932,6 +932,9 @@
   :custom
   (vundo-glyph-alist vundo-unicode-symbols))
 
+(use-package surround
+  :bind-keymap ("C-c s" . surround-keymap))
+
 (use-package avy
   :bind (("C-:" . avy-goto-char)
          ("M-g w" . avy-goto-word-1)

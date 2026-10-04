@@ -220,7 +220,7 @@
 
           # YouTube and YouTube music
           yt = "https://www.youtube.com/results?search_query={}";
-          ytm = "https://music.youtube.com/results?search_query={}";
+          ytm = "https://music.youtube.com/search?q={}";
         };
 
         quickmarks = {

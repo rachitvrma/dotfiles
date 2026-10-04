@@ -63,65 +63,55 @@
           };
 
           StartDownloadsInTempDirectory = true; # Start the download in temp directory.
-
-          # Extensions
-          ExtensionSettings =
-            let
-              moz = short: "https://addons.mozilla.org/firefox/downloads/latest/${short}/latest.xpi";
-            in
-            {
-              "*".installation_mode = "blocked";
-
-              "uBlock0@raymondhill.net" = {
-                install_url = moz "ublock-origin";
-                installation_mode = "force_installed";
-                updates_disabled = true;
-              };
-            };
-
-          # Extension configuration
-          "3rdparty".Extensions = {
-            "uBlock0@raymondhill.net".adminSettings = {
-              userSettings = rec {
-                uiTheme = "dark";
-                uiAccentCustom = true;
-                uiAccentCustom0 = "#8300ff";
-                cloudStorageEnabled = lib.mkForce false;
-
-                importedLists = [
-                  "https://filters.adtidy.org/extension/ublock/filters/3.txt"
-                  "https://github.com/DandelionSprout/adfilt/raw/master/LegitimateURLShortener.txt"
-                ];
-
-                externalLists = lib.concatStringsSep "\n" importedLists;
-              };
-
-              selectedFilterLists = [
-                "CZE-0"
-                "adguard-generic"
-                "adguard-annoyance"
-                "adguard-social"
-                "adguard-spyware-url"
-                "easylist"
-                "easyprivacy"
-                "https://github.com/DandelionSprout/adfilt/raw/master/LegitimateURLShortener.txt"
-                "plowe-0"
-                "ublock-abuse"
-                "ublock-badware"
-                "ublock-filters"
-                "ublock-privacy"
-                "ublock-quick-fixes"
-                "ublock-unbreak"
-                "urlhaus-1"
-              ];
-            };
-          };
         };
 
         profiles.default = {
           isDefault = true;
           id = 0;
-          extensions.force = true;
+          extensions = {
+            force = true;
+            packages = with pkgs.nur.repos.rycee.firefox-addons; [
+              ublock-origin
+              darkreader
+              firefox-color
+            ];
+            settings = {
+              "uBlock0@raymondhill.net".settings = {
+                userSettings = rec {
+                  uiTheme = "dark";
+                  uiAccentCustom = true;
+                  uiAccentCustom0 = "#8300ff";
+                  cloudStorageEnabled = lib.mkForce false;
+
+                  importedLists = [
+                    "https://filters.adtidy.org/extension/ublock/filters/3.txt"
+                    "https://github.com/DandelionSprout/adfilt/raw/master/LegitimateURLShortener.txt"
+                  ];
+
+                  externalLists = lib.concatStringsSep "\n" importedLists;
+                };
+
+                selectedFilterLists = [
+                  "CZE-0"
+                  "adguard-generic"
+                  "adguard-annoyance"
+                  "adguard-social"
+                  "adguard-spyware-url"
+                  "easylist"
+                  "easyprivacy"
+                  "https://github.com/DandelionSprout/adfilt/raw/master/LegitimateURLShortener.txt"
+                  "plowe-0"
+                  "ublock-abuse"
+                  "ublock-badware"
+                  "ublock-filters"
+                  "ublock-privacy"
+                  "ublock-quick-fixes"
+                  "ublock-unbreak"
+                  "urlhaus-1"
+                ];
+              };
+            };
+          };
           search = {
             force = true;
             default = "ddg";
@@ -194,7 +184,6 @@
               "smartwindow-group-tabs-button"
               "ai-window-toggle"
             ];
-
             # Vertical Tabs & Sidebar Configuration
             "sidebar.main.tools" = "syncedtabs,bookmarks,opentabs"; # syncedtabs -> tabs from other devices, bookmarks, and open tabs on the sidebar
             "sidebar.new-sidebar.has-used" = true; # Don't show annoying messages like "OMGoodness! You enabled Vertical Tabs'n'shyte!"
@@ -204,6 +193,9 @@
 
             # Security / Under-the-hood
             "signon.storage.rust.active" = true; # Just use rust stuff...
+
+            # Auto enable extensions
+            "extensions.autoDisableScopes" = 0;
           };
         };
       };

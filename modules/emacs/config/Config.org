@@ -1321,6 +1321,16 @@ Source environment variables from the shell into Emacs
 
 #+end_src
 
+** Surround
+Vim-surround equivalent (or mini.surround equivalent) for Emacs, without modifying the native keybinds.
+
+#+begin_src emacs-lisp
+
+  (use-package surround
+    :bind-keymap ("C-c s" . surround-keymap))
+
+#+end_src
+
 ** AV Setup
 
 #+begin_src emacs-lisp

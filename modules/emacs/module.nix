@@ -73,6 +73,8 @@
             ps: with ps; [
               scheme-medium
               latexmk
+              wrapfig
+              capt-of
             ]
           ))
 
@@ -166,6 +168,7 @@
               pulsar # make it shine when you change point
               pyvenv # For working with python virtual environments
               rainbow-delimiters
+              surround # Use surround with emacs-native keybindings
               systemd # For systemd mode
               tramp # for TRAMP connection over ssh
               undo-fu # Part of undo-tree stack

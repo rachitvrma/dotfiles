@@ -106,6 +106,7 @@ show_week_numbers = true
 
 [dock]
 active_monitor_only = true
+auto_hide = true
 # background_opacity = 0.84999998100101948
 enabled = true
 launcher_position = "end"
@@ -113,7 +114,6 @@ pinned = ["firefox", "kitty", "emacsclient", "pcmanfm", "vesktop"]
 reserve_space = false
 show_dots = true
 show_instance_count = false
-auto_hide = true
 
 [idle]
 behavior_order = ["lock", "screen-off", "lock-and-suspend"]
@@ -235,8 +235,8 @@ umbriel_overview_type_to_launch_enabled = true
 auto_sync = true
 
 [shell.panel]
-transparency_mode = "glass"
 polkit_placement = "attached"
+transparency_mode = "glass"
 
 [wallpaper]
 directory = "/home/krish/Pictures/Wallpapers"
