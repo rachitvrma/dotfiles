@@ -1,0 +1,6 @@
+%YAML 1.1
+---
+program_options:
+  automount: true
+  notify: true
+  tray: auto

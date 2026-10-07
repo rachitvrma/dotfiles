@@ -1,0 +1,36 @@
+[include.optional]
+files = ["noctalia.toml"]
+
+[include]
+files = [
+  "appearance.toml",
+  "general.toml",
+  "hot_corners.toml",
+  "input.toml",
+  "keybinds.toml",
+  "layer-rules.toml",
+  "layout.toml",
+  "outputs.toml",
+  "window-rules.toml",
+  ]
+
+[overview]
+zoom = 0.5
+
+
+[workspaces]
+back_and_forth = true
+empty_above = true
+
+
+[environment]
+QT_QPA_PLATFORMTHEME = "qt6ct"
+SDL_VIDEODRIVER = "wayland"
+QT_QPA_PLATFORM = "wayland"
+GDK_BACKEND = "wayland,x11"
+CLUTTER_BACKEND = "wayland"
+MOZ_ENABLE_WAYLAND = "1"
+ELECTRON_OZONE_PLATFORM_HINT = "auto"
+WLR_NO_HARDWARE_CURSORS = "1"
+WLR_RENDERER = "vulkan"
+LIBVA_DRIVER_NAME = "iHD"

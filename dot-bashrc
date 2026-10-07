@@ -1,0 +1,58 @@
+# -*- mode: sh; sh-shell: bash -*-
+# ~/.bashrc
+
+# Bail out early for non-interactive shells (scp, rsync, `ssh host cmd`, scripts)
+[[ $- != *i* ]] && return
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# Helper used here and in ~/.bashrc.d/*: is a command available?
+have() { command -v "$1" &>/dev/null; }
+
+# PATH: prepend each directory only if it is not already an entry.
+# Iterated in reverse so the final order is .local/bin, bin, .cargo/bin.
+for _dir in "$HOME/.cargo/bin" "$HOME/bin" "$HOME/.local/bin"; do
+	case ":$PATH:" in
+		*":$_dir:"*) ;;
+		*) PATH="$_dir:$PATH" ;;
+	esac
+done
+unset -v _dir
+
+# Go: binaries install to $GOBIN if set, otherwise $GOPATH/bin (default ~/go/bin)
+_gobin="${GOBIN:-${GOPATH:-$HOME/go}/bin}"
+case ":$PATH:" in
+	*":$_gobin:"*) ;;
+	*) PATH="$PATH:$_gobin" ;;
+esac
+unset -v _gobin
+
+export PATH
+
+# Editor: terminal frame (-t) over SSH or without a display, GUI frame (-c) otherwise.
+# -a "" (empty alternate editor) starts the Emacs daemon on demand.
+if [[ -n ${SSH_CONNECTION-} || -z ${WAYLAND_DISPLAY-}${DISPLAY-} ]]; then
+	_ec_mode=-t
+else
+	_ec_mode=-c
+fi
+export EDITOR="emacsclient $_ec_mode -a ''"
+export VISUAL="$EDITOR"
+unset -v _ec_mode
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions (loaded in filename order)
+if [ -d ~/.bashrc.d ]; then
+	for rc in ~/.bashrc.d/*.bashrc; do
+		if [ -f "$rc" ]; then
+			. "$rc"
+		fi
+	done
+fi
+unset -v rc
+unset -f have

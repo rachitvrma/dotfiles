@@ -1,0 +1,105 @@
+#+TITLE: Dotfiles for Arch Linux 
+#+DESCRIPTION: These are my personal dotfiles for ArchLinux on my HP Pavilion Laptop
+#+DATE: <2026-09-27 Sun>
+#+PROPERTY: header-args: :mkdirp yes
+#+auto_tangle: t
+
+* Installation:
+
+** Pre-Installation:
+
+*** Set key map
+
+#+begin_src bash
+
+  loadkeys mod-dh-ansi-us
+
+#+end_src
+
+** Disk layout
+I am going to use XBOOTLDR, EFI and systemd-boot for laying out my partitioning scheme.
+
+*** Btrfs subvolumes
+The subvolumes I am going to be using are the defaults that the =archinstall= script uses.
+
+| subvol        | mountpoint              |
+|---------------+-------------------------|
+| =@=           | =/=                     |
+| =@home=       | =/home=                 |
+| =@log=        | =/var/log=              |
+| =@pkg=        | =/var/cache/pacman/pkg= |
+| =@.snapshots= | =/.snapshots=           |
+
+
+** Post-Installation
+Installing the =paru= AUR helper.
+
+#+begin_src bash :tangle ./scripts/install-paru.sh
+
+  #!/usr/bin/env bash
+  sudo pacman -S --needed base-devel
+  git clone https://aur.archlinux.org/paru.git /tmp/paru
+  cd /tmp/paru || exit
+  makepkg -si
+
+#+end_src
+
+* Firefox
+
+The [[file:misc/firefox/][firefox]] dir contains a few files that can come into use when placed in the correct places.
+
+* Key Map Set Up
+Setting the keymap is essential, coz if I can't get to colemak-dh, my speed is cut down a lot. Use =localectl= to set X11 keymaps as well the vconsole's keymap.
+
+Set the =/etc/vconsole.conf= to
+#+begin_src conf
+
+  KEYMAP=mod-dh-ansi-us
+
+#+end_src
+
+This command can also be used to set the keymap.
+#+begin_quote
+
+Remember to pass the =--no-convert= flag so that the file is not overwritten in any ways.
+
+#+end_quote
+
+#+begin_src bash :tangle ./scripts/keymap.sh
+
+  #!/usr/bin/env bash
+  sudo localectl set-keymap --no-convert mod-dh-ansi-us
+
+#+end_src
+
+Run these commands to set the X11 keymaps.
+#+begin_src bash :tangle ./scripts/keymap.sh
+
+  sudo localectl set-x11-keymap --no-convert us "" colemak_dh "ctrl:swapcaps"
+
+#+end_src
+
+* Setting GTK theme
+Run these commands to set GTK theme. The GTK theme is /mostly/ managed by Noctalia itself.
+
+#+begin_src bash :tangle ./scripts/set-gtk-theme.sh
+
+  #!/usr/bin/env bash
+
+  gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
+  gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
+  # Set Emacs bindings for GTK
+  gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
+
+  # Filechooser: start in cwd
+  gsettings set org.gtk.Settings.FileChooser startup-mode cwd
+
+#+end_src
+
+* Qutebrowser
+To use some aliases and shortcuts in Qutebrowser, use it's userscripts. The userscripts are typically stored in =/usr/share/qutebrowser/userscripts=. Soft symlinking those scripts to =$XDG_CONFIG_HOME/qutebrowser/userscripts= directory will make them available. From there they can be called using a key binding or any alias. I use the =view_in_mpv= userscript to start any video from sites like youtube.
+
+* To-Do list
+- [ ] Remove Neovim (now that we got =mason.el=)
+- [ ] Move from wlr-which-key to noctalia's =dmenu=

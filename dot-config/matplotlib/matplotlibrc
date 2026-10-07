@@ -1,0 +1,5 @@
+axes.edgecolor: ff9900
+axes.facecolor: black
+axes.grid: True
+backend: TkAgg
+grid.color: FF9900
