@@ -4,7 +4,7 @@ let
       enable = true;
       settings = {
         # make sure the terminal is enabled and in $PATH
-        default = [ "footclient.desktop" ];
+        default = [ "kitty.desktop" ];
       };
     };
   };

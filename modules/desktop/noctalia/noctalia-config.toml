@@ -1,3 +1,7 @@
+# Make sure that wallhaven_api_key.toml is present
+[include]
+files = ["wallhaven_api_key.toml"]
+
 [audio]
 enable_sounds = true
 sound_volume = 0.5
@@ -57,7 +61,14 @@ accordion_direction = "end"
 enabled = true
 fill = "surface_variant"
 id = "g4"
-members = ["control-center", "caffeine", "nightlight", "launcher", "wallpaper"]
+members = [
+  "control-center",
+  "caffeine",
+  "nightlight",
+  "launcher",
+  "wallpaper",
+  "wallhaven",
+]
 opacity = 1.0
 padding = 6.0
 
@@ -140,7 +151,6 @@ left = ["Left", "Ctrl+b"]
 right = ["Right", "Ctrl+f"]
 up = ["Up", "Ctrl+p"]
 
-
 [location]
 auto_locate = true
 
@@ -219,8 +229,16 @@ layer = "overlay"
 [osd]
 # background_opacity = 0.94999999999999996
 
+[plugin_settings."noctalia/wallhaven"]
+download_dir = "/home/krish/Pictures/Wallhaven"
+
 [plugins]
-enabled = ["noctalia/kaomoji", "noctalia/timer", "noctalia/umbriel-companion"]
+enabled = [
+  "noctalia/kaomoji",
+  "noctalia/timer",
+  "noctalia/umbriel-companion",
+  "noctalia/wallhaven",
+]
 
 [shell]
 font_family = "JetBrainsMono Nerd Font"
@@ -288,6 +306,9 @@ show_value = false
 
 [widget.volume]
 show_label = false
+
+[widget.wallhaven]
+type = "noctalia/wallhaven:wallhaven"
 
 [widget.workspaces]
 active_pill_size = 3.0

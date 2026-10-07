@@ -2,7 +2,7 @@
 {
   flake.homeModules.kitty = { config, ... }: {
     programs.kitty = {
-      enable = false;
+      enable = true;
       actionAliases = {
         launch_tab = "launch --cwd=current --type=tab";
         launch_window = "launch --cwd=current --type=os-window";

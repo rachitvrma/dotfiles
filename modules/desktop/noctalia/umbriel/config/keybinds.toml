@@ -88,4 +88,4 @@
 "Mod+Slash" = "cheatsheet-toggle"
 
 # Spawn nix-search-tv. See the window_rules file to configure how the window appears
-"Mod+N" = "spawn:footclient --app-id=nix-search-tv --title=nix-search-tv -e tv nix-search-tv"
+"Mod+N" = "spawn:systemd-run --user kitty --app-id=nix-search-tv --title=nix-search-tv -e tv nix-search-tv"

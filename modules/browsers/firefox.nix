@@ -176,14 +176,6 @@
             };
           };
           settings = {
-            "browser.uiCustomization.horizontalTabstrip" = [
-              "tabbrowser-tabs"
-              "new-tab-button"
-              "customizableui-special-spring3"
-              "alltabs-button"
-              "smartwindow-group-tabs-button"
-              "ai-window-toggle"
-            ];
             # Vertical Tabs & Sidebar Configuration
             "sidebar.main.tools" = "syncedtabs,bookmarks,opentabs"; # syncedtabs -> tabs from other devices, bookmarks, and open tabs on the sidebar
             "sidebar.new-sidebar.has-used" = true; # Don't show annoying messages like "OMGoodness! You enabled Vertical Tabs'n'shyte!"
@@ -196,6 +188,12 @@
 
             # Auto enable extensions
             "extensions.autoDisableScopes" = 0;
+            "browser.engagement.downloads-button.has-used" = true;
+
+            # Follow the system light/dark preference (2 = system)
+            "layout.css.prefers-color-scheme.content-override" = 2;
+            "browser.theme.toolbar-theme" = 2;
+            "browser.theme.content-theme" = 2;
           };
         };
       };

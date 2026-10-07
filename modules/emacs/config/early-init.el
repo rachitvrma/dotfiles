@@ -32,7 +32,7 @@
 (setq frame-inhibit-implied-resize t)
 
 ;; Skip the "Welcome to GNU Emacs" splash and any related redisplay
-;; work; the dashboard package (configured in init.el) replaces it.
+;; work; the dashboard package (configured in =lisp/init-ui.el=) replaces it.
 (setq inhibit-startup-screen t
       inhibit-startup-message t
       inhibit-startup-echo-area-message user-login-name)

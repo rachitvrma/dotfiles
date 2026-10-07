@@ -2,7 +2,7 @@
 {
   flake.homeModules.foot = {
     programs.foot = {
-      enable = true;
+      enable = false;
       server.enable = true;
       settings = {
         main.pad = "20x20 center-when-maximized-and-fullscreen";

@@ -122,17 +122,7 @@
         };
 
         xdg.configFile."umbriel/config.toml" = lib.mkIf (cfg.settings != { }) {
-          source =
-            let
-              configFile = tomlFormat.generate "umbriel-config.toml" cfg.settings;
-            in
-            if cfg.checkConfig then
-              pkgs.runCommand "umbriel-config-checked" { } ''
-                ${lib.getExe cfg.package} validate -c ${configFile}
-                cp ${configFile} $out
-              ''
-            else
-              configFile;
+          source = tomlFormat.generate "noctalia-config.toml" cfg.settings;
         };
       };
     };

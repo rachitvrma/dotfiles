@@ -98,6 +98,9 @@
       file # For the file command
       pinta # For editing images
       timr-tui # TODO make a module for it
+
+      # Fonts needed for LibreOffice
+      gelasio
     ];
   };
 }
