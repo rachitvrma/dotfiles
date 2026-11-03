@@ -5,11 +5,9 @@ if have vivid; then
 	_lsc_cache="${XDG_CACHE_HOME:-$HOME/.cache}/ls_colors.vivid"
 	if [[ ! -s $_lsc_cache || $(command -v vivid) -nt $_lsc_cache ]]; then
 		mkdir -p "${_lsc_cache%/*}"
-		vivid generate gruvbox-dark-hard >"$_lsc_cache"
+		vivid generate catppuccin-mocha >"$_lsc_cache"
 	fi
 	LS_COLORS=$(<"$_lsc_cache")
 	export LS_COLORS
 	unset -v _lsc_cache
 fi
-
-

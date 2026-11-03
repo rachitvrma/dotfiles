@@ -4,6 +4,7 @@
 
 (use-package eglot
   :hook ((bash-ts-mode
+          just-mode
           c-ts-mode
           c++-ts-mode
           python-ts-mode
@@ -19,6 +20,7 @@
           LaTeX-mode
           toml-ts-mode
           systemd-mode
+          nix-mode
           fish-mode) . eglot-ensure)
   :bind (:map eglot-mode-map
               ("C-c l a" . eglot-code-actions)
@@ -35,6 +37,10 @@
   :config
   (add-to-list 'eglot-server-programs
                '(toml-ts-mode . ("tombi" "lsp")))
+  (add-to-list 'eglot-server-programs
+               '(nix-mode . ("nixd" "--semantic-tokens=true" "--inlay-hints=false")))
+  (add-to-list 'eglot-server-programs
+               '(just-mode . ("just-lsp")))
   (add-to-list 'eglot-server-programs
                '((html-mode html-ts-mode) . ("vscode-html-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs
@@ -86,7 +92,7 @@
 
 (use-package fish-mode)
 
-(use-package justl)
+(use-package just-mode)
 
 (use-package nix-mode
   :mode "\\.nix\\'")
@@ -96,5 +102,3 @@
 
 (provide 'init-prog)
 ;;; init-prog.el ends here
-
-

@@ -135,5 +135,3 @@ an empty line between point and that text, then insert a newline."
 
 (provide 'init-editing)
 ;;; init-editing.el ends here
-
-

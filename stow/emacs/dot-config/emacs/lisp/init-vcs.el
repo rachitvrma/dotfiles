@@ -29,5 +29,3 @@
 
 (provide 'init-vcs)
 ;;; init-vcs.el ends here
-
-

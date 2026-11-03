@@ -428,5 +428,3 @@ let
     self // { __functor = _: call; };
 in
 call { }
-
-

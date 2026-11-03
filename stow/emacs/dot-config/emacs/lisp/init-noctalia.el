@@ -11,5 +11,3 @@
 
 (provide 'init-noctalia)
 ;;; init-noctalia.el ends here
-
-

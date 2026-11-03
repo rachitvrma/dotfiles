@@ -1,8 +1,8 @@
 [general]
+# In NixOS there's a system module.
+# To use this disable that.
 autostart = ["noctalia"]
 focus_on_activate = false
 honor_restored_maximize = false
 show_cheatsheet = true
 xwayland = true
-
-

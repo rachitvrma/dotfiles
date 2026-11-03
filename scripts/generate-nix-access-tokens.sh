@@ -11,7 +11,7 @@ for f in "$conf_dir"/nix.conf.backup*; do
     existing[$f]=1
 done
 
-nix run github:numtide/nix-auth -- login
+nix run nixpkgs#nix-auth -- login
 
 new_backups=()
 for f in "$conf_dir"/nix.conf.backup*; do
@@ -33,5 +33,3 @@ case "${answer,,}" in
     ""|y|yes) rm -f -- "${new_backups[@]}" && echo "Removed." ;;
     *)        echo "Left in place." ;;
 esac
-
-

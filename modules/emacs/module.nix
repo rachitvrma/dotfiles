@@ -10,7 +10,8 @@
         startWithGraphical = true;
       };
 
-      environment.systemPackages = [
+      environment.systemPackages = with pkgs; [
+        luajitPackages.tree-sitter-cli
         (pkgs.aspellWithDicts (
           dicts: with dicts; [
             en

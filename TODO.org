@@ -11,4 +11,5 @@
 - [ ] Learn jjui
 - [ ] Make jjui's themes module.
 
-
+- [ ] Build a custom NixOS iso
+- [ ] Build a Emacs package that converts toml to Nix

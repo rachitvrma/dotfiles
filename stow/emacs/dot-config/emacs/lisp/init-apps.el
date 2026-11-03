@@ -25,5 +25,3 @@
 
 (provide 'init-apps)
 ;;; init-apps.el ends here
-
-

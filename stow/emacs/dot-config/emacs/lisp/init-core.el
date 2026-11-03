@@ -159,5 +159,3 @@
 
 (provide 'init-core)
 ;;; init-core.el ends here
-
-

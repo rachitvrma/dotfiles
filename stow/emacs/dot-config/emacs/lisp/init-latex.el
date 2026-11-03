@@ -24,5 +24,3 @@
 
 (provide 'init-latex)
 ;;; init-latex.el ends here
-
-

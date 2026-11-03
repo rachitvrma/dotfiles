@@ -94,5 +94,3 @@
 
 (provide 'init-comms)
 ;;; init-comms.el ends here
-
-

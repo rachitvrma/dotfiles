@@ -23,14 +23,6 @@
     "narHash": "sha256-V1h85lUaJBQoHFrB2vpXZOE0Ju1MYSnIpsehoVZYlDo=",
     "lastModified": 1793576659
   },
-  "home-manager": {
-    "type": "github",
-    "owner": "nix-community",
-    "repo": "home-manager",
-    "rev": "095fef2f265c3c0da4fe315efba8f8a04495ab34",
-    "narHash": "sha256-X6xa6sGA7RnJQuZGbFMC+K+KToWAlBDCCjJXfTwEPsw=",
-    "lastModified": 1793193205
-  },
   "nix-index-database": {
     "type": "github",
     "owner": "nix-community",
@@ -43,17 +35,17 @@
     "type": "github",
     "owner": "nixos",
     "repo": "nixpkgs",
-    "rev": "1c89083e451e891152365b799595cf7790a43325",
-    "narHash": "sha256-Y1CiZ4SoBUjLQyQM/pY+rS2dXD3CHLPstF0lmOc73D4=",
-    "lastModified": 1793341285
+    "rev": "0bb2eedc20e4739f29e8045034f2828ad7054f8f",
+    "narHash": "sha256-fiPJ88izTVucjeo2EQ3jk4aWmLg03I1D4vxnX2QjEgE=",
+    "lastModified": 1793540411
   },
   "nur": {
     "type": "github",
     "owner": "nix-community",
     "repo": "NUR",
-    "rev": "d1036053524caaf70f871fd8add0d40aa4bb781e",
-    "narHash": "sha256-lo5mqf2B+LG9pMROObwvaFbdKE9R2aPnR60j/XgNnLg=",
-    "lastModified": 1793590034
+    "rev": "531e5eb6ed1074e7c762c83c0e102b597460367c",
+    "narHash": "sha256-PQPzTfal0Rw/HnC+kQdYrtp1XM4zHlE/yHhh9sGm1UE=",
+    "lastModified": 1793720750
   },
   "wallpapers": {
     "type": "github",
@@ -64,5 +56,3 @@
     "lastModified": 1790252493
   }
 }
-
-

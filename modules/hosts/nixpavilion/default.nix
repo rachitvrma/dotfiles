@@ -6,8 +6,9 @@
 # skipped by flake.nix's importTree.
 { self, inputs, ... }:
 {
+  imports = [inputs.disko.flakeModules.default];
   # `disko --flake .#nixpavilion` and `nix run .#...` find the layout here.
-  flake.diskoConfigurations.nixpavilion = ./_disko-config.nix;
+  flake.diskoConfigurations.nixpavilion = import ./_disko-config.nix;
 
   flake.nixosConfigurations.nixpavilion = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = { inherit inputs self; };

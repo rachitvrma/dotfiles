@@ -6,6 +6,7 @@
     {
       environment.systemPackages = with pkgs; [
         # Media
+        yt-dlp
         (mpv.override {
           mpv-unwrapped = pkgs.mpv-unwrapped.override {
             ffmpeg = pkgs.ffmpeg-full;
@@ -42,6 +43,14 @@
         timr-tui
         figlet
         sl
+
+        # Theme stuff
+        bibata-cursors
+        nwg-look
+        papirus-icon-theme
+        gsettings-desktop-schemas
+        glib
+        adw-gtk3
 
         # Desktop plumbing
         kitty
@@ -81,6 +90,13 @@
 
         # Secrets
         pass-wayland
+
+        # pinentry packages
+        pinentry-emacs
+
+        # For user dirs
+        xdg-user-dirs
+        xdg-user-dirs-gtk
       ];
 
       environment.sessionVariables = {
@@ -95,6 +111,7 @@
       };
 
       programs = {
+        nix-ld.enable = true;
         appimage = {
           enable = true;
           binfmt = true;
@@ -104,7 +121,6 @@
           package = pkgs.gitFull;
           lfs.enable = true;
         };
-        firefox.enable = true;
         seahorse.enable = true;
       };
 

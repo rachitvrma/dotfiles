@@ -61,8 +61,6 @@ A single-host NixOS configuration, wired together with [[https://flake.parts][fl
 
 * Quick start
 
-Fresh machine: follow [[./docs/installation.org][docs/installation.org]]. Already installed:
-
 #+begin_src sh
 
   cd ~/etc/nixos
@@ -71,27 +69,12 @@ Fresh machine: follow [[./docs/installation.org][docs/installation.org]]. Alread
 
 #+end_src
 
-The repo is expected to live at =~/etc/nixos= (see [[./docs/architecture.org][architecture]] for why).
+The repo is expected to live at =~/etc/nixos=.
+* Notes:
 
-* Documentation
+** Wgetpaste
 
-All longer-form documentation lives in [[./docs][docs/]] (index: [[./docs/README.org][docs/README.org]]).
-
-| Page               | What it covers                                                      |
-|--------------------+---------------------------------------------------------------------|
-| [[./docs/installation.org][installation]]       | Install from an ISO, restore GPG / pass / agenix keys, Nix tokens   |
-| [[./docs/architecture.org][architecture]]       | Layout, module auto-import, adding a module, adapting to a new user |
-| [[./docs/usage.org][usage]]              | Aliases, helper commands, updating                                  |
-| [[./docs/keybindings.org][keybindings]]        | Compositor, which-key, Emacs, qutebrowser, zathura                  |
-| [[./docs/theming.org][theming]]            | How Stylix feeds everything, and what is hand-themed                |
-| [[./docs/secrets.org][secrets]]            | agenix, pass / GPG, keyring, backups                                |
-| [[./docs/tool-inventory.org][tool-inventory]]     | One row per job; overlapping tools flagged                          |
-| [[./docs/troubleshooting.org][troubleshooting]]    | Known gotchas and fixes                                             |
-| [[./docs/new-host.org][new-host]]           | Adding a second machine                                             |
-| [[./docs/hibernation.org][hibernation]]        | Swapfile layout, resume, installing the swap on an existing system  |
-| [[./docs/learning-resources.org][learning-resources]] | Nix / NixOS / flakes reading list                                   |
-
-Near the code: [[./modules/emacs/README.org][why Emacs]], [[./stow/emacs/dot-config/emacs/Config.org][literate Emacs config]], [[./modules/browsers/README.md][Firefox userChrome notes]], and [[./TODO.org][TODO.org]].
+Get all the tokens into =~/.wgetpaste.d/github.conf=. Use =gh auth token=.
 
 ** TODO Screenshots
 
@@ -99,8 +82,8 @@ Add a few screenshots (desktop, Emacs dashboard, Noctalia bar) under =.github/im
 
 -----
 
+** TODO Add new documentation
+
 * 📃 License
 
 Licensed under the GNU General Public License v3.0. See [[./LICENSE][LICENSE]] for details.
-
-

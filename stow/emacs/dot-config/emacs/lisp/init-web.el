@@ -31,5 +31,3 @@
 
 (provide 'init-web)
 ;;; init-web.el ends here
-
-

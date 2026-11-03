@@ -1392,6 +1392,7 @@ Eglot ships with Emacs (29+).
 
   (use-package eglot
     :hook ((bash-ts-mode
+            just-mode
             c-ts-mode
             c++-ts-mode
             python-ts-mode
@@ -1407,6 +1408,7 @@ Eglot ships with Emacs (29+).
             LaTeX-mode
             toml-ts-mode
             systemd-mode
+            nix-mode
             fish-mode) . eglot-ensure)
     :bind (:map eglot-mode-map
                 ("C-c l a" . eglot-code-actions)
@@ -1423,6 +1425,10 @@ Eglot ships with Emacs (29+).
     :config
     (add-to-list 'eglot-server-programs
                  '(toml-ts-mode . ("tombi" "lsp")))
+    (add-to-list 'eglot-server-programs
+                 '(nix-mode . ("nixd" "--semantic-tokens=true" "--inlay-hints=false")))
+    (add-to-list 'eglot-server-programs
+                 '(just-mode . ("just-lsp")))
     (add-to-list 'eglot-server-programs
                  '((html-mode html-ts-mode) . ("vscode-html-language-server" "--stdio")))
     (add-to-list 'eglot-server-programs
@@ -1522,7 +1528,7 @@ Tempel completes through =completion-at-point= (so templates show in Corfu), =eg
 Highlights =justfiles=
 
 #+begin_src emacs-lisp
-  (use-package justl)
+  (use-package just-mode)
 #+end_src
 
 *** Nix Mode
@@ -2003,5 +2009,3 @@ Loads the Noctalia-generated theme if it exists. The =:PROPERTIES:= drawer must 
   ;;; init-noctalia.el ends here
 
 #+end_src
-
-
