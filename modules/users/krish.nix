@@ -1,32 +1,34 @@
+{ me, ... }:
 {
   flake = {
-    nixosModules.krish = { ... }: {
-      # Define a user account. Don't forget to set a password with ‘passwd’.
+    nixosModules.krish = {
       users = {
-        users."krish" = {
+        users.${me.username} = {
           isNormalUser = true;
-          group = "krish";
-          description = "Rachit Kumar Verma";
+          group = me.username;
+          description = me.fullName;
           extraGroups = [
             "networkmanager"
             "wheel"
           ];
+          # SECURITY: this is committed to a public repo. Change it with
+          # `passwd` right after the first login (or move to hashedPasswordFile
+          # with agenix).
           initialPassword = "1234";
         };
-        groups.krish = {
-          name = "krish";
-          members = [ "krish" ];
-        };
+        groups.${me.username} = { };
       };
     };
-    homeModules.krish = {
-      home = {
-        username = "krish";
-        homeDirectory = "/home/krish";
-        stateVersion = "26.05";
-      };
 
-      programs.home-manager.enable = true;
-    };
+    # Standalone home-manager module. Not wired into any host yet; use it with
+    # flake.homeConfigurations or home-manager.nixosModules.home-manager.
+    # homeModules.krish = {
+    #   home = {
+    #     username = me.username;
+    #     homeDirectory = "/home/${me.username}";
+    #     stateVersion = "26.05";
+    #   };
+    #   programs.home-manager.enable = true;
+    # };
   };
 }

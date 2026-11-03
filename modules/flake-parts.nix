@@ -1,12 +1,10 @@
-{ inputs, ... }: {
+{ inputs, ... }:
+{
   imports = [
     inputs.flake-parts.flakeModules.modules
-    inputs.home-manager.flakeModules.home-manager
+    # Declares flake.homeModules / flake.homeConfigurations.
+    # inputs.home-manager.flakeModules.home-manager
   ];
 
-  config = {
-    systems = [
-      "x86_64-linux"
-    ];
-  };
+  systems = [ "x86_64-linux" ];
 }

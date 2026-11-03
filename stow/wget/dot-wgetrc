@@ -1,0 +1,20 @@
+# be patient with flaky connections
+tries = 3
+retry_connrefused = on
+waitretry = 5
+timeout = 30
+
+# name files the way the server says, not by the last URL segment
+content_disposition = on
+trust_server_names = on
+
+# fix extensions like .html on pages served without one
+adjust_extension = on
+
+# one progress bar, no dot-per-kilobyte output
+progress = bar
+
+# refuse non-ASCII control characters in filenames
+restrict_file_names = unix
+
+

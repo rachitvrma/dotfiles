@@ -1,0 +1,13 @@
+[workspaces]
+back_and_forth = true
+
+[[workspace]]
+name = "CHAT"
+layout.mode = "master"
+
+[[workspace]]
+name = "STATS"
+output = "DP-1"
+layout.mode = "dwindle"
+
+

@@ -1,0 +1,20 @@
+[merge-tools.vimdiff]
+program = "vim"
+
+[signing]
+backend = "gpg"
+behavior = "own"
+key = "C9C615C3FD2FDB09"
+sign-all = true
+
+[ui]
+default-command = "log"
+diff-editor = ":builtin"
+merge-editor = ":builtin"
+merge-tools = ":builtin"
+
+[user]
+email = "rachitverma1122@gmail.com"
+name = "Rachit Kumar Verma"
+
+

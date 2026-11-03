@@ -1,106 +1,117 @@
+# System-wide packages. Program *configuration* lives in the topic modules
+# (shell.nix, desktop.nix, services-user.nix, ...) and in stow/.
 {
-  flake.nixosModules.packages = { pkgs, ... }: {
-    # List packages installed in system profile. To search, run:
-    # $ nix search wget
-    environment = {
-      systemPackages = with pkgs; [
+  flake.nixosModules.packages =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = with pkgs; [
+        # Media
+        (mpv.override {
+          mpv-unwrapped = pkgs.mpv-unwrapped.override {
+            ffmpeg = pkgs.ffmpeg-full;
+            bluraySupport = false;
+            x11Support = false;
+            waylandSupport = true;
+            vdpauSupport = false;
+          };
+          scripts = with pkgs.mpvScripts; [
+            autoload
+            eisa01.smartskip
+            uosc
+            sponsorblock
+            thumbfast
+            mpris
+          ];
+        })
+        cava
+        swayimg
+        wiremix
+        zathura
+        pinta
+
+        # Documents
+        pandoc
+        libreoffice
+        gelasio # font needed by LibreOffice
+
+        # Apps
+        equibop
+        qutebrowser
+        pcmanfm
+        speedtest-cli
+        timr-tui
+        figlet
+        sl
+
+        # Desktop plumbing
+        kitty
+        xdg-terminal-exec
+        wl-clipboard
+        shared-mime-info
+        lxmenu-data
+        ddcutil
+        ddcutil-service
+        ddcui
+
+        # Files and disks
+        trash-cli # see the trash-empty timer in services-user.nix
+        jdupes
+        gdu
+        ntfsprogs
+        file
         wget
+
+        # System monitors
+        bottom
+        btop
+        htop
+
+        # Android
+        android-tools
+        scrcpy
+
+        # Nix tooling
+        nix-prefetch
+        nix-prefetch-github
+        nix-auth
+        nix-search-tv # TODO: set it up
+        nix-output-monitor
+        nix-your-shell
+        gitingest
+
+        # Secrets
+        pass-wayland
       ];
-    };
 
-    programs.appimage = {
-      enable = true;
-      binfmt = true;
-    };
+      environment.sessionVariables = {
+        # Wayland hints that are safe in every session. Compositor-only
+        # variables (SDL_VIDEODRIVER, QT_QPA_PLATFORM, GDK_BACKEND, ...) live in
+        # stow/noctalia-stack/.../umbriel/config.toml, so X11 and TTY
+        # sessions are not forced onto Wayland.
+        NIXOS_OZONE_WL = 1;
+        ELECTRON_OZONE_PLATFORM_HINT = "auto";
+        MOZ_ENABLE_WAYLAND = 1;
+        GTK_USE_PORTAL = 1;
+      };
 
-    security = {
-      sudo = {
-        enable = true;
-        execWheelOnly = true;
-        package = pkgs.sudo.override {
-          withInsults = true;
+      programs = {
+        appimage = {
+          enable = true;
+          binfmt = true;
         };
+        git = {
+          enable = true;
+          package = pkgs.gitFull;
+          lfs.enable = true;
+        };
+        firefox.enable = true;
+        seahorse.enable = true;
+      };
 
-        extraConfig =
-          # bash
-          ''
-            Defaults pwfeedback
-          '';
+      # Use the system module for edge cases
+      xdg.terminal-exec = {
+        enable = true;
+        settings.default = [ "kitty.desktop" ];
       };
     };
-  };
-
-  flake.homeModules.packages = { pkgs, ... }: {
-    # Enables the rainbow spectrum in cava
-    stylix.targets.cava.rainbow.enable = true;
-
-    programs = {
-      pandoc.enable = true;
-      atool = {
-        enable = true;
-        extraPackages = with pkgs; [
-          bzip2
-          cpio
-          gnutar
-          gzip
-          lhasa
-          lzop
-          p7zip
-          unrar-free
-          unzip
-          xz
-          zip
-        ];
-        settings = {
-          path_unrar = "unrar-free";
-        };
-      };
-
-      # Popular system monitors for the terminal
-      bottom = {
-        enable = true;
-      };
-      htop.enable = true;
-
-      swayimg.enable = true;
-
-      gcc.enable = true;
-      # TODO: Make a module for $XDG_CONFIG_HOME/cava/themes
-      # NOTE: For cava enabled the stylix.cava.rainbow.enable
-      cava = {
-        enable = true;
-        settings = {
-          general = {
-            live-config = 1;
-            framerate = 60;
-            sensitivity = 100;
-            lower_cutoff_freq = 50;
-            higher_cutoff_freq = 1000;
-          };
-          input = {
-            method = "pipewire";
-          };
-          smoothing = {
-            monstercat = 1;
-            waves = 1;
-            noise_reduction = 77;
-          };
-        };
-      };
-
-      libreoffice.enable = true;
-    };
-
-    home.packages = with pkgs; [
-      gitingest # For the gitingest command
-      wl-clipboard # For wl-copy command
-      unzip # For the unzip command
-      file # For the file command
-      pinta # For editing images
-      timr-tui # TODO make a module for it
-
-      # Fonts needed for LibreOffice
-      gelasio
-    ];
-  };
 }

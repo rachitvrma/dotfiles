@@ -1,0 +1,44 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+max_line_length = 100
+
+# Tab-indented languages and formats
+[*.{go,mk}]
+indent_style = tab
+
+[Makefile]
+indent_style = tab
+
+# C/C++: 4 spaces is the more common convention
+[*.{c,h,cpp,hpp,cc,cxx}]
+indent_size = 4
+
+# Python: PEP 8 and Black's default line length
+[*.py]
+indent_size = 4
+max_line_length = 88
+
+[*.lua]
+indent_size = 2
+
+# Markdown: trailing whitespace can be a hard line break
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = off
+
+[*.{json,yaml,yml,toml}]
+indent_size = 2
+
+# Diffs and patches: never touch whitespace
+[*.{diff,patch}]
+trim_trailing_whitespace = false
+insert_final_newline = false
+
+

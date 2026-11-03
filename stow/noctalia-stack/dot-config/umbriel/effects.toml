@@ -1,0 +1,22 @@
+[include]
+files = [
+  "/run/current-system/sw/share/umbriel/effects/border/pulse/effect.toml",
+  "/run/current-system/sw/share/umbriel/effects/border/audio/effect.toml",
+  "/run/current-system/sw/share/umbriel/effects/screen/vignette/effect.toml",
+  "/run/current-system/sw/share/umbriel/effects/window/scanlines/effect.toml",
+  "/run/current-system/sw/share/umbriel/effects/cursor/glow/effect.toml",
+  "/run/current-system/sw/share/umbriel/effects/cursor/trail/effect.toml",
+  "/run/current-system/sw/share/umbriel/effects/cursor/trail-path/effect.toml",
+]
+
+[effects]
+border = "pulse"
+cursor = "trail"
+# screen = "vignette"
+
+[[window_rule]]
+match.app_id = "^mpv$"
+border_effect = "off"
+window_effect = "scanlines"
+
+

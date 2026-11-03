@@ -1,0 +1,28 @@
+# ==============================================================================
+# Appearance
+# Blur uses a smaller radius than the built-in default.
+# https://docs.noctalia.dev/umbriel/appearance/
+[appearance]
+border_width = 2
+corner_radius = 10
+drag_opacity = 0.75
+outer_border_width = 0
+prefer_no_csd = true
+
+[appearance.blur]
+brightness = 0.9
+contrast = 0.9
+enabled = true
+noise = 0.01
+optimized = true
+passes = 5
+radius = 2
+saturation = 1.07
+
+[appearance.shadow]
+enabled = true
+offset_x = 2
+offset_y = 2
+softness = 10
+
+

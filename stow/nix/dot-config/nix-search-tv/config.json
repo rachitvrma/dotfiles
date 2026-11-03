@@ -1,0 +1,11 @@
+{
+  "indexes": [
+    "nixpkgs",
+    "home-manager",
+    "nixos",
+    "nur",
+    "noogle"
+  ]
+}
+
+

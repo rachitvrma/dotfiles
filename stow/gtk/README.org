@@ -1,0 +1,4 @@
+#+TITLE: GTK Theming Notes
+I use =nwg-look= for setting up themes. The =~/.gtkrc-2.0.mine= is picked up by it to change it. Don't need to get =~/.gtkrc-2.0= here.
+
+

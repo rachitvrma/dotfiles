@@ -33,3 +33,5 @@ case "${answer,,}" in
     ""|y|yes) rm -f -- "${new_backups[@]}" && echo "Removed." ;;
     *)        echo "Left in place." ;;
 esac
+
+

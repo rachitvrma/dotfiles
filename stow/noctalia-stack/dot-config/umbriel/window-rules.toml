@@ -1,0 +1,79 @@
+# ==============================================================================
+# Window rules
+# Rules combine in order, with later values overriding earlier ones.
+# https://docs.noctalia.dev/umbriel/window-rules/
+
+# Blur is opt-in per application. [appearance.blur] enabled only allows it,
+# and it shows only where a window is actually transparent. Add an app_id
+# here (see `umbriel windows`) when you make another app translucent.
+[[window_rule]]
+match.app_id = ["^kitty$", "^emacs$"]
+blur = true
+
+[[window_rule]]
+match.app_id = "^dev.noctalia.Noctalia$"
+default_floating = true
+default_floating_size_px = { width = 1020, height = 900 }
+blur = true
+
+[[window_rule]]
+match.app_id = "^dev.noctalia.UmbrielSharePicker$"
+default_floating = true
+default_floating_size_px = { width = 800, height = 600 }
+blur = true
+
+[[window_rule]]
+match.title = "^(Picture-in-Picture|Picture in picture)$"
+default_floating = true
+default_maximize = false
+default_position = { x = 20, y = 20, anchor = "bottom_right" }
+
+[[window_rule]]
+match.title = "^notificationtoasts_.+_desktop"
+default_position = { x = 0, y = 0, anchor = "bottom_right" }
+default_focused = false
+default_pinned = true
+blur = true
+
+# Give scratchpad windows their own border colors.
+# [[window_rule]]
+# match.is_scratchpad = true
+# border_color_focused = "#E5C07BFF"
+# border_color_unfocused = "#5C4A2AFF"
+
+# Leave an application that draws its own corners and shadow undecorated.
+# [[window_rule]]
+# match.app_id = "^org[.]gnome[.]TextEditor$"
+# border_width = 0
+# corner_radius = 0
+# shadow = false
+
+# pcmanfm main window: floating, translucent and blurred. opacity applies to
+# the whole surface including text, so raise it toward 1.0 if text feels
+# washed out. It is ignored while fullscreen.
+[[window_rule]]
+match.app_id = "^pcmanfm$"
+default_floating = true
+default_floating_size_px = { width = 1020, height = 700 }
+opacity = 0.85
+blur = true
+
+# pcmanfm file-operation windows: floating and compact. Later rules win, so
+# this overrides the size above. 560x220 is well under the 1020x700 main
+# window and about 29% of the 1920 px screen width.
+[[window_rule]]
+match.app_id = "^pcmanfm$"
+match.title = "^(Copying|Moving|Trashing|Deleting|Restoring|Changing) "
+default_floating = true
+default_floating_size_px = { width = 560, height = 220 }
+
+[[window_rule]]
+match.app_id = "^firefox$"
+default_workspace = 2
+
+[[window_rule]]
+match.app_id = "^org.gnome.Multiwriter"
+default_floating = true
+default_floating_size_px = { width = 560, height = 220 }
+
+

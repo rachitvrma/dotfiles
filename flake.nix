@@ -1,67 +1,30 @@
 {
-  description = ''
-    "Are not five sparrows sold for two pennies? And not one of them is forgotten before God.
-     Why, even the hairs of your head are all numbered. Fear not; you are of more value than many sparrows."
-     - Luke 12:6-7
-  '';
-
-  inputs = {
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    disko.url = "github:nix-community/disko";
-
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    stylix = {
-      url = "github:nix-community/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Download the wallpaper repo and then use it, otherwise it will fail
-    wallpapers = {
-      url = "github:rachitvrma/Wallpapers";
-      flake = false;
-    };
-  };
-
+  # Inputs are not declared here: they are pinned in .tack/pins.toml and
+  # resolved lazily by .tack/default.nix (see README.org).
   outputs =
-    inputs:
+    { self, ... }@args:
     let
+      inputs = (import ./.tack) {
+        overrides = {
+          inherit self;
+        }
+        // (args.tackOverrides or { });
+      };
       inherit (inputs.nixpkgs) lib;
-      inherit (lib.fileset) toList fileFilter;
 
-      isNixModule =
-        file:
-        file.hasExt "nix"
-        && file.name != "flake.nix"
-        && file.name != "secrets.nix" # Agenix secrets.nix files are not imported
-        && !lib.hasPrefix "_" file.name;
-
-      importTree = path: toList (fileFilter isNixModule path);
-      mkFlake = inputs.flake-parts.lib.mkFlake { inherit inputs; };
+      # Every .nix file under ./modules is a flake-parts module, except:
+      #   - flake.nix / secrets.nix  (not modules)
+      #   - files starting with "_"  (plain NixOS/home-manager modules or
+      #     data that a flake-parts module imports explicitly)
+      importTree =
+        path:
+        lib.fileset.toList (
+          lib.fileset.fileFilter (
+            f: f.hasExt "nix" && f.name != "flake.nix" && f.name != "secrets.nix" && !lib.hasPrefix "_" f.name
+          ) path
+        );
     in
-    mkFlake { imports = importTree ./.; };
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = importTree ./modules;
+    };
 }

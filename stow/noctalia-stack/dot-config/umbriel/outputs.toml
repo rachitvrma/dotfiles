@@ -1,0 +1,11 @@
+[output.HDMI-A-1]
+enabled = true
+
+[output.eDP-1]
+enabled = true
+workspaces = "dynamic"
+workspace_axis = "vertical"
+min_workspaces = 3
+scale = 1.0
+
+

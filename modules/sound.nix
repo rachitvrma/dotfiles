@@ -10,12 +10,6 @@
       pulse.enable = true;
     };
   };
-
-  flake.homeModules.sound = { ... }: {
-    services.pipewire = {
-      enable = true;
-      wireplumber.enable = true;
-    };
-    programs.wiremix.enable = true;
-  };
 }
+
+

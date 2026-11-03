@@ -31,14 +31,14 @@
 Looks matter. It is a good thing to have utility with a good rice.
 #+end_quote
 
-A single-host NixOS + home-manager configuration, wired together with [[https://flake.parts][flake-parts]] instead of one monolithic =flake.nix=. Every file under [[./modules][modules/]] auto-imports itself via =lib.fileset= --- see [[./flake.nix][flake.nix]] --- so adding a new module is just adding a new =.nix= file, no import list to maintain. Details in [[./docs/architecture.org][docs/architecture.org]].
+A single-host NixOS configuration, wired together with [[https://flake.parts][flake-parts]] instead of one monolithic =flake.nix=. Every file under [[./modules][modules/]] is a flake-parts module that auto-imports itself via =lib.fileset= --- see [[./flake.nix][flake.nix]] --- so adding a new module is just adding a new =.nix= file, no import list to maintain. Files starting with =_= are skipped by the auto-import (host-local plain NixOS modules). Details in [[./docs/architecture.org][docs/architecture.org]].
 
 | Util                     | Program used                                                                               |
 |--------------------------+--------------------------------------------------------------------------------------------|
 | Shell                    | Bash · starship · carapace · zoxide · fzf / television                                     |
 | Desktop Environment      | umbriel (compositor) · Noctalia (bar, dock, launcher, lock screen, greeter)                |
 | Editor                   | Emacs (pgtk, daemon + =emacsclient=)                                                       |
-| Terminal                 | foot (via =footclient=) · kitty module present but disabled                                |
+| Terminal                 | kitty (default via =xdg-terminal-exec=)                                                    |
 | Launchers                | Noctalia launcher · =wlr-which-key= menus · =xdg-launcher= inside Emacs                    |
 | Audio                    | PipeWire · wiremix · cava                                                                  |
 | System Monitor           | bottom · htop · gdu                                                                        |
@@ -66,8 +66,8 @@ Fresh machine: follow [[./docs/installation.org][docs/installation.org]]. Alread
 #+begin_src sh
 
   cd ~/etc/nixos
-  nix flake update
-  nos            # alias for: nh os switch
+  tack update    # inputs are pinned in .tack/pins.toml, there is no flake.lock
+  nos            # alias for: nh os switch   (or: just switch)
 
 #+end_src
 
@@ -88,9 +88,10 @@ All longer-form documentation lives in [[./docs][docs/]] (index: [[./docs/README
 | [[./docs/tool-inventory.org][tool-inventory]]     | One row per job; overlapping tools flagged                          |
 | [[./docs/troubleshooting.org][troubleshooting]]    | Known gotchas and fixes                                             |
 | [[./docs/new-host.org][new-host]]           | Adding a second machine                                             |
+| [[./docs/hibernation.org][hibernation]]        | Swapfile layout, resume, installing the swap on an existing system  |
 | [[./docs/learning-resources.org][learning-resources]] | Nix / NixOS / flakes reading list                                   |
 
-Near the code: [[./modules/emacs/README.org][why Emacs]], [[./modules/emacs/config/Config.org][literate Emacs config]], [[./modules/browsers/README.md][Firefox userChrome notes]], and [[./TODO.org][TODO.org]].
+Near the code: [[./modules/emacs/README.org][why Emacs]], [[./stow/emacs/dot-config/emacs/Config.org][literate Emacs config]], [[./modules/browsers/README.md][Firefox userChrome notes]], and [[./TODO.org][TODO.org]].
 
 ** TODO Screenshots
 
@@ -101,3 +102,5 @@ Add a few screenshots (desktop, Emacs dashboard, Noctalia bar) under =.github/im
 * 📃 License
 
 Licensed under the GNU General Public License v3.0. See [[./LICENSE][LICENSE]] for details.
+
+

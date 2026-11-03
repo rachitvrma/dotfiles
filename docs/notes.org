@@ -1,2 +1,0 @@
-#+TITLE: Personal Notes
-#+SUBTITLE: Certain Notes on tools that are useful

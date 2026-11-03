@@ -1,0 +1,38 @@
+#+TITLE: Hibernation
+
+* Layout
+
+LUKS -> btrfs -> subvolume =/swap= mounted at =/.swapvol= -> =swapfile= (24G,
+RAM is 16 GiB). A swapfile inside the encrypted container keeps the hibernation
+image (which contains your keys) encrypted, with a single passphrase prompt.
+Declared in =modules/hosts/nixpavilion/_disko-config.nix=.
+
+btrfs needs the file to be NOCOW and uncompressed; disko creates it with
+=btrfs filesystem mkswapfile=, so do not snapshot the =/swap= subvolume.
+
+* Fresh install
+
+=just install= (disko creates the swapfile for you).
+
+* Already installed
+
+Before switching to the new configuration:
+
+#+begin_src sh
+just add-swapfile      # creates the subvolume and the swapfile
+just switch
+#+end_src
+
+Skipping the first step makes the =/.swapvol= mount fail at boot.
+
+* Resume
+
+By default no kernel parameters are set: systemd stores the swapfile location
+in the EFI variable =HibernateLocation= and resumes from it. Test with
+=systemctl hibernate=, power on, and check that your session came back.
+
+If it boots fresh instead of resuming, set =resumeOffset= in
+=_hibernation.nix= to the output of =just resume-offset= and rebuild. That adds
+=resume=/dev/mapper/crypted= and =resume_offset=<n>=.
+
+Recreating the swapfile changes the offset; update the number then.
