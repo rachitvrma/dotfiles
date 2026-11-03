@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if ! command -v yt-dlp &>/dev/null; then
+  echo "yt-dlp is not installed"
+  echo "Install yt-dlp first"
+  exit 1
+fi
+
+yt-dlp \
+  --ignore-errors \
+  --continue \
+  --no-overwrites \
+  --download-archive \
+  progress.txt \
+  "$@"

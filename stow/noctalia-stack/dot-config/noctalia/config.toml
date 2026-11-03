@@ -246,24 +246,29 @@ show_unlock_hint = true
 show_weather = true
 
 [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
-box_height = 144.0
-box_width = 288.0
+box_height = 128.0
+box_width = 800.0
 cx = 960.0
-cy = 228.0
+cy = 668.0
 output = "eDP-1"
 placement_height = 1080.0
 placement_width = 1920.0
 rotation = 0.0
-type = "clock"
+type = "audio_visualizer"
 
 [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
+background_opacity = 0.0
+bands = 32
+centered = false
+color_2 = "secondary"
 format = "{:%I:%M%p}\\n{:%A}\\n{:%b %e,%Y}"
+show_when_idle = false
 
 [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
 box_height = 0.0
 box_width = 0.0
-cx = 1754.0
-cy = 914.0
+cx = 1712.0
+cy = 876.0
 output = "eDP-1"
 placement_height = 1080.0
 placement_width = 1920.0
@@ -276,27 +281,30 @@ background = false
 [lockscreen_widgets.widget.lockscreen-widget-0000000000000003]
 box_height = 0.0
 box_width = 0.0
-cx = 208.0
-cy = 114.0
+cx = 960.0
+cy = 506.0
 output = "eDP-1"
 placement_height = 1080.0
 placement_width = 1920.0
 rotation = 0.0
-type = "media_player"
+type = "sticker"
 
 [lockscreen_widgets.widget.lockscreen-widget-0000000000000003.settings]
 album_art_background = true
+background = false
+image_path = "/home/krish/Pictures/Avatars/shinchan.png"
+opacity = 1.0
 
 [lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
-box_height = 128.0
-box_width = 816.0
-cx = 954.0
-cy = 672.0
+box_height = 0.0
+box_width = 0.0
+cx = 960.0
+cy = 236.5
 output = "eDP-1"
 placement_height = 1080.0
 placement_width = 1920.0
 rotation = 0.0
-type = "audio_visualizer"
+type = "clock"
 
 [lockscreen_widgets.widget.lockscreen-widget-0000000000000004.settings]
 bands = 32
@@ -308,19 +316,23 @@ show_when_idle = false
 [lockscreen_widgets.widget.lockscreen-widget-0000000000000005]
 box_height = 0.0
 box_width = 0.0
-cx = 960.0
-cy = 476.0
+cx = 224.0
+cy = 130.0
 output = "eDP-1"
 placement_height = 1080.0
 placement_width = 1920.0
 rotation = 0.0
-type = "sticker"
+type = "media_player"
 
 [lockscreen_widgets.widget.lockscreen-widget-0000000000000005.settings]
+album_art_background = true
+audio_visualizer = true
 background_opacity = 0.0
 background_padding = 0
 background_radius = 29
+hide_when_no_media = true
 image_path = "/home/krish/Pictures/Avatars/shinchan.png"
+layout = "horizontal"
 opacity = 0.80000000000000004
 
 [nightlight]
@@ -398,6 +410,7 @@ community_ids = [
   "papirus-icons",
   "bat",
   "fzf",
+  "starship",
 ]
 
 [theme.templates.user.cava]
@@ -485,5 +498,3 @@ active_pill_size = 3.0
 inactive_pill_size = 1.7000000000000002
 pill_scale = 0.59999999999999998
 show_labels = false
-
-

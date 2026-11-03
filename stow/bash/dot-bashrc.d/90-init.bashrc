@@ -2,6 +2,11 @@
 # Tool initialisation. Loaded last on purpose: starship, direnv and zoxide all
 # hook PROMPT_COMMAND, and zoxide should come after the others.
 
+# Let's make it look good
+if have fastfetch; then
+  fastfetch
+fi
+
 # Television: shell integration (key bindings)
 if have tv; then
 	eval "$(tv init bash)"
@@ -36,5 +41,3 @@ fi
 if have zoxide; then
 	eval "$(zoxide init bash)"
 fi
-
-
