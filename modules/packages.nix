@@ -6,6 +6,7 @@
     {
       environment.systemPackages = with pkgs; [
         # Media
+        aria2
         yt-dlp
         (mpv.override {
           mpv-unwrapped = pkgs.mpv-unwrapped.override {

@@ -57,6 +57,16 @@
   (add-to-list 'org-structure-template-alist '("py" . "src python"))
   (add-to-list 'org-structure-template-alist '("bash" . "src bash")))
 
+(use-package plantuml-mode
+  :mode "\\.puml\\'"
+  :custom
+  (plantuml-default-exec-mode 'executable)
+  (plantuml-executable-path "plantuml"))
+
+(with-eval-after-load 'org
+  (setq org-plantuml-exec-mode 'plantuml)
+  (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t))))
+
 (use-package ispell
   :ensure nil
   :custom

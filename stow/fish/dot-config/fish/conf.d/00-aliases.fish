@@ -3,12 +3,14 @@
 status is-interactive; or return
 
 if type -q eza
-    alias ls='eza -al --color=always --group-directories-first --icons=always' # preferred listing
-    alias la='eza -a --color=always --group-directories-first --icons=always' # all files and dirs
-    alias ll='eza -l --color=always --group-directories-first --icons=always' # long format
-    alias lt='eza -aT --color=always --group-directories-first --icons=always' # tree listing
+    alias ls='eza -al --color=always --group-directories-first --icons=auto' # preferred listing
+    alias la='eza -a --color=always --group-directories-first --icons=auto' # all files and dirs
+    alias ll='eza -l --color=always --group-directories-first --icons=auto' # long format
+    alias lt='eza -aT --color=always --group-directories-first --icons=auto' # tree listing
     alias l.="eza -a | grep -e '^\.'" # show only dotfiles
 end
+
+alias l 'ls -alh'
 
 alias rm 'rm -i'
 alias cp 'cp -i'
@@ -45,13 +47,3 @@ alias hist 'history --show-time="%F %T "'
 
 # Get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
-
-# Arch / CachyOS only
-if type -q pacman
-    type -q grub-mkconfig; and alias grubup="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-    alias fixpacman="sudo rm /var/lib/pacman/db.lck"
-    alias cleanup='sudo pacman -Rns (pacman -Qtdq)'
-    alias gitpkg='pacman -Q | grep -i "\-git" | wc -l' # amount of -git packages
-    type -q expac; and alias big="expac -H M '%m\t%n' | sort -h | nl" # installed packages by size in MB
-    type -q expac; and alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl" # recently installed
-end

@@ -12,12 +12,25 @@
 
       environment.systemPackages = with pkgs; [
         luajitPackages.tree-sitter-cli
-        (pkgs.aspellWithDicts (
+        (aspellWithDicts (
           dicts: with dicts; [
             en
             es
           ]
         ))
+        # LaTeX: AUCTeX runs latexmk, eglot runs texlab
+        texliveMedium
+        texlab
+
+        # Language servers named in init-prog.el
+        tombi
+        just-lsp
+        systemd-lsp
+        fish-lsp
+        vscode-langservers-extracted
+
+        # Only needed once you wire PlantUML into Emacs (step 4)
+        plantuml
       ];
     };
 }

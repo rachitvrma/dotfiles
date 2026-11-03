@@ -19,8 +19,8 @@ btrfs needs the file to be NOCOW and uncompressed; disko creates it with
 Before switching to the new configuration:
 
 #+begin_src sh
-just add-swapfile      # creates the subvolume and the swapfile
-just switch
+  just add-swapfile      # creates the subvolume and the swapfile
+  just switch
 #+end_src
 
 Skipping the first step makes the =/.swapvol= mount fail at boot.

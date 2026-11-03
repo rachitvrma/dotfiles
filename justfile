@@ -56,10 +56,6 @@ install:
     sudo nix run github:nix-community/disko -- --mode destroy,format,mount --flake .#{{host}}
     sudo nixos-install --flake .#{{host}}
 
-# Existing install: create the swap subvolume + swapfile. Run before `switch`.
-add-swapfile:
-    sudo ./scripts/nixos/add-swapfile.sh
-
 # Only needed if hibernation does not resume (see _hibernation.nix).
 resume-offset:
     ./scripts/nixos/resume-offset.sh

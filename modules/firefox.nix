@@ -51,7 +51,7 @@
           # UI and Behavior
           DisplayMenuBar = "never";
           DontCheckDefaultBrowser = true;
-          HardwareAcceleration = false;
+          HardwareAcceleration = true;
           OfferToSaveLogins = false;
           # Escaped on purpose: Firefox expands ${home} itself at runtime
           DefaultDownloadDirectory = "\${home}/Downloads";

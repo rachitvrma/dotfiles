@@ -3,6 +3,7 @@
     { pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [
+        shfmt
         just
         stow
         unzip

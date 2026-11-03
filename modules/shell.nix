@@ -9,6 +9,12 @@
         rm = "rm -i"; # use \rm -rf for removing a large dir or files without confirmation
         cp = "cp -i";
         mv = "mv -i";
+
+        # These are set by default.
+        # Read the source code of environment.shellAliases block.
+        ls = null;
+        ll = null;
+        l = null;
       };
 
       environment.pathsToLink = [ "/share/bash-completion" ];
@@ -26,11 +32,24 @@
         eza
         fd
         ripgrep
+
+        # Fish plugins
+        fishPlugins.done
+        fishPlugins.fzf-fish
       ];
 
       programs = {
         bash.completion.enable = true;
-        fish.enable = true;
+        fish = {
+          enable = true;
+          useBabelfish = true;
+          generateCompletions = true;
+          vendor = {
+            config.enable = true;
+            functions.enable = true;
+            completions.enable = true;
+          };
+        };
         bat.enable = true; # config: stow/bat
 
         direnv = {
