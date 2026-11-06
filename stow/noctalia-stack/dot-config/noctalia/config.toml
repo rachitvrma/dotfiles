@@ -3,7 +3,7 @@ enable_sounds = true
 sound_volume = 0.5
 
 [bar.default]
-background_opacity = 0.80000000000000004
+background_opacity = 0.90
 center = ["widget", "group:g1", "date"]
 end = [
   "group:g7",
@@ -137,10 +137,10 @@ visible = true
 [dock]
 active_monitor_only = true
 auto_hide = true
-background_opacity = 0.69999999999999996
+background_opacity = 0.80
 enabled = true
 launcher_position = "end"
-pinned = ["firefox", "kitty", "emacsclient", "pcmanfm", "vesktop"]
+pinned = ["firefox", "kitty", "emacsclient", "pcmanfm", "equibop"]
 reserve_space = false
 show_dots = true
 show_instance_count = false
@@ -261,7 +261,6 @@ background_opacity = 0.0
 bands = 32
 centered = false
 color_2 = "secondary"
-format = "{:%I:%M%p}\\n{:%A}\\n{:%b %e,%Y}"
 show_when_idle = false
 
 [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
@@ -290,7 +289,6 @@ rotation = 0.0
 type = "sticker"
 
 [lockscreen_widgets.widget.lockscreen-widget-0000000000000003.settings]
-album_art_background = true
 background = false
 image_path = "/home/krish/Pictures/Avatars/shinchan.png"
 opacity = 1.0
@@ -305,13 +303,6 @@ placement_height = 1080.0
 placement_width = 1920.0
 rotation = 0.0
 type = "clock"
-
-[lockscreen_widgets.widget.lockscreen-widget-0000000000000004.settings]
-bands = 32
-centered = true
-color_2 = "on_surface_variant"
-show_wave = false
-show_when_idle = false
 
 [lockscreen_widgets.widget.lockscreen-widget-0000000000000005]
 box_height = 0.0
@@ -331,9 +322,7 @@ background_opacity = 0.0
 background_padding = 0
 background_radius = 29
 hide_when_no_media = true
-image_path = "/home/krish/Pictures/Avatars/shinchan.png"
 layout = "horizontal"
-opacity = 0.80000000000000004
 
 [nightlight]
 enabled = true
@@ -383,11 +372,11 @@ polkit_placement = "attached"
 transparency_mode = "glass"
 
 [theme]
-builtin = "Catppuccin"
+builtin = "Rose Pine"
 community_palette = "Gruvbox Material Hard"
-custom_palette = "one"
+custom_palette = "Gruvbox Material Hard"
 mode = "dark"
-source = "builtin"
+source = "custom"
 wallpaper_scheme = "m3-content"
 
 [theme.templates]
@@ -407,17 +396,18 @@ community_ids = [
   "discord",
   "libreoffice",
   "zathura",
-  "papirus-icons",
+  # "papirus-icons",
   "bat",
   "fzf",
   "starship",
+  "pywalfox",
 ]
 
 [theme.templates.user.cava]
 input_path = "$XDG_CONFIG_HOME/noctalia/templates/cava/cava.ini"
 output_path = "$XDG_CONFIG_HOME/cava/themes/noctalia"
 post_hook = "bash '{{ config_dir }}/templates/cava/apply.sh'"
-undo_hook = "bash '{{ config_dir }}/templates/cava/undo.sh'"
+# undo_hook = "bash '{{ config_dir }}/templates/cava/undo.sh'"
 
 [wallpaper]
 directory = "/home/krish/Pictures/Wallpapers"

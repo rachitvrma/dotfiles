@@ -11,8 +11,8 @@
     "hardwareAcceleration": true,
     "hardwareVideoAcceleration": true,
     "minimizeToTray": true,
-    "splashBackground": "rgb(29, 32, 33)",
-    "splashColor": "rgb(212, 190, 152)",
+    "splashBackground": "rgb(44, 45, 50)",
+    "splashColor": "rgb(243, 243, 244)",
     "splashProgress": true,
     "splashTheming": true,
     "staticTitle": true,
@@ -31,6 +31,6 @@
     "openLinksWithElectron": false,
     "middleClickAutoscroll": false,
     "webRTCIPHandlingPolicy": "default",
-    "transparencyOption": "none"
+    "transparencyOption": "none",
+    "customTitleBar": false
 }
-

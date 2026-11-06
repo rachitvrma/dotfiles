@@ -1,0 +1,9 @@
+{
+  "allowed_extensions": [
+    "pywalfox@frewacom.org"
+  ],
+  "description": "Noctalia Firefox theme native messaging host",
+  "name": "pywalfox",
+  "path": "/nix/store/lbnhskv2r0krs54ybh4gwr9a3jpvq8pv-noctalia-5.4.1/bin/.noctalia-wrapped",
+  "type": "stdio"
+}

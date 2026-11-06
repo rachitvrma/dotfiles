@@ -88,5 +88,3 @@
 "Print" = "spawn:noctalia msg screenshot-fullscreen pick"
 "Shift+Print" = "spawn:noctalia msg screenshot-region"
 "Ctrl+Print" = "spawn:noctalia msg screenshot-annotate"
-
-

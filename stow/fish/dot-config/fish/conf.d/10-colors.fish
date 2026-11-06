@@ -7,6 +7,6 @@ type -q vivid; or return
 set -l cache $XDG_CACHE_HOME/ls_colors.vivid
 if not test -s $cache; or test (command -s vivid) -nt $cache
     mkdir -p (path dirname $cache)
-    vivid generate catppuccin-mocha >$cache
+    vivid generate gruvbox-dark-hard >$cache
 end
 set -gx LS_COLORS (string collect <$cache)

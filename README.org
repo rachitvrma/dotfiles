@@ -49,7 +49,7 @@ A single-host NixOS configuration, wired together with [[https://flake.parts][fl
 | Documents                | zathura · emacs-reader · LibreOffice · pandoc · LaTeX / Typst                              |
 | Media                    | mpv (uosc, SponsorBlock) · EMMS · swayimg                                                  |
 | Downloads                | aria2 (RPC + systemd) · yt-dlp (=yt-music=, =yt-playlist= helpers)                         |
-| Theme                    | Stylix --- One Dark (base16), Papirus-Dark icons, phinger cursors, JetBrainsMono Nerd Font |
+| Theme                    | Stylix --- One Dark (base16), Gruvbox-Plus-Dark icons, phinger cursors, JetBrainsMono Nerd Font |
 | Browser                  | Firefox (hardened) · qutebrowser · w3m                                                     |
 | Secrets                  | agenix · pass / GPG                                                                        |
 | Version Control          | Git + Jujutsu (GPG-signed) · gh / gh-dash · Magit + majutsu                                |

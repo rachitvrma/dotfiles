@@ -213,8 +213,8 @@
 
 (defun my/apply-fonts (&rest _)
   "Set fixed- and variable-pitch families; re-run after every theme change."
-  (set-face-attribute 'fixed-pitch nil :family "JetBrainsMono Nerd Font")
-  (set-face-attribute 'variable-pitch nil :family "Iosevka Aile" :height 1.0))
+  (set-face-attribute 'fixed-pitch nil :family "JetBrainsMono Nerd Font" :height 120)
+  (set-face-attribute 'variable-pitch nil :family "Cantarell" :height 140))
 
 (add-hook 'enable-theme-functions #'my/apply-fonts)
 (my/apply-fonts)

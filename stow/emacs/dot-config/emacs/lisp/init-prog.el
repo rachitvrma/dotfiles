@@ -14,7 +14,7 @@
           js-ts-mode
           typescript-ts-mode
           tsx-ts-mode
-          json-ts-mode
+          json-mode
           yaml-ts-mode
           tex-mode
           LaTeX-mode
@@ -55,7 +55,7 @@
   ;; Universal fallback: wire web and config languages to dprint
   (dolist (mode '(html-mode html-ts-mode css-ts-mode js-ts-mode
                             typescript-ts-mode tsx-ts-mode
-                            json-ts-mode toml-ts-mode yaml-ts-mode markdown-mode))
+                            json-mode toml-ts-mode yaml-ts-mode markdown-mode))
     (setf (alist-get mode apheleia-mode-alist) 'dprint)))
 
 (use-package treesit-auto
@@ -93,6 +93,9 @@
 (use-package fish-mode)
 
 (use-package just-mode)
+
+(use-package json-mode
+  :mode "\\.json\\'")
 
 (use-package nix-mode
   :mode "\\.nix\\'")

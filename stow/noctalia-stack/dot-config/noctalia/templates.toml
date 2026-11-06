@@ -2,6 +2,3 @@
 input_path = "$XDG_CONFIG_HOME/noctalia/templates/cava/cava.ini"
 output_path = "$XDG_CONFIG_HOME/cava/themes/noctalia"
 post_hook = "bash '{{ config_dir }}/templates/cava/apply.sh'"
-undo_hook = "bash '{{ config_dir }}/templates/cava/undo.sh'"
-
-

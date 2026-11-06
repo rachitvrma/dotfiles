@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Equibop
+Comment=Equibop autostart
+Exec=equibop --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --start-minimized
+StartupNotify=false
+Terminal=false
+Icon=equibop

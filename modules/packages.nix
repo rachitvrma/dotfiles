@@ -37,7 +37,7 @@
         gelasio # font needed by LibreOffice
 
         # Apps
-        equibop
+        equibop # FIXME: fix the autostart file somehow
         qutebrowser
         pcmanfm
         speedtest-cli
@@ -48,7 +48,10 @@
         # Theme stuff
         bibata-cursors
         nwg-look
-        papirus-icon-theme
+        (gruvbox-plus-icons.override {
+          folder-color = "purple";
+        })
+        # papirus-icon-theme
         gsettings-desktop-schemas
         glib
         adw-gtk3
@@ -76,9 +79,15 @@
         btop
         htop
 
+        kdePackages.qt6ct
+        libsForQt5.qt5ct
+
         # Android
         android-tools
         scrcpy
+
+        # Browser
+        firefox
 
         # Nix tooling
         nix-prefetch
@@ -88,6 +97,8 @@
         nix-output-monitor
         nix-your-shell
         gitingest
+        gitFull
+        git-crypt
 
         # Secrets
         pass-wayland

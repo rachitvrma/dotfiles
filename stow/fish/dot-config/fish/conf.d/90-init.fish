@@ -25,4 +25,6 @@ type -q direnv; and direnv hook fish | source
 # Zoxide (keep last)
 type -q zoxide; and zoxide init fish | source
 
-
+# Devenv for NixOS
+type -q devenv
+and devenv hook fish | source

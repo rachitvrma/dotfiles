@@ -749,8 +749,8 @@ Highlight colors in programming mode.
 
   (defun my/apply-fonts (&rest _)
     "Set fixed- and variable-pitch families; re-run after every theme change."
-    (set-face-attribute 'fixed-pitch nil :family "JetBrainsMono Nerd Font")
-    (set-face-attribute 'variable-pitch nil :family "Iosevka Aile" :height 1.0))
+    (set-face-attribute 'fixed-pitch nil :family "JetBrainsMono Nerd Font" :height 120)
+    (set-face-attribute 'variable-pitch nil :family "Cantarell" :height 140))
 
   (add-hook 'enable-theme-functions #'my/apply-fonts)
   (my/apply-fonts)
@@ -1402,7 +1402,7 @@ Eglot ships with Emacs (29+).
             js-ts-mode
             typescript-ts-mode
             tsx-ts-mode
-            json-ts-mode
+            json-mode
             yaml-ts-mode
             tex-mode
             LaTeX-mode
@@ -1451,7 +1451,7 @@ Runs an external formatter asynchronously on save and patches the buffer with a 
     ;; Universal fallback: wire web and config languages to dprint
     (dolist (mode '(html-mode html-ts-mode css-ts-mode js-ts-mode
                               typescript-ts-mode tsx-ts-mode
-                              json-ts-mode toml-ts-mode yaml-ts-mode markdown-mode))
+                              json-mode toml-ts-mode yaml-ts-mode markdown-mode))
       (setf (alist-get mode apheleia-mode-alist) 'dprint)))
 
 #+end_src
@@ -1529,6 +1529,13 @@ Highlights =justfiles=
 
 #+begin_src emacs-lisp
   (use-package just-mode)
+#+end_src
+
+*** Json Mode
+
+#+begin_src emacs-lisp
+  (use-package json-mode
+    :mode "\\.json\\'")
 #+end_src
 
 *** Nix Mode

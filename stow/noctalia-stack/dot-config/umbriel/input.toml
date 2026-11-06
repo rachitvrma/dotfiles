@@ -1,5 +1,8 @@
 [input]
 middle_click_paste = false
+client_window_drag = true
+window_drag_toggle = "none"
+# mod_right_double_click = "none"
 
 [input.cursor]
 follows_focus = true
@@ -33,5 +36,3 @@ disable_while_typing = true
 natural_scroll = true
 tap = true
 accel_profile = "adaptive"
-
-
