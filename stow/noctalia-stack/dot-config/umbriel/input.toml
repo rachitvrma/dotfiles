@@ -14,6 +14,7 @@ theme = "Bibata-Modern-Ice"
 
 [input.focus]
 follows_mouse = true
+hover_raises = false
 
 [input.keyboard]
 layout = "us"
