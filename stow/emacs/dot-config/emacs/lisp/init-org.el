@@ -20,10 +20,6 @@
    '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
       "* TODO %?\n  %U\n  %i\n  %a"
       :empty-lines 1)
-     ("j" "Journal" entry
-      (file+olp+datetree "~/org/journal.org")
-      "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
-      :empty-lines 1)
      ("n" "Note" entry (file+headline org-default-notes-file "Notes")
       "* %?\n  %i\n  %a")))
 
@@ -56,6 +52,16 @@
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("py" . "src python"))
   (add-to-list 'org-structure-template-alist '("bash" . "src bash")))
+
+(use-package org-journal
+  :bind (("C-c j" . org-journal-new-entry)
+         ("C-c J" . org-journal-search))
+  :custom
+  (org-journal-dir "~/org/journal/")
+  (org-journal-file-type 'weekly)
+  (org-journal-date-format "%A, %Y-%m-%d")
+  (org-journal-enable-agenda-integration t)
+  (org-journal-encrypt-journal nil))
 
 (use-package plantuml-mode
   :mode "\\.puml\\'"
