@@ -88,22 +88,15 @@
           eval-expression-minibuffer-setup
           ielm-mode
           lisp-mode
-          lisp-interaction-mode) . enable-paredit-mode)
+          lisp-interaction-mode
+          scheme-mode
+          geiser-repl-mode
+          sly-mrepl-mode) . enable-paredit-mode)
   :bind (:map paredit-mode-map
               ;; paredit's M-s (splice) would shadow the consult M-s prefix
               ("M-s" . nil)
               ("M-S" . paredit-splice-sexp))
   :preface
-  ;; "Electric RETURN" from the wiki: pressing RET just before a closing
-  ;; character opens an extra line, which paredit-close-round regathers.
-  ;;
-  ;; Regex "[]})\"]":
-  ;;   [ ... ]  a bracket expression: match exactly ONE character from the set
-  ;;   a ] placed first inside the brackets is taken literally, so the set holds ]
-  ;;   }  and  )  are plain literal characters inside brackets
-  ;;   \"  is the Elisp string escape for a double quote (not regex syntax)
-  ;; `looking-at' only tests the text starting exactly at point, so this
-  ;; fires only when the next character is ], }, ) or a double quote.
   (defvar electrify-return-match "[]})\"]"
     "If this regexp matches the text after point, RET does an electric return.")
 
@@ -117,17 +110,15 @@ an empty line between point and that text, then insert a newline."
       (newline arg)
       (indent-according-to-mode)))
   :init
-  ;; The wiki says local-set-key in a mode hook is better than a global
-  ;; binding. The minibuffer is left out on purpose, so its own RET
+  ;; The minibuffer and REPLs are left out on purpose, so their own RET
   ;; handling keeps working.
   (dolist (hook '(emacs-lisp-mode-hook
                   lisp-mode-hook
-                  lisp-interaction-mode-hook))
+                  lisp-interaction-mode-hook
+                  scheme-mode-hook))
     (add-hook hook (lambda ()
                      (local-set-key (kbd "RET") #'electrify-return-if-match))))
   :config
-  ;; Make ElDoc refresh the echo area after paredit commands.
-  ;; The argument is a plain prefix string, not a regex.
   (require 'eldoc)
   (eldoc-add-command-completions "paredit-")
   ;; Avoid double-inserted closers, since electric-pair-mode is global.

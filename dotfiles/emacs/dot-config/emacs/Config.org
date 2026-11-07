@@ -380,7 +380,7 @@ Source environment variables from the shell into Emacs
     :config
     (when (or (memq window-system '(mac ns x pgtk))
               (daemonp))
-      (exec-path-from-shell-copy-envs '("GNUPGHOME" "GPG_TTY" "SSH_AUTH_SOCK"))
+      (exec-path-from-shell-copy-envs '("GNUPGHOME" "GPG_TTY" "SSH_AUTH_SOCK" "GUIX_PACKAGE_PATH"))
       (exec-path-from-shell-initialize)))
 
 #+end_src
@@ -1126,22 +1126,15 @@ Follows the EmacsWiki ParEdit page: enable it from the Lisp mode hooks (plus the
             eval-expression-minibuffer-setup
             ielm-mode
             lisp-mode
-            lisp-interaction-mode) . enable-paredit-mode)
+            lisp-interaction-mode
+            scheme-mode
+            geiser-repl-mode
+            sly-mrepl-mode) . enable-paredit-mode)
     :bind (:map paredit-mode-map
                 ;; paredit's M-s (splice) would shadow the consult M-s prefix
                 ("M-s" . nil)
                 ("M-S" . paredit-splice-sexp))
     :preface
-    ;; "Electric RETURN" from the wiki: pressing RET just before a closing
-    ;; character opens an extra line, which paredit-close-round regathers.
-    ;;
-    ;; Regex "[]})\"]":
-    ;;   [ ... ]  a bracket expression: match exactly ONE character from the set
-    ;;   a ] placed first inside the brackets is taken literally, so the set holds ]
-    ;;   }  and  )  are plain literal characters inside brackets
-    ;;   \"  is the Elisp string escape for a double quote (not regex syntax)
-    ;; `looking-at' only tests the text starting exactly at point, so this
-    ;; fires only when the next character is ], }, ) or a double quote.
     (defvar electrify-return-match "[]})\"]"
       "If this regexp matches the text after point, RET does an electric return.")
 
@@ -1155,17 +1148,15 @@ Follows the EmacsWiki ParEdit page: enable it from the Lisp mode hooks (plus the
         (newline arg)
         (indent-according-to-mode)))
     :init
-    ;; The wiki says local-set-key in a mode hook is better than a global
-    ;; binding. The minibuffer is left out on purpose, so its own RET
+    ;; The minibuffer and REPLs are left out on purpose, so their own RET
     ;; handling keeps working.
     (dolist (hook '(emacs-lisp-mode-hook
                     lisp-mode-hook
-                    lisp-interaction-mode-hook))
+                    lisp-interaction-mode-hook
+                    scheme-mode-hook))
       (add-hook hook (lambda ()
                        (local-set-key (kbd "RET") #'electrify-return-if-match))))
     :config
-    ;; Make ElDoc refresh the echo area after paredit commands.
-    ;; The argument is a plain prefix string, not a regex.
     (require 'eldoc)
     (eldoc-add-command-completions "paredit-")
     ;; Avoid double-inserted closers, since electric-pair-mode is global.
@@ -1543,6 +1534,54 @@ Use =nix-mode= to edit nix files
 #+begin_src emacs-lisp
   (use-package nix-mode
     :mode "\\.nix\\'")
+#+end_src
+
+*** Geiser -- Guile and Guix
+
+Interactive Scheme development, as recommended by the Guix manual's "Perfect Setup". The REPL is a separate Guile process that starts only when asked (=C-c C-z= or =M-x geiser-guile=).
+
+#+begin_src emacs-lisp
+
+  (use-package geiser
+    :defer t
+    :custom
+    (geiser-default-implementation 'guile)
+    (geiser-active-implementations '(guile))
+    ;; Don't auto-start a REPL when opening a file; start it yourself
+    (geiser-mode-start-repl-p nil))
+
+  (use-package geiser-guile
+    :after geiser
+    :config
+    ;; Point Geiser at your local Guix checkout and personal channel if present
+    (when (file-directory-p "~/src/guix")
+      (add-to-list 'geiser-guile-load-path "~/src/guix"))
+    (when (file-directory-p "~/src/my-guix-channel")
+      (add-to-list 'geiser-guile-load-path "~/src/my-guix-channel")))
+
+  ;; `guix-devel' ships inside the `guix' MELPA package, so `:ensure guix'
+  ;; tells package.el to install `guix' instead of looking for `guix-devel'.
+  (use-package guix-devel
+    :ensure guix
+    :hook (scheme-mode . guix-devel-mode))
+
+#+end_src
+
+*** Common Lisp -- =sly=
+
+Interactive Common Lisp development using =sbcl= by default, with =clisp= available via =C-u M-x sly=.
+
+#+begin_src emacs-lisp
+
+  (use-package sly
+    :defer t
+    :custom
+    (inferior-lisp-program "sbcl")
+    :config
+    (setq sly-lisp-implementations
+          '((sbcl ("sbcl"))
+            (clisp ("clisp")))))
+
 #+end_src
 
 *** Python helpers

@@ -95,6 +95,38 @@
 (use-package nix-mode
   :mode "\\.nix\\'")
 
+(use-package geiser
+  :defer t
+  :custom
+  (geiser-default-implementation 'guile)
+  (geiser-active-implementations '(guile))
+  ;; Don't auto-start a REPL when opening a file; start it yourself
+  (geiser-mode-start-repl-p nil))
+
+(use-package geiser-guile
+  :after geiser
+  :config
+  ;; Point Geiser at your local Guix checkout and personal channel if present
+  (when (file-directory-p "~/src/guix")
+    (add-to-list 'geiser-guile-load-path "~/src/guix"))
+  (when (file-directory-p "~/src/my-guix-channel")
+    (add-to-list 'geiser-guile-load-path "~/src/my-guix-channel")))
+
+;; `guix-devel' ships inside the `guix' MELPA package, so `:ensure guix'
+;; tells package.el to install `guix' instead of looking for `guix-devel'.
+(use-package guix-devel
+  :ensure guix
+  :hook (scheme-mode . guix-devel-mode))
+
+(use-package sly
+  :defer t
+  :custom
+  (inferior-lisp-program "sbcl")
+  :config
+  (setq sly-lisp-implementations
+        '((sbcl ("sbcl"))
+          (clisp ("clisp")))))
+
 (use-package pyvenv
   :defer t)
 

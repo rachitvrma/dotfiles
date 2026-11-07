@@ -120,7 +120,7 @@
   :config
   (when (or (memq window-system '(mac ns x pgtk))
             (daemonp))
-    (exec-path-from-shell-copy-envs '("GNUPGHOME" "GPG_TTY" "SSH_AUTH_SOCK"))
+    (exec-path-from-shell-copy-envs '("GNUPGHOME" "GPG_TTY" "SSH_AUTH_SOCK" "GUIX_PACKAGE_PATH"))
     (exec-path-from-shell-initialize)))
 
 (use-package direnv

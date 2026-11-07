@@ -6,7 +6,7 @@ cd "$(dirname "$0")/.."
 
 pkgs=("$@")
 if [ ${#pkgs[@]} -eq 0 ]; then
-	for d in stow/*/; do
+	for d in dotfiles/*/; do
 		pkgs+=("$(basename "$d")")
 	done
 fi
@@ -29,12 +29,12 @@ to_target() {
 
 for pkg in "${pkgs[@]}"; do
 	while IFS= read -r -d '' src; do
-		rel="${src#stow/$pkg/}"
+		rel="${src#dotfiles/$pkg/}"
 		target="$(to_target "$rel")"
 		if [ -e "$target" ] || [ -L "$target" ]; then
 			if [ "$(readlink -f "$target")" != "$(readlink -f "$src")" ]; then
 				mv -v -- "$target" "$target.pre-stow"
 			fi
 		fi
-	done < <(find "stow/$pkg" -type f -print0)
+	done < <(find "dotfiles/$pkg" -type f -print0)
 done

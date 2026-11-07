@@ -31,6 +31,11 @@
 
         # Only needed once you wire PlantUML into Emacs (step 4)
         plantuml
+
+        # for guile/lisp/scheme programming
+        guile
+        sbcl
+        clisp
       ];
     };
 }

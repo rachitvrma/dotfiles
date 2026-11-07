@@ -6,7 +6,7 @@ SHELL       := bash
 
 HOST     := nixpavilion
 STOW     ?= stow
-PACKAGES := $(notdir $(wildcard stow/*))
+PACKAGES := $(notdir $(wildcard dotfiles/*))
 
 STOW_TARGETS   := $(addprefix stow-,$(PACKAGES))
 UNSTOW_TARGETS := $(addprefix unstow-,$(PACKAGES))
