@@ -8,7 +8,7 @@
 
       devShells.default = pkgs.mkShellNoCC {
         packages = with pkgs; [
-          just
+          gnumake
           stow
           nixd
           nixfmt

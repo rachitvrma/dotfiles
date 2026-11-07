@@ -4,7 +4,6 @@
 
 (use-package eglot
   :hook ((bash-ts-mode
-          just-mode
           c-ts-mode
           c++-ts-mode
           python-ts-mode
@@ -39,9 +38,7 @@
                '(toml-ts-mode . ("tombi" "lsp")))
   (add-to-list 'eglot-server-programs
                '(nix-mode . ("nixd" "--semantic-tokens=true" "--inlay-hints=false")))
-  (add-to-list 'eglot-server-programs
-               '(just-mode . ("just-lsp")))
-  (add-to-list 'eglot-server-programs
+      (add-to-list 'eglot-server-programs
                '((html-mode html-ts-mode) . ("vscode-html-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs
                '(systemd-mode . ("systemd-lsp")))
@@ -91,8 +88,6 @@
   :defer t)
 
 (use-package fish-mode)
-
-(use-package just-mode)
 
 (use-package json-mode
   :mode "\\.json\\'")

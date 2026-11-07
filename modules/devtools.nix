@@ -4,7 +4,7 @@
     {
       environment.systemPackages = with pkgs; [
         shfmt
-        just
+        gnumake
         stow
         unzip
         gcc

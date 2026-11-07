@@ -12,18 +12,7 @@ btrfs needs the file to be NOCOW and uncompressed; disko creates it with
 
 * Fresh install
 
-=just install= (disko creates the swapfile for you).
-
-* Already installed
-
-Before switching to the new configuration:
-
-#+begin_src sh
-  just add-swapfile      # creates the subvolume and the swapfile
-  just switch
-#+end_src
-
-Skipping the first step makes the =/.swapvol= mount fail at boot.
+=make install= (disko creates the swapfile for you).
 
 * Resume
 
@@ -32,7 +21,7 @@ in the EFI variable =HibernateLocation= and resumes from it. Test with
 =systemctl hibernate=, power on, and check that your session came back.
 
 If it boots fresh instead of resuming, set =resumeOffset= in
-=_hibernation.nix= to the output of =just resume-offset= and rebuild. That adds
+=_hibernation.nix= to the output of =make resume-offset= and rebuild. That adds
 =resume=/dev/mapper/crypted= and =resume_offset=<n>=.
 
 Recreating the swapfile changes the offset; update the number then.

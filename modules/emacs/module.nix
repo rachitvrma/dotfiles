@@ -24,7 +24,7 @@
 
         # Language servers named in init-prog.el
         tombi
-        just-lsp
+        gnumake
         systemd-lsp
         fish-lsp
         vscode-langservers-extracted

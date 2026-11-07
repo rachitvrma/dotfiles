@@ -65,7 +65,7 @@ A single-host NixOS configuration, wired together with [[https://flake.parts][fl
 
   cd ~/etc/nixos
   tack update    # inputs are pinned in .tack/pins.toml, there is no flake.lock
-  nos            # alias for: nh os switch   (or: just switch)
+  nos            # alias for: nh os switch   (or: make switch)
 
 #+end_src
 

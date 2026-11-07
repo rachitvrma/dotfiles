@@ -35,16 +35,16 @@
     "type": "github",
     "owner": "nixos",
     "repo": "nixpkgs",
-    "rev": "1d060086d60cb76a40cf37109f979d88a5bd6396",
-    "narHash": "sha256-jQp1wKvbwWdLBASTXkSi/VYmDJ5AbBi1WvcMt9HWJC8=",
-    "lastModified": 1793726008
+    "rev": "f9a75f41be3a74eab55d3a7679d34ad6cc0da977",
+    "narHash": "sha256-Wojg9lIH/hDH91iDVH2/EPw8oDSpxjxhXONbU1yf4Zg=",
+    "lastModified": 1793876309
   },
   "nur": {
     "type": "github",
     "owner": "nix-community",
     "repo": "NUR",
-    "rev": "caf96ec5e5cc83a4e54f142f504d1d99f12de35b",
-    "narHash": "sha256-/ZCztX4AXi7fL1aYW2ZcM+p0jhaFX/do66vd1znmoXU=",
-    "lastModified": 1793982119
+    "rev": "7a56eb432056de7c39f965f054842b7860e50b7b",
+    "narHash": "sha256-zTz3P0aa+9I8l6dSJ5nfchtdctE2SyRVR9z9Faa023k=",
+    "lastModified": 1794056447
   }
 }

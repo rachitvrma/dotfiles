@@ -26,8 +26,17 @@
   (dashboard-set-file-icons t)
   ;; Show shortcuts
   (dashboard-show-shortcuts t)
+
+  ;; FIXME: This is a workaround for now
+  ;; Dashboard doesn't start after an update
+  ;; Org Agenda breaks dashboard and agenda breaks because of https://github.com/bastibe/org-journal/issues/15
+  (dashboard-items '((recents . 5)
+                 (bookmarks . 5)
+                 (projects . 5)))
   :config
-  :config
+  ;; TODO: do something like the above daemonp line
+  ;; (add-hook 'server-after-make-frame-hook 'dashboard-open)
+
   (defun my/dashboard-on-client-frame ()
     "Open the dashboard in a bare client frame and re-center it as the frame settles."
     (when (and (display-graphic-p)

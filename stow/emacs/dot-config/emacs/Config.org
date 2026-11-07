@@ -517,8 +517,17 @@ Theme, mode line, icons, dashboard and visual aids.
     (dashboard-set-file-icons t)
     ;; Show shortcuts
     (dashboard-show-shortcuts t)
+
+    ;; FIXME: This is a workaround for now
+    ;; Dashboard doesn't start after an update
+    ;; Org Agenda breaks dashboard and agenda breaks because of https://github.com/bastibe/org-journal/issues/15
+    (dashboard-items '((recents . 5)
+                   (bookmarks . 5)
+                   (projects . 5)))
     :config
-    :config
+    ;; TODO: do something like the above daemonp line
+    ;; (add-hook 'server-after-make-frame-hook 'dashboard-open)
+
     (defun my/dashboard-on-client-frame ()
       "Open the dashboard in a bare client frame and re-center it as the frame settles."
       (when (and (display-graphic-p)
@@ -1392,7 +1401,6 @@ Eglot ships with Emacs (29+).
 
   (use-package eglot
     :hook ((bash-ts-mode
-            just-mode
             c-ts-mode
             c++-ts-mode
             python-ts-mode
@@ -1427,9 +1435,7 @@ Eglot ships with Emacs (29+).
                  '(toml-ts-mode . ("tombi" "lsp")))
     (add-to-list 'eglot-server-programs
                  '(nix-mode . ("nixd" "--semantic-tokens=true" "--inlay-hints=false")))
-    (add-to-list 'eglot-server-programs
-                 '(just-mode . ("just-lsp")))
-    (add-to-list 'eglot-server-programs
+        (add-to-list 'eglot-server-programs
                  '((html-mode html-ts-mode) . ("vscode-html-language-server" "--stdio")))
     (add-to-list 'eglot-server-programs
                  '(systemd-mode . ("systemd-lsp")))
@@ -1522,13 +1528,6 @@ Tempel completes through =completion-at-point= (so templates show in Corfu), =eg
 
   (use-package fish-mode)
 
-#+end_src
-
-*** Just Mode
-Highlights =justfiles=
-
-#+begin_src emacs-lisp
-  (use-package just-mode)
 #+end_src
 
 *** Json Mode
